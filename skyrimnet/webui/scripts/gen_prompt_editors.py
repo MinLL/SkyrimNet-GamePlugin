@@ -5,6 +5,7 @@ import streamlit as st
 from datatypes import gnice_prompt ,webui_strings as ui_str
 from forms import Prompt_Editor_Form, Clickable_List_Form
 
+
 class Prompt_Editor_Tabs():
     def __init__(self, title: str):
         self.title: str = title
@@ -23,7 +24,15 @@ def generate_prompt_editors():
 
         prompt_file = full_path[len(ui_str.path_prompts)+1:-7]
 
-        sub_dir = ".root" if prompt_file.rfind("/") == -1 else prompt_file[:prompt_file.rfind("/")]
+        # stupid os.pathsep returning ; instead of \ in windows
+        sub_dir = ""
+        if (prompt_file.rfind("/") != -1):
+            sub_dir = prompt_file[:prompt_file.find("/")]
+        elif (prompt_file.rfind("\\") != -1):
+            sub_dir = prompt_file[:prompt_file.find("\\")]
+        else:
+            sub_dir = ".root"
+
         if sub_dir not in tabs_dict.keys():
             tabs_dict[sub_dir] = Prompt_Editor_Tabs(title=sub_dir)
         tabs_dict[sub_dir].name_to_file[gnice_prompt(full_path)] = full_path
@@ -38,7 +47,7 @@ def generate_prompt_editors():
         with tab_val.tab_context:
             col_cl, col_edit = st.columns([1, 3])
             with col_cl:
-                click_sel = Clickable_List_Form(tab_val.name_to_file.keys())
+                click_sel = Clickable_List_Form(list(tab_val.name_to_file.keys()))
             with col_edit:
                 if click_sel.selection not in tab_val.name_to_file.keys():
                     continue
