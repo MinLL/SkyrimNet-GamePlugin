@@ -243,7 +243,7 @@ Function PlayGenericAnimation(Actor akActor, String anim)
 EndFunction
 
 Bool Function StartFollow_IsEligible(Actor akActor)
-    if akActor.GetCurrentPackage() == packageFollowPlayer && akActor.GetAV("WaitingForPlayer") == 0
+    if SkyrimNetApi.HasPackage(akActor, "FollowPlayer") && akActor.GetAV("WaitingForPlayer") == 0
         return false
     endif
 
@@ -255,7 +255,7 @@ Bool Function StopFollow_IsEligible(Actor akActor)
         return false
     endif
 
-    if !akActor.GetCurrentPackage() == packageFollowPlayer
+    if !SkyrimNetApi.HasPackage(akActor, "FollowPlayer")
         return false
     endif
 
@@ -263,7 +263,11 @@ Bool Function StopFollow_IsEligible(Actor akActor)
 EndFunction
 
 Bool Function PauseFollow_IsEligible(Actor akActor)
-    if !akActor.GetCurrentPackage() == packageFollowPlayer || akActor.IsInFaction(factionPlayerFollowers)
+    if akActor.IsInFaction(factionPlayerFollowers)
+        return false
+    endif
+
+    if !SkyrimNetApi.HasPackage(akActor, "FollowPlayer")
         return false
     endif
 

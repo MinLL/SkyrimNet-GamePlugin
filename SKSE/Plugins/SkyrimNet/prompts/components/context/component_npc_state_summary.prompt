@@ -19,7 +19,7 @@
 {% else if  "enchant" in furniture_lower or "arcane" in furniture_lower or "soul gem" in furniture_lower %}
 - {{ npc.name }} is using a {{ npc.furniture }} to enchant items
 {% else if  "forge" in furniture_lower or "anvil" in furniture_lower or "grindstone" in furniture_lower or "tanning rack" in furniture_lower or "smelter" in furniture_lower %}
-- {{ npc.name }} is working at a {{ npc.furniture }} crafting items
+- {{ npc.name }} is working at a {{ npc.furniture }} sharpening a sword
 {% else if  "cooking pot" in furniture_lower or "spit" in furniture_lower or "oven" in furniture_lower or "cauldron" in furniture_lower or "kettle" in furniture_lower %}
 - {{ npc.name }} is preparing food at a {{ npc.furniture }}
 {% else if  "shrine" in furniture_lower or "altar" in furniture_lower or "standing stone" in furniture_lower or "wayshrine" in furniture_lower or "statue" in furniture_lower %}

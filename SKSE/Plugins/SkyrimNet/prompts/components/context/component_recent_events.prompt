@@ -48,7 +48,7 @@
 {% else if  "enchant" in target_lower or "arcane" in target_lower or "soul gem" in target_lower %}
 - **{{ source_entity.name }}** began using {{ target_name }} to enchant items ({{ time_desc }})
 {% else if  "forge" in target_lower or "anvil" in target_lower or "grindstone" in target_lower or "tanning rack" in target_lower or "smelter" in target_lower %}
-- **{{ source_entity.name }}** began working at {{ target_name }} to craft items ({{ time_desc }})
+- **{{ source_entity.name }}** began working at {{ target_name }} to sharpen a sword ({{ time_desc }})
 {% else if  "cooking pot" in target_lower or "spit" in target_lower or "oven" in target_lower or "cauldron" in target_lower or "kettle" in target_lower %}
 - **{{ source_entity.name }}** began preparing food at {{ target_name }} ({{ time_desc }})
 {% else if  "shrine" in target_lower or "altar" in target_lower or "standing stone" in target_lower or "wayshrine" in target_lower or "statue" in target_lower %}
@@ -147,28 +147,6 @@
 
 {% else if event.type == "enter_bleedout" %}
 - **{{ source_entity.name }}** was injured and collapsed to the ground! ({{ time_desc }})
-
-{% else if event.type == "container_changed" %}
-{# Handle different container change scenarios based on from_container and to_container #}
-{% set item_text = event.data.item_count + " " + event.data.item %}
-
-{% if event.data.from_container != "World" and event.data.to_container != "World" %}
-{# Transfer between two non-world containers (likely actor to actor) #}
-{% if target_entity %}
-- **{{ source_entity.name }}** gave {{ item_text }} to **{{ target_entity.name }}** ({{ time_desc }})
-{% else %}
-- **{{ source_entity.name }}** moved {{ item_text }} from {{ event.data.from_container }} to {{ event.data.to_container }} ({{ time_desc }})
-{% endif %}
-{% else if event.data.from_container == "World" and event.data.to_container != "World" %}
-{# Picking up from world or taking from container #}
-- **{{ source_entity.name }}** picked up {{ item_text }}{% if event.data.to_container != source_entity.name %} and put it in {{ event.data.to_container }}{% endif %} ({{ time_desc }})
-{% else if event.data.from_container != "World" and event.data.to_container == "World" %}
-{# Dropping to world or removing from container #}
-- **{{ source_entity.name }}** dropped {{ item_text }}{% if event.data.from_container != source_entity.name %} from {{ event.data.from_container }}{% endif %} ({{ time_desc }})
-{% else %}
-{# Generic container interaction #}
-- **{{ source_entity.name }}** moved {{ item_text }} ({{ time_desc }})
-{% endif %}
 
 {% else if event.type == "book_read" %}
 - **{{ source_entity.name }}** read the book "{{ event.data.book_title }}" ({{ time_desc }})
