@@ -22,6 +22,8 @@ Only return one line, beginning with "ACTION:" and nothing else.
 {{ "## Location" }}
 - Location: {{ location }}
 
+{{ get_scene_context(player.UUID, 0, "nearby_npcs")}}
+
 {{ "## Dialogue History" }}
 {{ render_template("components\\event_history_compact") }}
 

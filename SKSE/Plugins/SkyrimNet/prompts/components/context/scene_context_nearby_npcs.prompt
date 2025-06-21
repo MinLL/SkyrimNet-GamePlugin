@@ -1,0 +1,6 @@
+{% block setup %}
+{% endblock %}
+
+{{ "## Nearby People" }}
+{% block nearbyNpcs %}
+{% endblock %}
