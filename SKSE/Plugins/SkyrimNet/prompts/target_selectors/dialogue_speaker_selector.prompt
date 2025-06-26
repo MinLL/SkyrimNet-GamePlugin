@@ -54,7 +54,9 @@ Evaluate the candidates and recent history:
 - **Do NOT** pick anyone who would just add background, flavor, or entertainment, unless the topic or player *directly involves* them.
 - Pick a new speaker if it would be strange for them to remain silent. In relaxed scenes, an occasional interjection is fine—just avoid interruptions or derailing.
 - Do not explain your reasoning. Provide your response ONLY in the specified format.
+{% if lastSpeaker %}
 - You MUST NOT select {{ lastSpeaker.name }} as the speaking_npc_name, though you may select them as the target.
+{% endif %}
 Output ONLY:
 - 0 = No one should speak
 - [speaking_npc_name]>[target] = Candidate by name, and their target

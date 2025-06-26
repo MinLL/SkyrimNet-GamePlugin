@@ -22,3 +22,6 @@ SKSE/Plugins/SkyrimNet/sql/
 *.pdb
 # Ignore vscode settings
 .vscode
+SKSE/Plugins/SkyrimNet/assets/web/
+
+SKSE/Plugins/SkyrimNet/prompts/web/bundled_base.prompt
