@@ -61,7 +61,9 @@ The following items are available to {{ npc.name }}:
 {% endif %}
 
 {{ "## Context Reminder:" }}
-**Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue**
+**Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the {% if is_narration_enabled() %} narration or {%endif%} dialogue. NEVER pick actions unrelated to  {% if is_narration_enabled() %} narration or {%endif%} dialogue. NEVER pick random actions. ONLY pick actions that should follow the  {% if is_narration_enabled() %} narration or {%endif%} dialogue**
+ {%- if is_narration_enabled() %} Alaways align with Narration over dialogue. Narration is truth. {%endif%}. 
+
 
 {{ "## Format Reminder:" }}
 - `ACTION: ActionName`
