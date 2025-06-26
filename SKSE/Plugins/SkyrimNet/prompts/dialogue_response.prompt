@@ -7,5 +7,8 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 
 [ user ]
 Respond with only a single {% if is_narration_enabled() %} optional brief narrative action and {% endif %} concise dialogue from {{ decnpc(npc.UUID).name }}, nothing else.
+{%if is_narration_enabled() %}
+- If there is narration (text between astericks), it is not spoken by a true discription of the world
+{% endif %}
 {{ render_subcomponent("user_final_instructions", "full") }}
 [ end user ]
