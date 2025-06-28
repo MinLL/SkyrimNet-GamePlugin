@@ -8,7 +8,8 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 [ user ]
 Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
 {% if length(promptForDialogue) > 0 %}
-Transform "{{ promptForDialogue }}" into a natural dialogue line that {{ decnpc(npc.UUID).name }} would speak.
+If the original text includes a narration, the transformed text must as well, with the truth of the narration preserved. 
+Transform "{{ promptForDialogue }}" into a natural {% if is_narration_enabled() %} narration and/or {% endif %} dialogue line that {{ decnpc(npc.UUID).name }} would be {% if is_narration_enabled() -%} do or {% endif %} speak.
 {% else %}
 Speak as {{ decnpc(npc.UUID).name }} would in this moment, responding to the current situation.
 {% endif %}
