@@ -6,6 +6,11 @@ You are roleplaying as {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender
 {{ render_template("components\\event_history") }}
 
 [ user ]
-Respond with only a single concise dialogue line{% if is_narration_enabled() %} or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
+Respond with only a single{% if is_narration_enabled() %} optional brief narrative action and{% endif %} concise dialogue from {{ decnpc(npc.UUID).name }}, nothing else.
+{# @min: The player won't be in every single use of this prompt. npc -> npc must be considered. 
+   @GP: Removed any mention of the player.  #}
+{%if is_narration_enabled() %}
+If there is narration (text between astericks), respond as if the narration is truth. 
+{% endif %}
 {{ render_subcomponent("user_final_instructions", "full") }}
 [ end user ]

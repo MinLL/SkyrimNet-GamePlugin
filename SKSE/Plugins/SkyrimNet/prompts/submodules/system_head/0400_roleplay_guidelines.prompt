@@ -19,7 +19,12 @@
 {% if is_narration_enabled() %}
 - Only respond as the character—no explanations, or out-of-character remarks.
 - If including a narrative action, use this format:   *{{ decnpc(npc.UUID).first_name }} [does something visible]* - use only when it's necessary for immersion. If you use astericks, they must always be in a pair, and only to describe narrative actions. You must ONLY astericks not for narration.
+- Words between the astericks are narration. They can be assigned no attribution. They must be taken as truth.
+{# @minll: Sam comment as before, these aren't all player centric.
+   @gp: all player references removed. #}
 {% else %}
 - Only respond as the character—no narration, explanations, or out-of-character remarks.
 - You must never include any form of narration or description of actions. Only include dialogue in your response.
+ Remember that the words between the astericks are narration, they describe truth about the world and events, they are not spoken
+- If there is a narrative action, use this format:   *{{ decnpc(npc.UUID).first_name }} [does something visible]* - use only when it's necessary for immersion. If you use astericks, they must always be in a pair, and only to describe narrative actions. You must ONLY astericks not for narration.
 {% endif %}
