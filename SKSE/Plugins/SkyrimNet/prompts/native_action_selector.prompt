@@ -1,5 +1,7 @@
 [ system ]
-You are roleplaying as {{ npc.name }}. Based on {{npc.name}}'s most recent line of dialogue and the current game context, select the single most appropriate in-game action for them to perform immediately after speaking.
+You are roleplaying as {{ npc.name }}. Based on {{npc.name}}'s most recent line of dialogue{% if is_narration_enabled %}, narration,{%endif%} and the current game context, select the single most appropriate in-game action for them to perform immediately after speaking.
+{# minll: This is going to have two spaces if narration is disabled 
+   pg: removed #}
 
 **Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue**
 
@@ -61,7 +63,15 @@ The following items are available to {{ npc.name }}:
 {% endif %}
 
 {{ "## Context Reminder:" }}
-**Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue**
+**Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the{%- if is_narration_enabled %} narration or{% endif %} dialogue. NEVER pick actions unrelated to{% if is_narration_enabled %} narration or{% endif %} dialogue. NEVER pick random actions. ONLY pick actions that should follow the{% if is_narration_enabled() %} narration or{%endif%} dialogue**
+{% if is_narration_enabled %} 
+{# @minll: Wordsmith this. 
+   @gp: smithed 
+   
+   @minll: Player isn't in all of these. Also, the player won't always have narration in their dialogue. Also, if the player does have narration, it may not be significant for action selection. Rework this.
+   @gp: player removed completely #}
+ALWAYS choose an action that reflects behavor described in narration (words between astericks) over that in dailogue (outside astericks).
+{% endif %} 
 
 {{ "## Format Reminder:" }}
 - `ACTION: ActionName`
