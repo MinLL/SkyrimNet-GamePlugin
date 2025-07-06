@@ -152,7 +152,7 @@ bool Function Animation_IsEligible(Actor akActor, string contextJson, string par
             return False
         endif
 
-        Actor akTarget = SkyrimNetApi.GetJsonActor(paramsJson, "target", Game.GetPlayer())
+        Actor akTarget = SkyrimNetApi.GetJsonActor(paramsJson, "target", None) 
         if akTarget != None && (SexLab.IsActorActive(akTarget)
             Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akTarget.GetDisplayName() + " is having sex. Cannot animate.")
             return False
