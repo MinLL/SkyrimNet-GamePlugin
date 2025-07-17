@@ -1,3 +1,4 @@
 {% if triggeringEvent and triggeringEvent.type == "direct_narration" %}
 This event just happened and must be responded to, no matter what: `{{ triggeringEvent.data }}`. This event is completely factual.
 {% endif %}
+Animals do not speak in words, only making animals sounds. 
