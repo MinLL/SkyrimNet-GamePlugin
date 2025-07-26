@@ -25,7 +25,9 @@
 
 {% if is_narration_enabled() %}
 - Only respond as the character—no explanations, or out-of-character remarks.
-- If including a narrative action, use this format:   *{{ decnpc(npc.UUID).first_name }} [does something visible]* - use only when it's necessary for immersion. If you use astericks, they must always be in a pair, and only to describe narrative actions. You must ONLY astericks not for narration.
+- If including a narrative action, use this format:   *{{ decnpc(npc.UUID).first_name }} [does something visible]* - use only when it's necessary for immersion. 
+- If you use astericks, they must always be in a pair, and only to describe narrative actions. 
+- You must ONLY only use astericks not narration.
 {% else %}
 - Only respond as the character—no narration, explanations, or out-of-character remarks.
 - You must never include any form of narration or description of actions. Only include dialogue in your response.
