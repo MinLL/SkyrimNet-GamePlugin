@@ -1,8 +1,13 @@
 {{ "## Response Format" }}
 - Respond with only a single concise dialogue line{% if is_narration_enabled() %} and/or brief narrative action{% endif %} from {{ decnpc(npc.UUID).name }}, nothing else.
+{% if is_narration_enabled() %}
+- Narration MUST ONLY be used when it describes action that directly and significantly alters the conversation's trajectory or reveals crucial information impossible to convey through dialogue. If including a narrative action, use this format *{{ decnpc(npc.UUID).first_name }} [does something visible and CRITICAL]*. Always use asterisks in matching pairs, and only to describe narrative actions (denoted as text between asterisks).
+{% endif %}
 {% if render_mode == "transform" %}
 - The line should be in your character's natural speaking voice
 - Keep the response focused and concise
 {% else %}
-- Do not repeat or paraphrase the previous character's line. Respond only as {{ decnpc(npc.UUID).name }}, in your own words that reacts to the most recent dialogue and events.
+- Do not repeat or paraphrase the previous character's line within the same conversation. Respond only as {{ decnpc(npc.UUID).name }}, in your own words that reacts to the most recent dialogue and events.
+- Avoid circular arguments, stalling or merely affirming prior statements. Responses should naturally progress the conversation. Avoid reusing phrases, metaphors, ideas or structures from previous responses.
+- Do not use brackets in your response. 
 {% endif %}
