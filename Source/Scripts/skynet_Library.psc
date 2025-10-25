@@ -461,6 +461,9 @@ Function InitVRIntegrations()
   
     RegisterForModEvent("skynet_vrik_trigger_voice_input", "OnVrikTriggerVoiceInput")
     VRIK.VrikAddGestureAction("skynet_vrik_trigger_voice_input", "SkyrimNet: Start Voice Input")
+
+    RegisterForModEvent("skynet_vrik_toggle_open_mic", "OnVrikToggleOpenMic")
+    VRIK.VrikAddGestureAction("skynet_vrik_toggle_open_mic", "SkyrimNet: Toggle Open Mic")
   
     RegisterForModEvent("skynet_vrik_trigger_voice_release", "OnVrikTriggerVoiceRelease")
     VRIK.VrikAddGestureAction("skynet_vrik_trigger_voice_release", "SkyrimNet: Stop Voice Input")
@@ -476,7 +479,6 @@ Function InitVRIntegrations()
   
     RegisterForModEvent("skynet_vrik_trigger_player_dialogue", "OnVrikTriggerPlayerDialogue")
     VRIK.VrikAddGestureAction("skynet_vrik_trigger_player_dialogue", "SkyrimNet: Trigger Player Dialogue")
-
 
     RegisterForModEvent("skynet_vrik_trigger_dialogue_transform", "OnVrikTriggerDialogueTransform")
     VRIK.VrikAddGestureAction("skynet_vrik_trigger_dialogue_transform", "SkyrimNet: Start Dialogue Transform Input")
@@ -503,6 +505,10 @@ EndEvent
   
 Event OnVrikTriggerVoiceInput(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerRecordSpeechPressed()
+EndEvent
+  
+Event OnVrikToggleOpenMic(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerToggleOpenMic()
 EndEvent
   
 Event OnVrikTriggerVoiceRelease(string eventName, string strArg, float numArg, Form sender)

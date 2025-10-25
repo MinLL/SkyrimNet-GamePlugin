@@ -308,6 +308,12 @@ int function TriggerRecordSpeechPressed() Global Native
 ; Functions identically to releasing the configured voice recording key
 int function TriggerRecordSpeechReleased(float duration) Global Native
 
+; Simulates pressing the open mic toggle hotkey
+; - Shows notification
+; - Toggles open mic mode
+; Functions identically to pressing the configured open mic toggle key
+int function TriggerToggleOpenMic() Global Native
+
 ; --- Text Input Functions ---
 
 ; Simulates pressing the text input hotkey
