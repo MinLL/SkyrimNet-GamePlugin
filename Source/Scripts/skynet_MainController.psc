@@ -158,3 +158,37 @@ EndFunction
 Function Debug(String str)
   Debug.Trace("[SkyrimNet] (Debug): " + str)
 EndFunction
+
+; -----------------------------------------------------------------------------
+; --- Action Capable Functions ---
+; -----------------------------------------------------------------------------
+
+Function CastSpellWithLog(Actor akSource, Actor akTarget, int iSpellFormID)
+    Form foundForm = Game.GetForm(iSpellFormID)
+
+    If (foundForm == None)
+        Debug.Trace("SpellUtils: GetForm failed for ID " + iSpellFormID + ". Attempting GetFormEx...")
+
+        foundForm = Game.GetFormEx(iSpellFormID)
+
+        If (foundForm == None)
+            Debug.Trace("SpellUtils: GetFormEx also failed. Form ID " + iSpellFormID + " is invalid.")
+            Return
+        EndIf
+    EndIf
+
+    Spell spellToCast = foundForm as Spell
+
+    If (spellToCast == None)
+        Debug.Trace("SpellUtils: Form ID " + iSpellFormID + " exists but is NOT a Spell.")
+        Return
+    EndIf
+
+    If (akSource == None || akTarget == None)
+        Debug.Trace("SpellUtils: Invalid Actor passed. Source: " + akSource + ", Target: " + akTarget)
+        Return
+    EndIf
+
+    Debug.Trace("SpellUtils: Casting " + spellToCast + " from " + akSource + " to " + akTarget + ".")
+    spellToCast.Cast(akSource, akTarget)
+EndFunction
