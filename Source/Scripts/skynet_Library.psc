@@ -406,6 +406,48 @@ Function PauseFollow_Execute(Actor akActor)
 EndFunction
 
 ; -----------------------------------------------------------------------------
+; --- Cast Spell Action Functions ---
+; -----------------------------------------------------------------------------
+
+Function CastSpell_Execute(Actor akSource, Actor akTarget, String sFormID)
+    ; Support both hex (0x0004D3F2) and decimal (316402) format
+    Int iFormID = PO3_SKSEFunctions.StringToInt(sFormID)
+
+    If (iFormID == -1)
+        Debug.Trace("CastSpell_Execute: Invalid form ID string provided: " + sFormID)
+        Return
+    EndIf
+
+    Form foundForm = Game.GetForm(iFormID)
+
+    If (foundForm == None)
+        Debug.Trace("CastSpell_Execute: GetForm failed for ID " + sFormID + ". Attempting GetFormEx...")
+
+        foundForm = Game.GetFormEx(iFormID)
+
+        If (foundForm == None)
+            Debug.Trace("CastSpell_Execute: GetFormEx also failed. Form ID " + sFormID + " is invalid.")
+            Return
+        EndIf
+    EndIf
+
+    Spell spellToCast = foundForm as Spell
+
+    If (spellToCast == None)
+        Debug.Trace("CastSpell_Execute: Form ID " + sFormID + " exists but is NOT a Spell.")
+        Return
+    EndIf
+
+    If (akSource == None || akTarget == None)
+        Debug.Trace("CastSpell_Execute: Invalid Actor passed. Source: " + akSource + ", Target: " + akTarget)
+        Return
+    EndIf
+
+    Debug.Trace("CastSpell_Execute: Casting " + spellToCast + " from " + akSource + " to " + akTarget + ".")
+    spellToCast.Cast(akSource, akTarget)
+EndFunction
+
+; -----------------------------------------------------------------------------
 ; --- Skynet Tag Registration ---
 ; -----------------------------------------------------------------------------
 
