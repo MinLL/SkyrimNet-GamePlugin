@@ -413,6 +413,10 @@ Function ResetFacialAnimations(Actor akActor) global
     else
         akActor.QueueNiNodeUpdate()
     endif
+    Int handle = ModEvent.Create("SynthEBD_HeadPartsReloaded")
+    if (handle)
+        ModEvent.Send(handle)
+    endIf
 EndFunction
 
 ; bool Function GiveBanditBounty_IsEligible(Actor akActor, string contextJson, string paramsJson) global
