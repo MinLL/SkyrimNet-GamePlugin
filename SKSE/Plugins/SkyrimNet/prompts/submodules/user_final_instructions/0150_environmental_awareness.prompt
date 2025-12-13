@@ -1,12 +1,5 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
 {% if has_current_scene_description() or has_current_location_description() %}
-Environmental Awareness:
-- You've been provided detailed descriptions of what you currently see and where you are
-- Reference these details naturally when they're relevant to what you're reacting to or thinking about
-- DO NOT force environmental descriptions into responses where they don't fit
-{% if render_mode == "thoughts" %}
-- Thoughts may naturally observe surroundings more than dialogue, but stay contextual
+Reference your surroundings naturally when relevant. Don't force environmental details where they don't fit.
 {% endif %}
 {% endif %}
-{% endif %}
-

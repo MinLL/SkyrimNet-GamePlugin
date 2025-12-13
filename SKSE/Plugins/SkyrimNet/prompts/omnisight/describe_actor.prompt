@@ -1,9 +1,16 @@
 [user]
-    You are cataloging characters in the world of Skyrim. Provide a detailed, objective visual description of this character based on the screenshot.
+    YOUR TASK: Create a complete physical description of this character so they can be recognized and remembered later.
+
+    You are building a character database for Skyrim. Your description will be stored and used to identify this character in the future. Describe EVERYTHING you can see about their physical appearance - their face, body, hair, skin, clothing, and any distinguishing features.
+
+    Be thorough. Another system will use your description to understand what this character looks like without seeing the image.
 
     Character Information:
     - Race: {{race}}
     - Gender: {{gender}}
+    {% if is_nude %}
+    - State: Character is not wearing body armor (may be partially or fully unclothed)
+    {% endif %}
     {% set actor_equipment = get_worn_equipment(actorUUID) %}
     {% if actor_equipment and length(actor_equipment) > 0 %}
         - Equipment Worn (reference only - describe ONLY what you can actually see in the screenshot):
@@ -13,61 +20,96 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-    {% if has_weapon_drawn(actorUUID) %}
-        - Weapon State: Weapon is DRAWN (ready for combat, visible in hands)
-    {% else %}
-        - Weapon State: Weapon is SHEATHED (at rest, may not be visible depending on angle/clothing)
-    {% endif %}
 
-    IMPORTANT: The equipment list above is for reference only. Only describe items that are ACTUALLY VISIBLE in the screenshot. If a weapon is sheathed or hidden by clothing/armor, do not describe it unless you can see it. If equipment is obscured by the camera angle or covered by other items, omit it from your description.
+    IMPORTANT: The equipment list above is for reference only. Only describe items that are ACTUALLY VISIBLE in the screenshot. If equipment is obscured by the camera angle or covered by other items, omit it from your description.
 
-    Your description should:
-    - Be factual and objective (2-3 paragraphs)
-    - Describe ONLY what is on the character's body: facial features, hair, skin, build, clothing, armor, weapons, visible scars/markings
-    - Include anatomical details when visible (see guidelines below)
-    - Note their physical posture and apparent demeanor
-    - Use appropriate Elder Scrolls lore terminology for equipment and racial features
+    WHAT TO DESCRIBE (2-3 detailed paragraphs):
+    - Face: eyes, nose, lips, jaw, bone structure, expression lines
+    - Hair: color, length, style, texture (head hair, facial hair, body hair)
+    - Skin: color, tone, any marks, scars, tattoos, or blemishes
+    - Body: build, shape, size, musculature (only parts you can see)
+    - Clothing/Armor: style, fit, coverage, materials, colors, condition - describe HOW it fits and what body areas it covers/exposes
+    - Distinctive features: anything that makes them recognizable
+
+    RULES:
+    - Only describe body parts VISIBLE in the image
+    - Skip anything cut off or out of frame - do NOT mention that something is "not visible" or "cannot be seen"
+    - No posture, stance, or positioning
+    - No actions or what they're doing
+    - Use Elder Scrolls terminology for racial features (pointed ears, tusks, etc.)
+    - If you can't see feet, hands, or other body parts - simply don't mention them at all
 
     ANATOMICAL DESCRIPTION GUIDELINES:
-    When describing body features, use objective, clinical terminology:
+    When describing body features, use descriptive language:
         - ✅ Body proportions: "broad-shouldered," "slender build," "muscular physique," "athletic frame," "heavyset," "lithe"
-        - ✅ Chest/bust: "small-chested," "modest bust," "full-figured," "large bust," "flat-chested," "well-endowed"
-        - ✅ Body shape: "curvaceous," "lean," "stocky," "toned," "soft," "defined musculature"
-        - ✅ Visible anatomy: "bare-chested," "exposed torso," "unclothed," "nude," "partially clothed"
-        - ✅ Condition: "toned abdomen," "muscular arms," "scarred torso," "defined legs"
+        - ✅ Body shape: "curvaceous," "thick," "slim," "toned," "soft," "wide hips," "narrow waist"
+        - ✅ Physical condition: "toned abdomen," "muscular arms," "scarred torso," "defined legs"
+        - ✅ Body hair: "hairy chest," "smooth," "hairy legs"
+    {% if is_nude %}
 
-    Use factual, descriptive language appropriate for character documentation. Describe what is visible without embellishment.
+    NUDE CHARACTER - EXPLICIT DESCRIPTION REQUIRED:
+    This character is unclothed. Describe ALL visible intimate anatomy with clear, visual detail:
+        - ✅ Breasts: size (small, medium, large, heavy), shape (perky, full, teardrop, pendulous), nipples (small, large, puffy, erect), areolas (small, wide, dark, pink)
+        - ✅ Male genitals: penis size and shape, circumcised/uncircumcised, testicles, any visible veins or details
+        - ✅ Female genitals: vulva appearance, labia (inner/outer, size, shape), visible clitoris, overall appearance
+        - ✅ Buttocks: size, shape (round, flat, heart-shaped, muscular), firmness
+        - ✅ Pubic hair: shaved, trimmed, natural bush, landing strip, color
+
+    Do NOT censor or skip any visible body parts. Be descriptive and visual.
+    {% endif %}
 
     CRITICAL RESTRICTIONS - DO NOT include:
+        - ❌ Body parts that are out of frame, cut off, or not visible in the screenshot
+        - ❌ Statements like "feet not visible" or "hands cannot be seen" - just omit them entirely
+        - ❌ Speculation about what obscured or hidden body parts might look like
+        - ❌ Posture, stance, body language, or how they hold themselves
+        - ❌ Demeanor, expression interpretation, mood, or attitude
+        - ❌ Actions, movements, or what they appear to be doing
         - ❌ The character's name (even if visible in UI)
-        - ❌ Floor, ground, or what they're standing on (rugs, pelts, stone, etc.)
+        - ❌ Floor, ground, or what they're standing on
         - ❌ Background scenery, walls, furniture, or environment
-        - ❌ Other people, creatures, or objects not worn/held by the character
+        - ❌ Other people, creatures, or objects not worn by the character
         - ❌ Lighting, weather, or atmospheric conditions
-        - ❌ UI elements, menus, HUD overlays, health bars, or game interface
+        - ❌ UI elements, menus, HUD overlays, or game interface
         - ❌ Image framing, camera angle, or screenshot composition
-        - ❌ Speculation about gameplay mechanics, stats, or character backstory
+        - ❌ Speculation about personality, backstory, or character traits
 
     FOCUS AREAS - DO include (ONLY if visible in the screenshot):
-        - ✅ Body type, build, musculature, proportions
-        - ✅ Anatomical features: chest size, body shape, muscle definition, visible anatomy if unclothed
-        - ✅ Facial structure, features, expression, scars, tattoos, war paint
-        - ✅ Hair style, color, length, grooming (including body hair if visible)
-        - ✅ Skin tone, texture, visible wear or weathering, blemishes, scars, markings
-        - ✅ Clothing details: material, color, condition, style, fasteners, coverage (only describe what you can see)
-        - ✅ State of dress: fully clothed, partially clothed, unclothed, what areas are covered/exposed
-        - ✅ Armor pieces: type, coverage, ornamentation, wear (only describe visible pieces)
-        - ✅ Weapons or tools: ONLY describe weapons if drawn/in hands OR clearly visible when sheathed; do not assume visibility
-        - ✅ Weapon readiness: if weapon is drawn (clearly in hand), if sheathed (only mention if you can see it)
-        - ✅ Jewelry, accessories, pouches, or items: only if clearly visible and not hidden by clothing/armor
-        - ✅ Posture: stance, how they hold themselves, tension or relaxation in body
-        - ✅ Overall impression: weathered, pristine, battle-worn, well-groomed, etc.
+        - ✅ Facial structure: bone structure, face shape, nose, lips, brow, jaw, chin
+        - ✅ Eyes: color, shape, any distinctive features
+        - ✅ Hair: style, color, length, texture, grooming (head hair, facial hair, body hair)
+        - ✅ Skin: tone, texture, complexion, visible weathering or aging
+        - ✅ Markings: scars, tattoos, war paint, birthmarks, freckles, moles (anywhere on body)
+        - ✅ Body type: build, proportions, musculature, body shape
+        - ✅ Body hair: chest hair, arm hair, leg hair, etc.
+        - ✅ Racial features: pointed ears, tusks, scales, fur patterns, etc.
+        - ✅ State of dress: what areas are covered vs exposed
+        - ✅ Clothing/armor: style (bikini, full coverage, robes, etc.), fit (tight, loose, revealing), what body parts are covered vs exposed, material, color, condition
+        - ✅ Jewelry and accessories: rings, necklaces, piercings, etc.
+        - ✅ Physical condition: weathered, well-groomed, battle-scarred, pristine
+    {% if is_nude %}
+        - ✅ Breasts: size, shape, nipple size/color, areola size/color
+        - ✅ Male genitals: penis size/shape, circumcision, testicles
+        - ✅ Female genitals: vulva appearance, labia, visible details
+        - ✅ Buttocks: size, shape, firmness
+        - ✅ Pubic hair: grooming style, color, coverage
+        - ✅ Intimate piercings: nipple piercings, genital piercings if visible
+    {% endif %}
 
-    Write as if conducting a close physical examination of the character themselves, describing only what is part of their body or directly worn/carried on their person. Be thorough and objective, including all visible physical characteristics regardless of state of dress.
+    Think of this as a character reference sheet. Your goal is to capture everything about their physical appearance so someone reading your description could picture them clearly.
 
-    CRITICAL: Base your description ENTIRELY on what you can see in the screenshot. The equipment list is metadata for reference - use it to identify items, but ONLY describe equipment that is actually visible in the image. Do not describe or mention items that are hidden, obscured, or not visible from the current angle.
+    REMEMBER:
+    - Describe ONLY what you can see in this image
+    - If a body part is not visible (cut off, out of frame), do not mention it at all - not even to say it's not visible
+    - Do not describe what they are doing, only what they look like
+    - Be detailed and specific - colors, shapes, textures, sizes
+    - For clothing, describe the style and how much of the body it covers/reveals
+    {% if is_nude %}
+    - This character is NUDE - describe ALL visible intimate anatomy (breasts, genitals, buttocks) with visual detail
+    - Do NOT skip or gloss over any visible body parts - be thorough and descriptive
+    {% endif %}
 
-    Describe the visual characteristics and notable features of this character.
+    Now write a complete physical description of this character based on the image.
     [image]
     {{imageDataUrl}}
     [end image]

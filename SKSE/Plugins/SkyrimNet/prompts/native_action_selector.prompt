@@ -1,53 +1,50 @@
 [ system ]
-    You are an expert at determining what action should accompany a character's recent dialogue and determining their intent. Based on {{npc.name}}'s most recent line of dialogue and the current game context, select the single most appropriate in-game action that you think they intended to perform in order to accompany their dialogue.
+## Task
+Select an action to accompany {{ npc.name }}'s dialogue. Match the action to what they said, did, or agreed to.
 
-    **Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue.**
+## Output Format
+- `ACTION: ActionName` — action with no parameters
+- `ACTION: ActionName PARAMS: {"param": "value"}` — action with parameters
+- `ACTION: None` — no action fits
 
-    - If {{npc.name}}'s words or actions (including narrative cues, e.g., *Orgnar shrugs, returning to wiping the counter.*) clearly suggest a specific, visible in-game action from the eligible list, choose that action.
-    - Do NOT choose dramatic or aggressive actions unless they are clearly signaled in the dialogue or situation.
-    - If no listed action directly matches, return `ACTION: None`.
+Output exactly one line starting with `ACTION:` and nothing else.
 
-    Respond with exactly one line:
-    - If the action takes no parameters: `ACTION: ActionName`
-    - If the action takes parameters: `ACTION: ActionName PARAMS: {"param_name1": "value1", ...}` (ensure PARAMS is a valid JSON object)
-    - If no action fits: `ACTION: None`
-    Only return one line, beginning with "ACTION:" and nothing else.
+## Selection Logic
+Read {{ npc.name }}'s line and match it to an available action.
 
-    ## {{ npc.name }}'s Profile
-    {{ render_character_profile("full", npc.UUID) }}
+**Agreement can be implicit.** If the player requested something and {{ npc.name }} responded positively, invitingly, or took steps toward fulfilling it—that's agreement. Look for the intent, not just explicit "yes."
+
+**{{ npc.name }} can initiate actions too.** If {{ npc.name }} offers, threatens, proposes, or does something unprompted, match it to the appropriate action.
+
+**Return `ACTION: None` only when** the line is purely conversational with no implied action, or no available action matches.
+
+## {{ npc.name }}
+- {{ render_character_profile("short_inline", npc.UUID) }}
+- Race/Gender: {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}
 [ end system ]
 
 [ user ]
+## Location
+{{ location }}
 
-    ## Location
-    - Location: {{ location }}
+## Recent Dialogue
+{{ render_template("components\\event_history_compact") }}
 
-    ## Dialogue History
-    {{ render_template("components\\event_history_compact") }}
+## {{ npc.name }}'s Line (THIS IS WHAT YOU'RE MATCHING)
+"{{ dialogue_request }}
+{{ dialogue_response }}"
 
-    ## Most Recent Dialogue
-    "{{ dialogue_request }}
-    {{ dialogue_response }}"
+## Nearby Actors
+- {{ decnpc(player.UUID).name }} (Player, {{ decnpc(player.UUID).gender }} {{ decnpc(player.UUID).race }})
+{% for npc in get_nearby_npc_list(player.UUID) %}
+- {{ decnpc(npc.UUID).name }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }}m)
+{% endfor %}
 
-    ## Nearby Actors
-    - {{ decnpc(player.UUID).name }}: {{ render_character_profile("short_inline", player.UUID) }} ({{ decnpc(player.UUID).gender }} {{ decnpc(player.UUID).race }}, (THIS IS THE PLAYER CHARACTER)
-    {% for npc in get_nearby_npc_list(player.UUID) %}
-        - {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
-    {% endfor %}
+## Available Actions
+{% for action in eligible_actions %}
+- `{{ action.name }}`{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
+{% endfor %}
+- `None` — No action fits
 
-    ## Eligible Actions
-    {% for action in eligible_actions %}
-        - ACTION: {{ action.name }}{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS_SCHEMA: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
-    {% endfor %}
-    - ACTION: None - No action directly fits the situation.
-
-    ## Context Reminder:
-    **Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should be accompanied by the dialogue.**
-
-    ## Format Reminder:
-    - `ACTION: ActionName`
-    - `ACTION: ActionName PARAMS: {"param1": "value"}`
-    - `ACTION: None`
-
-    Only return one line, beginning with "ACTION:" and nothing else. Do not include any reasoning or thinking in your response.
+Output format: `ACTION: [Name]` or `ACTION: [Name] PARAMS: {...}` or `ACTION: None`
 [ end user ]

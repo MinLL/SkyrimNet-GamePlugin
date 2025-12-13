@@ -1,0 +1,26 @@
+{{ render_subcomponent("guidelines", render_mode) }}
+
+## Length
+{% if render_mode == "thoughts" or render_mode == "book" %}
+{% if is_in_combat(npc.UUID) %}
+Combat: 8-30 words. First sentence 10 words or fewer. Raw, visceral, immediate.
+{% elif render_mode == "book" %}
+8-90 words depending on relevance. Brief for mundane books, expand for meaningful content.
+{% else %}
+8-30 words. First sentence 10 words or fewer.
+{% endif %}
+{% elif render_mode == "transform" %}
+8-45 words. Keep it natural to how you speak.
+{% else %}
+{% if decnpc(npc.UUID).isInCombat %}
+Combat: 1 sentence, maximum 14 words. Urgent and brief.
+{% else %}
+1-3 sentences (8-40 words typical). Do NOT write multiple paragraphs. 60 words maximum.
+{% endif %}
+{% endif %}
+
+{% if render_mode == "thoughts" or render_mode == "book" %}
+## Grounding
+Base thoughts only on: your character profile, listed memories, scene description, and recent events.
+Do not: invent new facts, assume specific outcomes, retell past events, or drift into unrelated worries.
+{% endif %}

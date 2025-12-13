@@ -1,0 +1,124 @@
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+{# Track vital stats and equipment state changes #}
+{% set currentHealth = get_actor_value(npc.UUID, "Health") %}
+{% set maxHealth = get_base_actor_value(npc.UUID, "Health") %}
+{% set currentMagicka = get_actor_value(npc.UUID, "Magicka") %}
+{% set maxMagicka = get_base_actor_value(npc.UUID, "Magicka") %}
+{% set currentStamina = get_actor_value(npc.UUID, "Stamina") %}
+{% set maxStamina = get_base_actor_value(npc.UUID, "Stamina") %}
+
+{# Get actor information for proper name and pronouns #}
+{% set actor = decnpc(npc.UUID) %}
+
+{# Get equipment state for nudity tracking #}
+{% set equipment = get_worn_equipment(npc.UUID) %}
+{% set hasCuirass = equipment.body %}
+{% if hasCuirass %}
+{% set cuirassName = equipment.body.name %}
+{% else %}
+{% set cuirassName = "" %}
+{% endif %}
+
+{# Track changes with 60 second window #}
+{% set healthChange = track_entity_state(npc.UUID, "status:health", currentHealth, 120) %}
+{% set magickaChange = track_entity_state(npc.UUID, "status:magicka", currentMagicka, 120) %}
+{% set staminaChange = track_entity_state(npc.UUID, "status:stamina", currentStamina, 120) %}
+{% set cuirassChange = track_entity_state(npc.UUID, "status:cuirass", hasCuirass, 120) %}
+
+{# Calculate percentage changes based on max values #}
+{% if healthChange.hasPrevious and healthChange.isRecent %}
+{% set healthDelta = currentHealth - healthChange.previous %}
+{% else %}
+{% set healthDelta = 0 %}
+{% endif %}
+{% if maxHealth > 0 %}
+{% set healthPct = healthDelta / maxHealth * 100 %}
+{% else %}
+{% set healthPct = 0 %}
+{% endif %}
+
+{% if magickaChange.hasPrevious and magickaChange.isRecent %}
+{% set magickaDelta = currentMagicka - magickaChange.previous %}
+{% else %}
+{% set magickaDelta = 0 %}
+{% endif %}
+{% if maxMagicka > 0 %}
+{% set magickaPct = magickaDelta / maxMagicka * 100 %}
+{% else %}
+{% set magickaPct = 0 %}
+{% endif %}
+
+{% if staminaChange.hasPrevious and staminaChange.isRecent %}
+{% set staminaDelta = currentStamina - staminaChange.previous %}
+{% else %}
+{% set staminaDelta = 0 %}
+{% endif %}
+{% if maxStamina > 0 %}
+{% set staminaPct = staminaDelta / maxStamina * 100 %}
+{% else %}
+{% set staminaPct = 0 %}
+{% endif %}
+
+{# Check if any significant changes occurred #}
+{% set hasHealthChange = healthChange.isRecent and healthChange.changed and (healthPct > 25 or healthPct < -25) %}
+{% set hasMagickaChange = magickaChange.isRecent and magickaChange.changed and (magickaPct > 25 or magickaPct < -25) %}
+{% set hasStaminaChange = staminaChange.isRecent and staminaChange.changed and (staminaPct > 25 or staminaPct < -25) %}
+{% set hasCuirassChanged = cuirassChange.isRecent and cuirassChange.changed %}
+{% set hasAnyChange = hasHealthChange or hasMagickaChange or hasStaminaChange or hasCuirassChanged %}
+
+{% if hasAnyChange %}
+**Recent State Change:**
+{% if hasHealthChange %}
+{% if healthPct <= -75 %}
+- Critically wounded (lost most health)
+{% elif healthPct <= -50 %}
+- Badly hurt (lost over half health)
+{% elif healthPct <= -25 %}
+- Injured (lost significant health)
+{% elif healthPct >= 75 %}
+- Fully healed
+{% elif healthPct >= 50 %}
+- Mostly healed
+{% elif healthPct >= 25 %}
+- Recovering
+{% endif %}
+{% endif %}
+{% if hasMagickaChange %}
+{% if magickaPct <= -75 %}
+- Magically drained
+{% elif magickaPct <= -50 %}
+- Magicka low
+{% elif magickaPct <= -25 %}
+- Magicka spent
+{% elif magickaPct >= 75 %}
+- Magicka restored
+{% elif magickaPct >= 50 %}
+- Magicka recovering
+{% elif magickaPct >= 25 %}
+- Magicka returning
+{% endif %}
+{% endif %}
+{% if hasStaminaChange %}
+{% if staminaPct <= -75 %}
+- Exhausted
+{% elif staminaPct <= -50 %}
+- Winded
+{% elif staminaPct <= -25 %}
+- Tired
+{% elif staminaPct >= 75 %}
+- Fully rested
+{% elif staminaPct >= 50 %}
+- Catching breath
+{% elif staminaPct >= 25 %}
+- Stamina recovering
+{% endif %}
+{% endif %}
+{% if hasCuirassChanged %}
+{% if hasCuirass %}
+- Just equipped {{ cuirassName }}
+{% else %}
+- Armor removed, exposed
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}

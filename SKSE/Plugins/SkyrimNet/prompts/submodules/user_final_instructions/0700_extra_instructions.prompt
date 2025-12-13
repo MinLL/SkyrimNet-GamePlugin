@@ -1,5 +1,3 @@
-Use only basic punctuation (. , ! ?), avoid brackets, ellipses and special marks inside spoken dialogue. 
-{% if is_narration_enabled() %}Use asterisks EXCLUSIVELY for narration.{% endif %}
-{% if not is_narration_enabled() %}Only respond as what {{ decnpc(npc.UUID).name }} would {% if render_mode == "thoughts" %}think to herself privately{% else %}verbally speak to another{% endif %}. You MUST NOT use any form of narration, gestures, explanations, or out-of-character remarks.
-Include only spoken dialogue in your response.
+{% if not is_narration_enabled() %}
+No narration or asterisks—{% if render_mode == "thoughts" %}pure internal thought only{% else %}spoken words only{% endif %}.
 {% endif %}

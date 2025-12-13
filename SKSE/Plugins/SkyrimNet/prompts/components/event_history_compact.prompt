@@ -1,5 +1,7 @@
 {% set lastLocation = "" %}
 {% set lastSignificantTime = 0 %}
+{% set latestGMDialogueTime = 0 %}
+{% for event in events %}{% if event.type == "gamemaster_dialogue" %}{% set latestGMDialogueTime = event.gameTime %}{% endif %}{% endfor %}
 {% set hasShownGMDialogue = false %}
 {% for event in events %}
 {% if isValidActor(event.originatingActor) %}
@@ -46,7 +48,7 @@
         {% endif %}
 
         {% if event.type == "gamemaster_dialogue" %}
-            {% if not hasShownGMDialogue %}
+            {% if event.gameTime == latestGMDialogueTime and not hasShownGMDialogue %}
 - [{{ short_time(event.gameTimeStr) }}] {{ format_event(event, "compact") }}
                 {% set hasShownGMDialogue = true %}
             {% endif %}

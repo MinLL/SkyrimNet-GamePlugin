@@ -1,3 +1,3 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+{% if render_mode == "full" or render_mode == "transform" %}
 {{ render_character_profile("speech_style", npc.UUID) }}
 {% endif %}

@@ -1,0 +1,20 @@
+{% if embed_actions_in_dialogue and eligible_actions and length(eligible_actions) > 0 %}
+## Actions Available
+After your dialogue, you may optionally perform ONE action if appropriate. Output dialogue FIRST, then action on a separate line.
+
+**Action Format:**
+- `ACTION: ActionName` — action with no parameters  
+- `ACTION: ActionName PARAMS: {"param": "value"}` — action with parameters
+- Omit the ACTION line entirely if no action fits
+
+**Available Actions:**
+{% for action in eligible_actions %}
+- `{{ action.name }}`{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
+{% endfor %}
+
+**Guidelines:**
+- Only use an action if it matches what you said, agreed to, or are doing
+- Agreement can be implicit—positive responses or steps toward fulfilling a request count
+- You can initiate actions unprompted if it fits your character
+- Output dialogue lines BEFORE the ACTION line (this allows speech to start while action is parsed)
+{% endif %}

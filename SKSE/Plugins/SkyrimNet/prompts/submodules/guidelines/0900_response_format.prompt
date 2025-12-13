@@ -1,32 +1,31 @@
+## Response Format
+No headers or labels in your output—just the response itself.
+{% if render_mode == "thoughts" or render_mode == "book" %}
+Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
+- First-person perspective ("I think..." not "she thinks...")
+- No dialogue, no speaking to others, no quotation marks
+- Thoughts are feelings, reactions, emotions, desires—not descriptions of physical actions
+- 1-2 short sentences maximum
 {% if is_narration_enabled() %}
-# Narration Rules and Format
-    Narration is the RARE EXCEPTION, not the rule. You are voicing a character in a living world, not writing a text adventure. When in doubt, use dialogue alone.
-    {% if decnpc(npc.UUID).isInCombat %}
-        - {{ decnpc(npc.UUID).name }} is currently in combat. Keep narration brief and suitable for combat situation.
-        - Narration MUST ONLY be used when it would considerably enhance the impact of the dialogue and add considerable value, and MUST NOT be used regularly for trivial activities.
-    {% else %}
-        - Keep narration brief and succinct.
-        - Narration MUST ONLY be used when it 1) describes a COMPLETED action that directly and significantly alters the conversation's trajectory, or 2) reveal crucial information or emotional reaction impossible to convey through tone, word choice, or dialogue delivery alone.
-    {% endif %}
-    Narrative actions must always be wrapped in asterisks, using this format: *{{ decnpc(npc.UUID).name }} does something visible and CRITICAL*. For example: I won't allow that *{{ decnpc(npc.UUID).name }} grips {{ player.name }}'s wrist, staring into his eyes in silence.*
-{% endif %}
-
-# Dialogue Style
-{% if render_mode == "transform" %}
-    - The line should be in your character's natural speaking voice
-    - Keep the response focused and concise
-    - **CRITICAL: Advance the Conversation** - Never repeat the same core topic, perspective, or semantic concept from your immediately preceding response. Introduce a logical next step: a new question, related but different detail, escalation, de-escalation, memory, or genuine emotional shift.
-{% else if render_mode == "thoughts" %}
-    - Keep thoughts succinct and natural
-    - Thoughts are plain text from first-person perspective
-    - **CRITICAL: Advance Internal Monologue** - Never dwell on the same core thought, worry, or perspective from your immediately preceding response. Progress to a new realization, related concern, decision, or emotional evolution.
-    {% if is_narration_enabled() %}
-        - Asterisks (*) are ONLY for brief physical actions: *{{ decnpc(npc.UUID).name }} closes the book* or *{{ decnpc(npc.UUID).name }} frowns*
-        - Your actual THOUGHTS must NEVER be wrapped in asterisks
-        - Most responses should be pure thought with NO asterisks
-    {% endif %}
+- One brief action allowed (optional), wrapped in asterisks: *{{ decnpc(npc.UUID).name }} frowns*
 {% else %}
-    - Speak authentically as {{ decnpc(npc.UUID).name }}, responding with your own thoughts and reactions rather than echoing back what was just said to you.
-    - **Maintain Conversational Progression:** Avoid rehashing the same core topic, perspective, or semantic concept if it was the dominant focus of the character's immediately preceding response. Every response should aim to **advance the conversation** by introducing a logical next step: a new question, a related but different detail, an escalation, a de-escalation, a memory, or a genuine change in emotional focus.
-    - Do not reference a specific event multiple times in a conversation - others already know it.
+- No asterisks or actions
 {% endif %}
+{% else %}
+Speak in your natural voice. Respond with your own thoughts, not echoes of what was said.
+{% if is_narration_enabled() %}
+- **Default to dialogue alone.** Most responses need no narration.
+{% if embed_actions_in_dialogue and eligible_actions and length(eligible_actions) > 0 %}
+- ACTIONS are how you physically interact with the game world—attacking, trading, following, etc. Use them instead of narration for this.
+- Narration is flavor only—emotional color, subtle body language, atmosphere. It doesn't make things happen.
+{% else %}
+- Narration is for flavor only—emotional reactions, subtle body language, atmosphere
+{% endif %}
+- Skip trivial filler: nodding, smiling, glancing, crossing arms, shifting weight
+- ALL narration MUST be wrapped in asterisks: *{{ decnpc(npc.UUID).name }} leans closer*
+- Text without asterisks is spoken dialogue only
+{% else %}
+- No narration, asterisks, or action descriptions
+{% endif %}
+{% endif %}
+Each response must advance the conversation—new question, detail, realization, or decision. Vary your approach.
