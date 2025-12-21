@@ -31,6 +31,21 @@ Your output should be efficient, direct, and usable as behavioral and dialogue g
 {% endfor %}
 
 {% endif %}
+{% if has_dialogue_tree %}
+## Character Dialogue (from game data)
+The following are actual dialogue lines this character speaks in the game in various situations. Use these to understand their personality, speech patterns, relationships, and role in quests. This is authoritative canonical dialogue - prioritize matching the tone, vocabulary, and characterization shown here. Use this to understand who they are, their personality, their background, and generally use this to guide the creation of a detailed and lore rich bio that fits the character. Try to reason about and infer as much as you can about the character from this information.
+
+{% for category in dialogue_tree %}
+### {{ category.category }}
+{% for line in category.lines %}
+{% if line.quest %}- Quest: {{ line.quest }}{% endif %}{% if line.scene %} (Scene: {{ line.scene }}){% endif %}
+{% if line.playerPrompt %}  Player asks: "{{ line.playerPrompt }}"{% endif %}
+{% for response in line.responses %}
+  {{ actor_name }}: "{{ response.text }}"{% if response.emotion %} [{{ response.emotion }}]{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endif %}
 ## Recent Events
 {{ render_template("components\\event_history_verbose") }}
 
@@ -55,4 +70,4 @@ Please generate a character profile with the following sections in JSON format:
 }
 {% endraw %}
 
-Base the profile on the provided game data, faction memberships, and recent events. {% if has_user_input %}Also strongly consider the additional input provided above when creating the character profile. {% endif %}Make it detailed and lore-appropriate for The Elder Scrolls universe.
+Base the profile on the provided game data, faction memberships, {% if has_dialogue_tree %}character dialogue, {% endif %}and recent events. {% if has_dialogue_tree %}Pay close attention to the character's actual dialogue lines - they reveal their true personality, speech patterns, concerns, and relationships. Match the tone and vocabulary shown in their dialogue.{% endif %}{% if has_user_input %} Also strongly consider the additional input provided above when creating the character profile.{% endif %} Make it detailed and lore-appropriate for The Elder Scrolls universe.
