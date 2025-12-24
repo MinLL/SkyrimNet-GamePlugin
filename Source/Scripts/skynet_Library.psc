@@ -64,6 +64,7 @@ Function Maintenance(skynet_MainController _skynet)
     InitMinAIBridge()
     ResetHotkeyStates()
     InitializeInGameHotkeys()
+    InitMenuDetection()
     skynet.Info("Library initialized")
 EndFunction
 
@@ -1029,5 +1030,112 @@ Function HandleHotkeyRelease(Int keyCode, Float holdTime)
         ; Quick press (< 1.0s) = capture crosshair target (actor/furniture)
         ; Long press (>= 1.0s) = capture player
         SkyrimNetApi.TriggerCaptureCrosshairReleased(holdTime)
+    EndIf
+EndFunction
+
+; -----------------------------------------------------------------------------
+; --- Open Mic Menu Auto-Pause (Skyrim VR Compatible) ---
+; -----------------------------------------------------------------------------
+
+Bool menuDetection_openMicWasActive = False
+Bool menuDetection_wasInMenuLastCheck = False
+Float menuDetection_updateInterval = 0.5
+
+Function InitMenuDetection()
+    menuDetection_openMicWasActive = False
+    menuDetection_wasInMenuLastCheck = False
+    RegisterForSingleUpdate(menuDetection_updateInterval)
+    skynet.Info("Menu detection initialized (will auto-pause open mic)")
+EndFunction
+
+Event OnUpdate()
+    ; Check if any menu is currently open
+    Bool isInMenuNow = IsAnyMenuOpen()
+
+    ; Detect menu open (wasn't in menu before, but is now)
+    If !menuDetection_wasInMenuLastCheck && isInMenuNow
+        OnMenuDetected()
+    ; Detect menu close (was in menu before, but not anymore)
+    ElseIf menuDetection_wasInMenuLastCheck && !isInMenuNow
+        OnMenuClosed()
+    EndIf
+
+    ; Remember state for next check
+    menuDetection_wasInMenuLastCheck = isInMenuNow
+
+    ; Schedule next check
+    RegisterForSingleUpdate(menuDetection_updateInterval)
+EndEvent
+
+Bool Function IsAnyMenuOpen()
+    ; Check common menus that should pause the mic
+    ; Uses UI.IsMenuOpen() which is available in Skyrim VR's SKSE
+
+    If UI.IsMenuOpen("Dialogue Menu")
+        Return True
+    ElseIf UI.IsMenuOpen("MessageBoxMenu")
+        Return True
+    ElseIf UI.IsMenuOpen("BarterMenu")
+        Return True
+    ElseIf UI.IsMenuOpen("ContainerMenu")
+        Return True
+    ElseIf UI.IsMenuOpen("InventoryMenu")
+        Return True
+    ElseIf UI.IsMenuOpen("MagicMenu")
+        Return True
+    ElseIf UI.IsMenuOpen("MapMenu")
+        Return True
+    ElseIf UI.IsMenuOpen("StatsMenu")
+        Return True
+    ElseIf UI.IsMenuOpen("FavoritesMenu")
+        Return True
+    ElseIf UI.IsMenuOpen("Crafting Menu")
+        Return True
+    ElseIf UI.IsMenuOpen("Training Menu")
+        Return True
+    ElseIf UI.IsMenuOpen("LockpickingMenu")
+        Return True
+    ElseIf UI.IsMenuOpen("Book Menu")
+        Return True
+    ElseIf UI.IsMenuOpen("Journal Menu")
+        Return True
+    ElseIf UI.IsMenuOpen("Console")
+        Return True
+    ElseIf UI.IsMenuOpen("Console Native UI Menu")
+        Return True
+    ElseIf UI.IsMenuOpen("UITextEntryMenu")
+        Return True
+    EndIf
+
+    Return False
+EndFunction
+
+Function OnMenuDetected()
+    ; A menu just opened - pause mic if it's recording
+    Bool isRecording = SkyrimNetApi.IsRecordingInput()
+
+    If isRecording
+        ; Save the state - open mic was active
+        menuDetection_openMicWasActive = True
+
+        ; Toggle open mic OFF to stop recording
+        SkyrimNetApi.TriggerToggleOpenMic()
+
+        Debug.Trace("SkyrimNet: Open mic auto-paused (menu opened)")
+    Else
+        ; Open mic was not active, nothing to pause
+        menuDetection_openMicWasActive = False
+    EndIf
+EndFunction
+
+Function OnMenuClosed()
+    ; All menus just closed - resume mic if we paused it
+    If menuDetection_openMicWasActive
+        ; Toggle open mic back ON to resume recording
+        SkyrimNetApi.TriggerToggleOpenMic()
+
+        Debug.Trace("SkyrimNet: Open mic auto-resumed (menu closed)")
+
+        menuDetection_openMicWasActive = False
     EndIf
 EndFunction
