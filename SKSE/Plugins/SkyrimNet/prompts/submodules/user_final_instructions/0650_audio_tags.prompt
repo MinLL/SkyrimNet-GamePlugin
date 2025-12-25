@@ -4,14 +4,29 @@
 {% set thought_mode = render_mode == "thoughts" %}
 {% set has_audio_tags = actor_tags_enabled or narrator_tags_enabled %}
 {% if has_audio_tags and (dialogue_mode or thought_mode) %}
+{% set useChatterboxTags = get_actor_tts(npc.UUID) == "chatterbox" and actor_tags_enabled %}
+{% set chatterboxAllowedTags = ["[clear throat]","[sigh]","[shush]","[cough]","[groan]","[sniff]","[gasp]","[chuckle]","[laugh]"] %}
 ## Voice Performance Tags
 Use [square bracket tags] to direct vocal performance. Tags control emotion, delivery, and reactions—the AI voice interprets them contextually.
 
-**Tag types:** emotions ([sad], [excited]), delivery ([whispers], [shouts], [slowly]), reactions ([sighs], [laughs], [clears throat]), pacing ([pause], [dramatic tone])
+{% set exampleTag1 = "[sighs]" %}
+{% set exampleTag2 = "[excited]" %}
+{% set exampleTag3 = "[softly]" %}
+{% set exampleTag4 = "[dramatic tone]" %}
 
-{% if actor_tags_enabled %}**Dialogue{% if thought_mode %}/thoughts{% endif %}:** [sighs] I suppose you're right. / Did you see that? [excited] Incredible!
+{% if useChatterboxTags %}
+  {% set exampleTag1 = "[sigh]" %}
+  {% set exampleTag2 = "[chuckle]" %}
+  {% set exampleTag3 = "[clear throat]" %}
+  {% set exampleTag4 = "[shush]" %}
+  ONLY USE ONE OF THESE TAGS: {{join(chatterboxAllowedTags, ", ")}}
+{% else %}
+  **Tag types:** emotions ([sad], [excited]), delivery ([whispers], [shouts], [slowly]), reactions ([sighs], [laughs], [clears throat]), pacing ([pause], [dramatic tone])
 {% endif %}
-{% if narrator_tags_enabled %}**Narration:** *[softly] {{ decnpc(npc.UUID).name }} turns away.* / *[dramatic tone] The room falls silent.*
+
+{% if actor_tags_enabled %}**Dialogue{% if thought_mode %}/thoughts{% endif %}:** {{exampleTag1}} I suppose you're right. / Did you see that? {{exampleTag2}} Incredible!
+{% endif %}
+{% if narrator_tags_enabled %}**Narration:** *{{exampleTag3}} {{ decnpc(npc.UUID).name }} turns away.* / *{{exampleTag4}} The room falls silent.*
 {% endif %}
 {% if not actor_tags_enabled and narrator_tags_enabled %}Tags only work in *narration*, not dialogue.
 {% endif %}
