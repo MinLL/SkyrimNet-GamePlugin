@@ -24,7 +24,7 @@ First, analyze the player's dialogue and determine what type of interaction this
 3. Is the player prompting a group discussion or asking an NPC to address everyone?
 4. Favor NPCs who are closer to the player or the ongoing situation. This is a very strong factor.
 {% if crosshairTarget %}
-5. The player currently has {{ crosshairTarget.name }} in their crosshair - this is a strong indicator that they may be addressing {{ decnpc(crosshairTarget.UUID).objective_pronoun }}.
+5. The player currently has {{ crosshairTarget.name }} in their crosshair - this is a strong indicator that they may be addressing {{ decnpc(crosshairTarget.UUID).objectivePronoun }}.
 {% endif %}
 
 Virtual NPC rules:
