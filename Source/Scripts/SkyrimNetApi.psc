@@ -325,6 +325,39 @@ bool function IsEventTypeRegistered(String eventType) Global Native
 String function GetAllSchemasInfo() Global Native
 
 ; -----------------------------------------------------------------------------
+; --- Virtual NPC Functions ---
+; -----------------------------------------------------------------------------
+
+; Register a new virtual NPC
+; - name: Unique identifier for the virtual NPC
+; - displayName: The display name shown in-game
+; - voiceId: Voice identifier for TTS
+; - conversationMode: Conversation mode setting. Must be "public" or "private"
+; - language: Language setting for the virtual NPC
+; Returns 0 on success or if the virtual NPC already exists, 1 on failure
+int function RegisterVirtualNPC(String name, String displayName, String voiceId, String conversationMode, String language) Global Native
+
+; Update an existing virtual NPC's properties
+; Name is required, other parameters will be updated if not empty
+; - name: Unique identifier of the virtual NPC to update
+; - displayName: The new display name
+; - voiceId: New voice identifier for TTS
+; - conversationMode: New conversation mode setting. Must be "public", "private", or empty
+; - language: New language setting
+; Returns 0 on success, 1 on failure
+int function UpdateVirtualNPC(String name, String displayName, String voiceId, String conversationMode, String language) Global Native
+
+; Enable a virtual NPC
+; - name: Unique identifier of the virtual NPC to enable
+; Returns 0 on success, 1 on failure
+int function EnableVirtualNPC(String name) Global Native
+
+; Disable a virtual NPC
+; - name: Unique identifier of the virtual NPC to disable
+; Returns 0 on success, 1 on failure
+int function DisableVirtualNPC(String name) Global Native
+
+; -----------------------------------------------------------------------------
 ; --- Web Interface ---
 ; -----------------------------------------------------------------------------
 
