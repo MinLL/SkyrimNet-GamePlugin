@@ -48,7 +48,7 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 - [PowerOfThree's Papyrus Extender](https://www.nexusmods.com/skyrimspecialedition/mods/22854)
 - [PapyrusUtil SE](https://www.nexusmods.com/skyrimspecialedition/mods/13048)
 - [Latest Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
-- [Native EditorID Fix](https://www.nexusmods.com/skyrimspecialedition/mods/85260) ([VR version](https://github.com/naitro2010/NativeEditorIDFixNG/releases/))
+- [Native EditorID Fix](https://www.nexusmods.com/skyrimspecialedition/mods/85260) (or [VR version](https://github.com/naitro2010/NativeEditorIDFixNG/releases/))
   
 ### 🚀 **CUDA Build Requirements** *(For Maximum Performance)*
 - NVIDIA GPU with CUDA support
