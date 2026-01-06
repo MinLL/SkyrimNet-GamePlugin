@@ -1,7 +1,8 @@
 {# TEST SUBMODULE - Scene & World Decorators #}
 {# Tests: location, currentWeather, gameTime, gameTimeJson, gameTimeNumeric, #}
 {#        currentTime, is_indoors, short_time, get_nearby_npc_list, #}
-{#        get_active_short_lived_events, etc. #}
+{#        get_active_short_lived_events, get_nearby_references, #}
+{#        get_container_contents, etc. #}
 {# CATEGORY: Scene, World, Environment #}
 
 {% set actor = decnpc(actorUUID) %}
@@ -242,6 +243,116 @@ Available Moods: {{ length(moodsList) }}
 - {{ mood }}: {{ desc }}
 {% endif %}
 {% endfor %}
+
+---
+
+### Test 10: get_nearby_references() - World Objects
+
+**All nearby objects (items, furniture, containers):**
+{% set nearbyRefs = get_nearby_references(1500) %}
+{% if nearbyRefs and length(nearbyRefs) > 0 %}
+Found {{ length(nearbyRefs) }} objects within 1500 units:
+{% for ref in nearbyRefs %}
+{% if loop.index <= 15 %}
+- **{{ ref.name }}** ({{ ref.type }}/{{ ref.subtype }})
+  - FormID: {{ ref.formID }}
+  - Position: {{ ref.position.meters }}m {{ ref.position.cardinalDirection }} ({{ ref.position.direction }})
+{% if ref.locked is defined %}  - Locked: {% if ref.locked %}🔒 Yes{% else %}🔓 No{% endif %}{% endif %}
+{% endif %}
+{% endfor %}
+{% if length(nearbyRefs) > 15 %}
+... and {{ length(nearbyRefs) - 15 }} more objects
+{% endif %}
+{% else %}
+No objects found nearby.
+{% endif %}
+
+**Filtered: Nearby Potions**
+{% set nearbyPotions = get_nearby_references(1000, "potion") %}
+{% if nearbyPotions and length(nearbyPotions) > 0 %}
+Found {{ length(nearbyPotions) }} potions:
+{% for potion in nearbyPotions %}
+{% if loop.index <= 5 %}
+- {{ potion.name }} ({{ potion.position.meters }}m {{ potion.position.cardinalDirection }})
+{% endif %}
+{% endfor %}
+{% else %}
+No potions found nearby.
+{% endif %}
+
+**Filtered: Nearby Furniture**
+{% set nearbyFurniture = get_nearby_references(800, "furniture") %}
+{% if nearbyFurniture and length(nearbyFurniture) > 0 %}
+Found {{ length(nearbyFurniture) }} furniture items:
+{% for furn in nearbyFurniture %}
+{% if loop.index <= 5 %}
+- {{ furn.name }} ({{ furn.subtype }}) - {{ furn.position.meters }}m {{ furn.position.cardinalDirection }}
+{% endif %}
+{% endfor %}
+{% else %}
+No furniture found nearby.
+{% endif %}
+
+**Filtered: Nearby Containers**
+{% set nearbyContainers = get_nearby_references(1000, "container") %}
+{% if nearbyContainers and length(nearbyContainers) > 0 %}
+Found {{ length(nearbyContainers) }} containers:
+{% for container in nearbyContainers %}
+{% if loop.index <= 5 %}
+- {{ container.name }} ({{ container.position.meters }}m {{ container.position.cardinalDirection }}){% if container.locked %} 🔒 LOCKED{% endif %}
+{% endif %}
+{% endfor %}
+{% else %}
+No containers found nearby.
+{% endif %}
+
+**Filtered: Nearby Equipment (weapons/armor)**
+{% set nearbyEquipment = get_nearby_references(800, "equipment") %}
+Equipment found: {{ length(nearbyEquipment) }}
+{% for eq in nearbyEquipment %}
+{% if loop.index <= 5 %}
+- {{ eq.name }} ({{ eq.subtype }})
+{% endif %}
+{% endfor %}
+
+**Filtered: Nearby Consumables (potions/food/ingredients)**
+{% set nearbyConsumables = get_nearby_references(800, "consumable") %}
+Consumables found: {{ length(nearbyConsumables) }}
+
+---
+
+### Test 11: get_container_contents() - Container Inventory
+
+{% if nearbyContainers and length(nearbyContainers) > 0 %}
+{% set firstContainer = nearbyContainers[0] %}
+**Inspecting: {{ firstContainer.name }}** (FormID: {{ firstContainer.formID }})
+
+{% set contents = get_container_contents(firstContainer.formID) %}
+{% if contents.error is not defined %}
+- Container Name: {{ contents.name }}
+- Locked: {% if contents.locked %}🔒 Yes (Level: {{ contents.lockLevel }}){% else %}🔓 No{% endif %}
+- Total Items: {{ contents.itemCount }}
+
+{% if contents.items and length(contents.items) > 0 %}
+**Contents:**
+{% for item in contents.items %}
+{% if loop.index <= 10 %}
+- {{ item.name }} x{{ item.count }} ({{ item.type }})
+  - Value: {{ item.value }} gold | Weight: {{ item.weight }}
+{% endif %}
+{% endfor %}
+{% if length(contents.items) > 10 %}
+... and {{ length(contents.items) - 10 }} more items
+{% endif %}
+{% else %}
+Container is empty.
+{% endif %}
+{% else %}
+Error: {{ contents.error }}
+{% endif %}
+{% else %}
+No containers nearby to inspect.
+{% endif %}
 
 ---
 

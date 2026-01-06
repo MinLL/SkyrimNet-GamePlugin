@@ -1,6 +1,7 @@
 {# TEST SUBMODULE - Combat Decorators #}
 {# Tests: get_actor_value, get_base_actor_value, is_in_combat, has_weapon_drawn, #}
-{#        is_hostile_to_actor, is_knocked_down, is_reanimated, is_summoned, get_spell_list #}
+{#        is_hostile_to_actor, is_knocked_down, is_reanimated, is_summoned, #}
+{#        get_spell_list (enhanced: school, spellType, castingType, delivery, etc.) #}
 {# CATEGORY: Combat #}
 
 {% set actor = decnpc(actorUUID) %}
@@ -87,33 +88,52 @@
 
 ---
 
-### Test 5: get_spell_list() - Known Spells
+### Test 5: get_spell_list() - Known Spells (Enhanced)
 
 {% set actorSpells = get_spell_list(actorUUID) %}
 {% if actorSpells and length(actorSpells) > 0 %}
 **{{ actorName }}'s Known Spells:** ({{ length(actorSpells) }} total)
 {% for spell in actorSpells %}
-{% if loop.index < 15 %}
-- {{ spell.name }} (FormID: {{ spell.formID }})
+{% if loop.index <= 10 %}
+- **{{ spell.name }}** ({{ spell.spellType }})
+  - School: {{ spell.school if spell.school else "N/A (Power)" }}
+  - Casting: {{ spell.castingType }} | Delivery: {{ spell.delivery }}
+  - Magicka Cost: {{ spell.magickaCost }} | Charge Time: {{ spell.chargeTime }}s
+  - Two-Handed: {% if spell.isTwoHanded %}Yes{% else %}No{% endif %} | Hostile: {% if spell.isHostile %}⚠️ Yes{% else %}No{% endif %}
 {% endif %}
 {% endfor %}
-{% if length(actorSpells) > 15 %}
-... and {{ length(actorSpells) - 15 }} more spells
+{% if length(actorSpells) > 10 %}
+... and {{ length(actorSpells) - 10 }} more spells
 {% endif %}
 {% else %}
 **{{ actorName }}** knows no spells.
 {% endif %}
 
+**Spell Filtering Examples:**
+
+{% set destructionSpells = [] %}
+{% set restorationSpells = [] %}
+{% set powers = [] %}
+{% for spell in actorSpells %}
+{% if spell.school == "Destruction" %}{% set _ = destructionSpells.append(spell) %}{% endif %}
+{% if spell.school == "Restoration" %}{% set _ = restorationSpells.append(spell) %}{% endif %}
+{% if spell.spellType == "Power" or spell.spellType == "LesserPower" %}{% set _ = powers.append(spell) %}{% endif %}
+{% endfor %}
+
+- Destruction Spells: {{ length(destructionSpells) }}
+- Restoration Spells: {{ length(restorationSpells) }}
+- Powers: {{ length(powers) }}
+
 {% set playerSpells = get_spell_list(player.UUID) %}
 {% if playerSpells and length(playerSpells) > 0 %}
 **Player's Known Spells:** ({{ length(playerSpells) }} total)
 {% for spell in playerSpells %}
-{% if loop.index < 10 %}
-- {{ spell.name }}
+{% if loop.index <= 8 %}
+- {{ spell.name }} ({{ spell.school if spell.school else spell.spellType }}) - {{ spell.castingType }}
 {% endif %}
 {% endfor %}
-{% if length(playerSpells) > 10 %}
-... and {{ length(playerSpells) - 10 }} more spells
+{% if length(playerSpells) > 8 %}
+... and {{ length(playerSpells) - 8 }} more spells
 {% endif %}
 {% else %}
 **Player** knows no spells.
