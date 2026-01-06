@@ -289,10 +289,12 @@ String function GenerateDiaryEntry(Actor actor) Global Native
 ; - defaultTTLMs: Default time-to-live in milliseconds for ephemeral events (ignored if isEphemeral is false)
 ; - shortLivedEnabled: Whether short-lived scene context events should be created for this type (default true)
 ;   Set to false for high-volume events that shouldn't clutter scene context
+; - interrupt: Whether this event type can interrupt ongoing speech/actions (default false)
+;   Set to true for player-initiated events that should take priority
 ; Returns 0 on success, 1 on failure
 int function RegisterEventSchema(String eventType, String displayName, String description, \
                                 String fieldsJson, String formatTemplatesJson, bool isEphemeral, int defaultTTLMs, \
-                                bool shortLivedEnabled = true) Global Native
+                                bool shortLivedEnabled = true, bool interrupt = false) Global Native
 
 ; Validate event data against a registered schema
 ; - eventType: The event type to validate against
