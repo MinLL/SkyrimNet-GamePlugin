@@ -36,15 +36,8 @@ Only select an NPC if their silence would feel unnatural. Evaluate in order:
 
 ## Candidates
 {% for candidate in candidateDialogues %}
-{% set is_private_vnpc_candidate = false %}
-{% set virtual_npcs = get_virtual_npc_list(player.UUID) %}
-{% for vnpc in virtual_npcs %}
-{% if vnpc.UUID == candidate.UUID and vnpc.conversationMode != "public" %}
-{% set is_private_vnpc_candidate = true %}
-{% endif %}
-{% endfor %}
-{% if is_private_vnpc_candidate %}
-{{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** (Virtual NPC)
+{% if decnpc(candidate.UUID).isVirtual %}
+{{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}**{% if decnpc(candidate.UUID).isVirtualPrivate %} (Virtual NPC){% endif %}
    - {{ render_character_profile("short_inline", candidate.UUID) }}
    - **Interjection**: {{ render_character_profile("interject_inline", candidate.UUID) }}
 {% else %}
