@@ -3,34 +3,56 @@
 {% set dialogue_mode = render_mode == "full" or render_mode == "transform" %}
 {% set thought_mode = render_mode == "thoughts" %}
 {% set has_audio_tags = actor_tags_enabled or narrator_tags_enabled %}
+
 {% if has_audio_tags and (dialogue_mode or thought_mode) %}
-{% set useChatterboxTags = get_actor_tts(npc.UUID) == "chatterbox" and actor_tags_enabled %}
-{% set chatterboxAllowedTags = ["[clear throat]","[sigh]","[shush]","[cough]","[groan]","[sniff]","[gasp]","[chuckle]","[laugh]"] %}
-## Voice Performance Tags
-Use [square bracket tags] to direct vocal performance. Tags control emotion, delivery, and reactions—the AI voice interprets them contextually.
+  {% set useChatterboxTags = get_actor_tts(npc.UUID) == "chatterbox" and actor_tags_enabled %}
 
-{% set exampleTag1 = "[sighs]" %}
-{% set exampleTag2 = "[excited]" %}
-{% set exampleTag3 = "[softly]" %}
-{% set exampleTag4 = "[dramatic tone]" %}
+  {% set chatterboxEmotionTags = ["[angry]", "[fear]", "[surprised]", "[whispering]", "[advertisement]", "[dramatic]", "[narration]","[happy]", "[sarcastic]"] %}
+  {% set chatterboxSoundTags = ["[clear throat]","[sigh]","[shush]","[cough]","[groan]","[sniff]","[gasp]","[chuckle]","[laugh]","[crying]"] %}
+  ## Voice Performance Tags
+  Use [square bracket tags] to direct vocal performance. Tags control emotion, delivery, and reactions—the AI voice interprets them contextually.
+  
+  {% if useChatterboxTags %}
+    {% set exampleTag1 = "[sigh]" %}
+    {% set exampleTag2 = "[happy]" %}
+    {% set exampleTag3 = "[whispering]" %}
+    {% set exampleTag4 = "[dramatic]" %}
+    **Allowed emotion tags (OPTIONAL, at the beginning of emotional sentence):**
+    {{join(chatterboxEmotionTags, ", ")}}
+    **Allowed sound tags (OPTIONAL, may appear ANYWHERE):**
+    {{ join(chatterboxSoundTags, ", ") }}
+    **How to write each dialogue/thought line**
+    - You MAY start the line with ONE emotion tag, but it is optional.
+    - You MAY insert multiple sound tags anywhere in the line (start, middle, end).
+    - Sound tags must be standalone tokens (surrounded by spaces or punctuation), not attached to words.
+    - Do NOT invent other bracketed text. Only use the allowed tags above.
+    - Keep tags meaningful; don’t spam them (typically 0–3 sound tags per line unless the scene demands it).
+    
+    **Examples**
+    - [whispering] Keep your voice down - [shush] - they’ll hear us. [sigh]
+    - I told you not to touch that - [groan] - ever again. [cough]
+    - [happy] [clear throat] So… we agree? [chuckle] Great.
+  {% else %}
+    {% set exampleTag1 = "[sighs]" %}
+    {% set exampleTag2 = "[excited]" %}
+    {% set exampleTag3 = "[softly]" %}
+    {% set exampleTag4 = "[dramatic tone]" %}
+    **Tag types:** emotions ([sad], [excited]), delivery ([whispers], [shouts], [slowly]), reactions ([sighs], [laughs], [clears throat]), pacing ([pause], [dramatic tone])
+  {% endif %}
+  {% if actor_tags_enabled %}
+    **Dialogue{% if thought_mode %}/thoughts{% endif %}:** {{exampleTag1}} I suppose you're right. / Did you see that? {{exampleTag2}} Incredible!
+  {% endif %}
+  {% if narrator_tags_enabled %}
+    **Narration:** *{{exampleTag3}} {{ decnpc(npc.UUID).name }} turns away.* / *{{exampleTag4}} The room falls silent.*
+  {% endif %}
+  {% if not actor_tags_enabled and narrator_tags_enabled %}
+    Tags only work in *narration*, not dialogue.
+  {% endif %}
+  {% if actor_tags_enabled and not narrator_tags_enabled and is_narration_enabled() %}
+    Tags only work in dialogue, not *narration*.
+  {% endif %}
 
-{% if useChatterboxTags %}
-  {% set exampleTag1 = "[sigh]" %}
-  {% set exampleTag2 = "[chuckle]" %}
-  {% set exampleTag3 = "[clear throat]" %}
-  {% set exampleTag4 = "[shush]" %}
-  ONLY USE ONE OF THESE TAGS: {{join(chatterboxAllowedTags, ", ")}}
-{% else %}
-  **Tag types:** emotions ([sad], [excited]), delivery ([whispers], [shouts], [slowly]), reactions ([sighs], [laughs], [clears throat]), pacing ([pause], [dramatic tone])
-{% endif %}
-
-{% if actor_tags_enabled %}**Dialogue{% if thought_mode %}/thoughts{% endif %}:** {{exampleTag1}} I suppose you're right. / Did you see that? {{exampleTag2}} Incredible!
-{% endif %}
-{% if narrator_tags_enabled %}**Narration:** *{{exampleTag3}} {{ decnpc(npc.UUID).name }} turns away.* / *{{exampleTag4}} The room falls silent.*
-{% endif %}
-{% if not actor_tags_enabled and narrator_tags_enabled %}Tags only work in *narration*, not dialogue.
-{% endif %}
-{% if actor_tags_enabled and not narrator_tags_enabled and is_narration_enabled() %}Tags only work in dialogue, not *narration*.
-{% endif %}
-Use sparingly—1-2 per response max.
+  {% if not useChatterboxTags %}
+    Use sparingly—1-2 per response max.
+  {% endif %}
 {% endif %}
