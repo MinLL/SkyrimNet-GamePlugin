@@ -154,14 +154,7 @@ Use when the scene needs space:
 CRITICAL: Only use characters from this list. Names must match exactly.
 
 {% for npc in get_nearby_npc_list(player.UUID) %}
-{% set is_private_vnpc = false %}
-{% set virtual_npcs = get_virtual_npc_list(player.UUID) %}
-{% for vnpc in virtual_npcs %}
-{% if vnpc.UUID == npc.UUID and vnpc.conversationMode != "public" %}
-{% set is_private_vnpc = true %}
-{% endif %}
-{% endfor %}
-{% if is_private_vnpc %}
+{% if decnpc(npc.UUID).isVirtualPrivate %}
 - **{{ decnpc(npc.UUID).name }}** (Virtual NPC)
   {{ render_character_profile("short_inline", npc.UUID) }}
   *Interjects when:* {{ render_character_profile("interject_inline", npc.UUID) }}

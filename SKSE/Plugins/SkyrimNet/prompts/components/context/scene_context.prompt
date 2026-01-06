@@ -11,17 +11,10 @@
 {% block nearbyNpcs %}
     {% if length(nearby_npcs) > 0 %}
         {% for npc in nearby_npcs %}
-            {% set is_private_vnpc = false %}
-            {% set virtual_npcs = get_virtual_npc_list(player.UUID) %}
-            {% for vnpc in virtual_npcs %}
-                {% if vnpc.UUID == npc.UUID and vnpc.conversationMode != "public" %}
-                    {% set is_private_vnpc = true %}
-                {% endif %}
-            {% endfor %}
             {% if decnpc(npc.UUID).isDead %}
-                {{ npc.id }}. [DEAD] The dead corpse of {{ decnpc(npc.UUID).name }}{% if is_private_vnpc %} (Virtual NPC){% endif %}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
+                {{ npc.id }}. [DEAD] The dead corpse of {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
             {% else %}
-                {{ npc.id }}. {% if is_summoned(npc.UUID) %}{% if is_hostile_to_actor(npc.UUID, player.UUID) %}[Summoned creature hostile to {{ decnpc(player.UUID).name }}] {% else %}[Summoned creature serving {{ decnpc(player.UUID).name }}] {% endif %}{% else if is_reanimated(npc.UUID) %}{% if is_hostile_to_actor(npc.UUID, player.UUID) %}[Reanimated undead hostile to {{ decnpc(player.UUID).name }}] {% else %}[Reanimated undead thrall serving {{ decnpc(player.UUID).name }}] {% endif %}{% endif %}{{ decnpc(npc.UUID).name }}{% if is_private_vnpc %} (Virtual NPC){% endif %}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
+                {{ npc.id }}. {% if is_summoned(npc.UUID) %}{% if is_hostile_to_actor(npc.UUID, player.UUID) %}[Summoned creature hostile to {{ decnpc(player.UUID).name }}] {% else %}[Summoned creature serving {{ decnpc(player.UUID).name }}] {% endif %}{% else if is_reanimated(npc.UUID) %}{% if is_hostile_to_actor(npc.UUID, player.UUID) %}[Reanimated undead hostile to {{ decnpc(player.UUID).name }}] {% else %}[Reanimated undead thrall serving {{ decnpc(player.UUID).name }}] {% endif %}{% endif %}{{ decnpc(npc.UUID).name }}{% if decnpc(npc.UUID).isVirtualPrivate %} (Virtual NPC){% endif %}: {{ render_character_profile("short_inline", npc.UUID) }}{% if not decnpc(npc.UUID).isVirtual %} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away){% endif %}
             {% endif %}
         {% endfor %}
     {% else %}
