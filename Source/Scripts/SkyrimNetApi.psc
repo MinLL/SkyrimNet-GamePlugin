@@ -138,10 +138,36 @@ int function ReinforcePackages(Actor akActor) Global Native
 ; -----------------------------------------------------------------------------
 
 ; Send a custom prompt to the LLM and receive a callback when it responds
-; Returns a request ID (positive integer) on success, or a negative error code on failure
-; The callback function should have the signature: Function OnLLMResponse(String response) on the specified script
-int function SendCustomPromptToLLM(String promptName, float temperature, int maxTokens, \
-                                  String callbackScriptName, String callbackFunctionName) Global Native
+; 
+; Parameters:
+;   promptName          - Name of the prompt template to render (e.g., "my_custom_prompt")
+;   variant             - OpenRouter variant to use (e.g., "meta", "dialogue"), empty string for default
+;   contextJson         - JSON object string with template variables (e.g., "{\"playerName\":\"Dragonborn\"}")
+;                         Pass empty string "" if no custom variables needed
+;   callbackQuest       - The quest containing the callback script (typically GetOwningQuest())
+;   callbackScriptName  - Name of the script attached to the quest
+;   callbackFunctionName - Name of the callback function to invoke
+;
+; Returns:
+;   1 on success (task queued)
+;   -1 if promptName is empty
+;   -2 if callback parameters are empty/null
+;   -3 if LLM configuration failed
+;
+; The callback function signature should be:
+;   Function OnLLMResponse(String response, int success)
+;   - response: The LLM response text (capped at 750 characters), or error message
+;   - success: 1 if successful, 0 if an error occurred
+;
+; Example usage:
+;   ; Simple call with default variant and no custom variables:
+;   SkyrimNetApi.SendCustomPromptToLLM("my_prompt", "", "", GetOwningQuest(), "MyQuestScript", "OnMyLLMResponse")
+;   
+;   ; With variant and custom context variables:
+;   String context = "{\"npcName\":\"Lydia\",\"location\":\"Whiterun\"}"
+;   SkyrimNetApi.SendCustomPromptToLLM("my_prompt", "dialogue", context, GetOwningQuest(), "MyQuestScript", "OnMyLLMResponse")
+int function SendCustomPromptToLLM(String promptName, String variant, String contextJson, \
+                                  Quest callbackQuest, String callbackScriptName, String callbackFunctionName) Global Native
 
 ; Register a direct narration event that forces the LLM to respond to a factual event
 ; This function creates an event that NPCs will respond to as established fact, such as:

@@ -1,0 +1,12 @@
+[ system ]
+You are a helpful assistant for SkyrimNet, a mod that brings AI NPCs to Skyrim.
+[ end system ]
+
+[ user ]
+This is a test prompt from the MCM Developer page.
+
+Test variable from MCM: {{ test_variable }}
+Game time when sent: {{ timestamp }}
+
+Please respond with a short, friendly confirmation that you received this test message with the test vriable and game time. Keep your response under 3 sentences.
+[ end user ]
