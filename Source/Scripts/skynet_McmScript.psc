@@ -26,16 +26,151 @@ int optionHotkeyInterruptDialogue
 
 int useImage
 
+; ============================================================================
+; Developer Page - Category Navigation
+; ============================================================================
+int devCategoryMenu
+int devCurrentCategory = 0
+string[] devCategoryNames
+
+; Category indices
+int DEV_CAT_LLM = 0
+int DEV_CAT_HOTKEYS = 1
+int DEV_CAT_DIALOGUE = 2
+int DEV_CAT_EVENTS = 3
+int DEV_CAT_UTILITIES = 4
+int DEV_CAT_SYSTEM = 5
+
+; ============================================================================
+; Developer Page - LLM Interaction
+; ============================================================================
+int optionLlmPromptName
+int optionLlmVariant
+int optionLlmContextJson
+int optionLlmExecute
+string devLlmPromptName = "dev/mcm_test"
+string devLlmVariant = ""
+string devLlmContextJson = "{\"test_variable\":\"Hello from MCM!\"}"
+
+int optionNarrationContent
+int optionNarrationExecute
+string devNarrationContent = ""
+
+int optionPersistentContent
+int optionPersistentExecute
+string devPersistentContent = ""
+
+; ============================================================================
+; Developer Page - Hotkey Triggers
+; ============================================================================
+int optionTriggerTextInput
+int optionTriggerToggleGameMaster
+int optionTriggerToggleContinuousMode
+int optionTriggerToggleWorldEvents
+int optionTriggerToggleWhisperMode
+int optionTriggerToggleOpenMic
+int optionTriggerTextThought
+int optionTriggerTextDialogueTransform
+int optionTriggerDirectInput
+int optionTriggerContinueNarration
+int optionTriggerPlayerThought
+int optionTriggerPlayerDialogue
+int optionTriggerGenerateDiaryBio
+int optionTriggerInterruptDialogue
+
+; ============================================================================
+; Developer Page - Dialogue
+; ============================================================================
+int optionDialogueContent
+int optionDialogueExecute
+string devDialogueContent = ""
+
+int optionPurgeDialogue
+
+; ============================================================================
+; Developer Page - Events
+; ============================================================================
+int optionEventType
+int optionEventContent
+int optionEventExecute
+string devEventType = "custom_event"
+string devEventContent = ""
+
+int optionShortEventId
+int optionShortEventType
+int optionShortEventDesc
+int optionShortEventTtl
+int optionShortEventExecute
+string devShortEventId = "test_event_1"
+string devShortEventType = "test"
+string devShortEventDesc = "Test event description"
+int devShortEventTtl = 30000
+
+; ============================================================================
+; Developer Page - Utilities
+; ============================================================================
+int optionTemplateNameInput
+int optionTemplateVarName
+int optionTemplateVarValue
+int optionRenderTemplate
+string devTemplateName = "dev/mcm_test"
+string devTemplateVarName = ""
+string devTemplateVarValue = ""
+
+int optionParseInput
+int optionParseVarName
+int optionParseVarValue
+int optionParseExecute
+string devParseInput = "Hello {{ data.name }}, welcome to {{ data.location }}!"
+string devParseVarName = "data"
+string devParseVarValue = "{\"name\":\"Dragonborn\",\"location\":\"Skyrim\"}"
+
+int optionConfigName
+int optionConfigPath
+int optionConfigDefault
+int optionGetConfigString
+string devConfigName = "game"
+string devConfigPath = "name"
+string devConfigDefault = "Unknown"
+
+; ============================================================================
+; Developer Page - System
+; ============================================================================
+int optionOpenWebUI
+int optionGetVersion
+int optionGetBuildType
+int optionIsRecording
+int optionIsVR
+int optionSpeechQueueSize
+int optionTimeSinceAudio
+int optionCppHotkeysToggle
+
+; ============================================================================
+; Last result tracking
+; ============================================================================
+string devLastResult = ""
+int devLastSuccess = -1
+
 event OnConfigOpen()
     
     ; Fetch the library from the quest
     library = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) as skynet_Library)
     
-    Pages = new string[3]
+    Pages = new string[4]
 
     Pages[0] = "Overview"
     Pages[1] = "SkyrimNet Status"
     Pages[2] = "Hotkeys"
+    Pages[3] = "Developer"
+    
+    ; Initialize developer category names
+    devCategoryNames = new string[6]
+    devCategoryNames[0] = "LLM Interaction"
+    devCategoryNames[1] = "Hotkey Triggers"
+    devCategoryNames[2] = "Dialogue"
+    devCategoryNames[3] = "Events"
+    devCategoryNames[4] = "Utilities"
+    devCategoryNames[5] = "System"
 
 endevent
 
@@ -56,6 +191,8 @@ event OnPageReset(string page)
         DisplayStatus()
     elseif page == "Hotkeys"
         DisplayHotkeys()
+    elseif page == "Developer"
+        DisplayDeveloper()
     else
         ; Default to Overview page
         DisplayOverview()
@@ -156,13 +293,331 @@ function DisplayHotkeys()
 
 endfunction
 
+; ============================================================================
+; Developer Page - Main Display with Category Navigation
+; ============================================================================
+function DisplayDeveloper()
+    
+    ; Reset all developer option IDs to prevent cross-category conflicts
+    ResetDevOptionIds()
+    
+    AddHeaderOption("Developer API Testing")
+    AddHeaderOption("")
+    
+    AddTextOption("Test SkyrimNet's exposed Papyrus API", "")
+    AddTextOption("functions directly from this panel.", "")
+    
+    ; Category selector menu
+    devCategoryMenu = AddMenuOption("Category:", devCategoryNames[devCurrentCategory])
+    AddEmptyOption()
+    
+    ; Display the selected category
+    if devCurrentCategory == DEV_CAT_LLM
+        DisplayDevLLM()
+    elseif devCurrentCategory == DEV_CAT_HOTKEYS
+        DisplayDevHotkeys()
+    elseif devCurrentCategory == DEV_CAT_DIALOGUE
+        DisplayDevDialogue()
+    elseif devCurrentCategory == DEV_CAT_EVENTS
+        DisplayDevEvents()
+    elseif devCurrentCategory == DEV_CAT_UTILITIES
+        DisplayDevUtilities()
+    elseif devCurrentCategory == DEV_CAT_SYSTEM
+        DisplayDevSystem()
+    endif
+    
+endfunction
+
+; Reset all developer option IDs to -1 to prevent cross-category ID conflicts
+function ResetDevOptionIds()
+    ; LLM options
+    optionLlmPromptName = -1
+    optionLlmVariant = -1
+    optionLlmContextJson = -1
+    optionLlmExecute = -1
+    optionNarrationContent = -1
+    optionNarrationExecute = -1
+    optionPersistentContent = -1
+    optionPersistentExecute = -1
+    
+    ; Hotkey trigger options
+    optionTriggerTextInput = -1
+    optionTriggerToggleGameMaster = -1
+    optionTriggerToggleContinuousMode = -1
+    optionTriggerToggleWorldEvents = -1
+    optionTriggerToggleWhisperMode = -1
+    optionTriggerToggleOpenMic = -1
+    optionTriggerTextThought = -1
+    optionTriggerTextDialogueTransform = -1
+    optionTriggerDirectInput = -1
+    optionTriggerContinueNarration = -1
+    optionTriggerPlayerThought = -1
+    optionTriggerPlayerDialogue = -1
+    optionTriggerGenerateDiaryBio = -1
+    optionTriggerInterruptDialogue = -1
+    
+    ; Dialogue options
+    optionDialogueContent = -1
+    optionDialogueExecute = -1
+    optionPurgeDialogue = -1
+    
+    ; Events options
+    optionEventType = -1
+    optionEventContent = -1
+    optionEventExecute = -1
+    optionShortEventId = -1
+    optionShortEventType = -1
+    optionShortEventDesc = -1
+    optionShortEventTtl = -1
+    optionShortEventExecute = -1
+    
+    ; Utilities options
+    optionTemplateNameInput = -1
+    optionTemplateVarName = -1
+    optionTemplateVarValue = -1
+    optionRenderTemplate = -1
+    optionParseInput = -1
+    optionParseVarName = -1
+    optionParseVarValue = -1
+    optionParseExecute = -1
+    optionConfigName = -1
+    optionConfigPath = -1
+    optionConfigDefault = -1
+    optionGetConfigString = -1
+    
+    ; System options
+    optionOpenWebUI = -1
+    optionGetVersion = -1
+    optionGetBuildType = -1
+    optionIsRecording = -1
+    optionIsVR = -1
+    optionSpeechQueueSize = -1
+    optionTimeSinceAudio = -1
+    optionCppHotkeysToggle = -1
+endfunction
+
+; ============================================================================
+; Developer Category: LLM Interaction
+; ============================================================================
+function DisplayDevLLM()
+    
+    AddHeaderOption("SendCustomPromptToLLM")
+    AddHeaderOption("")
+    
+    optionLlmPromptName = AddInputOption("Prompt Name:", devLlmPromptName)
+    optionLlmVariant = AddInputOption("Variant:", TruncateDisplay(devLlmVariant, "(default)"))
+    optionLlmContextJson = AddInputOption("Context JSON:", TruncateDisplay(devLlmContextJson, "(none)"))
+    optionLlmExecute = AddTextOption("Execute", "[Send to LLM]")
+    
+    AddEmptyOption()
+    AddEmptyOption()
+    
+    AddHeaderOption("DirectNarration")
+    AddHeaderOption("")
+    
+    optionNarrationContent = AddInputOption("Narration:", TruncateDisplay(devNarrationContent, "(enter text)"))
+    optionNarrationExecute = AddTextOption("Execute", "[Narrate]")
+    
+    AddEmptyOption()
+    AddEmptyOption()
+    
+    AddHeaderOption("RegisterPersistentEvent")
+    AddHeaderOption("")
+    
+    optionPersistentContent = AddInputOption("Event Content:", TruncateDisplay(devPersistentContent, "(enter text)"))
+    optionPersistentExecute = AddTextOption("Execute", "[Register]")
+    
+endfunction
+
+; ============================================================================
+; Developer Category: Hotkey Triggers
+; ============================================================================
+function DisplayDevHotkeys()
+    
+    AddTextOption("Note: Text input triggers won't show", "")
+    AddTextOption("dialogs while in this menu.", "")
+    
+    AddHeaderOption("Input Triggers")
+    AddHeaderOption("")
+    
+    optionTriggerTextInput = AddTextOption("TriggerTextInput", "[Execute]")
+    optionTriggerTextThought = AddTextOption("TriggerTextThought", "[Execute]")
+    optionTriggerTextDialogueTransform = AddTextOption("TriggerTextDialogueTransform", "[Execute]")
+    optionTriggerDirectInput = AddTextOption("TriggerDirectInput", "[Execute]")
+    
+    AddHeaderOption("Toggle Triggers")
+    AddHeaderOption("")
+    
+    optionTriggerToggleGameMaster = AddTextOption("TriggerToggleGameMaster", "[Execute]")
+    optionTriggerToggleContinuousMode = AddTextOption("TriggerToggleContinuousMode", "[Execute]")
+    optionTriggerToggleWorldEvents = AddTextOption("TriggerToggleWorldEventReactions", "[Execute]")
+    optionTriggerToggleWhisperMode = AddTextOption("TriggerToggleWhisperMode", "[Execute]")
+    optionTriggerToggleOpenMic = AddTextOption("TriggerToggleOpenMic", "[Execute]")
+    
+    AddHeaderOption("Action Triggers")
+    AddHeaderOption("")
+    
+    optionTriggerContinueNarration = AddTextOption("TriggerContinueNarration", "[Execute]")
+    optionTriggerPlayerThought = AddTextOption("TriggerPlayerThought", "[Execute]")
+    optionTriggerPlayerDialogue = AddTextOption("TriggerPlayerDialogue", "[Execute]")
+    optionTriggerGenerateDiaryBio = AddTextOption("TriggerGenerateDiaryBio", "[Execute]")
+    optionTriggerInterruptDialogue = AddTextOption("TriggerInterruptDialogue", "[Execute]")
+    
+endfunction
+
+; ============================================================================
+; Developer Category: Dialogue
+; ============================================================================
+function DisplayDevDialogue()
+    
+    AddHeaderOption("RegisterDialogue")
+    AddHeaderOption("")
+    
+    AddTextOption("Speaker: Player", "")
+    optionDialogueContent = AddInputOption("Dialogue:", TruncateDisplay(devDialogueContent, "(enter text)"))
+    optionDialogueExecute = AddTextOption("Execute", "[Register]")
+    
+    AddEmptyOption()
+    AddEmptyOption()
+    
+    AddHeaderOption("PurgeDialogue")
+    AddHeaderOption("")
+    
+    AddTextOption("Immediately stop all NPC dialogue", "")
+    optionPurgeDialogue = AddTextOption("Execute", "[Purge]")
+    
+endfunction
+
+; ============================================================================
+; Developer Category: Events
+; ============================================================================
+function DisplayDevEvents()
+    
+    AddHeaderOption("RegisterEvent")
+    AddHeaderOption("")
+    
+    optionEventType = AddInputOption("Event Type:", devEventType)
+    optionEventContent = AddInputOption("Content:", TruncateDisplay(devEventContent, "(enter text)"))
+    optionEventExecute = AddTextOption("Execute", "[Register]")
+    
+    AddEmptyOption()
+    AddEmptyOption()
+    
+    AddHeaderOption("RegisterShortLivedEvent")
+    AddHeaderOption("")
+    
+    optionShortEventId = AddInputOption("Event ID:", devShortEventId)
+    optionShortEventType = AddInputOption("Event Type:", devShortEventType)
+    optionShortEventDesc = AddInputOption("Description:", TruncateDisplay(devShortEventDesc, "(enter)"))
+    optionShortEventTtl = AddSliderOption("TTL (ms):", devShortEventTtl as float, "{0}")
+    optionShortEventExecute = AddTextOption("Execute", "[Register]")
+    
+endfunction
+
+; ============================================================================
+; Developer Category: Utilities
+; ============================================================================
+function DisplayDevUtilities()
+    
+    AddHeaderOption("RenderTemplate")
+    AddHeaderOption("")
+    
+    optionTemplateNameInput = AddInputOption("Template:", devTemplateName)
+    optionTemplateVarName = AddInputOption("Var Name:", TruncateDisplay(devTemplateVarName, "(optional)"))
+    optionTemplateVarValue = AddInputOption("Var Value:", TruncateDisplay(devTemplateVarValue, "(optional)"))
+    optionRenderTemplate = AddTextOption("Execute", "[Render]")
+    
+    AddEmptyOption()
+    AddEmptyOption()
+    
+    AddHeaderOption("ParseString")
+    AddHeaderOption("")
+    
+    optionParseInput = AddInputOption("Input String:", TruncateDisplay(devParseInput, "(enter)"))
+    optionParseVarName = AddInputOption("Var Name:", devParseVarName)
+    optionParseVarValue = AddInputOption("Var Value (JSON):", TruncateDisplay(devParseVarValue, "(enter)"))
+    optionParseExecute = AddTextOption("Execute", "[Parse]")
+    
+    AddEmptyOption()
+    AddEmptyOption()
+    
+    AddHeaderOption("GetConfigString")
+    AddHeaderOption("")
+    
+    optionConfigName = AddInputOption("Config Name:", devConfigName)
+    optionConfigPath = AddInputOption("Path:", devConfigPath)
+    optionConfigDefault = AddInputOption("Default:", TruncateDisplay(devConfigDefault, "(empty)"))
+    optionGetConfigString = AddTextOption("Execute", "[Get]")
+    
+endfunction
+
+; ============================================================================
+; Developer Category: System
+; ============================================================================
+function DisplayDevSystem()
+    
+    AddHeaderOption("Web Interface")
+    AddHeaderOption("")
+    
+    optionOpenWebUI = AddTextOption("OpenSkyrimNetUI", "[Open]")
+    AddEmptyOption()
+    
+    AddHeaderOption("Build Info")
+    AddHeaderOption("")
+    
+    optionGetVersion = AddTextOption("GetBuildVersion", "[Get]")
+    optionGetBuildType = AddTextOption("GetBuildType", "[Get]")
+    
+    AddHeaderOption("Status Queries")
+    AddHeaderOption("")
+    
+    optionIsRecording = AddTextOption("IsRecordingInput", "[Check]")
+    optionIsVR = AddTextOption("IsRunningVR", "[Check]")
+    optionSpeechQueueSize = AddTextOption("GetSpeechQueueSize", "[Get]")
+    optionTimeSinceAudio = AddTextOption("GetTimeSinceLastAudioEnded", "[Get]")
+    
+    AddHeaderOption("C++ Hotkey Control")
+    AddHeaderOption("")
+    
+    bool cppEnabled = SkyrimNetApi.IsCppHotkeysEnabled()
+    optionCppHotkeysToggle = AddToggleOption("C++ Hotkeys Enabled", cppEnabled)
+    
+endfunction
+
+; ============================================================================
+; Helper Functions
+; ============================================================================
+string function TruncateDisplay(string value, string defaultText)
+    if value == ""
+        return defaultText
+    endif
+    if StringUtil.GetLength(value) > 20
+        return StringUtil.Substring(value, 0, 17) + "..."
+    endif
+    return value
+endfunction
+
+function ShowResult(string title, string result)
+    Debug.Trace("[SkyrimNet MCM] " + title + ": " + result)
+    Debug.MessageBox(title + "\n\n" + result)
+endfunction
+
+function ShowResultInt(string title, int result)
+    ShowResult(title, result as string)
+endfunction
+
+; ============================================================================
+; Event Handlers
+; ============================================================================
 event OnOptionSelect(int option)
 
+    ; === Overview Page ===
     if option == toggleShowWebUi
         int result = SkyrimNetApi.OpenSkyrimNetUI()
         Debug.Trace("[SkyrimNetInternal] OpenSkyrimNetUI result: " + result)
+        
+    ; === Hotkeys Page ===
     elseif option == toggleInGameHotkeys
-        ; Toggle in-game hotkeys
         if library.inGameHotkeysEnabled
             library.DisableInGameHotkeys()
             SetToggleOptionValue(toggleInGameHotkeys, false)
@@ -170,9 +625,305 @@ event OnOptionSelect(int option)
             library.EnableInGameHotkeys()
             SetToggleOptionValue(toggleInGameHotkeys, true)
         endif
-        ForcePageReset() ; Refresh page to show/hide hotkey options
+        ForcePageReset()
+        
+    ; === Developer Page Options ===
+    ; Check CurrentPage to ensure we're on the Developer page before handling developer options
+    ; This prevents cross-category conflicts when option IDs overlap
+    elseif CurrentPage == "Developer"
+        HandleDeveloperOptionSelect(option)
     endif
 
+endevent
+
+; Handle Developer page option selections
+; Separated to use CurrentPage check as guard against cross-category ID conflicts
+function HandleDeveloperOptionSelect(int option)
+    
+    ; === LLM Category ===
+    if devCurrentCategory == DEV_CAT_LLM
+        if option == optionLlmExecute
+            ExecuteLlmPrompt()
+        elseif option == optionNarrationExecute
+            int result = SkyrimNetApi.DirectNarration(devNarrationContent)
+            ShowResultInt("DirectNarration", result)
+        elseif option == optionPersistentExecute
+            int result = SkyrimNetApi.RegisterPersistentEvent(devPersistentContent)
+            ShowResultInt("RegisterPersistentEvent", result)
+        endif
+        
+    ; === Hotkey Triggers Category ===
+    elseif devCurrentCategory == DEV_CAT_HOTKEYS
+        if option == optionTriggerTextInput
+            ShowResultInt("TriggerTextInput", SkyrimNetApi.TriggerTextInput())
+        elseif option == optionTriggerTextThought
+            ShowResultInt("TriggerTextThought", SkyrimNetApi.TriggerTextThought())
+        elseif option == optionTriggerTextDialogueTransform
+            ShowResultInt("TriggerTextDialogueTransform", SkyrimNetApi.TriggerTextDialogueTransform())
+        elseif option == optionTriggerDirectInput
+            ShowResultInt("TriggerDirectInput", SkyrimNetApi.TriggerDirectInput())
+        elseif option == optionTriggerToggleGameMaster
+            ShowResultInt("TriggerToggleGameMaster", SkyrimNetApi.TriggerToggleGameMaster())
+        elseif option == optionTriggerToggleContinuousMode
+            ShowResultInt("TriggerToggleContinuousMode", SkyrimNetApi.TriggerToggleContinuousMode())
+        elseif option == optionTriggerToggleWorldEvents
+            ShowResultInt("TriggerToggleWorldEventReactions", SkyrimNetApi.TriggerToggleWorldEventReactions())
+        elseif option == optionTriggerToggleWhisperMode
+            ShowResultInt("TriggerToggleWhisperMode", SkyrimNetApi.TriggerToggleWhisperMode())
+        elseif option == optionTriggerToggleOpenMic
+            ShowResultInt("TriggerToggleOpenMic", SkyrimNetApi.TriggerToggleOpenMic())
+        elseif option == optionTriggerContinueNarration
+            ShowResultInt("TriggerContinueNarration", SkyrimNetApi.TriggerContinueNarration())
+        elseif option == optionTriggerPlayerThought
+            ShowResultInt("TriggerPlayerThought", SkyrimNetApi.TriggerPlayerThought())
+        elseif option == optionTriggerPlayerDialogue
+            ShowResultInt("TriggerPlayerDialogue", SkyrimNetApi.TriggerPlayerDialogue())
+        elseif option == optionTriggerGenerateDiaryBio
+            ShowResultInt("TriggerGenerateDiaryBio", SkyrimNetApi.TriggerGenerateDiaryBio())
+        elseif option == optionTriggerInterruptDialogue
+            ShowResultInt("TriggerInterruptDialogue", SkyrimNetApi.TriggerInterruptDialogue())
+        endif
+        
+    ; === Dialogue Category ===
+    elseif devCurrentCategory == DEV_CAT_DIALOGUE
+        if option == optionDialogueExecute
+            int result = SkyrimNetApi.RegisterDialogue(Game.GetPlayer(), devDialogueContent)
+            ShowResultInt("RegisterDialogue", result)
+        elseif option == optionPurgeDialogue
+            int result = SkyrimNetApi.PurgeDialogue()
+            ShowResultInt("PurgeDialogue", result)
+        endif
+        
+    ; === Events Category ===
+    elseif devCurrentCategory == DEV_CAT_EVENTS
+        if option == optionEventExecute
+            int result = SkyrimNetApi.RegisterEvent(devEventType, devEventContent, Game.GetPlayer(), None)
+            ShowResultInt("RegisterEvent", result)
+        elseif option == optionShortEventExecute
+            int result = SkyrimNetApi.RegisterShortLivedEvent(devShortEventId, devShortEventType, devShortEventDesc, "", devShortEventTtl, Game.GetPlayer(), None)
+            ShowResultInt("RegisterShortLivedEvent", result)
+        endif
+        
+    ; === Utilities Category ===
+    elseif devCurrentCategory == DEV_CAT_UTILITIES
+        if option == optionRenderTemplate
+            string result = SkyrimNetApi.RenderTemplate(devTemplateName, devTemplateVarName, devTemplateVarValue)
+            ShowResult("RenderTemplate", result)
+        elseif option == optionParseExecute
+            string result = SkyrimNetApi.ParseString(devParseInput, devParseVarName, devParseVarValue)
+            ShowResult("ParseString", result)
+        elseif option == optionGetConfigString
+            string result = SkyrimNetApi.GetConfigString(devConfigName, devConfigPath, devConfigDefault)
+            ShowResult("GetConfigString", result)
+        endif
+        
+    ; === System Category ===
+    elseif devCurrentCategory == DEV_CAT_SYSTEM
+        if option == optionOpenWebUI
+            ShowResultInt("OpenSkyrimNetUI", SkyrimNetApi.OpenSkyrimNetUI())
+        elseif option == optionGetVersion
+            ShowResult("GetBuildVersion", SkyrimNetApi.GetBuildVersion())
+        elseif option == optionGetBuildType
+            ShowResult("GetBuildType", SkyrimNetApi.GetBuildType())
+        elseif option == optionIsRecording
+            ShowResult("IsRecordingInput", SkyrimNetApi.IsRecordingInput() as string)
+        elseif option == optionIsVR
+            ShowResult("IsRunningVR", SkyrimNetApi.IsRunningVR() as string)
+        elseif option == optionSpeechQueueSize
+            ShowResultInt("GetSpeechQueueSize", SkyrimNetApi.GetSpeechQueueSize())
+        elseif option == optionTimeSinceAudio
+            ShowResultInt("GetTimeSinceLastAudioEnded", SkyrimNetApi.GetTimeSinceLastAudioEnded())
+        elseif option == optionCppHotkeysToggle
+            bool currentState = SkyrimNetApi.IsCppHotkeysEnabled()
+            SkyrimNetApi.SetCppHotkeysEnabled(!currentState)
+            SetToggleOptionValue(optionCppHotkeysToggle, !currentState)
+        endif
+    endif
+    
+endfunction
+
+event OnOptionMenuOpen(int option)
+    if option == devCategoryMenu
+        SetMenuDialogOptions(devCategoryNames)
+        SetMenuDialogStartIndex(devCurrentCategory)
+        SetMenuDialogDefaultIndex(0)
+    endif
+endevent
+
+event OnOptionMenuAccept(int option, int index)
+    if option == devCategoryMenu
+        devCurrentCategory = index
+        SetMenuOptionValue(devCategoryMenu, devCategoryNames[devCurrentCategory])
+        ForcePageReset()
+    endif
+endevent
+
+event OnOptionInputOpen(int option)
+    ; Only handle inputs on Developer page
+    if CurrentPage != "Developer"
+        return
+    endif
+    
+    ; LLM Category
+    if devCurrentCategory == DEV_CAT_LLM
+        if option == optionLlmPromptName
+            SetInputDialogStartText(devLlmPromptName)
+        elseif option == optionLlmVariant
+            SetInputDialogStartText(devLlmVariant)
+        elseif option == optionLlmContextJson
+            SetInputDialogStartText(devLlmContextJson)
+        elseif option == optionNarrationContent
+            SetInputDialogStartText(devNarrationContent)
+        elseif option == optionPersistentContent
+            SetInputDialogStartText(devPersistentContent)
+        endif
+    ; Dialogue Category
+    elseif devCurrentCategory == DEV_CAT_DIALOGUE
+        if option == optionDialogueContent
+            SetInputDialogStartText(devDialogueContent)
+        endif
+    ; Events Category
+    elseif devCurrentCategory == DEV_CAT_EVENTS
+        if option == optionEventType
+            SetInputDialogStartText(devEventType)
+        elseif option == optionEventContent
+            SetInputDialogStartText(devEventContent)
+        elseif option == optionShortEventId
+            SetInputDialogStartText(devShortEventId)
+        elseif option == optionShortEventType
+            SetInputDialogStartText(devShortEventType)
+        elseif option == optionShortEventDesc
+            SetInputDialogStartText(devShortEventDesc)
+        endif
+    ; Utilities Category
+    elseif devCurrentCategory == DEV_CAT_UTILITIES
+        if option == optionTemplateNameInput
+            SetInputDialogStartText(devTemplateName)
+        elseif option == optionTemplateVarName
+            SetInputDialogStartText(devTemplateVarName)
+        elseif option == optionTemplateVarValue
+            SetInputDialogStartText(devTemplateVarValue)
+        elseif option == optionParseInput
+            SetInputDialogStartText(devParseInput)
+        elseif option == optionParseVarName
+            SetInputDialogStartText(devParseVarName)
+        elseif option == optionParseVarValue
+            SetInputDialogStartText(devParseVarValue)
+        elseif option == optionConfigName
+            SetInputDialogStartText(devConfigName)
+        elseif option == optionConfigPath
+            SetInputDialogStartText(devConfigPath)
+        elseif option == optionConfigDefault
+            SetInputDialogStartText(devConfigDefault)
+        endif
+    endif
+endevent
+
+event OnOptionInputAccept(int option, string value)
+    ; Only handle inputs on Developer page
+    if CurrentPage != "Developer"
+        return
+    endif
+    
+    ; LLM Category
+    if devCurrentCategory == DEV_CAT_LLM
+        if option == optionLlmPromptName
+            devLlmPromptName = value
+            SetInputOptionValue(optionLlmPromptName, value)
+        elseif option == optionLlmVariant
+            devLlmVariant = value
+            SetInputOptionValue(optionLlmVariant, TruncateDisplay(value, "(default)"))
+        elseif option == optionLlmContextJson
+            devLlmContextJson = value
+            SetInputOptionValue(optionLlmContextJson, TruncateDisplay(value, "(none)"))
+        elseif option == optionNarrationContent
+            devNarrationContent = value
+            SetInputOptionValue(optionNarrationContent, TruncateDisplay(value, "(enter text)"))
+        elseif option == optionPersistentContent
+            devPersistentContent = value
+            SetInputOptionValue(optionPersistentContent, TruncateDisplay(value, "(enter text)"))
+        endif
+    ; Dialogue Category
+    elseif devCurrentCategory == DEV_CAT_DIALOGUE
+        if option == optionDialogueContent
+            devDialogueContent = value
+            SetInputOptionValue(optionDialogueContent, TruncateDisplay(value, "(enter text)"))
+        endif
+    ; Events Category
+    elseif devCurrentCategory == DEV_CAT_EVENTS
+        if option == optionEventType
+            devEventType = value
+            SetInputOptionValue(optionEventType, value)
+        elseif option == optionEventContent
+            devEventContent = value
+            SetInputOptionValue(optionEventContent, TruncateDisplay(value, "(enter text)"))
+        elseif option == optionShortEventId
+            devShortEventId = value
+            SetInputOptionValue(optionShortEventId, value)
+        elseif option == optionShortEventType
+            devShortEventType = value
+            SetInputOptionValue(optionShortEventType, value)
+        elseif option == optionShortEventDesc
+            devShortEventDesc = value
+            SetInputOptionValue(optionShortEventDesc, TruncateDisplay(value, "(enter)"))
+        endif
+    ; Utilities Category
+    elseif devCurrentCategory == DEV_CAT_UTILITIES
+        if option == optionTemplateNameInput
+            devTemplateName = value
+            SetInputOptionValue(optionTemplateNameInput, value)
+        elseif option == optionTemplateVarName
+            devTemplateVarName = value
+            SetInputOptionValue(optionTemplateVarName, TruncateDisplay(value, "(optional)"))
+        elseif option == optionTemplateVarValue
+            devTemplateVarValue = value
+            SetInputOptionValue(optionTemplateVarValue, TruncateDisplay(value, "(optional)"))
+        elseif option == optionParseInput
+            devParseInput = value
+            SetInputOptionValue(optionParseInput, TruncateDisplay(value, "(enter)"))
+        elseif option == optionParseVarName
+            devParseVarName = value
+            SetInputOptionValue(optionParseVarName, value)
+        elseif option == optionParseVarValue
+            devParseVarValue = value
+            SetInputOptionValue(optionParseVarValue, TruncateDisplay(value, "(enter)"))
+        elseif option == optionConfigName
+            devConfigName = value
+            SetInputOptionValue(optionConfigName, value)
+        elseif option == optionConfigPath
+            devConfigPath = value
+            SetInputOptionValue(optionConfigPath, value)
+        elseif option == optionConfigDefault
+            devConfigDefault = value
+            SetInputOptionValue(optionConfigDefault, TruncateDisplay(value, "(empty)"))
+        endif
+    endif
+endevent
+
+event OnOptionSliderOpen(int option)
+    ; Only handle sliders on Developer page, Events category
+    if CurrentPage != "Developer" || devCurrentCategory != DEV_CAT_EVENTS
+        return
+    endif
+    
+    if option == optionShortEventTtl
+        SetSliderDialogStartValue(devShortEventTtl as float)
+        SetSliderDialogDefaultValue(30000.0)
+        SetSliderDialogRange(1000.0, 300000.0)
+        SetSliderDialogInterval(1000.0)
+    endif
+endevent
+
+event OnOptionSliderAccept(int option, float value)
+    ; Only handle sliders on Developer page, Events category
+    if CurrentPage != "Developer" || devCurrentCategory != DEV_CAT_EVENTS
+        return
+    endif
+    
+    if option == optionShortEventTtl
+        devShortEventTtl = value as int
+        SetSliderOptionValue(optionShortEventTtl, value, "{0}")
+    endif
 endevent
 
 event OnOptionKeyMapChange(int option, int keyCode, string conflictControl, string conflictName)
@@ -310,3 +1061,40 @@ event OnOptionDefault(int option)
     endif
     
 endevent
+
+; ============================================================================
+; LLM Prompt Execution
+; ============================================================================
+function ExecuteLlmPrompt()
+    Debug.Trace("[SkyrimNet MCM] Executing SendCustomPromptToLLM...")
+    Debug.Trace("[SkyrimNet MCM]   Prompt: " + devLlmPromptName)
+    Debug.Trace("[SkyrimNet MCM]   Variant: " + devLlmVariant)
+    
+    ; If using the default test prompt, add timestamp dynamically
+    string contextToSend = devLlmContextJson
+    if devLlmPromptName == "dev/mcm_test" && devLlmContextJson == "{\"test_variable\":\"Hello from MCM!\"}"
+        contextToSend = "{\"test_variable\":\"Hello from MCM!\",\"timestamp\":\"" + Utility.GetCurrentGameTime() + "\"}"
+    endif
+    
+    Debug.Trace("[SkyrimNet MCM]   Context: " + contextToSend)
+    
+    int result = SkyrimNetApi.SendCustomPromptToLLM(devLlmPromptName, devLlmVariant, contextToSend, Self as Quest, "skynet_McmScript", "OnLlmResponse")
+    
+    if result != 1
+        ShowResult("SendCustomPromptToLLM", "Failed to queue request (code: " + result + ")")
+    else
+        Debug.Notification("LLM request queued...")
+    endif
+endfunction
+
+; Callback for LLM response
+Function OnLlmResponse(String response, int success)
+    Debug.Trace("[SkyrimNet MCM] OnLlmResponse - Success: " + success)
+    Debug.Trace("[SkyrimNet MCM] Response: " + response)
+    
+    if success == 1
+        Debug.MessageBox("LLM Response:\n\n" + response)
+    else
+        Debug.MessageBox("LLM Request Failed:\n\n" + response)
+    endif
+EndFunction
