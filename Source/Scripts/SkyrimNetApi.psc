@@ -90,6 +90,19 @@ int function RegisterDialogue(Actor speaker, String dialogue) Global Native
 ; Returns 0 on success, 1 on failure
 int function RegisterDialogueToListener(Actor speaker, Actor listener, String dialogue) Global Native
 
+; Immediately purge all ongoing NPC dialogue
+; This function stops all dialogue processing:
+; - Interrupts currently playing audio
+; - Clears the audio queue
+; - Clears the speech/TTS generation queue
+; - Clears streaming text buffers
+; - Clears dialogue queues for all actors
+; - Invalidates pending TTS generation tasks
+; Note: This is a blocking call on the Papyrus thread. For non-blocking behavior
+; with hotkey-style checks and notifications, use TriggerInterruptDialogue() instead.
+; Returns 1 if audio was interrupted mid-playback, 0 otherwise
+int function PurgeDialogue() Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Package Management ---
 ; -----------------------------------------------------------------------------
@@ -590,6 +603,20 @@ int function TriggerCaptureCrosshairReleased(float holdDuration) Global Native
 ; - Generates diary entries and dynamic bio updates for all matching actors
 ; Returns 0 on success, 1 on failure
 int function TriggerGenerateDiaryBio() Global Native
+
+; -----------------------------------------------------------------------------
+; --- Interrupt Dialogue Hotkey ---
+; -----------------------------------------------------------------------------
+
+; Simulates pressing the interrupt dialogue hotkey
+; - Immediately stops all ongoing NPC dialogue
+; - Clears the audio queue and any currently playing speech
+; - Clears the speech/TTS generation queue
+; - Clears streaming text buffers
+; - Clears dialogue queues for all actors
+; Useful for cutting off NPCs mid-sentence or clearing stuck dialogue
+; Returns 0 on success, 1 on failure
+int function TriggerInterruptDialogue() Global Native
 
 ; -----------------------------------------------------------------------------
 ; --- Events ---

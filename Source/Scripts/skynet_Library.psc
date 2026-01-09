@@ -558,6 +558,9 @@ Function InitVRIntegrations()
 
     RegisterForModEvent("skynet_vrik_trigger_dialogue_transform_release", "OnVrikTriggerDialogueTransformRelease")
     VRIK.VrikAddGestureAction("skynet_vrik_trigger_dialogue_transform_release", "SkyrimNet: Stop Dialogue Transform Input")
+
+    RegisterForModEvent("skynet_vrik_interrupt_dialogue", "OnVrikInterruptDialogue")
+    VRIK.VrikAddGestureAction("skynet_vrik_interrupt_dialogue", "SkyrimNet: Interrupt Dialogue")
 EndFunction
   
 Event OnVrikTriggerDialogueTransform(string eventName, string strArg, float numArg, Form sender)
@@ -602,6 +605,10 @@ EndEvent
   
 Event OnVrikTriggerPlayerDialogue(string eventName, string strArg, float numArg, Form sender)
     SkyrimNetApi.TriggerPlayerDialogue()
+EndEvent
+
+Event OnVrikInterruptDialogue(string eventName, string strArg, float numArg, Form sender)
+    SkyrimNetApi.TriggerInterruptDialogue()
 EndEvent
 
 ; -----------------------------------------------------------------------------
@@ -743,6 +750,7 @@ Int Property hotkeyToggleWhisperMode = -1 Auto Hidden
 Int Property hotkeyToggleOpenMic = -1 Auto Hidden
 Int Property hotkeyCaptureCrosshair = -1 Auto Hidden
 Int Property hotkeyGenerateDiaryBio = -1 Auto Hidden
+Int Property hotkeyInterruptDialogue = -1 Auto Hidden
 
 Bool Property inGameHotkeysEnabled = false Auto Hidden
 
@@ -840,6 +848,9 @@ Function RegisterConfiguredHotkeys()
     If hotkeyGenerateDiaryBio != -1
         RegisterForKey(hotkeyGenerateDiaryBio)
     EndIf
+    If hotkeyInterruptDialogue != -1
+        RegisterForKey(hotkeyInterruptDialogue)
+    EndIf
 EndFunction
 
 Function UnregisterAllHotkeys()
@@ -891,6 +902,9 @@ Function UnregisterAllHotkeys()
     EndIf
     If hotkeyGenerateDiaryBio != -1
         UnregisterForKey(hotkeyGenerateDiaryBio)
+    EndIf
+    If hotkeyInterruptDialogue != -1
+        UnregisterForKey(hotkeyInterruptDialogue)
     EndIf
 EndFunction
 
@@ -1037,6 +1051,8 @@ Function HandleHotkeyPress(Int keyCode)
         SkyrimNetApi.TriggerToggleOpenMic()
     ElseIf keyCode == hotkeyGenerateDiaryBio && hotkeyGenerateDiaryBio != -1
         SkyrimNetApi.TriggerGenerateDiaryBio()
+    ElseIf keyCode == hotkeyInterruptDialogue && hotkeyInterruptDialogue != -1
+        SkyrimNetApi.TriggerInterruptDialogue()
     EndIf
 EndFunction
 
