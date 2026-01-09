@@ -144,6 +144,7 @@ int optionIsVR
 int optionSpeechQueueSize
 int optionTimeSinceAudio
 int optionCppHotkeysToggle
+int optionIsContinuousMode
 
 ; ============================================================================
 ; Last result tracking
@@ -394,6 +395,7 @@ function ResetDevOptionIds()
     optionSpeechQueueSize = -1
     optionTimeSinceAudio = -1
     optionCppHotkeysToggle = -1
+    optionIsContinuousMode = -1
 endfunction
 
 ; ============================================================================
@@ -582,6 +584,11 @@ function DisplayDevSystem()
     bool cppEnabled = SkyrimNetApi.IsCppHotkeysEnabled()
     optionCppHotkeysToggle = AddToggleOption("C++ Hotkeys Enabled", cppEnabled)
     
+    AddHeaderOption("GameMaster State")
+    AddHeaderOption("")
+    
+    optionIsContinuousMode = AddTextOption("IsContinuousModeEnabled", "[Check]")
+    
 endfunction
 
 ; ============================================================================
@@ -737,6 +744,8 @@ function HandleDeveloperOptionSelect(int option)
             bool currentState = SkyrimNetApi.IsCppHotkeysEnabled()
             SkyrimNetApi.SetCppHotkeysEnabled(!currentState)
             SetToggleOptionValue(optionCppHotkeysToggle, !currentState)
+        elseif option == optionIsContinuousMode
+            ShowResult("IsContinuousModeEnabled", SkyrimNetApi.IsContinuousModeEnabled() as string)
         endif
     endif
     
