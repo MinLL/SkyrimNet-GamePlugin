@@ -5,6 +5,15 @@
 
     - If {{npc.name}}'s words or actions (including narrative cues, e.g., *Orgnar shrugs, returning to wiping the counter.*) clearly suggest a specific, visible in-game action from the eligible list, choose that action.
     - Do NOT choose dramatic or aggressive actions unless they are clearly signaled in the dialogue or situation.
+    {% if structured_json_actions %}
+    - If no listed action directly matches, return `{"ACTION": "None"}`.
+
+    Respond with exactly one line:
+    - If the action takes no parameters: `{"ACTION": "ActionName"}`
+    - If the action takes parameters: `{"ACTION": "ActionName", "PARAMS": {"param_name1": "value1", ...}}` (ensure PARAMS is a valid JSON object)
+    - If no action fits: `{"ACTION": "None"}`
+    Only return one line with JSON and nothing else.
+    {% else %}
     - If no listed action directly matches, return `ACTION: None`.
 
     Respond with exactly one line:
@@ -12,7 +21,7 @@
     - If the action takes parameters: `ACTION: ActionName PARAMS: {"param_name1": "value1", ...}` (ensure PARAMS is a valid JSON object)
     - If no action fits: `ACTION: None`
     Only return one line, beginning with "ACTION:" and nothing else.
-
+    {% endif %}
     ## {{ npc.name }}'s Profile
     {{ render_character_profile("full", npc.UUID) }}
 [ end system ]
@@ -45,9 +54,18 @@
     **Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should be accompanied by the dialogue.**
 
     ## Format Reminder:
+    {% if structured_json_actions %}   
+    - `{"ACTION": "ActionName"}`
+    - `{"ACTION": "ActionName","PARAMS": {"param1": "value"}}`
+    - `{"ACTION": "None"}`
+
+    Only return one line with JSON and nothing else.  Do not include any reasoning or thinking in your response.
+    {% else %}
     - `ACTION: ActionName`
     - `ACTION: ActionName PARAMS: {"param1": "value"}`
     - `ACTION: None`
 
     Only return one line, beginning with "ACTION:" and nothing else. Do not include any reasoning or thinking in your response.
+    {% endif %}
+
 [ end user ]
