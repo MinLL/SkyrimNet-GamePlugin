@@ -324,11 +324,11 @@ Consumables found: {{ length(nearbyConsumables) }}
 ### Test 11: get_container_contents() - Container Inventory
 
 {% if nearbyContainers and length(nearbyContainers) > 0 %}
-{% set firstContainer = nearbyContainers[0] %}
+{% set firstContainer = first(nearbyContainers) %}
 **Inspecting: {{ firstContainer.name }}** (FormID: {{ firstContainer.formID }})
 
 {% set contents = get_container_contents(firstContainer.formID) %}
-{% if contents.error is not defined %}
+{% if not contents.error %}
 - Container Name: {{ contents.name }}
 - Locked: {% if contents.locked %}🔒 Yes (Level: {{ contents.lockLevel }}){% else %}🔓 No{% endif %}
 - Total Items: {{ contents.itemCount }}

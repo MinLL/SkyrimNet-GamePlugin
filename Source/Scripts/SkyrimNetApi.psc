@@ -156,8 +156,12 @@ int function ReinforcePackages(Actor akActor) Global Native
 ;
 ; The callback function signature should be:
 ;   Function OnLLMResponse(String response, int success)
-;   - response: The LLM response text (capped at 750 characters), or error message
-;   - success: 1 if successful, 0 if an error occurred
+;   - response: The LLM response text (capped at 750 characters), or error message if failed
+;   - success: Status code indicating the result:
+;       1 = Success - LLM responded successfully, response contains the generated text
+;       0 = Error - Something went wrong, response contains the error message
+;           Possible errors include: template render failure, LLM initialization failure,
+;           empty LLM response, network timeout, or other exceptions
 ;
 ; Example usage:
 ;   ; Simple call with default variant and no custom variables:
@@ -599,6 +603,15 @@ int function SetCppHotkeysEnabled(bool enabled) Global Native
 ; Check if C++ hotkey manager is currently enabled
 ; Returns true if C++ hotkeys are enabled, false otherwise
 bool function IsCppHotkeysEnabled() Global Native
+
+; -----------------------------------------------------------------------------
+; --- GameMaster State Queries ---
+; -----------------------------------------------------------------------------
+
+; Check if continuous scene mode is enabled
+; When enabled, NPCs will keep talking autonomously after player interaction ends
+; Returns true if continuous mode is enabled, false otherwise
+bool function IsContinuousModeEnabled() Global Native
 
 ; -----------------------------------------------------------------------------
 ; --- Crosshair Capture Hotkey (OmniSight) ---
