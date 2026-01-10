@@ -1,7 +1,7 @@
 {# TEST SUBMODULE - Quest & Game System Decorators #}
 {# Tests: get_all_active_quests, get_selected_quests, is_quest_active, get_quest_stage, #}
-{#        get_global_value, get_form_name, get_script_property (with array support), #}
-{#        is_plugin_loaded, etc. #}
+{#        get_global_value, get_form_name, get_script_property (with array & ReferenceAlias support), #}
+{#        get_quest_alias_actor (NEW), is_plugin_loaded, etc. #}
 {# CATEGORY: Quest, Game System #}
 
 {% set actor = decnpc(actorUUID) %}
@@ -364,4 +364,137 @@ First 10 Plugins: {{ join(allPlugins, ", ") }}
 
 ---
 
+### Test 13: Quest Alias Access - get_quest_alias_actor()
+
+{# Direct quest alias access - get actor from a quest's alias by name #}
+{# Returns: { uuid, formId, name, editorId } or null if alias is empty #}
+{# IMPORTANT: Use the ALIAS NAME defined in the quest, not the script property name! #}
+{#   - Alias names: "Follower", "Animal", "Player" (defined in quest aliases) #}
+{#   - Script property names: "pFollowerAlias", "pAnimalAlias" (properties pointing to aliases) #}
+
+**DialogueFollower Quest Aliases:**
+
+{# Use actual alias names from the quest, not script property names #}
+{% set followerActor = get_quest_alias_actor("DialogueFollower", "Follower") %}
+- Follower Alias (Current Follower):
+{% if followerActor %}
+  - ✓ FILLED
+  - UUID: {{ followerActor.uuid }}
+  - FormID: {{ followerActor.formId }}
+  - Name: {{ followerActor.name }}
+  - EditorID: {% if followerActor.editorId %}{{ followerActor.editorId }}{% else %}(none){% endif %}
+{% else %}
+  - ✗ EMPTY (No follower currently recruited)
+{% endif %}
+
+{% set animalActor = get_quest_alias_actor("DialogueFollower", "Animal") %}
+- Animal Alias (Current Animal):
+{% if animalActor %}
+  - ✓ FILLED
+  - UUID: {{ animalActor.uuid }}
+  - FormID: {{ animalActor.formId }}
+  - Name: {{ animalActor.name }}
+{% else %}
+  - ✗ EMPTY (No animal companion currently)
+{% endif %}
+
+**Error Handling:**
+{# Test with non-existent quest #}
+{% set badQuest = get_quest_alias_actor("NonExistentQuest", "SomeAlias") %}
+- Non-existent quest: {% if badQuest %}Unexpected result{% else %}✓ null (expected){% endif %}
+
+{# Test with non-existent alias #}
+{% set badAlias = get_quest_alias_actor("DialogueFollower", "NonExistentAlias") %}
+- Non-existent alias: {% if badAlias %}Unexpected result{% else %}✓ null (expected){% endif %}
+
+{# Test with script property name (should fail - wrong type of name) #}
+{% set wrongNameType = get_quest_alias_actor("DialogueFollower", "pFollowerAlias") %}
+- Script property name (wrong): {% if wrongNameType %}Unexpected result{% else %}✓ null (script property names don't work here){% endif %}
+
+---
+
+### Test 14: ReferenceAlias Resolution via get_script_property()
+
+{# ENHANCED: get_script_property() now resolves ReferenceAlias properties to actors #}
+{# When a property is typed as ReferenceAlias, it returns the referenced actor's data #}
+{# including UUID, formId, editorId, and name #}
+
+**DialogueFollower Script ReferenceAlias Properties:**
+
+{# pFollowerAlias property - should resolve to the actual follower actor #}
+{% set followerProp = get_script_property("DialogueFollower", "dialoguefollowerscript", "pFollowerAlias") %}
+- pFollowerAlias (via get_script_property):
+{% if followerProp %}
+  {% if followerProp.uuid %}
+  - ✓ RESOLVED TO ACTOR
+  - UUID: {{ followerProp.uuid }}
+  - FormID: {{ followerProp.formId }}
+  - Name: {{ followerProp.name }}
+  - EditorID: {{ followerProp.editorId }}
+  {% else %}
+  - ⚠️ ReferenceAlias returned but not resolved: {{ followerProp }}
+  {% endif %}
+{% else %}
+  - ✗ EMPTY (No follower currently)
+{% endif %}
+
+{# pAnimalAlias property #}
+{% set animalProp = get_script_property("DialogueFollower", "dialoguefollowerscript", "pAnimalAlias") %}
+- pAnimalAlias (via get_script_property):
+{% if animalProp %}
+  {% if animalProp.uuid %}
+  - ✓ RESOLVED TO ACTOR
+  - UUID: {{ animalProp.uuid }}
+  - Name: {{ animalProp.name }}
+  {% else %}
+  - ⚠️ ReferenceAlias returned but not resolved
+  {% endif %}
+{% else %}
+  - ✗ EMPTY (No animal companion)
+{% endif %}
+
+**Comparison: Direct Alias vs Script Property:**
+{# Both methods should return the same actor when the alias is filled #}
+{# Direct alias uses the alias NAME ("Follower"), script property uses property name ("pFollowerAlias") #}
+{% set directFollower = get_quest_alias_actor("DialogueFollower", "Follower") %}
+{% set propFollower = get_script_property("DialogueFollower", "dialoguefollowerscript", "pFollowerAlias") %}
+
+{% if directFollower and propFollower %}
+- Direct alias UUID (via "Follower"): {{ directFollower.uuid }}
+- Script property UUID (via "pFollowerAlias"): {{ propFollower.uuid }}
+- UUIDs Match: {% if directFollower.uuid == propFollower.uuid %}✓ YES - Both methods reference the same actor{% else %}✗ NO{% endif %}
+{% elif not directFollower and not propFollower %}
+- Both methods return null (alias is empty) ✓
+{% else %}
+- ⚠️ Mismatch: Direct alias returned {% if directFollower %}data{% else %}null{% endif %}, Script property returned {% if propFollower %}data{% else %}null{% endif %}
+{% endif %}
+
+---
+
+### Test 15: Actor Property Resolution via get_script_property()
+
+{# Test that Actor-typed properties also get UUID resolution #}
+
+**skynet_MainController Actor Properties:**
+{% set playerRefProp = get_script_property("skynet_MainController", "skynet_MainController", "playerRef") %}
+- playerRef (Actor property):
+{% if playerRefProp %}
+  {% if playerRefProp.uuid %}
+  - ✓ RESOLVED TO ACTOR
+  - UUID: {{ playerRefProp.uuid }}
+  - FormID: {{ playerRefProp.formId }}
+  - Name: {% if playerRefProp.name %}{{ playerRefProp.name }}{% else %}(Player - name from character creation){% endif %}
+  - Is Player: {% if playerRefProp.uuid == player.UUID %}✓ YES{% else %}✗ NO{% endif %}
+  {% else %}
+  - Property found but no UUID: {{ playerRefProp }}
+  {% endif %}
+{% else %}
+  - ✗ Property not found or null
+{% endif %}
+
+{# Note: The player actor doesn't have a "name" in the traditional NPC sense - #}
+{# their name comes from character creation and is stored differently. #}
+{# Use player.name from the context instead for the player's display name. #}
+
+---
 

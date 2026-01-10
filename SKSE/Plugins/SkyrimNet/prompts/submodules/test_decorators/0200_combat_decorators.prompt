@@ -96,7 +96,7 @@
 {% for spell in actorSpells %}
 {% if loop.index <= 10 %}
 - **{{ spell.name }}** ({{ spell.spellType }})
-  - School: {{ spell.school if spell.school else "N/A (Power)" }}
+  - School: {% if spell.school %}{{ spell.school }}{% else %}N/A (Power){% endif %}
   - Casting: {{ spell.castingType }} | Delivery: {{ spell.delivery }}
   - Magicka Cost: {{ spell.magickaCost }} | Charge Time: {{ spell.chargeTime }}s
   - Two-Handed: {% if spell.isTwoHanded %}Yes{% else %}No{% endif %} | Hostile: {% if spell.isHostile %}⚠️ Yes{% else %}No{% endif %}
@@ -129,7 +129,7 @@
 **Player's Known Spells:** ({{ length(playerSpells) }} total)
 {% for spell in playerSpells %}
 {% if loop.index <= 8 %}
-- {{ spell.name }} ({{ spell.school if spell.school else spell.spellType }}) - {{ spell.castingType }}
+- {{ spell.name }} ({% if spell.school %}{{ spell.school }}{% else %}{{ spell.spellType }}{% endif %}) - {{ spell.castingType }}
 {% endif %}
 {% endfor %}
 {% if length(playerSpells) > 8 %}
