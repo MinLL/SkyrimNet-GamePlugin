@@ -1,5 +1,5 @@
 {# TEST SUBMODULE - Scene & World Decorators #}
-{# Tests: location, currentWeather, gameTime, gameTimeJson, gameTimeNumeric, #}
+{# Tests: location, get_location, currentWeather, gameTime, gameTimeJson, gameTimeNumeric, #}
 {#        currentTime, is_indoors, short_time, get_nearby_npc_list, #}
 {#        get_active_short_lived_events, get_nearby_references, #}
 {#        get_container_contents, etc. #}
@@ -12,8 +12,21 @@
 
 ### Test 1: Location Decorators
 
-**location:**
+**location (player's current location):**
 - Current Location: {{ location }}
+
+**get_location() - Location for any actor:**
+- Player Location: {{ get_location(player.UUID) }}
+- {{ actorName }}'s Location: {{ get_location(actorUUID) }}
+
+**Location Comparison:**
+{% if get_location(actorUUID) == get_location(player.UUID) %}
+📍 {{ actorName }} is in the same location as the player.
+{% else %}
+📍 {{ actorName }} is in a different location than the player.
+  - Player: {{ get_location(player.UUID) }}
+  - {{ actorName }}: {{ get_location(actorUUID) }}
+{% endif %}
 
 **is_indoors:**
 - Indoor Status: {% if is_indoors %}🏠 INDOORS{% else %}🌲 OUTDOORS{% endif %}
