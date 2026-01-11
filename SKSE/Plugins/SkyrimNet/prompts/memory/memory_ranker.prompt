@@ -1,7 +1,7 @@
 You are tasked with ranking an actor's memories in order of their contextual relevance. Your job is to select the most relevant memories based on the current situation.
 
 ## Context
-The NPC is {{ decnpc(actorUUID).name }}, who is currently in {{ location }}. Their current mood is {{ npcMood }}.
+The NPC is {{ decnpc(actorUUID).name }}, who is currently in {{ get_location(actorUUID) }}. Their current mood is {{ npcMood }}.
 The current game time is {{ gameTime }}.
 
 {% if playerRelationship %}

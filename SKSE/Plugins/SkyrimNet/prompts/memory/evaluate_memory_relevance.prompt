@@ -6,7 +6,7 @@
     # NPC MEMORY CONTEXT
     ## NPC Information
     - Name: {{ decnpc(npc.UUID).name }}
-    - Current Location: {{ location }}
+    - Current Location: {{ get_location(npc.UUID) }}
     - Current Mood: {{ mood }}
 
     ## Nearby NPCs

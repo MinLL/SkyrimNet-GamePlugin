@@ -42,8 +42,9 @@
 {% endfor %}
 
 {% if lastEventTime > 0 %}
+    {% if exists("npc") and existsIn(npc, "UUID") %}{% set currentActorLocation = get_location(npc.UUID) %}{% else %}{% set currentActorLocation = location %}{% endif %}
     {% set timeSinceLastEvent = gameTimeNumeric - lastEventTime %}
-    {% set locationChangedSinceLastEvent = (lastEventLocation != "" and lastEventLocation != location) %}
+    {% set locationChangedSinceLastEvent = (lastEventLocation != "" and lastEventLocation != currentActorLocation) %}
 
     {% if timeSinceLastEvent > 1800 or locationChangedSinceLastEvent %}
         {% set timePassedDescription = "" %}
@@ -57,6 +58,6 @@
         {% else if timeSinceLastEvent > 1800 %}{% set timePassedDescription = "SOME TIME HAS PASSED" %}
         {% endif %}
 
---- {{ timePassedDescription }}{% if locationChangedSinceLastEvent %} AND LOCATION IS NOW: {{ location }}{% endif %} ---
+--- {{ timePassedDescription }}{% if locationChangedSinceLastEvent %} AND LOCATION IS NOW: {{ currentActorLocation }}{% endif %} ---
     {% endif %}
 {% endif %}

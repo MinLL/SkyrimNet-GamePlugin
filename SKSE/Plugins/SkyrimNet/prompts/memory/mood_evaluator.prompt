@@ -9,7 +9,7 @@
     - Gender: {{ decnpc(npc.UUID).gender }}
     - Class: {{ decnpc(npc.UUID).class }}
     - Base Disposition: {{ decnpc(npc.UUID).disposition }}
-    - Current Location: {{ location }}
+    - Current Location: {{ get_location(npc.UUID) }}
     - Personality: {{ npcPersonality }}
 
     ## Recent Events and Interactions
