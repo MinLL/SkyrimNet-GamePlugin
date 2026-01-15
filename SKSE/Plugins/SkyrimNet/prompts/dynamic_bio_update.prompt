@@ -18,7 +18,7 @@
         - Race: {{ actor.race.name }}
     {% endif %}
     - Sex: {% if actor.sex == 0 %}Male{% else %}Female{% endif %}
-    - Current Location: {{ currentLocation }}
+    - Current Location: {{ get_location(actor.UUID) }}
     - Current Time: {{ currentGameTime }}
 
     {% if factions and length(factions) > 0 %}

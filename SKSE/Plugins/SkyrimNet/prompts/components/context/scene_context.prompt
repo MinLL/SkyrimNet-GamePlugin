@@ -3,8 +3,10 @@
     {# Use sourceEntity.UUID if available (for NPC speakers), otherwise use player.UUID #}
     {% if sourceEntity %}
         {% set nearby_npcs = get_nearby_npc_list(sourceEntity.UUID) %}
+        {% set npcLocation = get_location(sourceEntity.UUID) %}
     {% else %}
         {% set nearby_npcs = get_nearby_npc_list(player.UUID) %}
+        {% set npcLocation = location %}
     {% endif %}
 {% endblock %}
 
@@ -24,7 +26,7 @@
 
 {% block situationSummary %}
     ## Current Location
-    The scene is taking place in **{{ location }}**
+    The scene is taking place in **{{ npcLocation }}**
 
     ## Current Time
     **Time**: {{ gameTime }}
