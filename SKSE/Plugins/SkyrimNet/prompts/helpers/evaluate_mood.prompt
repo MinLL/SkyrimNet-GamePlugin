@@ -5,7 +5,7 @@
 [ user ]
     ## Speaker Information
     - **Speaker**: {{ decnpc(speaker).name }} ({{ decnpc(speaker).gender }} {{ decnpc(speaker).race }})
-    - **Current Location**: {{ location }}
+    - **Current Location**: {{ get_location(speaker) }}
 
     ## Available Moods
     {% for mood in moodsList %}
