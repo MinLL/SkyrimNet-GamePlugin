@@ -67,6 +67,7 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 - [Skyrim VR ESL Support](https://www.nexusmods.com/skyrimspecialedition/mods/106712) - Use instead of BEES
 - [Skyrim VR Refocused](https://www.nexusmods.com/skyrimspecialedition/mods/32737), or a similar mod to make sure Skyrim keeps focus.
 - [MFG Fix NG](https://www.nexusmods.com/skyrimspecialedition/mods/133568)
+- [Dragonborn Voice Over - Skyrim VR Patch](https://www.nexusmods.com/skyrimspecialedition/mods/84329?tab=files), if using Dragonborn Voice Over
 
 
 *⚠️ Important: CUDA Toolkit is required for the CUDA build to load properly*
