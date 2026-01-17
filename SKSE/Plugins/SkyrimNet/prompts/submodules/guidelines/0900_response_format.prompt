@@ -7,9 +7,13 @@ Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
 - React emotionally—don't narrate what's happening, feel it
 - 1-2 short sentences maximum
 {% if is_narration_enabled() %}
-- One brief action allowed (optional), wrapped in asterisks: *{{ decnpc(npc.UUID).name }} frowns*
+- One brief **physical** action allowed (optional), wrapped in asterisks
+- Physical actions are observable body movements ONLY: *{{ decnpc(npc.UUID).name }} frowns*, *Her jaw tightens*, *She grips the strap of her pack*
+- NEVER wrap thoughts, feelings, or internal reactions in asterisks—those are the main text
 - NEVER repeat actions from recent history (no more toe-wiggling if you just did that)
 - Skip body parts already mentioned recently—find something new
+- **Wrong:** *[anxious] Whiterun, Solitude—they're just names to me.*
+- **Right:** Whiterun, Solitude—they're just names to me. *{{ decnpc(npc.UUID).name }} swallows hard.*
 {% else %}
 - No asterisks or actions
 {% endif %}

@@ -25,28 +25,25 @@ The following actors are involved in these memories:
 {{ render_template("components\\event_history_verbose") }}
 
 ## Instructions
-Create a coherent memory from the perspective of {{ actor_name }}. The memory should:
-1. Be written in first person ("I", "me", "my")
-2. Describe what happened from the actor's perspective
-3. Include emotional reactions and thoughts
-4. Feel natural and character-appropriate
-5. Synthesize multiple events into a cohesive narrative
-6. **Include specific names, places, and activities** for better recall. Only use location names if you are completely sure about where the majority of events took place. Sometimes memories will span more than one location.
-7. **Use concrete, searchable terms** rather than vague descriptions
-8. Don't include times such as "Last week". All memories should be a present tense recollection.
-9. IMPORTANT: Be specific about what happened in graphic and vivid detail. Don't allude to things that happened, be specific. This memory will be used later to help an LLM understand what happened.
+Create a concise first-person memory from {{ actor_name }}'s perspective:
+1. Write in first person, present tense recollection (no "last week" etc.)
+2. Be CONCISE but SPECIFIC: state exactly what happened, who was involved, where
+3. Prioritize factual details over flowery prose - names, actions, outcomes
+4. Include brief emotional context only when significant
+5. Synthesize events into 3-5 dense sentences max
+6. Use concrete, searchable terms (specific names, locations, actions)
 
 ## Response Format
-Respond ONLY with a JSON object containing:
+Respond ONLY with a JSON object:
 {% raw %}
 ```json
 {
-  "content": "First-person memory narrative describing the events and the actor's thoughts/feelings",
-  "location": "Primary location where this memory takes place (be specific - use full location names)",
-  "emotion": "Actor's dominant emotional state (choose from: joyful, content, neutral, concerned, fearful, angry, disgusted, surprised, sad, traumatized)",
+  "content": "Concise 3-5 sentence memory. Specific names, places, actions. Dense, not flowery.",
+  "location": "Full location name (e.g., Arcadia's Cauldron in Whiterun)",
+  "emotion": "joyful|content|neutral|concerned|fearful|angry|disgusted|surprised|sad|traumatized",
   "importance_score": 0.0-1.0,
-  "tags": ["specific", "searchable", "keywords", "from", "memory"],
-  "type": "EXPERIENCE"
+  "tags": ["name", "location", "action", "item", "theme"],
+  "type": "EXPERIENCE|RELATIONSHIP|KNOWLEDGE|LOCATION|SKILL|TRAUMA|JOY"
 }
 ```
 {% endraw %}
@@ -90,15 +87,36 @@ Respond ONLY with a JSON object containing:
 - Background events that don't directly involve you
 
 ### Content Guidelines:
-- **Names**: Always include specific character names when mentioned
-- **Locations**: Use full location names (e.g., "Arcadia's Cauldron in Whiterun" not just "the shop").
-- **Activities**: Describe specific actions (e.g., "sold iron daggers" not "did some trading")
-- **Emotions**: Connect feelings to specific triggers or events
-- **Sensory Details**: Include what the character saw, heard, or felt when relevant
-- **Length**: Keep the response as short as is effective to convey what happened. Generally aim for a 2-8 sentence summary.
+- **Be dense, not verbose**: Pack information into fewer words
+- **Names/Locations**: Always include specific names and full location names
+- **Skip filler**: No preambles, no "I remember when", no redundant context
+- **Emotions**: One word or short phrase when relevant, not elaborated
+- **Target length**: 2-4 sentences. Exceptional events may warrant 5-6 max.
+
+### Style Examples:
+
+**Example 1 - Trading:**
+❌ VERBOSE: "I found myself wandering through the bustling marketplace of Whiterun today, where I happened upon Belethor's General Goods. The shopkeeper, a somewhat sly Breton named Belethor, was there as usual. After some negotiation, I decided to sell him some of the iron daggers I had been crafting at the Skyforge. The transaction went smoothly, and I felt a sense of satisfaction at having earned some coin for my efforts."
+
+✅ CONCISE: "Sold five iron daggers to Belethor at his shop in Whiterun for 150 gold. Satisfying to profit from my smithing work at the Skyforge."
+
+**Example 2 - Combat:**
+❌ VERBOSE: "As I was traveling along the road near Riverwood, I suddenly found myself under attack by a group of bandits who had been lying in wait. There were three of them in total, and they seemed quite determined to relieve me of my possessions. The battle was fierce and intense, with swords clashing and arrows flying through the air. I managed to defeat them all, though not without sustaining some injuries in the process. After the fight was over, I searched their bodies and found some useful supplies and a small amount of gold."
+
+✅ CONCISE: "Ambushed by three bandits on the road near Riverwood. Killed all three in close combat - took a sword cut to my arm but survived. Looted 47 gold and a steel mace from their bodies."
+
+**Example 3 - Emotional/Relationship:**
+❌ VERBOSE: "I had a very meaningful and heartfelt conversation with Lydia at Breezehome today. She opened up to me about her feelings regarding her role as my housecarl, and I could tell that she has been struggling with some doubts about whether she is truly worthy of the position. I tried my best to reassure her and let her know how much I value her loyalty and companionship. By the end of our talk, she seemed much more at ease, and I felt that our bond had grown stronger as a result of this vulnerable moment we shared."
+
+✅ CONCISE: "Lydia confided her doubts about being worthy as my housecarl at Breezehome. Reassured her - she means more to me than just a servant. Our bond feels stronger now. Grateful for her trust."
+
+**Example 4 - Discovery/Quest:**
+❌ VERBOSE: "While exploring the ancient Nordic ruins of Bleak Falls Barrow, I stumbled upon something quite remarkable. Deep within the innermost chamber, past all the draugr and traps, I discovered what appeared to be a wall covered in strange, glowing writing. As I approached it, I felt a strange sensation wash over me, and suddenly I understood one of the words carved into the stone. It was a Word of Power, and I could feel its ancient magic resonating within my very soul. This must be what it means to have the blood of a dragon."
+
+✅ CONCISE: "Found a Word Wall in the depths of Bleak Falls Barrow. Learned 'Fus' - felt the dragon tongue burn into my mind. The dragonborn legends are true. I carry this power now."
 
 ### Tag Guidelines:
-Include 5-25 relevant tags focusing on:
+Include 5-10 relevant tags focusing on:
 - Character names mentioned (e.g., "belethor", "guards", "arcadia")
 - Specific locations (e.g., "whiterun", "dragonsreach", "marketplace")
 - Key activities (e.g., "trading", "combat", "conversation", "quest", "sex")

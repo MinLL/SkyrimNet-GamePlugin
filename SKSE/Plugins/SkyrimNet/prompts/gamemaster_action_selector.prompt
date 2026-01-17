@@ -26,7 +26,6 @@ Look at **Recent Events** to understand what's happening:
 - `dialogue` = NPC responded in conversation
 - `gamemaster_dialogue` = You previously prompted someone to speak
 - `dialogue_background` = Ambient/idle chatter
-- `direct_narration` = You previously narrated something
 
 **Ask yourself:**
 - Who spoke last? Who hasn't spoken in a while?
@@ -73,29 +72,6 @@ Initiate a **new** interaction:
 - ✗ "You've spent too much time with poets, boy..." (too long, this is dialogue)
 {% endif %}
 
-{% if is_continuous_mode and is_action_enabled("Narrate") %}
-### Narrate
-Use **sparingly** when it would meaningfully advance the scene:
-Shape the world actively—make things happen that dialogue alone cannot:
-
-**Environmental**: Weather, sounds, lighting, objects moving, wildlife, atmosphere
-**Character Actions**: Someone spills a drink, adjusts their weapon, exchanges a meaningful glance
-**World Events**: Distant sounds, approaching footsteps, someone enters/exits
-**Atmosphere**: Storm clouds gathering, ominous silence, something stirs in darkness
-
-When to use narration over dialogue:
-- Physical events that create hooks for characters to react to
-- Atmosphere or tension that words would undercut
-- Interruptions, arrivals, environmental shifts
-- A beat of silence or observation between exchanges
-
-Tips:
-- Be specific and sensory (seen, heard, smelled, felt)
-- 1-3 sentences maximum
-- Create hooks characters can react to
-- **Default to dialogue** when the scene needs someone to speak—narration is for when action or atmosphere serves better
-
-{% endif %}
 {% if is_continuous_mode %}
 ### Continuous Mode Active
 You are actively directing this scene. **You must select an action**—do not select None.
