@@ -49,14 +49,14 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 - [PapyrusUtil SE](https://www.nexusmods.com/skyrimspecialedition/mods/13048)
 - [Latest Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 - [Native EditorID Fix](https://www.nexusmods.com/skyrimspecialedition/mods/85260) (or [VR version](https://github.com/naitro2010/NativeEditorIDFixNG/releases/))
-  
-### 🚀 **CUDA Build Requirements** *(For Maximum Performance)*
-- NVIDIA GPU with CUDA support
-- [CUDA Toolkit 12.x](https://developer.nvidia.com/cuda-12-9-1-download-archive) - **IMPORTANT**: If using the CUDA build, SkyrimNet will not load without this!
 
 ### 📋 **Optional Dependencies**
 - [UIExtensions](https://www.nexusmods.com/skyrimspecialedition/mods/17561) - Required for text input and Input Wheel
-- [Dragonborn Voice Over](https://www.nexusmods.com/skyrimspecialedition/mods/84329) - Required for voicing player-selected lines in dialogue menus and the Silent NPC TTS feature, which voices otherwise silent NPC lines from other mods. To enable these features, install DBVO but disable or delete the DBVO.esp file (no voice pack is required). SkyrimNet will then capture dialogue events from the DBVO interface file and send them to TTS, allowing the player character and/or NPCs to speak normally silent lines.
+- [Dragonborn Voice Over](https://www.nexusmods.com/skyrimspecialedition/mods/84329) - Required for several optional features: voicing player lines in Dialogue menus (DBVO but with real-time audio generation), TTS for mods with silent voices, and Universal Translator. To enable these features, install DBVO but disable or delete the DBVO.esp file (no voice pack is required).
+- [CUDA Toolkit 12.x](https://developer.nvidia.com/cuda-12-9-1-download-archive) - If you have an NVIDIA GPU with CUDA support, CUDA toolkit 12.x (**not** the most recent 13.x versions) can be used to increase performance of local Whisper STT. Restart your PC after installing it.
+You can confirm that CUDA is being used on the Test & Easy Setup page in the Speech-to-Text Test section:
+  - <img width="600" height="122" alt="image" src="https://github.com/user-attachments/assets/68fdc4b5-70a3-402c-a258-ea33518d73a2" />
+
 
 ### 🎮 **Version-Specific Requirements**
 
