@@ -4,7 +4,7 @@
 {% for event in events %}{% if event.type == "gamemaster_dialogue" %}{% set latestGMDialogueTime = event.gameTime %}{% endif %}{% endfor %}
 {% set hasShownGMDialogue = false %}
 {% for event in events %}
-{% if isValidActor(event.originatingActor) %}
+{% if isValidActor(event.originatingActor) or event.type == "dialogue_background" %}
     {% if event.type != "spell" and event.type != "hit" and event.type != "combat" %}
         {% set locationChanged = (lastLocation != "" and event.location != lastLocation) %}
         {% set timeDiff = gameTimeNumeric - event.gameTime %}
@@ -55,7 +55,7 @@
         {% else if event.type == "direct_narration" %}
 - {{ timeIndicator }}*{{ format_event(event, "compact") }}*
         {% else %}
-- [{{ short_time(event.gameTimeStr) }}] {% if locationChanged %}[Now at {{ event.location }}] {% endif %}({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background"%} {{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} to {{ decnpc(event.targetActor).name }}{% endif %}{% else %} {{ decnpc(event.originatingActor).name }}{% endif %}: {{ format_event(event, "compact") }}
+- [{{ short_time(event.gameTimeStr) }}] {% if locationChanged %}[Now at {{ event.location }}] {% endif %}({{ event.type }}) {% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background"%}{% if isValidActor(event.originatingActor) %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} to {{ decnpc(event.targetActor).name }}{% endif %}: {% else if event.type == "dialogue_background" and event.data and event.data.speaker != "" %}{{ event.data.speaker }}: {% endif %}{% else %}{{ decnpc(event.originatingActor).name }}: {% endif %}{{ format_event(event, "compact") }}
         {% endif %}
 
         {% set lastLocation = event.location %}
