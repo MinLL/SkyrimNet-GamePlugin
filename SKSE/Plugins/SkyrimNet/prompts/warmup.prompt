@@ -1,0 +1,47 @@
+{#
+  Warmup Template - Pre-renders templates and decorators to populate callback caches
+
+  This template is rendered during hotkey preparation to warm up the inja callback
+  cache. It exercises the same decorators and templates used in player_thoughts
+  and dialogue prompts. The output is discarded - we only care about populating caches.
+
+  Expected context variables:
+  - npc: The player entity (with npc.UUID)
+  - events: Event history (for format_event warmup)
+  - All standard context variables set by ContextEngine
+#}
+
+{# === Warm up subcomponents (same as player_thoughts) === #}
+{{ render_subcomponent("system_head", "thoughts") }}
+{{ render_subcomponent("user_final_instructions", "thoughts") }}
+{{ render_subcomponent("system_head", "transform") }}
+{{ render_subcomponent("user_final_instructions", "transform") }}
+
+{# === Some safe stuff from the full render that won't cause side effects === #}
+{{ render_subcomponent("full", "guidelines") }}
+
+{# === Warm up event history template === #}
+{# This template isn't cached, but subsequent calls to format_event and such will be #}
+{{ render_template("components\\event_history") }}
+
+{# === Warm up quest decorator === #}
+{{ get_selected_quests() }}
+
+{# === Warm up scene context === #}
+{{ get_scene_context(npc.UUID, 0, "full") }}
+
+{# === Player Profile Warmup (both modes) === #}
+{{ render_character_profile("full", npc.UUID) }}
+{{ render_character_profile("dialogue_target", npc.UUID) }}
+{{ render_character_profile("speech_style", npc.UUID) }}
+
+{# === Get nearby NPCs using decorator (includes virtual NPCs) and warm up their profiles === #}
+{% set _nearbyForWarmup = get_nearby_npc_list(npc.UUID) %}
+{% for nearbyNpc in _nearbyForWarmup %}
+{% if loop.index <= 8 %}
+{{ render_character_profile("full", nearbyNpc.UUID) }}
+{{ render_character_profile("dialogue_target", nearbyNpc.UUID) }}
+{{ render_character_profile("speech_style", nearbyNpc.UUID) }}
+{% endif %}
+{% endfor %}
+

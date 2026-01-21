@@ -1,3 +1,8 @@
+testtest
+{% set _event_filter = [] %}
+{% if exists("npc") and existsIn(npc, "UUID") %}{% set _event_filter = append(_event_filter, npc.UUID) %}{% endif %}
+{% if exists("responseTarget") and existsIn(responseTarget,"UUID") %}{% set _event_filter = append(_event_filter, responseTarget.UUID) %}{% endif %}
+{% set events = get_recent_events(15, _event_filter) %}
 {% set lastLocation = "" %}
 {% set lastEventTime = 0 %}
 {% set lastEventLocation = "" %}
@@ -66,7 +71,7 @@
 [ user ]
             {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}{{ timeIndicator }}*{{ format_event(event, "verbose") }}*
             {% else %}
-            {% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ decnpc(event.originatingActor).name }}'s internal thoughts] {% endif %}{% if isValidActor(event.originatingActor) %}{{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} (to {{ decnpc(event.targetActor).name }}){% endif %}: {% endif %}{{ format_event(event, "verbose") }}
+            {% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ get_name(event.originatingActor) }}'s internal thoughts] {% endif %}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %} (to {{ get_name(event.targetActor) }}){% endif %}: {% endif %}{{ format_event(event, "verbose") }}
             {% endif %}
 [ end user ]
         {% endif %}

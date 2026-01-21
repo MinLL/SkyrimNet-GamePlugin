@@ -1,3 +1,8 @@
+{# Fetch recent events using decorator - filter by npc and player if available #}
+{% set _event_filter = [] %}
+{% if exists("npc") and existsIn(npc, "UUID") %}{% set _event_filter = append(_event_filter, npc.UUID) %}{% endif %}
+{% if exists("responseTarget") and existsIn(responseTarget,"UUID") %}{% set _event_filter = append(_event_filter, responseTarget.UUID) %}{% endif %}
+{% set events = get_recent_events(15, _event_filter) %}
 {% set lastEventTime = 0 %}
 {% set lastEventLocation = "" %}
 {% set lastSignificantTime = 0 %}
@@ -32,7 +37,7 @@
     {% if event.type == "direct_narration" %}
 [{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] *{{ format_event(event, "verbose") }}*
     {% else %}
-[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] ({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" or event.type == "player_thoughts" %} {{ decnpc(event.originatingActor).name }}{% if isValidActor(event.targetActor) %} to {{ decnpc(event.targetActor).name }}{% endif %}{% else %} {{ decnpc(event.originatingActor).name }}{% endif %}: {{ format_event(event, "verbose") }}
+[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] ({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" or event.type == "player_thoughts" %} {{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %} to {{ get_name(event.targetActor) }}{% endif %}{% else %} {{ get_name(event.originatingActor) }}{% endif %}: {{ format_event(event, "verbose") }}
     {% endif %}
 
     {% set lastEventTime = event.gameTime %}
