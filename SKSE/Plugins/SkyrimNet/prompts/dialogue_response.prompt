@@ -3,7 +3,7 @@ You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(n
 
 {{ render_subcomponent("system_head", "full") }}
 [ end system ]
-asdf
+
 {{ render_template("components\\event_history") }}
 
 [ user ]
