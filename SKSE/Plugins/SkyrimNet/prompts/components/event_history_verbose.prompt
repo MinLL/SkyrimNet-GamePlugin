@@ -8,7 +8,7 @@
 {% set lastSignificantTime = 0 %}
 
 {% for event in events %}
-{% if isValidActor(event.originatingActor) and event.type != "gamemaster_dialogue" %}
+{% if (isValidActor(event.originatingActor) and event.type != "gamemaster_dialogue") or event.type == "dialogue_background" %}
     {% if lastSignificantTime > 0 %}
         {% set timeSinceLastSignificant = event.gameTime - lastSignificantTime %}
     {% else %}
@@ -37,7 +37,7 @@
     {% if event.type == "direct_narration" %}
 [{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] *{{ format_event(event, "verbose") }}*
     {% else %}
-[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] ({{ event.type }}){% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" or event.type == "player_thoughts" %} {{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %} to {{ get_name(event.targetActor) }}{% endif %}{% else %} {{ get_name(event.originatingActor) }}{% endif %}: {{ format_event(event, "verbose") }}
+[{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] ({{ event.type }}) {% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background" or event.type == "player_thoughts" %}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %} to {{ get_name(event.targetActor) }}{% endif %}: {% else if event.type == "dialogue_background" and event.data and event.data.speaker != "" %}{{ event.data.speaker }}: {% endif %}{% else %}{{ get_name(event.originatingActor) }}: {% endif %}{{ format_event(event, "verbose") }}
     {% endif %}
 
     {% set lastEventTime = event.gameTime %}

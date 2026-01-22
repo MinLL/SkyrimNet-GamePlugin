@@ -1,4 +1,3 @@
-testtest
 {% set _event_filter = [] %}
 {% if exists("npc") and existsIn(npc, "UUID") %}{% set _event_filter = append(_event_filter, npc.UUID) %}{% endif %}
 {% if exists("responseTarget") and existsIn(responseTarget,"UUID") %}{% set _event_filter = append(_event_filter, responseTarget.UUID) %}{% endif %}
@@ -11,7 +10,7 @@ testtest
 {% for event in events %}{% if event.type == "gamemaster_dialogue" %}{% set latestGMDialogueTime = event.gameTime %}{% endif %}{% endfor %}
 {% set hasShownGMDialogue = false %}
 {% for event in events %}
-{% if isValidActor(event.originatingActor) %}
+{% if isValidActor(event.originatingActor) or event.type == "dialogue_background" %}
     {% if event.type != "spell" and event.type != "hit" and event.type != "combat" %}
         {% set locationChanged = (lastLocation != "" and event.location != lastLocation) %}
         {% set timeDiff = gameTimeNumeric - event.gameTime %}
@@ -71,7 +70,7 @@ testtest
 [ user ]
             {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}{{ timeIndicator }}*{{ format_event(event, "verbose") }}*
             {% else %}
-            {% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ get_name(event.originatingActor) }}'s internal thoughts] {% endif %}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %} (to {{ get_name(event.targetActor) }}){% endif %}: {% endif %}{{ format_event(event, "verbose") }}
+            {% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ get_name(event.originatingActor) }}'s internal thoughts] {% endif %}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %} (to {{ get_name(event.targetActor) }}){% endif %}: {% else if event.type == "dialogue_background" and event.data and event.data.speaker != "" %}{{ event.data.speaker }}: {% endif %}{{ format_event(event, "verbose") }}
             {% endif %}
 [ end user ]
         {% endif %}
