@@ -1,5 +1,6 @@
 ## NPC Memories
-{% if memories  %}
+{% set memories = get_relevant_memories(npc.UUID) %}
+{% if memories %}
 {{ decnpc(npc.UUID).name }} has the following memories:
 
 {% for memory in memories %}

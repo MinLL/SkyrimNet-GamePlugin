@@ -10,6 +10,7 @@
     - Current Mood: {{ mood }}
 
     ## Nearby NPCs
+    {% set nearbyNPCs = get_nearby_npc_list(npc.UUID) %}
     {% for nearbyNPC in nearbyNPCs %}
         - {{ decnpc(nearbyNPC.UUID).name }}
     {% endfor %}
