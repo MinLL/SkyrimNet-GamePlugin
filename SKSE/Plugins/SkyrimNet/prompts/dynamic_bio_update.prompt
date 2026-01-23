@@ -28,10 +28,8 @@
     {% endfor %}
     {% endif %}
 
-    {% if events and length(events) > 0 %}
-    ## Recent Events (last {{ maxRecentEvents }})
+    ## Recent Events
     {{ render_template("components\\event_history_verbose") }}
-    {% endif %}
 
     {% if recentMemories and length(recentMemories) > 0 %}
     ## Most Significant Memories for {{ actor.displayName }}

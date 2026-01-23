@@ -35,11 +35,9 @@
     {% endfor %}
     {% endif %}
 
-    {% if events and length(events) > 0 %}
     ## Recent Events
     (Below are the most recent {{ maxRecentEvents }} events that have occurred)
     {{ render_template("components\\event_history_verbose") }}
-    {% endif %}
 
     ## Instructions
 
