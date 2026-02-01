@@ -10,7 +10,6 @@ string Property ModName auto
 string[] Property Pages auto
 string Property CurrentPage auto
 
-string Function get() native
 int Function GetVersion() native
 string Function GetCustomControl(int a_keyCode) native
 Function ForcePageReset() native

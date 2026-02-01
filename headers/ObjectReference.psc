@@ -18,9 +18,6 @@ bool Function MoveToIfUnloaded(ObjectReference akTarget, float afXOffset = 0.0, 
 Function MoveToWhenUnloaded(ObjectReference akTarget, float afXOffset = 0.0, float afYOffset = 0.0, float afZOffset = 0.0) native
 Function DeleteWhenAble() native
 Function AddKeyIfNeeded(ObjectReference ObjectWithNeededKey) native
-float Function get() native
-float Function get() native
-float Function get() native
 bool Function Activate(ObjectReference akActivator, bool abDefaultProcessingOnly = false) native
 bool Function AddDependentAnimatedObjectReference(ObjectReference akDependent) native
 Function AddInventoryEventFilter(Form akFilter) native
