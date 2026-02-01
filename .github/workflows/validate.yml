@@ -33,9 +33,9 @@ jobs:
         shell: pwsh
         run: |
           $version = "2025.03.18"
-          $url = "https://github.com/russo-2025/papyrus-compiler/releases/download/$version/papyrus-compiler-windows.zip"
-          $zipPath = "papyrus-compiler.zip"
-          $extractPath = "tools/papyrus-compiler"
+          $zipPath = "papyrus-compiler-windows.zip"
+          $url = "https://github.com/russo-2025/papyrus-compiler/releases/download/$version/$zipPath"
+          $extractPath = "tools"
           
           Write-Host "Downloading Papyrus Compiler $version..."
           Invoke-WebRequest -Uri $url -OutFile $zipPath
