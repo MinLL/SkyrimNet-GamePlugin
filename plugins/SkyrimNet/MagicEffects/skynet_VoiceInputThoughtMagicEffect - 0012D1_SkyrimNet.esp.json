@@ -1,0 +1,34 @@
+{
+  "FormKey": "0012D1:SkyrimNet.esp",
+  "VersionControl": 13029,
+  "EditorID": "skynet_VoiceInputThoughtMagicEffect",
+  "VirtualMachineAdapter": {
+    "Scripts": [
+      {
+        "Name": "skynet_VoiceInputThought"
+      }
+    ]
+  },
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet Voice Input Thought"
+  },
+  "MenuDisplayObject": "0435A5:Skyrim.esm",
+  "Flags": [
+    "NoDuration",
+    "NoArea",
+    "Painless"
+  ],
+  "Archetype": {
+    "MutagenObjectType": "MagicEffectArchetype",
+    "Type": "Script"
+  },
+  "CastType": "FireAndForget",
+  "DualCastScale": 1.0,
+  "CastingSoundLevel": "Normal",
+  "Sounds": [],
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": ""
+  }
+}

@@ -1,0 +1,925 @@
+{
+  "FormKey": "000E8D:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_FollowPlayerPackageTemplate",
+  "Flags": [
+    "AllowSwimming",
+    "NoCombatAlert"
+  ],
+  "Type": "PackageTemplate",
+  "PreferredSpeed": "Run",
+  "InteruptFlags": [
+    "HellosToPlayer",
+    "RandomConversations",
+    "ReactionToPlayerActions",
+    "FriendlyFireComments",
+    "AggroRadiusBehavior",
+    "AllowIdleChatter",
+    "WorldInteractions",
+    "0x400",
+    "0x800",
+    "0x1000",
+    "0x2000",
+    "0x4000",
+    "0x8000"
+  ],
+  "ScheduleMonth": -1,
+  "ScheduleDayOfWeek": "Any",
+  "ScheduleHour": -1,
+  "ScheduleMinute": -1,
+  "Unknown3": "0x000000",
+  "DataInputVersion": 9,
+  "Data": [
+    {
+      "Key": 0,
+      "Value": {
+        "MutagenObjectType": "PackageDataTarget",
+        "Name": "The Player",
+        "Flags": [],
+        "Type": "SingleRef",
+        "Target": {
+          "MutagenObjectType": "PackageTargetSpecificReference",
+          "Reference": "000014:Skyrim.esm"
+        }
+      }
+    },
+    {
+      "Key": 1,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "Min Radius S:",
+        "Flags": [],
+        "Data": 300.0
+      }
+    },
+    {
+      "Key": 2,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "Max Radius S:",
+        "Flags": [],
+        "Data": 350.0
+      }
+    },
+    {
+      "Key": 4,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Name": "Accompany?",
+        "Flags": []
+      }
+    },
+    {
+      "Key": 6,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Name": "Always False",
+        "Flags": []
+      }
+    },
+    {
+      "Key": 8,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Name": "Need LOS?",
+        "Flags": []
+      }
+    },
+    {
+      "Key": 10,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "Min Radius C:",
+        "Flags": [],
+        "Data": 200.0
+      }
+    },
+    {
+      "Key": 12,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "Max Radius C:",
+        "Flags": [],
+        "Data": 250.0
+      }
+    },
+    {
+      "Key": 14,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "Min Radius F:",
+        "Flags": [],
+        "Data": 500.0
+      }
+    },
+    {
+      "Key": 16,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "Max Radius F:",
+        "Flags": [],
+        "Data": 600.0
+      }
+    },
+    {
+      "Key": 22,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Name": "SelfLoc",
+        "Flags": [],
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationFallback",
+            "Type": "NearSelf"
+          },
+          "Radius": 180
+        }
+      }
+    },
+    {
+      "Key": 24,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Name": "AlwaysTrue",
+        "Flags": [],
+        "Data": true
+      }
+    },
+    {
+      "Key": 18,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "Always True",
+        "Flags": []
+      }
+    },
+    {
+      "Key": 20,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "Flee Distance",
+        "Flags": []
+      }
+    }
+  ],
+  "XnamMarker": "0x19",
+  "ProcedureTree": [
+    {
+      "BranchType": "Stacked",
+      "Root": {
+        "BranchCount": 1
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Stacked",
+      "Root": {
+        "BranchCount": 7
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionGlobal",
+          "CompareOperator": "LessThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          }
+        },
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "IsInSceneConditionData"
+          }
+        },
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "IsSneakingConditionData",
+            "RunOnType": "Reference",
+            "Reference": "000014:Skyrim.esm"
+          }
+        },
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "IsInFavorStateConditionData"
+          }
+        },
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "IsInDialogueWithPlayerConditionData"
+          }
+        }
+      ],
+      "ProcedureType": "Flee",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        22,
+        24,
+        10,
+        10,
+        10,
+        6,
+        24,
+        24,
+        6
+      ],
+      "Unknown": []
+    },
+    {
+      "BranchType": "Stacked",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "GetFactionRankConditionData",
+            "Faction": "000E8B:SkyrimNet.esp"
+          },
+          "ComparisonValue": 1.0
+        },
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "IsSneakingConditionData",
+            "RunOnType": "Reference",
+            "Reference": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 1.0
+        }
+      ],
+      "Root": {
+        "BranchCount": 3
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "LessThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 800.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        10,
+        12,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed",
+          "AlwaysSneak"
+        ],
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "GreaterThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 2000.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        10,
+        12,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed",
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Run",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        10,
+        12,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed",
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Jog",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Stacked",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "GetFactionRankConditionData",
+            "Faction": "000E8B:SkyrimNet.esp"
+          },
+          "ComparisonValue": 1.0
+        }
+      ],
+      "Root": {
+        "BranchCount": 3
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "LessThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 800.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        10,
+        12,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "ClearFlags": [
+          "AlwaysSneak"
+        ],
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "GreaterThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 2000.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        10,
+        12,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "ClearFlags": [
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Run",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        10,
+        12,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "ClearFlags": [
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Jog",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Stacked",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "GetFactionRankConditionData",
+            "Faction": "000E8B:SkyrimNet.esp"
+          },
+          "ComparisonValue": 3.0
+        },
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "IsSneakingConditionData",
+            "RunOnType": "Reference",
+            "Reference": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 1.0
+        }
+      ],
+      "Root": {
+        "BranchCount": 3
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "LessThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 1000.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        14,
+        16,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed",
+          "AlwaysSneak"
+        ],
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "GreaterThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 2800.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        14,
+        16,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed",
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Run",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        14,
+        16,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed",
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Jog",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Stacked",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "GetFactionRankConditionData",
+            "Faction": "000E8B:SkyrimNet.esp"
+          },
+          "ComparisonValue": 3.0
+        }
+      ],
+      "Root": {
+        "BranchCount": 3
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "LessThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 1000.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        14,
+        16,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "ClearFlags": [
+          "AlwaysSneak"
+        ],
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "GreaterThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 2800.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        14,
+        16,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "ClearFlags": [
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Run",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        14,
+        16,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "ClearFlags": [
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Jog",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Stacked",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "GetFactionRankConditionData",
+            "Faction": "000E8B:SkyrimNet.esp"
+          },
+          "ComparisonValue": 2.0
+        },
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "IsSneakingConditionData",
+            "RunOnType": "Reference",
+            "Reference": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 1.0
+        }
+      ],
+      "Root": {
+        "BranchCount": 3
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "LessThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 900.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed",
+          "AlwaysSneak"
+        ],
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "GreaterThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 2400.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed",
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Run",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed",
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Jog",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Stacked",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "GetFactionRankConditionData",
+            "Faction": "000E8B:SkyrimNet.esp"
+          },
+          "ComparisonValue": 2.0
+        }
+      ],
+      "Root": {
+        "BranchCount": 3
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "LessThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 900.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "ClearFlags": [
+          "AlwaysSneak"
+        ],
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "GreaterThanOrEqualTo",
+          "Data": {
+            "MutagenObjectType": "GetDistanceConditionData",
+            "Target": "000014:Skyrim.esm"
+          },
+          "ComparisonValue": 2400.0
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "ClearFlags": [
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Run",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "ClearFlags": [
+          "AlwaysSneak"
+        ],
+        "PreferredSpeed": "Jog",
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    }
+  ],
+  "OnBegin": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnEnd": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnChange": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  }
+}

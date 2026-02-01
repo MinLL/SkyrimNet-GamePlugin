@@ -1,0 +1,189 @@
+{
+  "FormKey": "000007:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_PlayerFollowPackageTemplate",
+  "Type": "PackageTemplate",
+  "PreferredSpeed": "Run",
+  "ScheduleMonth": -1,
+  "ScheduleDayOfWeek": "Any",
+  "ScheduleHour": -1,
+  "ScheduleMinute": -1,
+  "Unknown3": "0x000000",
+  "OwnerQuest": "000802:SkyrimNet.esp",
+  "DataInputVersion": 4,
+  "Data": [
+    {
+      "Key": 2,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Name": "BoolFalse",
+        "Flags": []
+      }
+    },
+    {
+      "Key": 4,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Name": "BoolTrue",
+        "Flags": [],
+        "Data": true
+      }
+    },
+    {
+      "Key": 6,
+      "Value": {
+        "MutagenObjectType": "PackageDataTarget",
+        "Name": "FollowTarget",
+        "Flags": [],
+        "Type": "SingleRef",
+        "Target": {
+          "MutagenObjectType": "PackageTargetSpecificReference",
+          "Reference": "000014:Skyrim.esm"
+        }
+      }
+    },
+    {
+      "Key": 7,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "MinRadius",
+        "Flags": [
+          "Public"
+        ],
+        "Data": 128.0
+      }
+    },
+    {
+      "Key": 9,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "MaxRadius",
+        "Flags": [
+          "Public"
+        ],
+        "Data": 256.0
+      }
+    },
+    {
+      "Key": 10,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Name": "SelfLocation",
+        "Flags": [],
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationFallback",
+            "Type": "NearSelf"
+          }
+        }
+      }
+    },
+    {
+      "Key": 0,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "Place to Travel",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 5,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "TargetSelector",
+        "Flags": [
+          "Public"
+        ]
+      }
+    }
+  ],
+  "XnamMarker": "0x0B",
+  "ProcedureTree": [
+    {
+      "BranchType": "Stacked",
+      "Root": {
+        "BranchCount": 2
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "GetActorValueConditionData",
+            "ActorValue": "WaitingForPlayer"
+          }
+        }
+      ],
+      "ProcedureType": "Follow",
+      "Flags": [],
+      "DataInputIndices": [
+        6,
+        7,
+        9,
+        4,
+        2,
+        2
+      ],
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "Data": {
+            "MutagenObjectType": "GetActorValueConditionData",
+            "ActorValue": "WaitingForPlayer"
+          },
+          "ComparisonValue": 1.0
+        }
+      ],
+      "ProcedureType": "Travel",
+      "Flags": [],
+      "DataInputIndices": [
+        10,
+        2,
+        2
+      ],
+      "FlagsOverride": {
+        "SetInterruptFlags": [
+          "HellosToPlayer",
+          "RandomConversations",
+          "ObserveCombatBehavior",
+          "ReactionToPlayerActions",
+          "FriendlyFireComments",
+          "AggroRadiusBehavior",
+          "AllowIdleChatter",
+          "WorldInteractions"
+        ],
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    }
+  ],
+  "OnBegin": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnEnd": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnChange": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  }
+}

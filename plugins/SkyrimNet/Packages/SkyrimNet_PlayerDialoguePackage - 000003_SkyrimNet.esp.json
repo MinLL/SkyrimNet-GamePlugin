@@ -1,0 +1,143 @@
+{
+  "FormKey": "000003:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_PlayerDialoguePackage",
+  "Type": "Package",
+  "PreferredSpeed": "Run",
+  "InteruptFlags": [
+    "AggroRadiusBehavior"
+  ],
+  "ScheduleMonth": -1,
+  "ScheduleDayOfWeek": "Any",
+  "ScheduleHour": -1,
+  "ScheduleMinute": -1,
+  "Unknown3": "0x000000",
+  "Conditions": [
+    {
+      "MutagenObjectType": "ConditionFloat",
+      "Data": {
+        "MutagenObjectType": "GetSittingConditionData"
+      }
+    },
+    {
+      "MutagenObjectType": "ConditionFloat",
+      "Data": {
+        "MutagenObjectType": "IsInSceneConditionData"
+      }
+    },
+    {
+      "MutagenObjectType": "ConditionFloat",
+      "CompareOperator": "NotEqualTo",
+      "Data": {
+        "MutagenObjectType": "GetCurrentAIPackageConditionData"
+      },
+      "ComparisonValue": 1.0
+    },
+    {
+      "MutagenObjectType": "ConditionFloat",
+      "CompareOperator": "NotEqualTo",
+      "Data": {
+        "MutagenObjectType": "GetCurrentAIPackageConditionData"
+      },
+      "ComparisonValue": 2.0
+    },
+    {
+      "MutagenObjectType": "ConditionFloat",
+      "CompareOperator": "NotEqualTo",
+      "Data": {
+        "MutagenObjectType": "GetCurrentAIPackageConditionData"
+      },
+      "ComparisonValue": 7.0
+    }
+  ],
+  "OwnerQuest": "000802:SkyrimNet.esp",
+  "PackageTemplate": "000001:SkyrimNet.esp",
+  "DataInputVersion": 5,
+  "Data": [
+    {
+      "Key": 5,
+      "Value": {
+        "MutagenObjectType": "PackageDataTarget",
+        "Type": "SingleRef",
+        "Target": {
+          "MutagenObjectType": "PackageTargetSpecificReference",
+          "Reference": "000014:Skyrim.esm"
+        }
+      }
+    },
+    {
+      "Key": 7,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationTarget",
+            "Link": "000014:Skyrim.esm"
+          },
+          "Radius": 512
+        }
+      }
+    },
+    {
+      "Key": 9,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Data": true
+      }
+    },
+    {
+      "Key": 11,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool"
+      }
+    },
+    {
+      "Key": 20,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationTarget",
+            "Link": "000014:Skyrim.esm"
+          },
+          "Radius": 256
+        }
+      }
+    },
+    {
+      "Key": 22,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 35.0
+      }
+    },
+    {
+      "Key": 24,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 128.0
+      }
+    }
+  ],
+  "XnamMarker": "0x19",
+  "OnBegin": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnEnd": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnChange": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+name: Validate Assets
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Spriggit CLI
+        shell: pwsh
+        run: |
+          $version = "0.40.0"
+          $url = "https://github.com/Mutagen-Modding/Spriggit/releases/download/$version/SpriggitCLI.zip"
+          $zipPath = "SpriggitCLI.zip"
+          $extractPath = "tools/SpriggitCLI-$version"
+          
+          Write-Host "Downloading Spriggit CLI $version..."
+          Invoke-WebRequest -Uri $url -OutFile $zipPath
+          
+          Write-Host "Extracting..."
+          Expand-Archive -Path $zipPath -DestinationPath $extractPath -Force
+          Remove-Item $zipPath
+
+      - name: Download Papyrus Compiler
+        shell: pwsh
+        run: |
+          $version = "2025.03.18"
+          $url = "https://github.com/russo-2025/papyrus-compiler/releases/download/$version/papyrus-compiler.zip"
+          $zipPath = "papyrus-compiler.zip"
+          $extractPath = "tools/papyrus-compiler"
+          
+          Write-Host "Downloading Papyrus Compiler $version..."
+          Invoke-WebRequest -Uri $url -OutFile $zipPath
+          
+          Write-Host "Extracting..."
+          Expand-Archive -Path $zipPath -DestinationPath $extractPath -Force
+          Remove-Item $zipPath
+
+      - name: Validate ESP Plugin (Spriggit)
+        shell: pwsh
+        run: |
+          $spriggit = "tools/SpriggitCLI-0.40.0/Spriggit.CLI.exe"
+          $source = "plugins/SkyrimNet"
+          $output = "build/SkyrimNet.esp"
+          
+          New-Item -ItemType Directory -Path "build" -Force | Out-Null
+          
+          Write-Host "Deserializing ESP plugin from Spriggit format..."
+          & $spriggit convert-to-plugin -i $source -o $output
+          
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "ESP deserialization failed!"
+            exit 1
+          }
+          
+          if (Test-Path $output) {
+            $size = (Get-Item $output).Length
+            Write-Host "SUCCESS: SkyrimNet.esp created ($size bytes)" -ForegroundColor Green
+          } else {
+            Write-Error "Output file not created!"
+            exit 1
+          }
+
+      - name: Compile Papyrus Scripts
+        shell: pwsh
+        run: |
+          $compiler = "tools/papyrus-compiler/papyrus.exe"
+          $headers = "headers"
+          $sources = "Source/Scripts"
+          $output = "build/Scripts"
+          
+          New-Item -ItemType Directory -Path $output -Force | Out-Null
+          
+          Write-Host "Compiling Papyrus scripts..."
+          & $compiler -nocache -h $headers -i $sources -output $output
+          
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "Papyrus compilation failed!"
+            exit 1
+          }
+          
+          # Count compiled scripts
+          $pexFiles = Get-ChildItem -Path $output -Filter "*.pex" -ErrorAction SilentlyContinue
+          if ($pexFiles.Count -eq 0) {
+            Write-Error "No compiled scripts found!"
+            exit 1
+          }
+          
+          Write-Host "SUCCESS: Compiled $($pexFiles.Count) Papyrus scripts" -ForegroundColor Green
+          $pexFiles | ForEach-Object { Write-Host "  - $($_.Name)" }
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-assets
+          path: |
+            build/SkyrimNet.esp
+            build/Scripts/*.pex
+          retention-days: 7

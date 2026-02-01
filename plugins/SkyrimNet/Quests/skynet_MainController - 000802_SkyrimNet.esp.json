@@ -1,0 +1,287 @@
+{
+  "FormKey": "000802:SkyrimNet.esp",
+  "EditorID": "skynet_MainController",
+  "VirtualMachineAdapter": {
+    "Scripts": [
+      {
+        "Name": "skynet_Library",
+        "Properties": [
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "factionInnkeepers",
+            "Object": "05091B:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "factionMerchants",
+            "Object": "051596:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "factionPlayerFollowers",
+            "Object": "084D1B:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "factionRentRoom",
+            "Object": "09CC97:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "factionStewards",
+            "Object": "050922:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "globalRentRoomPrice",
+            "Object": "09CC98:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleApplaud2",
+            "Object": "0D8730:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleApplaud3",
+            "Object": "0D8731:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleApplaud4",
+            "Object": "0D8732:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleApplaud5",
+            "Object": "0D8733:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleApplaudSarcastic",
+            "Object": "0E9312:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleBook_Reading",
+            "Object": "0BB052:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleDrink",
+            "Object": "0FD68B:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleDrinkPotion",
+            "Object": "0D33B0:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleEatSoup",
+            "Object": "102EC1:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleExamine",
+            "Object": "075C3D:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleForceDefaultState",
+            "Object": "086840:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleLaugh",
+            "Object": "075C5F:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleNervous",
+            "Object": "10ACB1:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleNoteRead",
+            "Object": "089975:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdlePointClose",
+            "Object": "0FFA0C:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdlePray",
+            "Object": "06F300:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleSalute",
+            "Object": "0B240C:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleSnapToAttention",
+            "Object": "0B240B:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleStudy",
+            "Object": "0977ED:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleWave",
+            "Object": "03EA32:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "IdleWipeBrow",
+            "Object": "0977EC:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "keywordDialogueTarget",
+            "Object": "000002:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "keywordFollowTarget",
+            "Object": "000006:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "miscGold",
+            "Object": "00000F:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "msgClearHistory",
+            "Object": "000009:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "msgDiaryScope",
+            "Object": "0012DC:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "packageDialogueNPC",
+            "Object": "000004:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "packageDialoguePlayer",
+            "Object": "000003:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "packageFollowPlayer",
+            "Object": "000008:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "questBountyBandits",
+            "Object": "095125:Skyrim.esm"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "questDialogueGeneric",
+            "Object": "013EB3:Skyrim.esm"
+          }
+        ]
+      },
+      {
+        "Name": "skynet_MainController",
+        "Properties": [
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "libs",
+            "Object": "000802:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "skynet_VoiceInputDirectSpell",
+            "Object": "0012D3:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "skynet_VoiceInputNormalSpell",
+            "Object": "0012D4:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "skynet_VoiceInputThoughtSpell",
+            "Object": "0012D6:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "skynet_VoiceInputTransformSpell",
+            "Object": "0012D8:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "skynet_WheelMenuSpell",
+            "Object": "000D65:SkyrimNet.esp"
+          }
+        ]
+      },
+      {
+        "Name": "skynet_MinAIBridge",
+        "Properties": [
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "skynet",
+            "Object": "000802:SkyrimNet.esp"
+          }
+        ]
+      }
+    ],
+    "FileName": "",
+    "Aliases": [
+      {
+        "Property": {
+          "Name": "",
+          "Object": "000802:SkyrimNet.esp",
+          "Alias": 1
+        },
+        "Scripts": [
+          {
+            "Name": "skynet_PlayerAlias",
+            "Properties": [
+              {
+                "MutagenObjectType": "ScriptObjectProperty",
+                "Name": "skynet",
+                "Object": "000802:SkyrimNet.esp"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet - Main Controller Quest"
+  },
+  "Flags": [
+    "StartGameEnabled",
+    "0x10",
+    "RunOnce"
+  ],
+  "Priority": 80,
+  "NextAliasID": 2,
+  "Aliases": [
+    {
+      "ID": 1,
+      "Name": "PlayerAlias",
+      "Flags": [
+        "AllowReuseInQuest"
+      ],
+      "UniqueActor": "000007:Skyrim.esm",
+      "VoiceTypes": "Null"
+    }
+  ]
+}

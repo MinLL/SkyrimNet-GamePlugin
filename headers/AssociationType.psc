@@ -1,0 +1,2 @@
+Scriptname AssociationType extends Form Hidden
+

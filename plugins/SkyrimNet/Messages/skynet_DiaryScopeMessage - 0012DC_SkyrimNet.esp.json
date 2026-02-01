@@ -1,0 +1,42 @@
+{
+  "FormKey": "0012DC:SkyrimNet.esp",
+  "EditorID": "skynet_DiaryScopeMessage",
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": "Which actors do you want to generate a diary/dynamic bio update for?"
+  },
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Select Scope"
+  },
+  "INAM": "0x00000000",
+  "Flags": [
+    "MessageBox"
+  ],
+  "MenuButtons": [
+    {
+      "Text": {
+        "TargetLanguage": "English",
+        "Value": "Player Only"
+      }
+    },
+    {
+      "Text": {
+        "TargetLanguage": "English",
+        "Value": "Nearby Actors"
+      }
+    },
+    {
+      "Text": {
+        "TargetLanguage": "English",
+        "Value": "Pinned Actors"
+      }
+    },
+    {
+      "Text": {
+        "TargetLanguage": "English",
+        "Value": "Target in Crosshair"
+      }
+    }
+  ]
+}

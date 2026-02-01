@@ -1,0 +1,88 @@
+{
+  "FormKey": "000008:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_PlayerFollowPackage",
+  "Type": "Package",
+  "PreferredSpeed": "Run",
+  "ScheduleMonth": -1,
+  "ScheduleDayOfWeek": "Any",
+  "ScheduleHour": -1,
+  "ScheduleMinute": -1,
+  "Unknown3": "0x000000",
+  "OwnerQuest": "000802:SkyrimNet.esp",
+  "PackageTemplate": "000007:SkyrimNet.esp",
+  "DataInputVersion": 4,
+  "Data": [
+    {
+      "Key": 2,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool"
+      }
+    },
+    {
+      "Key": 4,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Data": true
+      }
+    },
+    {
+      "Key": 6,
+      "Value": {
+        "MutagenObjectType": "PackageDataTarget",
+        "Type": "SingleRef",
+        "Target": {
+          "MutagenObjectType": "PackageTargetSpecificReference",
+          "Reference": "000014:Skyrim.esm"
+        }
+      }
+    },
+    {
+      "Key": 7,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 128.0
+      }
+    },
+    {
+      "Key": 9,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 256.0
+      }
+    },
+    {
+      "Key": 10,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationFallback",
+            "Type": "NearSelf"
+          }
+        }
+      }
+    }
+  ],
+  "XnamMarker": "0x0B",
+  "OnBegin": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnEnd": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnChange": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  }
+}

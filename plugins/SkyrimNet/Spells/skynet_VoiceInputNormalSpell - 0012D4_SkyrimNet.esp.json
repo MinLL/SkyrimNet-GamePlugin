@@ -1,0 +1,23 @@
+{
+  "FormKey": "0012D4:SkyrimNet.esp",
+  "VersionControl": 13029,
+  "EditorID": "skynet_VoiceInputNormalSpell",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet - Normal Recording (voice input toggle)"
+  },
+  "MenuDisplayObject": "0435A5:Skyrim.esm",
+  "EquipmentType": "025BEE:Skyrim.esm",
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": ""
+  },
+  "Type": "LesserPower",
+  "CastType": "FireAndForget",
+  "Effects": [
+    {
+      "BaseEffect": "0012CF:SkyrimNet.esp",
+      "Data": {}
+    }
+  ]
+}

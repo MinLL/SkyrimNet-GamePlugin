@@ -1,0 +1,33 @@
+{
+  "FormKey": "000D64:SkyrimNet.esp",
+  "EditorID": "skynet_WheelMenuMagicEffect",
+  "VirtualMachineAdapter": {
+    "Scripts": [
+      {
+        "Name": "skynet_WheelMenu"
+      }
+    ]
+  },
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet Wheel Menu"
+  },
+  "MenuDisplayObject": "0435A5:Skyrim.esm",
+  "Flags": [
+    "NoDuration",
+    "NoArea",
+    "Painless"
+  ],
+  "Archetype": {
+    "MutagenObjectType": "MagicEffectArchetype",
+    "Type": "Script"
+  },
+  "CastType": "FireAndForget",
+  "DualCastScale": 1.0,
+  "CastingSoundLevel": "Normal",
+  "Sounds": [],
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": ""
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "FormKey": "0012D3:SkyrimNet.esp",
+  "VersionControl": 13029,
+  "EditorID": "skynet_VoiceInputDirectSpell",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet - Narration Recording (voice input toggle)"
+  },
+  "MenuDisplayObject": "0435A5:Skyrim.esm",
+  "EquipmentType": "025BEE:Skyrim.esm",
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": ""
+  },
+  "Flags": [
+    "PCStartSpell"
+  ],
+  "Type": "LesserPower",
+  "CastType": "FireAndForget",
+  "Effects": [
+    {
+      "BaseEffect": "0012D2:SkyrimNet.esp",
+      "Data": {}
+    }
+  ]
+}

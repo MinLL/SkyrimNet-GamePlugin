@@ -23,10 +23,6 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 
 ## 🚀 **Installation & Setup**
 
-### 📥 **Choose Your Build**
-- **CUDA Build**: Maximum performance for NVIDIA users with in-process Whisper
-- **Universal Build**: Broad compatibility for all hardware configurations
-
 ### ⚙️ **Quick Start**
 1. **Download** from [GitHub Releases](https://github.com/MinLL/SkyrimNet-GamePlugin/releases)
    
@@ -187,3 +183,40 @@ You can confirm that CUDA is being used on the Test & Easy Setup page in the Spe
 
 ## Credits
 - A special thanks to ArtFromTheMachine for letting us use his Piper models!
+
+---
+
+## 🛠️ **For Developers**
+
+This repository contains the game plugin assets for SkyrimNet:
+- **Spriggit serialized ESP plugin** (`plugins/SkyrimNet/`) - Text format for version control
+- **Papyrus script sources** (`Source/Scripts/`) - Script source files
+- **Papyrus headers** (`headers/`) - Vanilla Skyrim script headers for compilation
+- **UI templates** (`interface/`) - MCM and UI configuration
+- **SKSE prompts and assets** (`SKSE/Plugins/SkyrimNet/`) - Prompt templates and configuration
+
+### Building from Source
+
+Compiled files (`.esp` and `.pex`) are NOT stored in this repository. They are generated during the SkyrimNet build process.
+
+### Manual Build Tools
+
+**ESP Plugin:**
+- Download [SpriggitCLI](https://github.com/Mutagen-Modding/Spriggit/releases/tag/0.40.0)
+- Run: `Spriggit.CLI.exe convert-to-plugin -i plugins/SkyrimNet -o SkyrimNet.esp`
+
+**Papyrus Scripts:**
+- Download [papyrus-compiler](https://github.com/russo-2025/papyrus-compiler/releases/tag/2025.03.18)
+- Run: `papyrus.exe -nocache -h headers -i Source/Scripts -output Scripts`
+
+### Repository Structure
+
+```
+├── plugins/SkyrimNet/     # Spriggit serialized ESP (version controlled)
+├── Source/Scripts/        # Papyrus source files (.psc)
+├── Scripts/               # Compiled scripts output (not tracked)
+├── headers/               # Vanilla Skyrim Papyrus headers
+├── interface/             # MCM and UI templates
+├── SKSE/Plugins/SkyrimNet/# Prompts, assets, documentation
+└── docs/                  # In-game documentation
+```
