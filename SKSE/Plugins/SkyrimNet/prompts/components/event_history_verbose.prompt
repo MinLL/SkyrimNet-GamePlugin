@@ -1,8 +1,8 @@
-{# Fetch recent events using decorator - filter by npc and player if available #}
+{# Use events context variable if set by C++, otherwise fetch via decorator #}
 {% set _event_filter = [] %}
 {% if exists("npc") and existsIn(npc, "UUID") %}{% set _event_filter = append(_event_filter, npc.UUID) %}{% endif %}
 {% if exists("responseTarget") and existsIn(responseTarget,"UUID") %}{% set _event_filter = append(_event_filter, responseTarget.UUID) %}{% endif %}
-{% if exists("preFilteredEvents") %}{% set events = preFilteredEvents %}{% else %}{% if exists("maxRecentEvents") %}{% set _event_count = maxRecentEvents %}{% else if exists("npc") and existsIn(npc, "UUID") %}{% set _event_count = get_event_history_count(npc.UUID) %}{% else %}{% set _event_count = get_event_history_count(0) %}{% endif %}
+{% if not exists("events") or length(events) == 0 %}{% if exists("maxRecentEvents") %}{% set _event_count = maxRecentEvents %}{% else if exists("npc") and existsIn(npc, "UUID") %}{% set _event_count = get_event_history_count(npc.UUID) %}{% else %}{% set _event_count = get_event_history_count(0) %}{% endif %}
 {% set events = get_recent_events(_event_count, _event_filter) %}{% endif %}
 {% set _npc_is_private_virtual = false %}
 {% if exists("npc") and existsIn(npc, "UUID") %}{% set _npc_is_private_virtual = decnpc(npc.UUID).isVirtualPrivate %}{% endif %}
