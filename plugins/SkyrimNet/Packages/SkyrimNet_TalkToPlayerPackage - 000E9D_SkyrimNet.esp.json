@@ -1,0 +1,154 @@
+{
+  "FormKey": "000E9D:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_TalkToPlayerPackage",
+  "Flags": [
+    "AllowSwimming",
+    "NoCombatAlert"
+  ],
+  "Type": "Package",
+  "PreferredSpeed": "Run",
+  "InteruptFlags": [
+    "RandomConversations",
+    "ReactionToPlayerActions",
+    "FriendlyFireComments",
+    "AggroRadiusBehavior",
+    "AllowIdleChatter",
+    "WorldInteractions",
+    "0x400",
+    "0x800",
+    "0x1000",
+    "0x2000",
+    "0x4000",
+    "0x8000"
+  ],
+  "ScheduleMonth": -1,
+  "ScheduleDayOfWeek": "Any",
+  "ScheduleHour": -1,
+  "ScheduleMinute": -1,
+  "Unknown3": "0x000000",
+  "Conditions": [
+    {
+      "MutagenObjectType": "ConditionFloat",
+      "Data": {
+        "MutagenObjectType": "IsPlayerMovingIntoNewSpaceConditionData"
+      }
+    }
+  ],
+  "PackageTemplate": "000E8D:SkyrimNet.esp",
+  "DataInputVersion": 9,
+  "Data": [
+    {
+      "Key": 0,
+      "Value": {
+        "MutagenObjectType": "PackageDataTarget",
+        "Type": "SingleRef",
+        "Target": {
+          "MutagenObjectType": "PackageTargetSpecificReference",
+          "Reference": "000014:Skyrim.esm"
+        }
+      }
+    },
+    {
+      "Key": 1,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 300.0
+      }
+    },
+    {
+      "Key": 2,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 350.0
+      }
+    },
+    {
+      "Key": 4,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool"
+      }
+    },
+    {
+      "Key": 6,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool"
+      }
+    },
+    {
+      "Key": 8,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool"
+      }
+    },
+    {
+      "Key": 10,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 200.0
+      }
+    },
+    {
+      "Key": 12,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 250.0
+      }
+    },
+    {
+      "Key": 14,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 500.0
+      }
+    },
+    {
+      "Key": 16,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 600.0
+      }
+    },
+    {
+      "Key": 22,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationFallback",
+            "Type": "NearSelf"
+          },
+          "Radius": 180
+        }
+      }
+    },
+    {
+      "Key": 24,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Data": true
+      }
+    }
+  ],
+  "XnamMarker": "0x11",
+  "OnBegin": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnEnd": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnChange": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  }
+}

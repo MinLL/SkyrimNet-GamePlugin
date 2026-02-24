@@ -1,0 +1,26 @@
+{
+  "FormKey": "000E8B:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_FollowingPlayerFaction",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Skynet Temporary Followers"
+  },
+  "Relations": [
+    {
+      "Target": "000DB1:Skyrim.esm"
+    },
+    {
+      "Target": "000E8B:SkyrimNet.esp"
+    }
+  ],
+  "CrimeValues": {
+    "Arrest": true,
+    "AttackOnSight": true
+  },
+  "Ranks": [
+    {
+      "Number": 0
+    }
+  ],
+  "VendorValues": {}
+}

@@ -1,0 +1,316 @@
+{
+  "FormKey": "000005:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_NPCDialoguePackageTemplate",
+  "Flags": [
+    "PreferredSpeed"
+  ],
+  "Type": "PackageTemplate",
+  "InteruptFlags": [
+    "AggroRadiusBehavior"
+  ],
+  "ScheduleMonth": -1,
+  "ScheduleDayOfWeek": "Any",
+  "ScheduleHour": -1,
+  "ScheduleMinute": -1,
+  "Unknown3": "0x000000",
+  "OwnerQuest": "000802:SkyrimNet.esp",
+  "DataInputVersion": 4,
+  "Data": [
+    {
+      "Key": 5,
+      "Value": {
+        "MutagenObjectType": "PackageDataTarget",
+        "Name": "DialogueTarget",
+        "Flags": [],
+        "Type": "SingleRef",
+        "Target": {
+          "MutagenObjectType": "PackageTargetLinkedReference",
+          "Keyword": "000002:SkyrimNet.esp"
+        }
+      }
+    },
+    {
+      "Key": 7,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Name": "Target256",
+        "Flags": [],
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationFallback",
+            "Type": "11",
+            "Data": 5
+          },
+          "Radius": 256
+        }
+      }
+    },
+    {
+      "Key": 8,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Name": "Target512",
+        "Flags": [],
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationFallback",
+            "Type": "11",
+            "Data": 5
+          },
+          "Radius": 512
+        }
+      }
+    },
+    {
+      "Key": 10,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Name": "BoolTrue",
+        "Flags": [],
+        "Data": true
+      }
+    },
+    {
+      "Key": 13,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Name": "BoolFalse",
+        "Flags": []
+      }
+    },
+    {
+      "Key": 22,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "SandboxEnergy",
+        "Flags": [
+          "Public"
+        ],
+        "Data": 35.0
+      }
+    },
+    {
+      "Key": 24,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "SandboxWander",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 26,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Name": "LargeNumber",
+        "Flags": [
+          "Public"
+        ],
+        "Data": 999.0
+      }
+    },
+    {
+      "Key": 0,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "Place to Travel",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 2,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "Ride Horse if possible?",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 4,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "Prefer Preferred Path?",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 14,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "Location",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 15,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "AllowEating",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 16,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "AllowSleeping",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 17,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "AllowConversation",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 18,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "AllowIdleMarkers",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 19,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "AllowSitting",
+        "Flags": [
+          "Public"
+        ]
+      }
+    },
+    {
+      "Key": 20,
+      "Value": {
+        "MutagenObjectType": "APackageData",
+        "Name": "AllowWandering",
+        "Flags": [
+          "Public"
+        ]
+      }
+    }
+  ],
+  "XnamMarker": "0x1B",
+  "ProcedureTree": [
+    {
+      "BranchType": "Stacked",
+      "Root": {
+        "BranchCount": 2
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "Conditions": [
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "GreaterThan",
+          "Data": {
+            "MutagenObjectType": "GetSittingConditionData"
+          },
+          "ComparisonValue": 1.0
+        },
+        {
+          "MutagenObjectType": "ConditionFloat",
+          "CompareOperator": "LessThan",
+          "Data": {
+            "MutagenObjectType": "GetSittingConditionData"
+          },
+          "ComparisonValue": 4.0
+        }
+      ],
+      "ProcedureType": "Wait",
+      "Flags": [],
+      "DataInputIndices": [
+        26,
+        10
+      ],
+      "Unknown": []
+    },
+    {
+      "BranchType": "Sequence",
+      "Root": {
+        "BranchCount": 2
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "ProcedureType": "Travel",
+      "Flags": [],
+      "DataInputIndices": [
+        7,
+        13,
+        13
+      ],
+      "FlagsOverride": {
+        "SetFlags": [
+          "PreferredSpeed"
+        ],
+        "Unknown": "0x000000"
+      },
+      "Unknown": []
+    },
+    {
+      "BranchType": "Procedure",
+      "ProcedureType": "Sandbox",
+      "Flags": [],
+      "DataInputIndices": [
+        7,
+        10,
+        13,
+        13,
+        13,
+        10,
+        13,
+        13,
+        22,
+        13,
+        24
+      ],
+      "Unknown": []
+    }
+  ],
+  "OnBegin": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnEnd": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnChange": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  }
+}

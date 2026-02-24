@@ -1,0 +1,23 @@
+{
+  "FormKey": "0012D8:SkyrimNet.esp",
+  "VersionControl": 13029,
+  "EditorID": "skynet_VoiceInputTransformSpell",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet - Roleplay Recording (voice input toggle)"
+  },
+  "MenuDisplayObject": "0435A5:Skyrim.esm",
+  "EquipmentType": "025BEE:Skyrim.esm",
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": ""
+  },
+  "Type": "LesserPower",
+  "CastType": "FireAndForget",
+  "Effects": [
+    {
+      "BaseEffect": "0012D0:SkyrimNet.esp",
+      "Data": {}
+    }
+  ]
+}

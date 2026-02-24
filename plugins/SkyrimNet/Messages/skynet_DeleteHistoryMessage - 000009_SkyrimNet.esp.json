@@ -1,0 +1,30 @@
+{
+  "FormKey": "000009:SkyrimNet.esp",
+  "EditorID": "skynet_DeleteHistoryMessage",
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": "SkyNet has detected an older save being loaded. Do you want to delete all messages that did not happen in this timeline, yet? This action is irreversable."
+  },
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Timeline Mismatch"
+  },
+  "INAM": "0x00000000",
+  "Flags": [
+    "MessageBox"
+  ],
+  "MenuButtons": [
+    {
+      "Text": {
+        "TargetLanguage": "English",
+        "Value": "Keep History"
+      }
+    },
+    {
+      "Text": {
+        "TargetLanguage": "English",
+        "Value": "Delete History"
+      }
+    }
+  ]
+}

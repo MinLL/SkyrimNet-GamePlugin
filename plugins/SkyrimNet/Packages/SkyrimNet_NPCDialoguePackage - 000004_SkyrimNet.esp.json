@@ -1,0 +1,115 @@
+{
+  "FormKey": "000004:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_NPCDialoguePackage",
+  "Flags": [
+    "PreferredSpeed"
+  ],
+  "Type": "Package",
+  "InteruptFlags": [
+    "AggroRadiusBehavior"
+  ],
+  "ScheduleMonth": -1,
+  "ScheduleDayOfWeek": "Any",
+  "ScheduleHour": -1,
+  "ScheduleMinute": -1,
+  "Unknown3": "0x000000",
+  "OwnerQuest": "000802:SkyrimNet.esp",
+  "PackageTemplate": "000005:SkyrimNet.esp",
+  "DataInputVersion": 4,
+  "Data": [
+    {
+      "Key": 5,
+      "Value": {
+        "MutagenObjectType": "PackageDataTarget",
+        "Type": "SingleRef",
+        "Target": {
+          "MutagenObjectType": "PackageTargetLinkedReference",
+          "Keyword": "000002:SkyrimNet.esp"
+        }
+      }
+    },
+    {
+      "Key": 7,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationFallback",
+            "Type": "11",
+            "Data": 5
+          },
+          "Radius": 256
+        }
+      }
+    },
+    {
+      "Key": 8,
+      "Value": {
+        "MutagenObjectType": "PackageDataLocation",
+        "Location": {
+          "Target": {
+            "MutagenObjectType": "LocationFallback",
+            "Type": "11",
+            "Data": 5
+          },
+          "Radius": 512
+        }
+      }
+    },
+    {
+      "Key": 10,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool",
+        "Data": true
+      }
+    },
+    {
+      "Key": 13,
+      "Value": {
+        "MutagenObjectType": "PackageDataBool"
+      }
+    },
+    {
+      "Key": 22,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 35.0
+      }
+    },
+    {
+      "Key": 24,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat"
+      }
+    },
+    {
+      "Key": 26,
+      "Value": {
+        "MutagenObjectType": "PackageDataFloat",
+        "Data": 999.0
+      }
+    }
+  ],
+  "XnamMarker": "0x1B",
+  "OnBegin": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnEnd": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  },
+  "OnChange": {
+    "Topics": [
+      {
+        "MutagenObjectType": "TopicReference"
+      }
+    ]
+  }
+}

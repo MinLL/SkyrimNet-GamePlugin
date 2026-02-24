@@ -1,0 +1,18 @@
+{
+  "SpriggitSource": {
+    "PackageName": "Spriggit.Json.Skyrim",
+    "Version": "0.40"
+  },
+  "ModKey": "SkyrimNet.esp",
+  "GameRelease": "SkyrimSE",
+  "ModHeader": {
+    "Author": "DEFAULT",
+    "MasterReferences": [
+      {
+        "Master": "Skyrim.esm",
+        "FileSize": 0
+      }
+    ],
+    "INTV": 1
+  }
+}

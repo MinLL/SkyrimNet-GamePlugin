@@ -1,0 +1,11 @@
+{
+  "FormKey": "000E98:SkyrimNet.esp",
+  "EditorID": "slapSound",
+  "Type": "Standard",
+  "SoundFiles": [
+    "data\\Sound\\fx\\slapbuttshout\\1slapanyone.wav"
+  ],
+  "OutputModel": "06CB4F:Skyrim.esm",
+  "LoopAndRumble": {},
+  "Priority": 128
+}

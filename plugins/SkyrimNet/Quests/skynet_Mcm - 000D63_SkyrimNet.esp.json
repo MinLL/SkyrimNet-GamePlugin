@@ -1,0 +1,33 @@
+{
+  "FormKey": "000D63:SkyrimNet.esp",
+  "EditorID": "skynet_Mcm",
+  "VirtualMachineAdapter": {
+    "Scripts": [
+      {
+        "Name": "skynet_McmScript",
+        "Properties": [
+          {
+            "MutagenObjectType": "ScriptStringProperty",
+            "Name": "ModName",
+            "Data": "SkyrimNet"
+          }
+        ]
+      }
+    ],
+    "Versioning": [
+      "Break0"
+    ],
+    "ExtraBindDataVersion": 0,
+    "FileName": ""
+  },
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet - MCM Quest"
+  },
+  "Flags": [
+    "StartGameEnabled",
+    "0x10",
+    "RunOnce"
+  ],
+  "NextAliasID": 0
+}

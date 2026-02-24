@@ -1,0 +1,73 @@
+Scriptname WIFunctionsScript extends Quest Conditional
+
+MiscObject Property Gold001 Auto
+faction Property pWIMournAuntFaction auto
+faction Property pWIMournBoyfriendFaction auto
+faction Property pWIMournBrotherFaction auto
+faction Property pWIMournCousinFemaleFaction auto
+faction Property pWIMournCousinMaleFaction auto
+faction Property pWIMournDaughterFaction auto
+faction Property pWIMournFatherFaction auto
+faction Property pWIMournFriendFemaleFaction auto
+faction Property pWIMournFriendMaleFaction auto
+faction Property pWIMournGirlfriendFaction auto
+faction Property pWIMournHusbandFaction auto
+faction Property pWIMournKinsmanFaction auto
+faction Property pWIMournKinswomanFaction auto
+faction Property pWIMournMotherFaction auto
+faction Property pWIMournNephewFaction auto
+faction Property pWIMournNieceFaction auto
+faction Property pWIMournSisterFaction auto
+faction Property pWIMournSonFaction auto
+faction Property pWIMournUncleFaction auto
+faction Property pWIMournWifeFaction auto
+Faction Property WIAssaultedFaction Auto
+faction Property WIPlayerEnemyFaction Auto
+Faction Property WIDragonKilledAbsorbedFaction Auto
+GlobalVariable Property WINextDragon Auto
+GlobalVariable Property WIWaitDragon Auto
+associationType Property pAuntUncle auto
+associationType Property pCourting auto
+associationType Property pCousins auto
+associationType Property pParentChild auto
+associationType Property pSiblings auto
+associationType Property pSpouse auto
+GlobalVariable Property GameDaysPassed Auto
+faction Property WINoBodyCleanupFaction auto
+ObjectReference Property WIDeadBodyCleanupCellMarker Auto
+Keyword Property WIGamesTagStart Auto
+Keyword Property WIDragonKilledStart Auto
+Keyword Property WIComplexInteractionToggle Auto
+Keyword Property WIDragonsToggle Auto
+Keyword Property WIDragonAttacked Auto
+Keyword Property WIRentRoomWalkToStart Auto
+Location Property SolitudeLocation Auto
+Location Property MarkarthLocation Auto
+Location Property WhiterunLocation Auto
+Location Property WindhelmLocation Auto
+Location Property RiftenLocation Auto
+Location Property BattleBornFarmLocation Auto
+Location Property ChillfurrowFarmLocation Auto
+Location Property LeftHandMineLocation Auto
+Location Property MerryfairFarmLocation Auto
+Location Property SalviusFarmLocation Auto
+Location Property SnowShodFarmLocation Auto
+Location Property PelagiaFarmLocation Auto
+Quest Property WIGamesTag auto
+Quest Property MQ305 auto
+
+Function RemoveMournerActorFromFactions(Actor Mourner) native
+Function PutMournerAliasInFaction(ReferenceAlias VictimAlias, ReferenceAlias MournerAlias) native
+Function PutMournerActorInFaction(Actor Victim, Actor Mourner) native
+string Function GetRelationshipString(Actor Actor1, Actor Actor2) native
+Function StartGameTag(ObjectReference FirstPlayer, ObjectReference SecondPlayer, int SecondsToPlay, form CallingFormSelf) native
+Function updateWIDragonTimer() native
+Function startWIDragonKillQuest(Actor Dragon) native
+Function PlayerIsCurrentlyAbsorbingPower(Actor Dragon) native
+Function PlayerIsDoneAbsorbingPower(Actor Dragon) native
+Function DisallowComplexInteractions(Location LocationToToggle) native
+Function DisallowDragons(Location LocationToToggle) native
+Function AllowComplexInteractions(Location LocationToToggle) native
+Function AllowDragons(Location LocationToToggle) native
+Function ShowPlayerRoom(Actor Innkeeper, ObjectReference Bed) native
+bool Function RegisterDragonAttack(Location LocationOfDragonAttack, Actor Dragon) native

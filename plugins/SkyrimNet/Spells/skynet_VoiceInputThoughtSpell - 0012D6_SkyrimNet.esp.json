@@ -1,0 +1,23 @@
+{
+  "FormKey": "0012D6:SkyrimNet.esp",
+  "VersionControl": 13029,
+  "EditorID": "skynet_VoiceInputThoughtSpell",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet - Thought Recording (voice input toggle)"
+  },
+  "MenuDisplayObject": "0435A5:Skyrim.esm",
+  "EquipmentType": "025BEE:Skyrim.esm",
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": ""
+  },
+  "Type": "LesserPower",
+  "CastType": "FireAndForget",
+  "Effects": [
+    {
+      "BaseEffect": "0012D1:SkyrimNet.esp",
+      "Data": {}
+    }
+  ]
+}
