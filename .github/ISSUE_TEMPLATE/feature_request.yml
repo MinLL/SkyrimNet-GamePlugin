@@ -18,21 +18,14 @@ body:
       placeholder: "Right now NPCs forget everything when I reload, which breaks immersion..."
     validations:
       required: true
-  - type: input
-    id: modlist
+  - type: textarea
+    id: example
     attributes:
-      label: Modlist
-      description: "Which modlist are you using?"
-      placeholder: "Lorerim, ADT, Wildlander, custom, etc."
+      label: How should it work?
+      description: "Optional: Describe how you'd expect this to work from a player's perspective."
+      placeholder: "When I talk to an NPC, they'd reference something I said last session, like 'You mentioned wanting to visit Solitude...'"
     validations:
-      required: true
-  - type: input
-    id: version
-    attributes:
-      label: SkyrimNet version
-      placeholder: "beta16"
-    validations:
-      required: true
+      required: false
   - type: textarea
     id: extra
     attributes:
