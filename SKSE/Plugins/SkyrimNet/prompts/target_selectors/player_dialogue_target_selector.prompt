@@ -12,6 +12,9 @@ You are an AI decision-maker for Skyrim, determining which NPCs the player is ad
 {% if crosshairTarget %}
 {{ "## Player's Crosshair Target" }}
 The player is currently looking directly at: {{ crosshairTarget.name }} ({{ units_to_meters(crosshairTarget.distance) }} meters away)
+{% if decnpc(crosshairTarget.UUID).paralysis %}
+BUT {{ crosshairTarget.name }} is currently unconscious and THEREFORE is unable to reply in any way. Choose another NPC nearby that makes the most sense to reply if one exists.
+{% endif %}
 {% endif %}
 
 {{ "## Recent Dialogue" }}

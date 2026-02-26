@@ -1,8 +1,17 @@
 [ system ]
+{% if decnpc(npc.UUID).paralysis %}
+{{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} is currently unconscious and unable to speak.
+{% else %}
 You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim.{% if responseTarget %} You are speaking to {% if responseTarget.type == "player" %}{{ player.name }}, a {{ player.gender }} {{ player.race }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}, a {{ decnpc(responseTarget.UUID).gender }} {{ decnpc(responseTarget.UUID).race }}{% endif %}.{% endif %}
 {{ render_subcomponent("system_head", "full") }}
+{% endif %}
 [ end system ]
 
+{% if decnpc(npc.UUID).paralysis %}
+[ user ]
+Because {{ decnpc(npc.UUID).name }} is currently unconscious respond only with "" (empty quotation marks) & nothing else!
+[ end user ]
+{% else %}
 {{ render_template("components\\event_history") }}
 
 [ user ]
@@ -14,3 +23,4 @@ You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(n
 Respond in character now.
 {% endif %}
 [ end user ]
+{% endif %}

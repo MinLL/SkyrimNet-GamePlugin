@@ -40,7 +40,7 @@ Only select an NPC if their silence would feel unnatural. Evaluate in order:
 {{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}**{% if decnpc(candidate.UUID).isVirtualPrivate %} (Virtual NPC){% endif %}
    - {{ render_character_profile("short_inline", candidate.UUID) }}
    - **Interjection**: {{ render_character_profile("interject_inline", candidate.UUID) }}
-{% else %}
+{% elif not decnpc(candidate.UUID).paralysis %}
 {{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** ({{ decnpc(candidate.UUID).gender }} {{ decnpc(candidate.UUID).race }}, {{ units_to_meters(candidate.distance) }}m)
    - {{ render_character_profile("short_inline", candidate.UUID) }}
    - **Interjection**: {{ render_character_profile("interject_inline", candidate.UUID) }}

@@ -2,20 +2,21 @@
     ## Physical Activity
     {% if is_unconscious(actorUUID) %}
         - {{ decnpc(actorUUID).name }} is currently unconscious and unable to move or act.
-    {% endif %}
-    {% if is_sneaking(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently trying to move silently, and avoid being seen or heard.
-    {% endif %}
-    {% if is_walking(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently walking at a steady pace.
-    {% endif %}
-    {% if is_sprinting(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently sprinting at full speed.
-    {% endif %}
-    {% if is_swimming(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently swimming.
-    {% endif %}
-    {% if is_knocked_down(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently badly wounded, and is kneeling on the ground.
+    {% else %}
+        {% if is_sneaking(actorUUID) %}
+            - {{ decnpc(actorUUID).name }} is currently trying to move silently, and avoid being seen or heard.
+        {% endif %}
+        {% if is_walking(actorUUID) %}
+            - {{ decnpc(actorUUID).name }} is currently walking at a steady pace.
+        {% endif %}
+        {% if is_sprinting(actorUUID) %}
+            - {{ decnpc(actorUUID).name }} is currently sprinting at full speed.
+        {% endif %}
+        {% if is_swimming(actorUUID) %}
+            - {{ decnpc(actorUUID).name }} is currently swimming.
+        {% endif %}
+        {% if is_knocked_down(actorUUID) %}
+            - {{ decnpc(actorUUID).name }} is currently badly wounded, and is kneeling on the ground.
+        {% endif %}
     {% endif %}
 {% endif %}

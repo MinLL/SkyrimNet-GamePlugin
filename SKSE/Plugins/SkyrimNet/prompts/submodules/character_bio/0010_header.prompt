@@ -46,6 +46,9 @@
     {% else %}
         - Health: Unknown health status
     {% endif %}
+{% if decnpc(npc.UUID).paralysis %}
+- Currently unconscious, unable to move or act, and unresponsive
+{% endif %}
     {% if decnpc(actorUUID).maxMagicka > 0 or is_player(actorUUID) %}
         {% set magickaRatio = decnpc(actorUUID).magicka / decnpc(actorUUID).maxMagicka %}
         {% if decnpc(actorUUID).magicka == 0 %}
