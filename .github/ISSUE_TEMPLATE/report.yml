@@ -1,0 +1,61 @@
+name: Bug Report / Feature Request
+description: Report a bug or request a feature
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What's happening? / What do you want?
+      description: "Bug: What's wrong? Feature: What should exist?"
+      placeholder: "NPCs stop talking after fast traveling..."
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: "Bug: What were you doing? Any errors? Feature: Why do you want this?"
+      placeholder: "I fast traveled to Whiterun and tried talking to Lydia..."
+    validations:
+      required: true
+  - type: dropdown
+    id: game-version
+    attributes:
+      label: Game Version
+      options:
+        - SE (1.5.97)
+        - AE (1.6.1170+)
+        - VR
+        - GOG
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: game-version-other
+    attributes:
+      label: Game Version (if Other)
+      description: "If you selected Other above, specify your game version here."
+      placeholder: "e.g. SE 1.5.80, Epic Games Store, etc."
+    validations:
+      required: false
+  - type: input
+    id: modlist
+    attributes:
+      label: Modlist
+      description: "Which modlist are you using?"
+      placeholder: "Lorerim, ADT, Wildlander, custom, etc."
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: SkyrimNet version
+      placeholder: "beta16"
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: "Screenshots, log snippets, related issues, etc."
+    validations:
+      required: false
