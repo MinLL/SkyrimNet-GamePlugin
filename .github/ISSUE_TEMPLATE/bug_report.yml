@@ -1,20 +1,28 @@
-name: Bug Report / Feature Request
-description: Report a bug or request a feature
+name: Bug Report
+description: Something isn't working correctly
+labels: ["bug"]
 body:
   - type: textarea
     id: description
     attributes:
-      label: What's happening? / What do you want?
-      description: "Bug: What's wrong? Feature: What should exist?"
+      label: What's happening?
+      description: "Describe the bug in a few sentences."
       placeholder: "NPCs stop talking after fast traveling..."
     validations:
       required: true
   - type: textarea
-    id: context
+    id: reproduce
     attributes:
-      label: Context
-      description: "Bug: What were you doing? Any errors? Feature: Why do you want this?"
+      label: Steps to reproduce
+      description: "What were you doing when it happened? Any error messages or logs?"
       placeholder: "I fast traveled to Whiterun and tried talking to Lydia..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: "What should happen instead?"
     validations:
       required: true
   - type: dropdown
@@ -56,6 +64,6 @@ body:
     id: extra
     attributes:
       label: Anything else?
-      description: "Screenshots, log snippets, related issues, etc."
+      description: "Screenshots, log snippets, crash logs, etc."
     validations:
       required: false

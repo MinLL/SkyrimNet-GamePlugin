@@ -1,0 +1,42 @@
+name: Feature Request
+description: Suggest a new feature or improvement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What do you want?
+      description: "Describe the feature from a user perspective in a few sentences."
+      placeholder: "It would be great if NPCs could remember conversations from previous play sessions..."
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why?
+      description: "What problem does this solve? What's the motivation?"
+      placeholder: "Right now NPCs forget everything when I reload, which breaks immersion..."
+    validations:
+      required: true
+  - type: input
+    id: modlist
+    attributes:
+      label: Modlist
+      description: "Which modlist are you using?"
+      placeholder: "Lorerim, ADT, Wildlander, custom, etc."
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: SkyrimNet version
+      placeholder: "beta16"
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: "Screenshots, mockups, related issues, constraints, etc."
+    validations:
+      required: false
