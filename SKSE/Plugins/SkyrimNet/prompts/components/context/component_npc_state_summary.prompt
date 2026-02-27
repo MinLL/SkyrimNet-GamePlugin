@@ -2,7 +2,7 @@
 {% set nearby_npcs = get_nearby_npc_list(player.UUID) %}
 
 {% for npc in nearby_npcs %}
-{% if decnpc(npc.UUID).paralysis %}
+{% if is_unconscious(npc.UUID) %}
 - {{ npc.name }} is unconscious & unresponsive
 {% endif %}
     {% if npc.isFollowing %}

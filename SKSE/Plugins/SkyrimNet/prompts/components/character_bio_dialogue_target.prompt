@@ -10,7 +10,7 @@
 {% endif %}
 - Gender: {{ decnpc(npc.UUID).gender }}
 - Race: {{ decnpc(npc.UUID).race }}
-{% if decnpc(npc.UUID).paralysis %}
+{% if is_unconscious(npc.UUID) %}
 - Currently knocked-out: {{ decnpc(npc.UUID).name }} is unconscious. **They are unable to speak or respond in anyway.**
 {% endif %}
 ## Summary
