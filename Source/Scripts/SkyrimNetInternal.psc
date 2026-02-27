@@ -64,26 +64,6 @@ Function SetLookAt(Actor akActor, Actor akTarget = None) global
     endif
 EndFunction
 
-Function AddPackageToActor(Actor akActor, string packageName, int priority, int flags) global
-    Debug.Trace("[SkyrimNetInternal] AddPackageToActor called for " + akActor.GetDisplayName() + " with package " + packageName + " and priority " + priority + " and flags " + flags)
-    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
-    if !skynet
-        Debug.MessageBox("Fatal Error: AddPackageToActor failed to retrieve controller.")
-        return
-    endif
-    skynet.libs.ApplyPackageOverrideToActor(akActor, packageName, priority, flags)
-EndFunction
-
-Function RemovePackageFromActor(Actor akActor, string packageName) global
-    Debug.Trace("[SkyrimNetInternal] RemovePackageFromActor called for " + akActor.GetDisplayName() + " with package " + packageName)
-    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
-    if !skynet
-        Debug.MessageBox("Fatal Error: RemovePackageFromActor failed to retrieve controller.")
-        return
-    endif
-    skynet.libs.RemovePackageOverrideFromActor(akActor, packageName)
-EndFunction
-
 ; -----------------------------------------------------------------------------
 ; --- Player Input Handlers ---
 ; -----------------------------------------------------------------------------
