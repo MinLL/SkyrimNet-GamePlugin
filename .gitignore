@@ -30,3 +30,7 @@ skyrimse.ppj
 SkyrimSE.code-workspace
 .claude/settings.local.json
 CLAUDE.local.md
+
+# Build artifacts
+Scripts/
+SkyrimNet.esp
