@@ -1,0 +1,27 @@
+name: Cleanup test prereleases
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete test prerelease if it exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          TAG="fix-${ISSUE_NUMBER}-test"
+
+          # Check if the release exists
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" &>/dev/null; then
+            echo "Found prerelease '$TAG' — deleting release and tag"
+            gh release delete "$TAG" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag
+          else
+            echo "No prerelease found for tag '$TAG' — nothing to clean up"
+          fi
