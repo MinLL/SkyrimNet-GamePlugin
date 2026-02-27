@@ -13,6 +13,7 @@
         ## {{ decnpc(actorUUID).name }}'s Character Profile
     {% endif %}
 {% endif %}
+
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
     {# Common stats logic for both render modes #}
     - Gender: {{ decnpc(actorUUID).gender }}
@@ -30,6 +31,8 @@
             - Status: Reanimated undead thrall (serving {{ decnpc(player.UUID).name }})
         {% endif %}
     {% endif %}
+
+    {# Health section #}
     {% if decnpc(actorUUID).maxHealth > 0 %}
         {% set healthRatio = decnpc(actorUUID).health / decnpc(actorUUID).maxHealth %}
         {% if healthRatio < 0.25 %}
@@ -46,42 +49,48 @@
     {% else %}
         - Health: Unknown health status
     {% endif %}
-{% if is_unconscious(npc.UUID) %}
-- Currently unconscious, unable to move or act, and unresponsive
-{% else %}
-    {% if decnpc(actorUUID).maxMagicka > 0 or is_player(actorUUID) %}
-        {% set magickaRatio = decnpc(actorUUID).magicka / decnpc(actorUUID).maxMagicka %}
-        {% if decnpc(actorUUID).magicka == 0 %}
-            {% set magickaRatio = 0 %}
-        {% endif %}
-        {% if magickaRatio < 0.15 %}
-            - Magic: Magically exhausted, barely any reserves left
-        {% elif magickaRatio < 0.35 %}
-            - Magic: Running low on magical reserves
-        {% elif magickaRatio < 0.6 %}
-            - Magic: Moderate magical reserves
-        {% elif magickaRatio < 0.85 %}
-            - Magic: Strong magical reserves
-        {% else %}
-            - Magic: Full of magical energy
-        {% endif %}
+
+    {# Unconscious check - skip magicka/stamina if unconscious #}
+    {% if is_unconscious(actorUUID) %}
+        - Currently unconscious, unable to move or act, and unresponsive
     {% else %}
-        - Magic: No magical ability
-    {% endif %}
-    {% if decnpc(actorUUID).maxStamina > 0 %}
-        {% set staminaRatio = decnpc(actorUUID).stamina / decnpc(actorUUID).maxStamina %}
-        {% if staminaRatio < 0.25 %}
-            - Energy: Completely winded and short of breath
-        {% elif staminaRatio < 0.5 %}
-            - Energy: Tired and winded
-        {% elif staminaRatio < 0.75 %}
-            - Energy: Somewhat tired
-        {% elif staminaRatio <= 0.9 %}
-            - Energy: Mostly energetic with slight fatigue
+        {# Magicka section #}
+        {% if decnpc(actorUUID).maxMagicka > 0 or is_player(actorUUID) %}
+            {% set magickaRatio = decnpc(actorUUID).magicka / decnpc(actorUUID).maxMagicka %}
+            {% if decnpc(actorUUID).magicka == 0 %}
+                {% set magickaRatio = 0 %}
+            {% endif %}
+            {% if magickaRatio < 0.15 %}
+                - Magic: Magically exhausted, barely any reserves left
+            {% elif magickaRatio < 0.35 %}
+                - Magic: Running low on magical reserves
+            {% elif magickaRatio < 0.6 %}
+                - Magic: Moderate magical reserves
+            {% elif magickaRatio < 0.85 %}
+                - Magic: Strong magical reserves
+            {% else %}
+                - Magic: Full of magical energy
+            {% endif %}
         {% else %}
-            - Energy: Energetic and ready for action
+            - Magic: No magical ability
         {% endif %}
-    {% else %}
-        - Energy: Unknown stamina status
-    {% endif %}
-{% endif %}
+
+        {# Stamina section #}
+        {% if decnpc(actorUUID).maxStamina > 0 %}
+            {% set staminaRatio = decnpc(actorUUID).stamina / decnpc(actorUUID).maxStamina %}
+            {% if staminaRatio < 0.25 %}
+                - Energy: Completely winded and short of breath
+            {% elif staminaRatio < 0.5 %}
+                - Energy: Tired and winded
+            {% elif staminaRatio < 0.75 %}
+                - Energy: Somewhat tired
+            {% elif staminaRatio <= 0.9 %}
+                - Energy: Mostly energetic with slight fatigue
+            {% else %}
+                - Energy: Energetic and ready for action
+            {% endif %}
+        {% else %}
+            - Energy: Unknown stamina status
+        {% endif %}
+    {% endif %}{# end unconscious else #}
+{% endif %}{# end render_mode check #}
