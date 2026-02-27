@@ -422,6 +422,4 @@ No containers found near {{ actorName }}.
 📍 Different object counts - actors are in different locations or have different surroundings.
 {% else %}
 📍 Same object count - actors may be near each other.
-{% endif %}
-
----
+{% endif %}---

@@ -110,6 +110,7 @@ Function ClearActorDialogueTarget(Actor akActor)
   SkyrimNetApi.UnregisterPackage(akActor, "TalkToPlayer")
   SkyrimNetApi.UnregisterPackage(akActor, "TalkToNPC")
   akActor.ClearLookAt()
+  akActor.EvaluatePackage()
 EndFunction
 
 ; -----------------------------------------------------------------------------
