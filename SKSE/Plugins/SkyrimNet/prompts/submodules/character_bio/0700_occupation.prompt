@@ -1,4 +1,6 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
-    ## Occupation
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_occupation"%}
+    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+        ## Occupation
+    {% endif %}
     {% block occupation %}{% endblock %}
 {% endif %}

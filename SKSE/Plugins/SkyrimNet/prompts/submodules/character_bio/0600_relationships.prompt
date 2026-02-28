@@ -1,5 +1,7 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
-    ## Relationships
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_relationships" %}
+    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+        ## Relationships
+    {% endif %}
     {% block relationships %}{% endblock %}
     {% if not is_player(actorUUID) %}
         ### Travel History with {{ player.name }}
