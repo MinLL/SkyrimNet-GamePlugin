@@ -134,8 +134,23 @@ Bool Function RegisterBasicActions()
                                 "", "PAPYRUS", \
                                 1, "")
 
-    ; Follow actions (AccompanyTarget, StopAccompanying, WaitHere) are now registered
-    ; natively in C++ via FollowActions.cpp - no Papyrus round-trip needed.
+    SkyrimNetApi.RegisterAction("AccompanyTarget", "Start accompanying {{ player.name }}. Only use this when you are sure that you want to stop what you're doing and follow {{ player.name }} to another location, and {{ player.name }} has specifically requested it.", \
+                                "SkyrimNetInternal", "StartFollow_IsEligible", \
+                                "SkyrimNetInternal", "StartFollow_Execute", \
+                                "", "PAPYRUS", \
+                                1, "")
+
+    SkyrimNetApi.RegisterAction("StopAccompanying", "Stop accompanying {{ player.name }}. Use this when you are done accompanying them, or want to go home.", \
+                                "SkyrimNetInternal", "StopFollow_IsEligible", \
+                                "SkyrimNetInternal", "StopFollow_Execute", \
+                                "", "PAPYRUS", \
+                                1, "")
+
+    SkyrimNetApi.RegisterAction("WaitHere", "Wait for {{ player.name }} at the current location temporarily. Only use this when {{ player.name }} has specifically requested it.", \
+                                "SkyrimNetInternal", "PauseFollow_IsEligible", \
+                                "SkyrimNetInternal", "PauseFollow_Execute", \
+                                "", "PAPYRUS", \
+                                1, "")
     return true
 EndFunction
 
