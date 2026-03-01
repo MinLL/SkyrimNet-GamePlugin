@@ -134,6 +134,20 @@ int function HasPackage(Actor akActor, String packageName) Global Native
 ; Re-apply all SkyrimNet packages to an actor
 int function ReinforcePackages(Actor akActor) Global Native
 
+; Get the name of the game engine's currently executing package on the actor
+String function GetCurrentGamePackageName(Actor akActor) Global Native
+
+; Get comma-separated list of SkyrimNet-tracked packages on the actor
+String function GetSkyrimNetPackagesString(Actor akActor) Global Native
+
+; Add a package override directly via PapyrusUtil (bypasses SkyrimNet tracking)
+; Returns: 0=success, -1=null actor, -2=cache not init, -3=unknown package, -4=bridge unavailable
+int function AddDirectPackageOverride(Actor akActor, String packageName, int priority, int flags) Global Native
+
+; Remove a package override directly via PapyrusUtil (bypasses SkyrimNet tracking)
+; Returns: 0=success, -1=null actor, -2=cache not init, -3=unknown package, -4=bridge unavailable
+int function RemoveDirectPackageOverride(Actor akActor, String packageName) Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- LLM Interaction ---
 ; -----------------------------------------------------------------------------
