@@ -223,12 +223,6 @@ EndFunction
 
 
 Bool Function RegisterAnimationActions()
-    SkyrimNetApi.RegisterAction("SlapTarget", "Slap the target.", \
-                                "SkyrimNetInternal", "Animation_IsEligible", \
-                                "SkyrimNetInternal", "AnimationSlapActor", \
-                                "", "PAPYRUS", \
-                                1, "{\"target\": \"Actor\"}")
-
     SkyrimNetApi.RegisterAction("Gesture", "Perform a gesture to emphasize your words.", \
                                 "SkyrimNetInternal", "Animation_IsEligible", \
                                 "SkyrimNetInternal", "AnimationGeneric", \
