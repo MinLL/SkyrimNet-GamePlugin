@@ -223,6 +223,22 @@ int function DirectNarration(String content, Actor originatorActor = None, Actor
 ; Returns 0 on success, 1 on failure (including empty content)
 int function RegisterPersistentEvent(String content, Actor originatorActor = None, Actor targetActor = None) Global Native
 
+; Transform freeform text into player dialogue using the LLM dialogue pipeline
+; This is the API equivalent of the "Transform Dialogue" hotkey feature.
+; The text is processed through the player dialogue prompt template, transformed
+; by the LLM into character-appropriate speech, and then spoken by the player.
+; Nearby NPCs will react to the transformed dialogue.
+;
+; This function is asynchronous - it returns immediately and the dialogue
+; processing happens in the background.
+;
+; Examples:
+; TransformDialogue("I need to buy some potions") ; Player says this in-character
+; TransformDialogue("Tell me about the recent dragon attack")
+;
+; Returns 0 on success, 1 on failure (including empty text)
+int function TransformDialogue(String dialogueText) Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Utility Functions ---
 ; -----------------------------------------------------------------------------
