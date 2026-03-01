@@ -6,7 +6,7 @@ body:
     id: description
     attributes:
       label: What do you want?
-      description: "Describe the feature from a user perspective in a few sentences."
+      description: "Describe the feature from a user/player perspective. What would it look like in-game or in the UI?"
       placeholder: "It would be great if NPCs could remember conversations from previous play sessions..."
     validations:
       required: true
@@ -14,22 +14,68 @@ body:
     id: motivation
     attributes:
       label: Why?
-      description: "What problem does this solve? What's the motivation?"
+      description: "What problem does this solve? What's the current pain point or limitation?"
       placeholder: "Right now NPCs forget everything when I reload, which breaks immersion..."
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: What area does this affect?
+      description: "Select the closest match."
+      options:
+        - NPC dialogue / conversation
+        - Voice / TTS
+        - Speech-to-text / input
+        - NPC actions / behavior
+        - Memory system
+        - Web UI / dashboard
+        - GameMaster / narration
+        - API / modder integration
+        - Configuration / settings
+        - Performance
+        - Prompts / templates
+        - Other
     validations:
       required: true
   - type: textarea
     id: example
     attributes:
       label: How should it work?
-      description: "Optional: Describe how you'd expect this to work from a player's perspective."
-      placeholder: "When I talk to an NPC, they'd reference something I said last session, like 'You mentioned wanting to visit Solitude...'"
+      description: "Describe the expected behavior step by step. If this involves the API or config, show what the interface might look like."
+      placeholder: |
+        When I talk to an NPC, they'd reference something from the last session:
+        "You mentioned wanting to visit Solitude last time we spoke..."
+
+        Or for config/API changes:
+        A new field in game_config.yaml like:
+          cross_session_memory: true
+    validations:
+      required: false
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: "How big is this change in your estimation?"
+      options:
+        - Small tweak (config option, UI adjustment, minor behavior change)
+        - Medium feature (new capability within existing systems)
+        - Large feature (new system or major architectural change)
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or workarounds
+      description: "Have you tried any workarounds? Are there alternative approaches you've considered?"
+      placeholder: "I tried using custom memories to fake it, but it's manual and doesn't scale..."
     validations:
       required: false
   - type: textarea
     id: extra
     attributes:
       label: Anything else?
-      description: "Screenshots, mockups, related issues, constraints, etc."
+      description: "Screenshots, mockups, related issues, links to Discord discussions, config snippets, etc."
     validations:
       required: false

@@ -6,16 +6,33 @@ body:
     id: description
     attributes:
       label: What's happening?
-      description: "Describe the bug in a few sentences."
-      placeholder: "NPCs stop talking after fast traveling..."
+      description: "Describe the bug in a few sentences. Include any error messages you see in-game or in the web UI."
+      placeholder: "NPCs stop talking after fast traveling. The web UI shows 'connection refused' errors..."
     validations:
       required: true
   - type: textarea
     id: reproduce
     attributes:
       label: Steps to reproduce
-      description: "What were you doing when it happened? Any error messages or logs?"
-      placeholder: "I fast traveled to Whiterun and tried talking to Lydia..."
+      description: "What were you doing when it happened? Is it consistent or intermittent?"
+      placeholder: |
+        1. Started a new game in Whiterun
+        2. Talked to Lydia, she responded normally
+        3. Fast traveled to Riften
+        4. Tried talking to any NPC — no response
+
+        Happens every time / happened once / intermittent
+    validations:
+      required: true
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does this happen?
+      options:
+        - Every time (100% reproducible)
+        - Most of the time
+        - Sometimes / intermittent
+        - Happened once
     validations:
       required: true
   - type: textarea
@@ -25,6 +42,63 @@ body:
       description: "What should happen instead?"
     validations:
       required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: What area is affected?
+      description: "Select the closest match. This helps us route the issue."
+      options:
+        - NPC dialogue / conversation
+        - Voice / TTS (no audio, wrong voice, audio glitches)
+        - Speech-to-text / microphone input
+        - NPC actions (movement, combat, items)
+        - Memory (NPCs forgetting things, wrong memories)
+        - Web UI
+        - GameMaster / narration
+        - Performance (lag, freezing, high CPU/RAM)
+        - Crash / CTD
+        - Configuration / setup
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: tts-provider
+    attributes:
+      label: TTS Provider
+      description: "Which text-to-speech engine are you using? (Check your tts_config.yaml)"
+      options:
+        - Piper (local, default)
+        - PocketTTS (local)
+        - XTTS (remote/local server)
+        - ElevenLabs (cloud)
+        - Zonos (remote/local server)
+        - Chatterbox (remote/local server)
+        - Kokoro (narrator only)
+        - Inworld
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: llm-model
+    attributes:
+      label: LLM Model
+      description: "Which LLM model are you using? (Check your text_model_config.yaml, 'model' field)"
+      placeholder: "e.g. anthropic/claude-sonnet-4, google/gemini-2.0-flash, etc."
+    validations:
+      required: true
+  - type: dropdown
+    id: stt-provider
+    attributes:
+      label: STT Provider (if relevant)
+      description: "Which speech-to-text are you using? Skip if your issue isn't related to voice input."
+      options:
+        - Not relevant to this issue
+        - Local Whisper (whisper.cpp)
+        - External Whisper (OpenAI API)
+        - Disabled / not using STT
+        - Not sure
+    validations:
+      required: false
   - type: dropdown
     id: game-version
     attributes:
@@ -60,10 +134,41 @@ body:
       placeholder: "beta16"
     validations:
       required: true
+  - type: dropdown
+    id: worked-before
+    attributes:
+      label: Did this work before?
+      description: "Has this feature ever worked for you?"
+      options:
+        - Yes, it stopped working (regression)
+        - No, it never worked for me
+        - Not sure / first time trying
+    validations:
+      required: true
+  - type: input
+    id: what-changed
+    attributes:
+      label: What changed? (if it used to work)
+      description: "If this is a regression, what changed? Updated SkyrimNet, changed config, added mods, etc."
+      placeholder: "Updated from beta15 to beta16 / changed TTS provider / added new mod"
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log file
+      description: |
+        **Please attach your SkyrimNet.log file.** This is the single most important thing for diagnosing issues.
+        Find it at: `Documents/My Games/Skyrim Special Edition/SKSE/SkyrimNet.log`
+
+        Drag and drop the file here, or paste the relevant error lines.
+      placeholder: "Drag and drop your SkyrimNet.log file here, or paste error lines from it."
+    validations:
+      required: true
   - type: textarea
     id: extra
     attributes:
       label: Anything else?
-      description: "Screenshots, log snippets, crash logs, etc."
+      description: "Screenshots, crash logs, web UI screenshots, config snippets, etc."
     validations:
       required: false
