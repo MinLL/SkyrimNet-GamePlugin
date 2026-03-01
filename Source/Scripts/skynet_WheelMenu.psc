@@ -10,8 +10,8 @@ EndEvent
 ;I had to make some sub menus because the wheel menu only supports 9 items
 Function DisplayWheel() global
 
-    string labels = "Text Input,Text Thought,Text Roleplay,Direct Input,Think to Self,Auto Roleplay,Utilities"
-    string options = "Text Input,Text Thought,Text Roleplay,Direct Input,Think to Self,Auto Roleplay,Utilities Menu"
+    string labels = "Text Input,Text Thought,Text Roleplay,Direct Input,Think to Self,Auto Roleplay,Utilities,Silent Narration"
+    string options = "Text Input,Text Thought,Text Roleplay,Direct Input,Think to Self,Auto Roleplay,Utilities Menu,Silent Narration"
 
     int result = skynet_WheelMenu.MenuWheel(StringUtil.Split(options, ","), StringUtil.Split(labels, ","))
 
@@ -36,6 +36,9 @@ Function DisplayWheel() global
     elseif result == 6
         ; Utilities submenu
         skynet_WheelMenu.DisplayUtilities()
+    elseif result == 7
+        ; Silent narration - register event without NPC response
+        SkyrimNetApi.TriggerSilentNarration()
     endif
 
 EndFunction

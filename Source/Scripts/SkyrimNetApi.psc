@@ -658,6 +658,15 @@ int function TriggerGenerateDiaryBio() Global Native
 ; Returns 0 on success, 1 on failure
 int function TriggerInterruptDialogue(bool abDeferToCurrentFinished = false) Global Native
 
+; Simulates pressing the silent narration hotkey
+; - Shows "Enter silent narration text..." notification
+; - Opens text input dialog for silent event registration
+; - Registers a persistent_generic event that informs actors without triggering NPC responses
+; - Useful for establishing facts or outcomes without causing dialogue
+; Functions identically to pressing the configured silent narration key
+; Returns 0 on success
+int function TriggerSilentNarration() Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Events ---
 ; -----------------------------------------------------------------------------
