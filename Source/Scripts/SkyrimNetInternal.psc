@@ -183,24 +183,6 @@ Function AnimationGeneric(Actor akOriginator, string contextJson, string paramsJ
     skynet.libs.PlayGenericAnimation(akOriginator, _anim)
 EndFunction
 
-Function AnimationSlapActor(Actor akOriginator, string contextJson, string paramsJson) global
-    actor akTarget = SkyrimNetApi.GetJsonActor(paramsJson, "target", Game.GetPlayer())
-    sound slapSound = Game.GetFormFromFile(0x0E98, "SkyrimNet.esp") as Sound
-    if (!akOriginator || !akTarget)
-        Debug.Trace("[SkyrimNetInternal] AnimationSlapActor: akOriginator or akTarget is null")
-        return
-    endif
-    Debug.Trace("[SkyrimNetInternal] AnimationSlapActor: Slapping " + akTarget.GetDisplayName() + " with " + akOriginator.GetDisplayName())
-    akTarget.SetDontMove()
-    akOriginator.MoveTo(akTarget, 40.0 * Math.Sin(akTarget.GetAngleZ()), 40.0 * Math.Cos(akTarget.GetAngleZ()))
-    akOriginator.SetAngle(0.0, 0.0, akTarget.GetAngleZ()+180.0)
-    debug.sendanimationevent(akOriginator, "SMplayerslaps")
-    slapSound.play(akTarget)
-    utility.wait(0.8)
-    akOriginator.pushactoraway(akTarget,1)
-    akTarget.SetDontMove(false)
-EndFunction
-
 Function AnimationPrayer(Actor akOriginator, string contextJson, string paramsJson) global
     GlobalVariable prayAnimationGlobal = Game.GetFormFromFile(0x0E99, "SkyrimNet.esp") as GlobalVariable
     if (!akOriginator)
