@@ -148,41 +148,6 @@ int optionCppHotkeysToggle
 int optionIsContinuousMode
 
 ; ============================================================================
-; Package Debug Page
-; ============================================================================
-Actor pkgTargetActor
-string pkgTargetDisplay = "(none)"
-
-; Option IDs for Package Debug page
-int pkgSelectCrosshair
-int pkgRefresh
-int pkgGamePackageDisplay
-int pkgSkyrimNetDisplay
-int pkgHasTalkToPlayer
-int pkgHasTalkToNPC
-int pkgHasFollowPlayer
-
-int pkgAddMenu
-int pkgAddPrioritySlider
-int pkgAddViaSkyrimNet
-int pkgAddViaDirect
-
-int pkgRemoveMenu
-int pkgRemoveViaSkyrimNet
-int pkgRemoveViaDirect
-
-int pkgClearAllSkyrimNet
-int pkgClearAllGlobal
-int pkgReinforce
-int pkgCancelPending
-
-; Package menu state
-string[] pkgPackageNames
-int pkgAddMenuSelection = 0
-int pkgRemoveMenuSelection = 0
-float pkgAddPriority = 70.0
-
-; ============================================================================
 ; Last result tracking
 ; ============================================================================
 string devLastResult = ""
@@ -193,20 +158,13 @@ event OnConfigOpen()
     ; Fetch the library from the quest
     library = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) as skynet_Library)
     
-    Pages = new string[5]
+    Pages = new string[4]
 
     Pages[0] = "Overview"
     Pages[1] = "SkyrimNet Status"
     Pages[2] = "Hotkeys"
-    Pages[3] = "Package Debug"
-    Pages[4] = "Developer"
-
-    ; Initialize package names for debug page
-    pkgPackageNames = new string[3]
-    pkgPackageNames[0] = "TalkToPlayer"
-    pkgPackageNames[1] = "TalkToNPC"
-    pkgPackageNames[2] = "FollowPlayer"
-
+    Pages[3] = "Developer"
+    
     ; Initialize developer category names
     devCategoryNames = new string[6]
     devCategoryNames[0] = "LLM Interaction"
@@ -235,8 +193,6 @@ event OnPageReset(string page)
         DisplayStatus()
     elseif page == "Hotkeys"
         DisplayHotkeys()
-    elseif page == "Package Debug"
-        DisplayPackageDebug()
     elseif page == "Developer"
         DisplayDeveloper()
     else
@@ -336,161 +292,6 @@ function DisplayHotkeys()
         optionHotkeySilentNarration = AddKeyMapOption("Silent Narration", library.hotkeySilentNarration)
     else
         AddTextOption("Enable in-game hotkeys to configure", "")
-    endif
-
-endfunction
-
-; ============================================================================
-; Package Debug Page
-; ============================================================================
-function DisplayPackageDebug()
-
-    AddHeaderOption("Target Selection")
-    AddHeaderOption("")
-
-    pkgSelectCrosshair = AddTextOption("Select from Crosshair", "[Select]")
-    AddTextOption("Selected:", pkgTargetDisplay)
-
-    AddHeaderOption("Package Status")
-    AddHeaderOption("")
-
-    if pkgTargetActor
-        string gamePkg = SkyrimNetApi.GetCurrentGamePackageName(pkgTargetActor)
-        string skyrimnetPkgs = SkyrimNetApi.GetSkyrimNetPackagesString(pkgTargetActor)
-        pkgGamePackageDisplay = AddTextOption("Game Package:", gamePkg)
-        pkgSkyrimNetDisplay = AddTextOption("SkyrimNet Tracked:", TruncateDisplay(skyrimnetPkgs, "(none)"))
-        pkgHasTalkToPlayer = AddTextOption("Has TalkToPlayer:", BoolToYesNo(SkyrimNetApi.HasPackage(pkgTargetActor, "TalkToPlayer")))
-        pkgHasTalkToNPC = AddTextOption("Has TalkToNPC:", BoolToYesNo(SkyrimNetApi.HasPackage(pkgTargetActor, "TalkToNPC")))
-        pkgHasFollowPlayer = AddTextOption("Has FollowPlayer:", BoolToYesNo(SkyrimNetApi.HasPackage(pkgTargetActor, "FollowPlayer")))
-        pkgRefresh = AddTextOption("Refresh Status", "[Refresh]")
-    else
-        AddTextOption("Game Package:", "(no target)")
-        AddTextOption("SkyrimNet Tracked:", "(no target)")
-        AddTextOption("Select a target actor first", "")
-        AddEmptyOption()
-        AddEmptyOption()
-        pkgRefresh = -1
-    endif
-
-    AddHeaderOption("Add Package")
-    AddHeaderOption("")
-
-    pkgAddMenu = AddMenuOption("Package:", pkgPackageNames[pkgAddMenuSelection])
-    pkgAddPrioritySlider = AddSliderOption("Priority:", pkgAddPriority, "{0}")
-    pkgAddViaSkyrimNet = AddTextOption("Add via SkyrimNet", "[Add]")
-    pkgAddViaDirect = AddTextOption("Add via PapyrusUtil Direct", "[Add]")
-
-    AddHeaderOption("Remove Package")
-    AddHeaderOption("")
-
-    pkgRemoveMenu = AddMenuOption("Package:", pkgPackageNames[pkgRemoveMenuSelection])
-    AddEmptyOption()
-    pkgRemoveViaSkyrimNet = AddTextOption("Remove via SkyrimNet", "[Remove]")
-    pkgRemoveViaDirect = AddTextOption("Remove via PapyrusUtil Direct", "[Remove]")
-
-    AddHeaderOption("Bulk Operations")
-    AddHeaderOption("")
-
-    pkgClearAllSkyrimNet = AddTextOption("Clear All (SkyrimNet)", "[Clear]")
-    pkgClearAllGlobal = AddTextOption("Clear All (Global)", "[Clear]")
-    pkgReinforce = AddTextOption("Reinforce Packages", "[Reinforce]")
-    pkgCancelPending = AddTextOption("Cancel Pending Tasks", "[Cancel]")
-
-endfunction
-
-string function BoolToYesNo(int value)
-    if value
-        return "Yes"
-    endif
-    return "No"
-endfunction
-
-function HandlePackageDebugSelect(int option)
-
-    if option == pkgSelectCrosshair
-        Actor crosshairRef = Game.GetCurrentCrosshairRef() as Actor
-        if crosshairRef
-            pkgTargetActor = crosshairRef
-            pkgTargetDisplay = pkgTargetActor.GetDisplayName()
-            ForcePageReset()
-        else
-            Debug.MessageBox("No actor under crosshair")
-        endif
-
-    elseif option == pkgRefresh
-        ForcePageReset()
-
-    elseif option == pkgAddViaSkyrimNet
-        if !pkgTargetActor
-            Debug.MessageBox("No target actor selected")
-            return
-        endif
-        string pkgName = pkgPackageNames[pkgAddMenuSelection]
-        int result = SkyrimNetApi.RegisterPackage(pkgTargetActor, pkgName, pkgAddPriority as int, 0, false)
-        ShowResultInt("RegisterPackage(" + pkgName + ")", result)
-        ForcePageReset()
-
-    elseif option == pkgAddViaDirect
-        if !pkgTargetActor
-            Debug.MessageBox("No target actor selected")
-            return
-        endif
-        string pkgName = pkgPackageNames[pkgAddMenuSelection]
-        int result = SkyrimNetApi.AddDirectPackageOverride(pkgTargetActor, pkgName, pkgAddPriority as int, 0)
-        ShowResultInt("AddDirectPackageOverride(" + pkgName + ")", result)
-        ForcePageReset()
-
-    elseif option == pkgRemoveViaSkyrimNet
-        if !pkgTargetActor
-            Debug.MessageBox("No target actor selected")
-            return
-        endif
-        string pkgName = pkgPackageNames[pkgRemoveMenuSelection]
-        int result = SkyrimNetApi.UnregisterPackage(pkgTargetActor, pkgName)
-        ShowResultInt("UnregisterPackage(" + pkgName + ")", result)
-        ForcePageReset()
-
-    elseif option == pkgRemoveViaDirect
-        if !pkgTargetActor
-            Debug.MessageBox("No target actor selected")
-            return
-        endif
-        string pkgName = pkgPackageNames[pkgRemoveMenuSelection]
-        int result = SkyrimNetApi.RemoveDirectPackageOverride(pkgTargetActor, pkgName)
-        ShowResultInt("RemoveDirectPackageOverride(" + pkgName + ")", result)
-        ForcePageReset()
-
-    elseif option == pkgClearAllSkyrimNet
-        if !pkgTargetActor
-            Debug.MessageBox("No target actor selected")
-            return
-        endif
-        int result = SkyrimNetApi.ClearAllPackages(pkgTargetActor)
-        ShowResultInt("ClearAllPackages", result)
-        ForcePageReset()
-
-    elseif option == pkgClearAllGlobal
-        int result = SkyrimNetApi.ClearAllPackagesGlobally()
-        ShowResultInt("ClearAllPackagesGlobally", result)
-        ForcePageReset()
-
-    elseif option == pkgReinforce
-        if !pkgTargetActor
-            Debug.MessageBox("No target actor selected")
-            return
-        endif
-        int result = SkyrimNetApi.ReinforcePackages(pkgTargetActor)
-        ShowResultInt("ReinforcePackages", result)
-        ForcePageReset()
-
-    elseif option == pkgCancelPending
-        if !pkgTargetActor
-            Debug.MessageBox("No target actor selected")
-            return
-        endif
-        int result = SkyrimNetApi.CancelPendingPackageTasks(pkgTargetActor)
-        ShowResultInt("CancelPendingPackageTasks", result)
-        ForcePageReset()
     endif
 
 endfunction
@@ -835,10 +636,6 @@ event OnOptionSelect(int option)
         endif
         ForcePageReset()
         
-    ; === Package Debug Page ===
-    elseif CurrentPage == "Package Debug"
-        HandlePackageDebugSelect(option)
-
     ; === Developer Page Options ===
     ; Check CurrentPage to ensure we're on the Developer page before handling developer options
     ; This prevents cross-category conflicts when option IDs overlap
@@ -961,16 +758,6 @@ event OnOptionMenuOpen(int option)
         SetMenuDialogOptions(devCategoryNames)
         SetMenuDialogStartIndex(devCurrentCategory)
         SetMenuDialogDefaultIndex(0)
-    elseif CurrentPage == "Package Debug"
-        if option == pkgAddMenu
-            SetMenuDialogOptions(pkgPackageNames)
-            SetMenuDialogStartIndex(pkgAddMenuSelection)
-            SetMenuDialogDefaultIndex(0)
-        elseif option == pkgRemoveMenu
-            SetMenuDialogOptions(pkgPackageNames)
-            SetMenuDialogStartIndex(pkgRemoveMenuSelection)
-            SetMenuDialogDefaultIndex(0)
-        endif
     endif
 endevent
 
@@ -979,14 +766,6 @@ event OnOptionMenuAccept(int option, int index)
         devCurrentCategory = index
         SetMenuOptionValue(devCategoryMenu, devCategoryNames[devCurrentCategory])
         ForcePageReset()
-    elseif CurrentPage == "Package Debug"
-        if option == pkgAddMenu
-            pkgAddMenuSelection = index
-            SetMenuOptionValue(pkgAddMenu, pkgPackageNames[pkgAddMenuSelection])
-        elseif option == pkgRemoveMenu
-            pkgRemoveMenuSelection = index
-            SetMenuOptionValue(pkgRemoveMenu, pkgPackageNames[pkgRemoveMenuSelection])
-        endif
     endif
 endevent
 
@@ -995,7 +774,7 @@ event OnOptionInputOpen(int option)
     if CurrentPage != "Developer"
         return
     endif
-
+    
     ; LLM Category
     if devCurrentCategory == DEV_CAT_LLM
         if option == optionLlmPromptName
@@ -1056,7 +835,7 @@ event OnOptionInputAccept(int option, string value)
     if CurrentPage != "Developer"
         return
     endif
-
+    
     ; LLM Category
     if devCurrentCategory == DEV_CAT_LLM
         if option == optionLlmPromptName
@@ -1133,22 +912,11 @@ event OnOptionInputAccept(int option, string value)
 endevent
 
 event OnOptionSliderOpen(int option)
-    ; Package Debug page
-    if CurrentPage == "Package Debug"
-        if option == pkgAddPrioritySlider
-            SetSliderDialogStartValue(pkgAddPriority)
-            SetSliderDialogDefaultValue(70.0)
-            SetSliderDialogRange(0.0, 100.0)
-            SetSliderDialogInterval(1.0)
-        endif
-        return
-    endif
-
     ; Only handle sliders on Developer page, Events category
     if CurrentPage != "Developer" || devCurrentCategory != DEV_CAT_EVENTS
         return
     endif
-
+    
     if option == optionShortEventTtl
         SetSliderDialogStartValue(devShortEventTtl as float)
         SetSliderDialogDefaultValue(30000.0)
@@ -1158,20 +926,11 @@ event OnOptionSliderOpen(int option)
 endevent
 
 event OnOptionSliderAccept(int option, float value)
-    ; Package Debug page
-    if CurrentPage == "Package Debug"
-        if option == pkgAddPrioritySlider
-            pkgAddPriority = value
-            SetSliderOptionValue(pkgAddPrioritySlider, value, "{0}")
-        endif
-        return
-    endif
-
     ; Only handle sliders on Developer page, Events category
     if CurrentPage != "Developer" || devCurrentCategory != DEV_CAT_EVENTS
         return
     endif
-
+    
     if option == optionShortEventTtl
         devShortEventTtl = value as int
         SetSliderOptionValue(optionShortEventTtl, value, "{0}")
