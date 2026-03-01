@@ -92,16 +92,17 @@ int function RegisterDialogueToListener(Actor speaker, Actor listener, String di
 
 ; Immediately purge all ongoing NPC dialogue
 ; This function stops all dialogue processing:
-; - Interrupts currently playing audio
-; - Clears the audio queue
 ; - Clears the speech/TTS generation queue
 ; - Clears streaming text buffers
 ; - Clears dialogue queues for all actors
 ; - Invalidates pending TTS generation tasks
+; If abDeferToCurrentFinished is false (default): also interrupts currently playing audio immediately
+; If abDeferToCurrentFinished is true: allows currently playing audio to finish naturally;
+;   only queues are cleared so nothing follows after the current line ends
 ; Note: This is a blocking call on the Papyrus thread. For non-blocking behavior
 ; with hotkey-style checks and notifications, use TriggerInterruptDialogue() instead.
-; Returns 1 if audio was interrupted mid-playback, 0 otherwise
-int function PurgeDialogue() Global Native
+; Returns 1 if audio was interrupted mid-playback, 0 otherwise (always 0 in deferred mode)
+int function PurgeDialogue(bool abDeferToCurrentFinished = false) Global Native
 
 ; -----------------------------------------------------------------------------
 ; --- Package Management ---
@@ -648,14 +649,14 @@ int function TriggerGenerateDiaryBio() Global Native
 ; -----------------------------------------------------------------------------
 
 ; Simulates pressing the interrupt dialogue hotkey
-; - Immediately stops all ongoing NPC dialogue
-; - Clears the audio queue and any currently playing speech
-; - Clears the speech/TTS generation queue
-; - Clears streaming text buffers
-; - Clears dialogue queues for all actors
+; - Clears the audio queue and speech/TTS generation queue
+; - Clears streaming text buffers and dialogue queues for all actors
+; If abDeferToCurrentFinished is false (default): also interrupts currently playing audio immediately
+; If abDeferToCurrentFinished is true: allows currently playing audio to finish naturally;
+;   only queues are cleared so nothing follows after the current line ends
 ; Useful for cutting off NPCs mid-sentence or clearing stuck dialogue
 ; Returns 0 on success, 1 on failure
-int function TriggerInterruptDialogue() Global Native
+int function TriggerInterruptDialogue(bool abDeferToCurrentFinished = false) Global Native
 
 ; -----------------------------------------------------------------------------
 ; --- Events ---
