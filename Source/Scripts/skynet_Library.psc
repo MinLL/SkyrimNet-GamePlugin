@@ -680,6 +680,7 @@ Int Property hotkeyToggleOpenMic = -1 Auto Hidden
 Int Property hotkeyCaptureCrosshair = -1 Auto Hidden
 Int Property hotkeyGenerateDiaryBio = -1 Auto Hidden
 Int Property hotkeyInterruptDialogue = -1 Auto Hidden
+Int Property hotkeySilentNarration = -1 Auto Hidden
 
 Bool Property inGameHotkeysEnabled = false Auto Hidden
 
@@ -780,6 +781,9 @@ Function RegisterConfiguredHotkeys()
     If hotkeyInterruptDialogue != -1
         RegisterForKey(hotkeyInterruptDialogue)
     EndIf
+    If hotkeySilentNarration != -1
+        RegisterForKey(hotkeySilentNarration)
+    EndIf
 EndFunction
 
 Function UnregisterAllHotkeys()
@@ -834,6 +838,9 @@ Function UnregisterAllHotkeys()
     EndIf
     If hotkeyInterruptDialogue != -1
         UnregisterForKey(hotkeyInterruptDialogue)
+    EndIf
+    If hotkeySilentNarration != -1
+        UnregisterForKey(hotkeySilentNarration)
     EndIf
 EndFunction
 
@@ -982,6 +989,8 @@ Function HandleHotkeyPress(Int keyCode)
         SkyrimNetApi.TriggerGenerateDiaryBio()
     ElseIf keyCode == hotkeyInterruptDialogue && hotkeyInterruptDialogue != -1
         SkyrimNetApi.TriggerInterruptDialogue()
+    ElseIf keyCode == hotkeySilentNarration && hotkeySilentNarration != -1
+        SkyrimNetApi.TriggerSilentNarration()
     EndIf
 EndFunction
 
