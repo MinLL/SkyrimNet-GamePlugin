@@ -57,8 +57,9 @@ extern "C" {
 // =============================================================================
 
 /**
- * Returns the runtime API version (currently 3).
- * Version history: 2 = action registration, 3 = data queries + UUID + config.
+ * Returns the runtime API version (currently 4).
+ * Version history: 2 = action registration, 3 = data queries + UUID + config,
+ *                  4 = diary queries.
  */
 int (*PublicGetVersion)() = nullptr;
 
@@ -355,6 +356,25 @@ std::string (*PublicGetPlayerContext)(float withinGameHours) = nullptr;
 std::string (*PublicGetEventPairCounts)(const char* formIdListCSV, int minSharedEvents) = nullptr;
 
 // =============================================================================
+// Diary Queries (v4+)
+// =============================================================================
+
+/**
+ * Retrieve diary entries for an actor, optionally filtered by time range.
+ *
+ * @param formId    Actor FormID (0 = all actors).
+ * @param maxCount  Maximum entries to return (<=0 defaults to 50).
+ * @param startTime Only entries at or after this time (seconds since epoch).
+ *                  0.0 = no lower bound.
+ * @param endTime   Only entries at or before this time (seconds since epoch).
+ *                  0.0 = no upper bound.
+ *
+ * @return JSON array of diary entry objects. Each entry includes all fields
+ *         from DiaryEntry::ToJson() plus an `actor_name` field.
+ */
+std::string (*PublicGetDiaryEntries)(uint32_t formId, int maxCount, double startTime, double endTime) = nullptr;
+
+// =============================================================================
 // Plugin Configuration (v3+)
 // =============================================================================
 
@@ -451,6 +471,12 @@ inline bool FindFunctions() {
                     GetProcAddress(hDLL, "PublicGetPluginConfig"));
                 PublicGetPluginConfigValue = reinterpret_cast<std::string(*)(const char*, const char*, const char*)>(
                     GetProcAddress(hDLL, "PublicGetPluginConfigValue"));
+            }
+
+            // v4+ functions
+            if (version >= 4) {
+                PublicGetDiaryEntries = reinterpret_cast<std::string(*)(uint32_t, int, double, double)>(
+                    GetProcAddress(hDLL, "PublicGetDiaryEntries"));
             }
         }
         return true;
