@@ -1,5 +1,7 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
-    ## Appearance & Physical State
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" or render_mode == "bio_appearance" %}
+    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
+        ## Appearance & Physical State
+    {% endif %}
     {% if has_omnisight_description("actor", actorUUID) %}
         {{ get_omnisight_description("actor", actorUUID) }}
     {% else %}

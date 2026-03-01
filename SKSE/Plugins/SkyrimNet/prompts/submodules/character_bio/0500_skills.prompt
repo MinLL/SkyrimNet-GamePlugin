@@ -1,4 +1,6 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
-    ## Skills & Combat
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_skills" %}
+    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+        ## Skills & Combat
+    {% endif %}
     {% block skills %}{% endblock %}
 {% endif %}

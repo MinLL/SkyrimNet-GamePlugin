@@ -1,4 +1,4 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "interject_inline" %}
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "interject_inline" or render_mode == "bio_interject_summary" %}
     {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
         ### Interject Summary (Things that {{ decnpc(actorUUID).name }} thinks are interesting and will respond to).
     {% endif %}

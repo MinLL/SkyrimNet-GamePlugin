@@ -1,4 +1,6 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
-    ## Long Term Memories and Plot Progression
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_long_term_memories" %}
+    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+        ## Long Term Memories and Plot Progression
+    {% endif %}
     {% block long_term_memories %}{% endblock %}
 {% endif %}

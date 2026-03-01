@@ -1,4 +1,6 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
-    ## Goals & Aspirations
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_aspirations"%}
+    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+        ## Goals & Aspirations
+    {% endif %}
     {% block aspirations %}{% endblock %}
 {% endif %}

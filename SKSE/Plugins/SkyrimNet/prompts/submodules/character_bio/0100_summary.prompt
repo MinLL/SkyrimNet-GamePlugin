@@ -1,6 +1,6 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
     ## {{ decnpc(actorUUID).name }} - Character Summary
 {% endif %}
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" or render_mode == "short_inline" %}
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" or render_mode == "short_inline" or render_mode == "bio_summary"%}
     {% block summary %}{% endblock %}
 {% endif %}
