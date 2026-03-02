@@ -24,6 +24,7 @@ int optionHotkeyCaptureCrosshair
 int optionHotkeyGenerateDiaryBio
 int optionHotkeyInterruptDialogue
 int optionHotkeySilentNarration
+int optionHotkeyDebugFollowTarget
 
 int useImage
 
@@ -290,6 +291,7 @@ function DisplayHotkeys()
         optionHotkeyGenerateDiaryBio = AddKeyMapOption("Generate Diary & Bio", library.hotkeyGenerateDiaryBio)
         optionHotkeyInterruptDialogue = AddKeyMapOption("Interrupt Dialogue", library.hotkeyInterruptDialogue)
         optionHotkeySilentNarration = AddKeyMapOption("Silent Narration", library.hotkeySilentNarration)
+        optionHotkeyDebugFollowTarget = AddKeyMapOption("Force Follow (Crosshair)", library.hotkeyDebugFollowTarget)
     else
         AddTextOption("Enable in-game hotkeys to configure", "")
     endif
@@ -358,7 +360,7 @@ function ResetDevOptionIds()
     optionTriggerPlayerDialogue = -1
     optionTriggerGenerateDiaryBio = -1
     optionTriggerInterruptDialogue = -1
-    
+
     ; Dialogue options
     optionDialogueContent = -1
     optionDialogueExecute = -1
@@ -466,7 +468,7 @@ function DisplayDevHotkeys()
     optionTriggerPlayerDialogue = AddTextOption("TriggerPlayerDialogue", "[Execute]")
     optionTriggerGenerateDiaryBio = AddTextOption("TriggerGenerateDiaryBio", "[Execute]")
     optionTriggerInterruptDialogue = AddTextOption("TriggerInterruptDialogue", "[Execute]")
-    
+
 endfunction
 
 ; ============================================================================
@@ -1001,6 +1003,9 @@ event OnOptionKeyMapChange(int option, int keyCode, string conflictControl, stri
     elseif option == optionHotkeySilentNarration
         library.hotkeySilentNarration = finalKeyCode
         SetKeyMapOptionValue(option, keyCode)
+    elseif option == optionHotkeyDebugFollowTarget
+        library.hotkeyDebugFollowTarget = finalKeyCode
+        SetKeyMapOptionValue(option, keyCode)
     endif
 
     ; Re-register hotkeys to pick up the change immediately
@@ -1068,6 +1073,9 @@ event OnOptionDefault(int option)
         SetKeyMapOptionValue(option, -1)
     elseif option == optionHotkeySilentNarration
         library.hotkeySilentNarration = -1
+        SetKeyMapOptionValue(option, -1)
+    elseif option == optionHotkeyDebugFollowTarget
+        library.hotkeyDebugFollowTarget = -1
         SetKeyMapOptionValue(option, -1)
     endif
 

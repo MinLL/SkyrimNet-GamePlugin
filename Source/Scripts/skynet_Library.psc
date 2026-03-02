@@ -681,6 +681,7 @@ Int Property hotkeyCaptureCrosshair = -1 Auto Hidden
 Int Property hotkeyGenerateDiaryBio = -1 Auto Hidden
 Int Property hotkeyInterruptDialogue = -1 Auto Hidden
 Int Property hotkeySilentNarration = -1 Auto Hidden
+Int Property hotkeyDebugFollowTarget = -1 Auto Hidden
 
 Bool Property inGameHotkeysEnabled = false Auto Hidden
 
@@ -784,6 +785,9 @@ Function RegisterConfiguredHotkeys()
     If hotkeySilentNarration != -1
         RegisterForKey(hotkeySilentNarration)
     EndIf
+    If hotkeyDebugFollowTarget != -1
+        RegisterForKey(hotkeyDebugFollowTarget)
+    EndIf
 EndFunction
 
 Function UnregisterAllHotkeys()
@@ -841,6 +845,9 @@ Function UnregisterAllHotkeys()
     EndIf
     If hotkeySilentNarration != -1
         UnregisterForKey(hotkeySilentNarration)
+    EndIf
+    If hotkeyDebugFollowTarget != -1
+        UnregisterForKey(hotkeyDebugFollowTarget)
     EndIf
 EndFunction
 
@@ -991,6 +998,8 @@ Function HandleHotkeyPress(Int keyCode)
         SkyrimNetApi.TriggerInterruptDialogue()
     ElseIf keyCode == hotkeySilentNarration && hotkeySilentNarration != -1
         SkyrimNetApi.TriggerSilentNarration()
+    ElseIf keyCode == hotkeyDebugFollowTarget && hotkeyDebugFollowTarget != -1
+        DebugFollowCrosshairTarget()
     EndIf
 EndFunction
 
@@ -1009,5 +1018,28 @@ Function HandleHotkeyRelease(Int keyCode, Float holdTime)
         ; Quick press (< 1.0s) = capture crosshair target (actor/furniture)
         ; Long press (>= 1.0s) = capture player
         SkyrimNetApi.TriggerCaptureCrosshairReleased(holdTime)
+    EndIf
+EndFunction
+
+; -----------------------------------------------------------------------------
+; --- Debug Utilities ---
+; -----------------------------------------------------------------------------
+
+Function DebugFollowCrosshairTarget()
+    Actor target = Game.GetCurrentCrosshairRef() as Actor
+    If !target
+        Debug.Notification("[SkyrimNet Debug] No actor under crosshair")
+        return
+    EndIf
+
+    If ActorUtil.RemovePackageOverride(target, packageFollowPlayer)
+        ; Had the override, removed it (toggle off)
+        Debug.Notification("[SkyrimNet Debug] " + target.GetDisplayName() + " stopped following")
+        target.EvaluatePackage()
+    Else
+        ; Didn't have it, add it (toggle on)
+        Debug.Notification("[SkyrimNet Debug] " + target.GetDisplayName() + " now following")
+        ActorUtil.AddPackageOverride(target, packageFollowPlayer, 10, 0)
+        target.EvaluatePackage()
     EndIf
 EndFunction
