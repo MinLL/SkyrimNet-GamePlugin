@@ -682,6 +682,8 @@ Int Property hotkeyGenerateDiaryBio = -1 Auto Hidden
 Int Property hotkeyInterruptDialogue = -1 Auto Hidden
 Int Property hotkeySilentNarration = -1 Auto Hidden
 Int Property hotkeyDebugFollowTarget = -1 Auto Hidden
+Int Property hotkeyDebugPackageTest = -1 Auto Hidden
+Int Property hotkeyDebugPackageInfo = -1 Auto Hidden
 
 Bool Property inGameHotkeysEnabled = false Auto Hidden
 
@@ -788,6 +790,12 @@ Function RegisterConfiguredHotkeys()
     If hotkeyDebugFollowTarget != -1
         RegisterForKey(hotkeyDebugFollowTarget)
     EndIf
+    If hotkeyDebugPackageTest != -1
+        RegisterForKey(hotkeyDebugPackageTest)
+    EndIf
+    If hotkeyDebugPackageInfo != -1
+        RegisterForKey(hotkeyDebugPackageInfo)
+    EndIf
 EndFunction
 
 Function UnregisterAllHotkeys()
@@ -848,6 +856,12 @@ Function UnregisterAllHotkeys()
     EndIf
     If hotkeyDebugFollowTarget != -1
         UnregisterForKey(hotkeyDebugFollowTarget)
+    EndIf
+    If hotkeyDebugPackageTest != -1
+        UnregisterForKey(hotkeyDebugPackageTest)
+    EndIf
+    If hotkeyDebugPackageInfo != -1
+        UnregisterForKey(hotkeyDebugPackageInfo)
     EndIf
 EndFunction
 
@@ -1000,6 +1014,10 @@ Function HandleHotkeyPress(Int keyCode)
         SkyrimNetApi.TriggerSilentNarration()
     ElseIf keyCode == hotkeyDebugFollowTarget && hotkeyDebugFollowTarget != -1
         DebugFollowCrosshairTarget()
+    ElseIf keyCode == hotkeyDebugPackageTest && hotkeyDebugPackageTest != -1
+        DebugPackagePreemptionTest()
+    ElseIf keyCode == hotkeyDebugPackageInfo && hotkeyDebugPackageInfo != -1
+        DebugPackageInfo()
     EndIf
 EndFunction
 
@@ -1042,4 +1060,305 @@ Function DebugFollowCrosshairTarget()
         ActorUtil.AddPackageOverride(target, packageFollowPlayer, 10, 0)
         target.EvaluatePackage()
     EndIf
+EndFunction
+
+; Comprehensive PapyrusUtil API + SkyrimNet multi-priority package test.
+; Exercises all 4 hooked PapyrusUtil functions and verifies SkyrimNet handles
+; multiple packages with different priorities correctly.
+;
+; Phase A (steps 1-3): Multi-priority SkyrimNet test
+;   Register two SkyrimNet packages at different priorities, verify priority
+;   ordering, then unwind and verify correct fallback at each step.
+;
+; Phase B (steps 4-6): PU preemption survival test
+;   PU.Add(FollowPlayer@10), SkyrimNet preempts with TalkToPlayer@30,
+;   remove SkyrimNet override, verify PU package survived.
+;   Exercises: PU.AddPackageOverride
+;
+; Phase C (steps 7-9): PU API coverage
+;   Tests ClearPackageOverride(actor) and RemoveAllPackageOverride(package).
+;   Exercises: PU.ClearPackageOverride, PU.RemoveAllPackageOverride,
+;              PU.RemovePackageOverride (cleanup via ClearPackageOverride)
+Function DebugPackagePreemptionTest()
+    Actor target = Game.GetCurrentCrosshairRef() as Actor
+    If !target
+        Debug.Notification("[PkgTest] No actor under crosshair")
+        return
+    EndIf
+
+    String name = target.GetDisplayName()
+    int formID = target.GetFormID()
+    Package currentPkg = None
+    int puCount = 0
+    int curPkgID = 0
+
+    ; Capture the NPC's original package before we touch anything
+    Package originalPkg = target.GetCurrentPackage()
+    int originalPkgID = 0
+    If originalPkg
+        originalPkgID = originalPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] ========== COMPREHENSIVE PACKAGE TEST START ==========")
+    Debug.Trace("[PkgTest] Target: " + name + " (FormID: " + formID + ")")
+    Debug.Trace("[PkgTest] Original package: " + originalPkgID)
+    Debug.Trace("[PkgTest] FollowPlayer pkg: " + packageFollowPlayer.GetFormID())
+    Debug.Trace("[PkgTest] TalkToPlayer pkg: " + packageDialoguePlayer.GetFormID())
+    Debug.Notification("[PkgTest] " + name + ": Starting comprehensive test...")
+
+    ; =======================================================================
+    ; Phase A: Multi-priority SkyrimNet test
+    ; =======================================================================
+    Debug.Trace("[PkgTest] --- Phase A: Multi-priority SkyrimNet test ---")
+
+    ; --- Step 1: Register two SkyrimNet packages at different priorities ---
+    Debug.Trace("[PkgTest] Step 1: Register TalkToPlayer@10 + FollowPlayer@20 via SkyrimNet")
+    Debug.Notification("[PkgTest] Step 1/9: SkyrimNet TalkToPlayer@10 + FollowPlayer@20")
+    SkyrimNetApi.RegisterPackage(target, "TalkToPlayer", 10, 0, false)
+    SkyrimNetApi.RegisterPackage(target, "FollowPlayer", 20, 0, false)
+
+    Utility.Wait(3.0)
+    currentPkg = target.GetCurrentPackage()
+    curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] Step 1 verify: pkg=" + curPkgID + " matchFollow=" + (currentPkg == packageFollowPlayer))
+    If currentPkg == packageFollowPlayer
+        Debug.Trace("[PkgTest] Step 1: SUCCESS - FollowPlayer@20 wins over TalkToPlayer@10")
+        Debug.Notification("[PkgTest] Step 1 OK: FollowPlayer wins (pri 20>10)")
+    Else
+        Debug.Trace("[PkgTest] Step 1: FAIL - expected FollowPlayer, got " + curPkgID)
+        Debug.Notification("[PkgTest] Step 1 FAIL: pkg=" + curPkgID)
+    EndIf
+
+    ; --- Step 2: Remove higher-priority FollowPlayer → TalkToPlayer should resume ---
+    Utility.Wait(2.0)
+    Debug.Trace("[PkgTest] Step 2: Unregister FollowPlayer → TalkToPlayer@10 should resume")
+    Debug.Notification("[PkgTest] Step 2/9: Remove FollowPlayer, expect TalkToPlayer")
+    SkyrimNetApi.UnregisterPackage(target, "FollowPlayer")
+    target.EvaluatePackage()
+
+    Utility.Wait(2.0)
+    currentPkg = target.GetCurrentPackage()
+    curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] Step 2 verify: pkg=" + curPkgID + " matchTalk=" + (currentPkg == packageDialoguePlayer))
+    If currentPkg == packageDialoguePlayer
+        Debug.Trace("[PkgTest] Step 2: SUCCESS - TalkToPlayer resumed")
+        Debug.Notification("[PkgTest] Step 2 OK: TalkToPlayer resumed (pri=10)")
+    Else
+        Debug.Trace("[PkgTest] Step 2: FAIL - expected TalkToPlayer, got " + curPkgID)
+        Debug.Notification("[PkgTest] Step 2 FAIL: pkg=" + curPkgID)
+    EndIf
+
+    ; --- Step 3: Remove TalkToPlayer → original should restore ---
+    Utility.Wait(2.0)
+    Debug.Trace("[PkgTest] Step 3: Unregister TalkToPlayer → original should restore")
+    Debug.Notification("[PkgTest] Step 3/9: Remove TalkToPlayer, expect original")
+    SkyrimNetApi.UnregisterPackage(target, "TalkToPlayer")
+    target.EvaluatePackage()
+
+    Utility.Wait(2.0)
+    currentPkg = target.GetCurrentPackage()
+    curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] Step 3 verify: pkg=" + curPkgID + " matchOrig=" + (currentPkg == originalPkg))
+    If currentPkg == originalPkg
+        Debug.Notification("[PkgTest] Step 3 OK: Original restored")
+    Else
+        Debug.Notification("[PkgTest] Step 3 INFO: pkg=" + curPkgID + " (orig=" + originalPkgID + ")")
+    EndIf
+
+    ; =======================================================================
+    ; Phase B: PU preemption survival test
+    ; =======================================================================
+    Debug.Trace("[PkgTest] --- Phase B: PU preemption survival test ---")
+
+    ; --- Step 4: Add FollowPlayer via PapyrusUtil [exercises PU.AddPackageOverride] ---
+    Utility.Wait(2.0)
+    Debug.Trace("[PkgTest] Step 4: PU.AddPackageOverride(FollowPlayer, pri=10)")
+    Debug.Notification("[PkgTest] Step 4/9: PU Add FollowPlayer (pri=10)")
+    ActorUtil.AddPackageOverride(target, packageFollowPlayer, 10, 0)
+    target.EvaluatePackage()
+
+    Utility.Wait(3.0)
+    currentPkg = target.GetCurrentPackage()
+    puCount = ActorUtil.CountPackageOverride(target)
+    curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] Step 4 verify: pkg=" + curPkgID + " PU.Count=" + puCount + " matchFollow=" + (currentPkg == packageFollowPlayer))
+    If currentPkg == packageFollowPlayer
+        Debug.Notification("[PkgTest] Step 4 OK: FollowPlayer via PU (PU=" + puCount + ")")
+    Else
+        Debug.Notification("[PkgTest] Step 4 WARN: pkg=" + curPkgID + " (PU=" + puCount + ")")
+    EndIf
+
+    ; --- Step 5: SkyrimNet preempts with TalkToPlayer@30 ---
+    Debug.Trace("[PkgTest] Step 5: SkyrimNet.Register(TalkToPlayer, pri=30) — preempts PU FollowPlayer")
+    Debug.Notification("[PkgTest] Step 5/9: SkyrimNet TalkToPlayer@30 (preempts)")
+    SkyrimNetApi.RegisterPackage(target, "TalkToPlayer", 30, 0, false)
+
+    Utility.Wait(2.0)
+    currentPkg = target.GetCurrentPackage()
+    curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] Step 5 verify: pkg=" + curPkgID + " matchTalk=" + (currentPkg == packageDialoguePlayer))
+    If currentPkg == packageDialoguePlayer
+        Debug.Notification("[PkgTest] Step 5 OK: TalkToPlayer preempted")
+    Else
+        Debug.Notification("[PkgTest] Step 5 WARN: pkg=" + curPkgID + " not TalkToPlayer")
+    EndIf
+
+    ; --- Step 6: Remove SkyrimNet TalkToPlayer → PU FollowPlayer should survive ---
+    Utility.Wait(3.0)
+    puCount = ActorUtil.CountPackageOverride(target)
+    Debug.Trace("[PkgTest] Step 6: Unregister TalkToPlayer. PU.Count=" + puCount + " (likely 0 — PU erased during preemption)")
+    Debug.Notification("[PkgTest] Step 6/9: Remove TalkToPlayer (PU=" + puCount + ")")
+    SkyrimNetApi.UnregisterPackage(target, "TalkToPlayer")
+    target.EvaluatePackage()
+
+    Utility.Wait(2.0)
+    currentPkg = target.GetCurrentPackage()
+    puCount = ActorUtil.CountPackageOverride(target)
+    curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] Step 6 verify: pkg=" + curPkgID + " PU.Count=" + puCount + " matchFollow=" + (currentPkg == packageFollowPlayer))
+    If currentPkg == packageFollowPlayer
+        Debug.Trace("[PkgTest] Step 6: SUCCESS - PU FollowPlayer survived preemption!")
+        Debug.Notification("[PkgTest] Step 6 SUCCESS: FollowPlayer survived! (PU=" + puCount + ")")
+    ElseIf currentPkg
+        Debug.Trace("[PkgTest] Step 6: FAIL - running pkg " + curPkgID + " instead of FollowPlayer")
+        Debug.Notification("[PkgTest] Step 6 FAIL: pkg=" + curPkgID + " (PU=" + puCount + ")")
+    Else
+        Debug.Trace("[PkgTest] Step 6: FAIL - no package running")
+        Debug.Notification("[PkgTest] Step 6 FAIL: no package (PU=" + puCount + ")")
+    EndIf
+
+    ; =======================================================================
+    ; Phase C: PU API coverage — ClearPackageOverride + RemoveAllPackageOverride
+    ; =======================================================================
+    Debug.Trace("[PkgTest] --- Phase C: PU API coverage ---")
+
+    ; --- Step 7: ClearPackageOverride(actor) [exercises hooked PU.ClearPackageOverride] ---
+    ; FollowPlayer is still in our hook map from step 4. This should clear it.
+    Utility.Wait(2.0)
+    Debug.Trace("[PkgTest] Step 7: PU.ClearPackageOverride(actor) — clears all PU overrides for actor")
+    Debug.Notification("[PkgTest] Step 7/9: PU ClearPackageOverride(actor)")
+    ActorUtil.ClearPackageOverride(target)
+    target.EvaluatePackage()
+
+    Utility.Wait(2.0)
+    currentPkg = target.GetCurrentPackage()
+    puCount = ActorUtil.CountPackageOverride(target)
+    curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] Step 7 verify: pkg=" + curPkgID + " PU.Count=" + puCount + " matchOrig=" + (currentPkg == originalPkg))
+    If currentPkg == originalPkg
+        Debug.Trace("[PkgTest] Step 7: SUCCESS - ClearPackageOverride restored original")
+        Debug.Notification("[PkgTest] Step 7 OK: Cleared, original restored (PU=" + puCount + ")")
+    Else
+        Debug.Trace("[PkgTest] Step 7: INFO - pkg=" + curPkgID + " after clear (orig=" + originalPkgID + ")")
+        Debug.Notification("[PkgTest] Step 7: pkg=" + curPkgID + " (PU=" + puCount + ")")
+    EndIf
+
+    ; --- Step 8: Re-add FollowPlayer via PU for RemoveAllPackageOverride test ---
+    Utility.Wait(2.0)
+    Debug.Trace("[PkgTest] Step 8: PU.AddPackageOverride(FollowPlayer, pri=10) — setup for RemoveAll")
+    Debug.Notification("[PkgTest] Step 8/9: PU Add FollowPlayer (setup for RemoveAll)")
+    ActorUtil.AddPackageOverride(target, packageFollowPlayer, 10, 0)
+    target.EvaluatePackage()
+
+    Utility.Wait(3.0)
+    currentPkg = target.GetCurrentPackage()
+    puCount = ActorUtil.CountPackageOverride(target)
+    curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] Step 8 verify: pkg=" + curPkgID + " PU.Count=" + puCount)
+    If currentPkg == packageFollowPlayer
+        Debug.Notification("[PkgTest] Step 8 OK: FollowPlayer re-added (PU=" + puCount + ")")
+    Else
+        Debug.Notification("[PkgTest] Step 8 WARN: pkg=" + curPkgID + " (PU=" + puCount + ")")
+    EndIf
+
+    ; --- Step 9: RemoveAllPackageOverride [exercises hooked PU.RemoveAllPackageOverride] ---
+    ; Removes the package form globally from all actors (not just this one).
+    Debug.Trace("[PkgTest] Step 9: PU.RemoveAllPackageOverride(FollowPlayer) — removes from all actors")
+    Debug.Notification("[PkgTest] Step 9/9: PU RemoveAllPackageOverride(FollowPlayer)")
+    ActorUtil.RemoveAllPackageOverride(packageFollowPlayer)
+    target.EvaluatePackage()
+
+    Utility.Wait(2.0)
+    currentPkg = target.GetCurrentPackage()
+    puCount = ActorUtil.CountPackageOverride(target)
+    curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+    Debug.Trace("[PkgTest] Step 9 verify: pkg=" + curPkgID + " PU.Count=" + puCount + " matchOrig=" + (currentPkg == originalPkg))
+    If currentPkg == originalPkg
+        Debug.Trace("[PkgTest] Step 9: SUCCESS - RemoveAllPackageOverride restored original")
+        Debug.Notification("[PkgTest] Step 9 OK: RemoveAll done, original restored")
+    Else
+        Debug.Trace("[PkgTest] Step 9: INFO - pkg=" + curPkgID + " after RemoveAll (orig=" + originalPkgID + ")")
+        Debug.Notification("[PkgTest] Step 9: pkg=" + curPkgID + " (PU=" + puCount + ")")
+    EndIf
+
+    Debug.Trace("[PkgTest] ========== COMPREHENSIVE PACKAGE TEST END ==========")
+    Debug.Notification("[PkgTest] Test complete!")
+EndFunction
+
+; Show package override info for the crosshair target.
+; Displays PapyrusUtil override count, SkyrimNet package status, and current package ID.
+Function DebugPackageInfo()
+    Actor target = Game.GetCurrentCrosshairRef() as Actor
+    If !target
+        Debug.Notification("[PkgInfo] No actor under crosshair")
+        return
+    EndIf
+
+    String name = target.GetDisplayName()
+    int puCount = ActorUtil.CountPackageOverride(target)
+    bool hasTalkPlayer = SkyrimNetApi.HasPackage(target, "TalkToPlayer")
+    bool hasTalkNPC = SkyrimNetApi.HasPackage(target, "TalkToNPC")
+    bool hasFollow = SkyrimNetApi.HasPackage(target, "FollowPlayer")
+
+    Package currentPkg = target.GetCurrentPackage()
+    int curPkgID = 0
+    If currentPkg
+        curPkgID = currentPkg.GetFormID()
+    EndIf
+
+    Debug.Notification("[PkgInfo] " + name + ": pkg=" + curPkgID + " PU=" + puCount)
+
+    String snetPkgs = ""
+    If hasTalkPlayer
+        snetPkgs = "TalkToPlayer "
+    EndIf
+    If hasTalkNPC
+        snetPkgs = snetPkgs + "TalkToNPC "
+    EndIf
+    If hasFollow
+        snetPkgs = snetPkgs + "FollowPlayer "
+    EndIf
+
+    If snetPkgs == ""
+        snetPkgs = "(none)"
+    EndIf
+    Debug.Notification("[PkgInfo] SkyrimNet pkgs: " + snetPkgs)
+
+    Debug.Trace("[PkgInfo] " + name + " (FormID:" + target.GetFormID() + "): currentPkg=" + curPkgID + " PU.Count=" + puCount + " SkyrimNet=[" + snetPkgs + "]")
 EndFunction

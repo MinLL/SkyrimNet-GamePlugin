@@ -25,6 +25,8 @@ int optionHotkeyGenerateDiaryBio
 int optionHotkeyInterruptDialogue
 int optionHotkeySilentNarration
 int optionHotkeyDebugFollowTarget
+int optionHotkeyDebugPackageTest
+int optionHotkeyDebugPackageInfo
 
 int useImage
 
@@ -291,7 +293,13 @@ function DisplayHotkeys()
         optionHotkeyGenerateDiaryBio = AddKeyMapOption("Generate Diary & Bio", library.hotkeyGenerateDiaryBio)
         optionHotkeyInterruptDialogue = AddKeyMapOption("Interrupt Dialogue", library.hotkeyInterruptDialogue)
         optionHotkeySilentNarration = AddKeyMapOption("Silent Narration", library.hotkeySilentNarration)
+
+        AddHeaderOption("Debug Hotkeys")
+        AddHeaderOption("")
+
         optionHotkeyDebugFollowTarget = AddKeyMapOption("Force Follow (Crosshair)", library.hotkeyDebugFollowTarget)
+        optionHotkeyDebugPackageTest = AddKeyMapOption("Pkg Preemption Test", library.hotkeyDebugPackageTest)
+        optionHotkeyDebugPackageInfo = AddKeyMapOption("Pkg Info (Crosshair)", library.hotkeyDebugPackageInfo)
     else
         AddTextOption("Enable in-game hotkeys to configure", "")
     endif
@@ -1006,6 +1014,12 @@ event OnOptionKeyMapChange(int option, int keyCode, string conflictControl, stri
     elseif option == optionHotkeyDebugFollowTarget
         library.hotkeyDebugFollowTarget = finalKeyCode
         SetKeyMapOptionValue(option, keyCode)
+    elseif option == optionHotkeyDebugPackageTest
+        library.hotkeyDebugPackageTest = finalKeyCode
+        SetKeyMapOptionValue(option, keyCode)
+    elseif option == optionHotkeyDebugPackageInfo
+        library.hotkeyDebugPackageInfo = finalKeyCode
+        SetKeyMapOptionValue(option, keyCode)
     endif
 
     ; Re-register hotkeys to pick up the change immediately
@@ -1076,6 +1090,12 @@ event OnOptionDefault(int option)
         SetKeyMapOptionValue(option, -1)
     elseif option == optionHotkeyDebugFollowTarget
         library.hotkeyDebugFollowTarget = -1
+        SetKeyMapOptionValue(option, -1)
+    elseif option == optionHotkeyDebugPackageTest
+        library.hotkeyDebugPackageTest = -1
+        SetKeyMapOptionValue(option, -1)
+    elseif option == optionHotkeyDebugPackageInfo
+        library.hotkeyDebugPackageInfo = -1
         SetKeyMapOptionValue(option, -1)
     endif
 
