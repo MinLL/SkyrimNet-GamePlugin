@@ -666,13 +666,10 @@ EndEvent
 Int Property hotkeyRecordSpeech = -1 Auto Hidden
 Int Property hotkeyTextInput = -1 Auto Hidden
 Int Property hotkeyToggleGameMaster = -1 Auto Hidden
-Int Property hotkeyTextThought = -1 Auto Hidden
 Int Property hotkeyVoiceThought = -1 Auto Hidden
-Int Property hotkeyTextDialogueTransform = -1 Auto Hidden
 Int Property hotkeyVoiceDialogueTransform = -1 Auto Hidden
 Int Property hotkeyToggleContinuousMode = -1 Auto Hidden
 Int Property hotkeyToggleWorldEventReactions = -1 Auto Hidden
-Int Property hotkeyDirectInput = -1 Auto Hidden
 Int Property hotkeyVoiceDirectInput = -1 Auto Hidden
 Int Property hotkeyContinueNarration = -1 Auto Hidden
 Int Property hotkeyToggleWhisperMode = -1 Auto Hidden
@@ -680,7 +677,6 @@ Int Property hotkeyToggleOpenMic = -1 Auto Hidden
 Int Property hotkeyCaptureCrosshair = -1 Auto Hidden
 Int Property hotkeyGenerateDiaryBio = -1 Auto Hidden
 Int Property hotkeyInterruptDialogue = -1 Auto Hidden
-Int Property hotkeySilentNarration = -1 Auto Hidden
 
 Bool Property inGameHotkeysEnabled = false Auto Hidden
 
@@ -739,14 +735,8 @@ Function RegisterConfiguredHotkeys()
     If hotkeyToggleGameMaster != -1
         RegisterForKey(hotkeyToggleGameMaster)
     EndIf
-    If hotkeyTextThought != -1
-        RegisterForKey(hotkeyTextThought)
-    EndIf
     If hotkeyVoiceThought != -1
         RegisterForKey(hotkeyVoiceThought)
-    EndIf
-    If hotkeyTextDialogueTransform != -1
-        RegisterForKey(hotkeyTextDialogueTransform)
     EndIf
     If hotkeyVoiceDialogueTransform != -1
         RegisterForKey(hotkeyVoiceDialogueTransform)
@@ -756,9 +746,6 @@ Function RegisterConfiguredHotkeys()
     EndIf
     If hotkeyToggleWorldEventReactions != -1
         RegisterForKey(hotkeyToggleWorldEventReactions)
-    EndIf
-    If hotkeyDirectInput != -1
-        RegisterForKey(hotkeyDirectInput)
     EndIf
     If hotkeyVoiceDirectInput != -1
         RegisterForKey(hotkeyVoiceDirectInput)
@@ -781,9 +768,6 @@ Function RegisterConfiguredHotkeys()
     If hotkeyInterruptDialogue != -1
         RegisterForKey(hotkeyInterruptDialogue)
     EndIf
-    If hotkeySilentNarration != -1
-        RegisterForKey(hotkeySilentNarration)
-    EndIf
 EndFunction
 
 Function UnregisterAllHotkeys()
@@ -797,14 +781,8 @@ Function UnregisterAllHotkeys()
     If hotkeyToggleGameMaster != -1
         UnregisterForKey(hotkeyToggleGameMaster)
     EndIf
-    If hotkeyTextThought != -1
-        UnregisterForKey(hotkeyTextThought)
-    EndIf
     If hotkeyVoiceThought != -1
         UnregisterForKey(hotkeyVoiceThought)
-    EndIf
-    If hotkeyTextDialogueTransform != -1
-        UnregisterForKey(hotkeyTextDialogueTransform)
     EndIf
     If hotkeyVoiceDialogueTransform != -1
         UnregisterForKey(hotkeyVoiceDialogueTransform)
@@ -814,9 +792,6 @@ Function UnregisterAllHotkeys()
     EndIf
     If hotkeyToggleWorldEventReactions != -1
         UnregisterForKey(hotkeyToggleWorldEventReactions)
-    EndIf
-    If hotkeyDirectInput != -1
-        UnregisterForKey(hotkeyDirectInput)
     EndIf
     If hotkeyVoiceDirectInput != -1
         UnregisterForKey(hotkeyVoiceDirectInput)
@@ -838,9 +813,6 @@ Function UnregisterAllHotkeys()
     EndIf
     If hotkeyInterruptDialogue != -1
         UnregisterForKey(hotkeyInterruptDialogue)
-    EndIf
-    If hotkeySilentNarration != -1
-        UnregisterForKey(hotkeySilentNarration)
     EndIf
 EndFunction
 
@@ -969,16 +941,10 @@ Function HandleHotkeyPress(Int keyCode)
         SkyrimNetApi.TriggerTextInput()
     ElseIf keyCode == hotkeyToggleGameMaster && hotkeyToggleGameMaster != -1
         SkyrimNetApi.TriggerToggleGameMaster()
-    ElseIf keyCode == hotkeyTextThought && hotkeyTextThought != -1
-        SkyrimNetApi.TriggerTextThought()
-    ElseIf keyCode == hotkeyTextDialogueTransform && hotkeyTextDialogueTransform != -1
-        SkyrimNetApi.TriggerTextDialogueTransform()
     ElseIf keyCode == hotkeyToggleContinuousMode && hotkeyToggleContinuousMode != -1
         SkyrimNetApi.TriggerToggleContinuousMode()
     ElseIf keyCode == hotkeyToggleWorldEventReactions && hotkeyToggleWorldEventReactions != -1
         SkyrimNetApi.TriggerToggleWorldEventReactions()
-    ElseIf keyCode == hotkeyDirectInput && hotkeyDirectInput != -1
-        SkyrimNetApi.TriggerDirectInput()
     ElseIf keyCode == hotkeyContinueNarration && hotkeyContinueNarration != -1
         SkyrimNetApi.TriggerContinueNarration()
     ElseIf keyCode == hotkeyToggleWhisperMode && hotkeyToggleWhisperMode != -1
@@ -989,8 +955,6 @@ Function HandleHotkeyPress(Int keyCode)
         SkyrimNetApi.TriggerGenerateDiaryBio()
     ElseIf keyCode == hotkeyInterruptDialogue && hotkeyInterruptDialogue != -1
         SkyrimNetApi.TriggerInterruptDialogue()
-    ElseIf keyCode == hotkeySilentNarration && hotkeySilentNarration != -1
-        SkyrimNetApi.TriggerSilentNarration()
     EndIf
 EndFunction
 
