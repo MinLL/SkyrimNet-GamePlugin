@@ -46,9 +46,7 @@
             {% if decnpc(npc_nearby.UUID).isDead %}
             - [DEAD] The dead corpse of {{ decnpc(npc_nearby.UUID).name }} ({{ units_to_meters(npc_nearby.distance) }} meters away)
             {% else %}
-            - {% if is_summoned(npc_nearby.UUID) %}{% if is_hostile_to_actor(npc_nearby.UUID, player.UUID) %}[Summoned creature hostile to {{ decnpc(player.UUID).name }}] {% else %}[Summoned creature serving {{ decnpc(player.UUID).name }}] {% endif %}{% elif is_reanimated(npc_nearby.UUID) %}{% if is_hostile_to_actor(npc_nearby.UUID, player.UUID) %}[Reanimated undead hostile to {{ decnpc(player.UUID).name }}] {% else %}[Reanimated undead thrall serving {{ decnpc(player.UUID).name }}] {% endif %}{% endif %}{{ decnpc(npc_nearby.UUID).name }} ({{ units_to_meters(npc_nearby.distance) }} meters away): {{ render_character_profile("short_inline", npc_nearby.UUID) }}
-            {% else %}
-            - {{ decnpc(npc_nearby.UUID).name }}: {{ render_character_profile("short_inline", npc_nearby.UUID) }} ({{ decnpc(npc_nearby.UUID).gender }} {{ decnpc(npc_nearby.UUID).race }}, {{ units_to_meters(npc_nearby.distance) }} meters away)
+            - {% if is_summoned(npc_nearby.UUID) %}{% if is_hostile_to_actor(npc_nearby.UUID, player.UUID) %}[Summoned creature hostile to {{ decnpc(player.UUID).name }}] {% else %}[Summoned creature serving {{ decnpc(player.UUID).name }}] {% endif %}{% elif is_reanimated(npc_nearby.UUID) %}{% if is_hostile_to_actor(npc_nearby.UUID, player.UUID) %}[Reanimated undead hostile to {{ decnpc(player.UUID).name }}] {% else %}[Reanimated undead thrall serving {{ decnpc(player.UUID).name }}] {% endif %}{% endif %}{{ decnpc(npc_nearby.UUID).name }}: {{ render_character_profile("short_inline", npc_nearby.UUID) }} ({{ decnpc(npc_nearby.UUID).gender }} {{ decnpc(npc_nearby.UUID).race }}, {{ units_to_meters(npc_nearby.distance) }} meters away)
             {% endif %}
         {% endif %}
     {% endif %}
