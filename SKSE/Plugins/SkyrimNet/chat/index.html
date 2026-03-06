@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyrimNet Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Header -->
+        <div class="chat-header">
+            <span class="chat-header__title">Chat</span>
+            <span id="whisper-badge" class="whisper-badge">Whisper: OFF</span>
+        </div>
+
+        <!-- Main content -->
+        <div class="chat-body">
+            <!-- Message list -->
+            <div class="message-panel">
+                <div id="message-list"></div>
+            </div>
+
+            <!-- Nearby NPCs -->
+            <div class="audience-panel">
+                <div class="audience-panel__title">Nearby NPCs</div>
+                <div id="audience-list"></div>
+            </div>
+        </div>
+
+        <!-- Input area -->
+        <div class="chat-input-area">
+            <span id="mode-badge" class="mode-badge">Say</span>
+            <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off" spellcheck="false">
+            <button id="send-btn">Send</button>
+            <div id="autocomplete-dropdown"></div>
+        </div>
+    </div>
+
+    <!-- Scripts in dependency order -->
+    <script src="theme.js"></script>
+    <script src="messages.js"></script>
+    <script src="audience.js"></script>
+    <script src="input.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
