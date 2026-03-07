@@ -538,6 +538,9 @@ video {
 .pointer-events-auto {
   pointer-events: auto;
 }
+.visible {
+  visibility: visible;
+}
 .fixed {
   position: fixed;
 }
@@ -549,9 +552,6 @@ video {
 }
 .inset-0 {
   inset: 0px;
-}
-.mb-4 {
-  margin-bottom: 1rem;
 }
 .ml-1 {
   margin-left: 0.25rem;
@@ -570,6 +570,9 @@ video {
 }
 .flex {
   display: flex;
+}
+.contents {
+  display: contents;
 }
 .hidden {
   display: none;
@@ -621,6 +624,9 @@ video {
 }
 .gap-0 {
   gap: 0px;
+}
+.gap-1 {
+  gap: 0.25rem;
 }
 .gap-1\.5 {
   gap: 0.375rem;
@@ -738,16 +744,16 @@ video {
 /* ─── Dark theme (default) — Skyrim-native warm palette ──────── */
 :root {
     --chat-backdrop-bottom: rgba(10, 8, 5, 0.92);
-    --chat-backdrop-top: rgba(10, 8, 5, 0);
+    --chat-backdrop-top: rgba(10, 8, 5, 0.4);
     --chat-text: rgba(218, 210, 192, 0.95);
-    --chat-text-muted: rgba(160, 148, 125, 0.65);
+    --chat-text-muted: rgba(175, 162, 138, 0.75);
     --chat-accent: #c9a84c;
     --chat-accent-glow: rgba(201, 168, 76, 0.15);
     --chat-player: #94b8c9;
     --chat-npc: #c9a84c;
     --chat-narration: #b08a5e;
     --chat-thought: #9888b4;
-    --chat-system: rgba(160, 148, 125, 0.55);
+    --chat-system: rgba(180, 168, 140, 0.75);
     --chat-transform: #c9964c;
     --chat-scrollbar: rgba(180, 155, 110, 0.08);
     --chat-scrollbar-hover: rgba(180, 155, 110, 0.18);
@@ -764,7 +770,7 @@ video {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0 5vw;
+    padding: 0 1vw;
 }
 
 /* ─── Messages scroll area — constrained height ──────────────── */
@@ -798,12 +804,12 @@ video {
     background: var(--chat-scrollbar-hover);
 }
 
-/* ─── Messages — fade at top via mask-image ───────────────────── */
+/* ─── Messages — subtle fade at top via mask-image ────────────── */
 .chat-messages {
     position: relative;
     z-index: 1;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 15%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 5%);
 }
 
 /* ─── Animations ──────────────────────────────────────────────── */
@@ -875,6 +881,7 @@ video {
     position: relative;
     transition: none;
     font-family: var(--chat-font-body);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 .message-row:hover {
     box-shadow: inset 2px 0 0 var(--chat-accent);
@@ -938,6 +945,34 @@ video {
 }
 .chat-edit-input:focus {
     outline: none;
+}
+
+/* ─── History toggle ─────────────────────────────────────────── */
+.history-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--chat-font-ui);
+    transition: color 0.15s, opacity 0.15s;
+    padding: 2px 4px;
+    line-height: 1;
+}
+
+/* ─── History slide animation ────────────────────────────────── */
+@keyframes historySlideIn {
+    from { opacity: 0; max-height: 0; }
+    to { opacity: 1; max-height: 40vh; }
+}
+@keyframes historySlideOut {
+    from { opacity: 1; max-height: 40vh; }
+    to { opacity: 0; max-height: 0; }
+}
+.history-visible {
+    animation: historySlideIn 0.25s ease-out forwards;
+}
+.history-hidden {
+    animation: historySlideOut 0.2s ease-in forwards;
+    pointer-events: none;
 }
 
 /* ─── Audience ghost strip ────────────────────────────────────── */

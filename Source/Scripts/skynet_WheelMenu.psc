@@ -7,38 +7,26 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 EndEvent
 
 ;NOTE - this is the function to call from the DLL
-;I had to make some sub menus because the wheel menu only supports 9 items
+; Text input modes (Think, Transform, Direct, Silent) are handled via prefixes in the PrismaUI chat
 Function DisplayWheel() global
 
-    string labels = "Text Input,Text Thought,Text Roleplay,Direct Input,Think to Self,Auto Roleplay,Utilities,Silent Narration"
-    string options = "Text Input,Text Thought,Text Roleplay,Direct Input,Think to Self,Auto Roleplay,Utilities Menu,Silent Narration"
+    string labels = "Text Input,Think to Self,Auto Roleplay,Utilities"
+    string options = "Text Input,Think to Self,Auto Roleplay,Utilities Menu"
 
     int result = skynet_WheelMenu.MenuWheel(StringUtil.Split(options, ","), StringUtil.Split(labels, ","))
 
     if result == 0
-        ; Text input
+        ; Text input — use prefixes for modes: % Think, ' Transform, ! Direct, /silent Silent
         SkyrimNetApi.TriggerTextInput()
     elseif result == 1
-        ; Text thought
-        SkyrimNetApi.TriggerTextThought()
-    elseif result == 2
-        ; Text dialogue transform
-        SkyrimNetApi.TriggerTextDialogueTransform()
-    elseif result == 3
-        ; Direct input
-        SkyrimNetApi.TriggerDirectInput()
-    elseif result == 4
         ; Direct player thought processing
         SkyrimNetApi.TriggerPlayerThought()
-    elseif result == 5
+    elseif result == 2
         ; Direct player dialogue processing
         SkyrimNetApi.TriggerPlayerDialogue()
-    elseif result == 6
+    elseif result == 3
         ; Utilities submenu
         skynet_WheelMenu.DisplayUtilities()
-    elseif result == 7
-        ; Silent narration - register event without NPC response
-        SkyrimNetApi.TriggerSilentNarration()
     endif
 
 EndFunction
