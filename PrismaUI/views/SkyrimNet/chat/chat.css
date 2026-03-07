@@ -1007,6 +1007,20 @@ video {
     opacity: 0.75;
 }
 
+/* ─── Mode buttons (strip above input) ───────────────────────── */
+.mode-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 1px 3px;
+    font-family: var(--chat-font-ui);
+    transition: color 0.15s ease, opacity 0.15s ease;
+    line-height: 1;
+}
+.mode-btn:hover {
+    opacity: 0.85 !important;
+}
+
 /* ─── Mode label (inline text, no pill) ───────────────────────── */
 .mode-label {
     font-size: calc(var(--chat-font-size) * 0.85);
