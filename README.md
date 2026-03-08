@@ -72,6 +72,18 @@ You can confirm that CUDA is being used on the Test & Easy Setup page in the Spe
 - **LLM Provider**: OpenRouter API key (or compatible OpenAI API)
 - **Cloud Processing**: VastAI account (optional, for cloud GPU access and automatic XTTS provisioning)
 
+### 🎮 **Alternative: [Player2 App](https://player2.game) (All-in-One Backend)**
+
+The [Player2 App](https://player2.game) provides LLM, TTS, and STT through a single local application — no separate API keys or cloud setup needed.
+
+1. **Download and install** the [Player2 App](https://player2.game)
+2. **Configure SkyrimNet** via the web UI at [localhost:8080](http://localhost:8080):
+   - **Language Model** — set API URL to `http://127.0.0.1:4315/v1/chat/completions`
+   - **ElevenLabs TTS** — set API URL to `http://127.0.0.1:4315/v1/tts/eleven`
+   - **External Whisper STT** — set API URL to `http://127.0.0.1:4315/v1/stt/whisper`
+   - **API Token** — use `skyrimnet` for all three services
+3. **Map voices** in the Player2 Settings page to assign ElevenLabs voices for your in-game characters
+
 ## 🎪 Key Features
 
 ### 🧠 **AI Capabilities**
