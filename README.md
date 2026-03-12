@@ -45,6 +45,7 @@ SkyrimNet is a cutting-edge AI integration platform for games, beginning with Sk
 - [PapyrusUtil SE](https://www.nexusmods.com/skyrimspecialedition/mods/13048)
 - [Latest Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 - [Native EditorID Fix](https://www.nexusmods.com/skyrimspecialedition/mods/85260) (or [VR version](https://github.com/naitro2010/NativeEditorIDFixNG/releases/))
+- [Prisma UI](https://www.nexusmods.com/skyrimspecialedition/mods/148718)
 
 ### 📋 **Optional Dependencies**
 - [UIExtensions](https://www.nexusmods.com/skyrimspecialedition/mods/17561) - Required for text input and Input Wheel
