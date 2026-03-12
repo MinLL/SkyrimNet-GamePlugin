@@ -34,3 +34,5 @@ CLAUDE.local.md
 # Build artifacts
 Scripts/
 SkyrimNet.esp
+
+PrismaUI/views/SkyrimNet/chat/chat.js
