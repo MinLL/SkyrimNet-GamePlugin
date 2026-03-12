@@ -1,0 +1,59 @@
+[ system ]
+    You select the single most appropriate action for {{ npc.name }} from a specific action category.
+    A broader category was already identified from the dialogue. Now pick the exact action.
+
+    **Guidelines:**
+    - Read the exchange. If the speaker asked {{ npc.name }} to do something and {{ npc.name }} agreed, complied, or showed willingness, select the action that fulfills that request.
+    - If {{ npc.name }}'s dialogue implies, suggests, or leads toward any eligible action — select it.
+    - Agreement can be implicit — positive responses or steps toward fulfilling a request count.
+    - Do NOT choose dramatic or aggressive actions unless clearly signaled in the dialogue or situation.
+    - For actions with actor parameters, use the actor's display name exactly as shown in Nearby Actors or in the PARAMS choices.
+    - Respond with EXACTLY one line. Never output multiple action lines — only the first is processed by the game engine, the rest are discarded.
+
+    {% if structured_json_actions %}
+    **Response format** (exactly one line, no reasoning):
+    - `{"ACTION": "ActionName"}`
+    - `{"ACTION": "ActionName", "PARAMS": {"param_name1": "value1", ...}}`
+    - `{"ACTION": "None"}`
+    {% else %}
+    **Response format** (exactly one line starting with `ACTION:`, no reasoning):
+    - `ACTION: ActionName`
+    - `ACTION: ActionName PARAMS: {"param_name1": "value1", ...}`
+    - `ACTION: None`
+    {% endif %}
+[ end system ]
+
+[ user ]
+
+    {% if category_name != "" %}
+    ## Intent
+    {% if category_intent != "" %}{{ npc.name }} intends to: {{ category_intent }}
+    {% else %}The previous evaluation selected the **{{ category_name }}** category: "{{ category_description }}"
+    {% endif %}Pick the specific action that best matches.
+    {% endif %}
+
+    ## Most Recent Exchange
+    {% set _player_said = "" %}
+    {% set _player_recent = get_recent_events(5, player.UUID) %}
+    {% for event in _player_recent %}
+    {% if event.type == "dialogue_player_text" or event.type == "dialogue_player_stt" or event.type == "dialogue_player" %}{% set _player_said = format_event(event, "compact") %}{% endif %}
+    {% endfor %}
+    {% if _player_said != "" %}**{{ decnpc(player.UUID).name }}:** {{ _player_said }}
+    {% endif %}
+    **{{ npc.name }}:** {{ dialogue_response }}
+
+    ## Nearby Actors
+    - {{ decnpc(player.UUID).name }} ({{ decnpc(player.UUID).gender }} {{ decnpc(player.UUID).race }}) — THE PLAYER CHARACTER
+    {% for npc in get_nearby_npc_list(player.UUID) %}
+        - {{ decnpc(npc.UUID).name }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }}m away)
+    {% endfor %}
+
+    ## Eligible Actions
+    {% for action in eligible_actions %}
+        - ACTION: {{ action.name }}{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
+    {% endfor %}
+    - ACTION: None — No action matches the dialogue.
+
+    Respond now. One line only, no reasoning.
+
+[ end user ]
