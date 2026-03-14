@@ -5,10 +5,10 @@
     {% block relationships %}{% endblock %}
     {% if not is_player(actorUUID) %}
         ### Travel History with {{ player.name }}
-        {% if is_follower(npc.UUID) %}
+        {% if is_follower(actorUUID) %}
             - {{ decnpc(actorUUID).name }} is a member of {{ player.name }}'s party, and is currently actively traveling in the group.
         {% else %}
-            {% if is_in_faction(npc.UUID, "DismissedFollowerFaction") %}
+            {% if is_in_faction(actorUUID, "DismissedFollowerFaction") %}
                 - {{ decnpc(actorUUID).name }} has been a member of {{ player.name }}'s party, but is currently not traveling in the group, and will stay behind.
             {% else %}
                 - {{ decnpc(actorUUID).name }} has never been a member of {{ player.name }}'s party and does not ever travel together with {{ player.name }}.
