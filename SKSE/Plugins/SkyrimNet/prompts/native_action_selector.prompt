@@ -40,7 +40,7 @@
 
     ## Nearby Actors
     - {{ decnpc(player.UUID).name }}: {{ render_character_profile("short_inline", player.UUID) }} ({{ decnpc(player.UUID).gender }} {{ decnpc(player.UUID).race }}, (THIS IS THE PLAYER CHARACTER)
-    {% for npc in get_nearby_npc_list(player.UUID) %}
+    {% for npc_nearby in get_nearby_npc_list(player.UUID) %}
     {% if not decnpc(npc_nearby.UUID).isVirtual %}
         {% if npc_nearby.UUID != npc.UUID %}
             {% if decnpc(npc_nearby.UUID).isDead %}
