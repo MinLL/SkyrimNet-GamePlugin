@@ -1,11 +1,11 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "equipment" %}
     ### Worn Equipment
-    {% set npc_equipment = get_worn_equipment(npc.UUID) %}
+    {% set npc_equipment = get_worn_equipment(actorUUID) %}
     {% for slot, item in npc_equipment %}
         {% if is_item_enabled(item.formID) %}
             {# Try OmniSight name/description (gender-aware) first, then fall back to item customization #}
-            {% set omnisight_name = get_item_name_for_wearer(item.formID, npc.UUID) %}
-            {% set omnisight_desc = get_item_description_for_wearer(item.formID, npc.UUID) %}
+            {% set omnisight_name = get_item_name_for_wearer(item.formID, actorUUID) %}
+            {% set omnisight_desc = get_item_description_for_wearer(item.formID, actorUUID) %}
             {% if length(omnisight_name) > 0 %}
                 {% set item_name = omnisight_name %}
             {% else %}
@@ -17,7 +17,7 @@
                 {% set item_desc = get_item_description(item.formID) %}
             {% endif %}
             {% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
-                - {% if length(item_desc) > 0 %}{{ item_name }} - {{ item_desc }}{% else %}**{{ item.equipment_slot }}**: {{ item_name }}{% endif %} {% if has_weapon_drawn(npc.UUID) %}(drawn){% else %}(sheathed){% endif %}
+                - {% if length(item_desc) > 0 %}{{ item_name }} - {{ item_desc }}{% else %}**{{ item.equipment_slot }}**: {{ item_name }}{% endif %} {% if has_weapon_drawn(actorUUID) %}(drawn){% else %}(sheathed){% endif %}
             {% else %}
                 - {% if length(item_desc) > 0 %}{{ item_name }} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% endif %}
             {% endif %} {# end left hand / right hand check #}
