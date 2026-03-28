@@ -1,23 +1,26 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
 {% if is_in_combat(npc.UUID) %}
-{# Combat-specific vital status reminder #}
-{% set healthRatio = decnpc(npc.UUID).health / decnpc(npc.UUID).maxHealth %}
-{% set magickaRatio = decnpc(npc.UUID).magicka / decnpc(npc.UUID).maxMagicka %}
-{% set staminaRatio = decnpc(npc.UUID).stamina / decnpc(npc.UUID).maxStamina %}
-{% if decnpc(npc.UUID).magicka == 0 %}{% set magickaRatio = 0 %}{% endif %}
+{# Combat-specific vital status reminder - guard against div-by-zero for actors with 0 max values #}
+{% if decnpc(npc.UUID).maxHealth > 0 %}{% set healthRatio = decnpc(npc.UUID).health / decnpc(npc.UUID).maxHealth %}{% else %}{% set healthRatio = 0 %}{% endif %}
+{% if decnpc(npc.UUID).maxMagicka > 0 %}{% set magickaRatio = decnpc(npc.UUID).magicka / decnpc(npc.UUID).maxMagicka %}{% else %}{% set magickaRatio = 0 %}{% endif %}
+{% if decnpc(npc.UUID).maxStamina > 0 %}{% set staminaRatio = decnpc(npc.UUID).stamina / decnpc(npc.UUID).maxStamina %}{% else %}{% set staminaRatio = 0 %}{% endif %}
+{% set targets = get_combat_targets(npc.UUID) %}
 
-**COMBAT STATUS - Your Body Right Now:**
+**COMBAT STATUS:**
+{% if length(targets) > 0 %}- Fighting: {% for t in targets %}{{ decnpc(t).name }}{% if not loop.is_last %}, {% endif %}{% endfor %}
+{% else %}- In active combat
+{% endif %}
 {% if healthRatio < 0.25 %}- CRITICAL: Near death, every hit could be fatal
 {% elif healthRatio < 0.5 %}- Badly wounded, bleeding and struggling
 {% elif healthRatio < 0.75 %}- Taking damage but still fighting strong
 {% else %}- Physically holding up well
 {% endif %}
 {% if decnpc(npc.UUID).maxMagicka > 0 or is_player(npc.UUID) %}
-{% if magickaRatio < 0.15 %}- Magically spent—no energy left for spells
+{% if magickaRatio < 0.15 %}- Magically drained, no energy left for spells
 {% elif magickaRatio < 0.35 %}- Magical reserves running thin
 {% elif magickaRatio < 0.6 %}- Decent magical reserves remaining
 {% elif magickaRatio < 0.85 %}- Plenty of magical energy available
-{% else %}- Full resources in terms of magical power
+{% else %}- Full magical power
 {% endif %}
 {% endif %}
 {% if staminaRatio < 0.25 %}- Gasping, exhausted, can barely swing
@@ -27,4 +30,3 @@
 {% endif %}
 {% endif %}
 {% endif %}
-
