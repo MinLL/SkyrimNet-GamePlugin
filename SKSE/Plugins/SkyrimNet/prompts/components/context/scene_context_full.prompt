@@ -4,6 +4,9 @@
 {% block situationSummary %}
 {% endblock %}
 
+{% block weather %}
+{% endblock %}
+
 ## Nearby People
 {% block nearbyNpcs %}
 {% endblock %}
