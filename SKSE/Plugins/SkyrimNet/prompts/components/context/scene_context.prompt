@@ -42,6 +42,7 @@
     {% endif %}
 {% endblock %}
 
+{% block weather %}
 ## Current Weather
 **Weather**: {% if is_indoors %}You are indoors and sheltered from the weather. Outside, it is {% endif %}{{ currentWeather.name }}{% if currentWeather.isRaining %} (Raining){% else if currentWeather.isSnowing %} (Snowing){% endif %}
 {% if currentWeather.isRaining and currentWeather.isSnowing %}
@@ -53,6 +54,7 @@
 {% else if currentWeather.windSpeed > 0.5 %}
     *{% if is_indoors %}Outside, {%endif %}Strong winds are blowing*
 {% endif %}
+{% endblock %}
 
 ## Current Location
 {% block currentLocation %}
