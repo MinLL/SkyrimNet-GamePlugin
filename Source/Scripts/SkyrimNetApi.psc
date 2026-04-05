@@ -282,6 +282,11 @@ String function GetBuildVersion() Global Native
 ; Returns the build configuration type (e.g., "Debug", "Release", etc.)
 String function GetBuildType() Global Native
 
+; Get the unique identifier for the current game playthrough
+; This ID is generated per playthrough and persists across save files within the same playthrough
+; Returns the unique playthrough identifier string (ex: "1775335979900-500596")
+string function GetSaveUniqueID() Global Native
+
 ; Check if currently recording voice input
 ; Returns true if voice recording is active, false otherwise
 bool function IsRecordingInput() Global Native
