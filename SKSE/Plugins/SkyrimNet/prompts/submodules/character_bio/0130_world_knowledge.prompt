@@ -1,0 +1,11 @@
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
+{% if actorUUID and actorUUID != 0 %}
+{% set knowledge = get_world_knowledge(actorUUID) %}
+{% if knowledge and knowledge != "" %}
+## Things You Know
+
+The following are things you are aware of or have heard about:
+{{ knowledge }}
+{% endif %}
+{% endif %}
+{% endif %}
