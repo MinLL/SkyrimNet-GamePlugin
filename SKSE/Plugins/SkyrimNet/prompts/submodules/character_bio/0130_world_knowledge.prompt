@@ -1,11 +1,18 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
 {% if actorUUID and actorUUID != 0 %}
 {% set knowledge = get_world_knowledge(actorUUID) %}
-{% if knowledge and knowledge != "" %}
+{% set relevant_knowledge = get_relevant_knowledge(actorUUID) %}
+{% if (knowledge and knowledge != "") or (relevant_knowledge and relevant_knowledge != "") %}
 ## Things You Know
 
+{% if knowledge and knowledge != "" %}
 The following are things you are aware of or have heard about:
 {{ knowledge }}
+{% endif %}
+{% if relevant_knowledge and relevant_knowledge != "" %}
+The following are things you may have heard about that seem relevant right now:
+{{ relevant_knowledge }}
+{% endif %}
 {% endif %}
 {% endif %}
 {% endif %}
