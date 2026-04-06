@@ -69,7 +69,7 @@ What are you feeling right now? Fear, desire, confusion, determination? Don't de
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
 {% if length(promptForThoughts) > 0 %}
 ## FINAL INSTRUCTION
-Think about "{{ promptForThoughts }}" as {{ decnpc(npc.UUID).name }}. Output ONLY a thought on that topic. Ignore conversation history.
+Think about "{{ promptForThoughts }}" as {{ decnpc(npc.UUID).name }}, faithfully adapting it to fit {{ decnpc(npc.UUID).name}}'s character. Output ONLY a thought on that topic. Ignore conversation history.
 {% else %}
 This is private thought—NOT a response to anyone. Do not answer questions or continue dialogue from the conversation history.
 {% endif %}
