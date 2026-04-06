@@ -34,7 +34,11 @@ Express a genuine {{ decnpc(npc.UUID).name }} thought on this topic:
 {% if selectedQuests and length(selectedQuests) > 0 %}
 ## Active Quests
 {% for quest in selectedQuests %}
+{% if quest.name == "IntelEngine" %}
+{{ get_intelengine_quests(npc.UUID) }}
+{% else %}
 **{{ quest.name }}** ({{ quest.type }}):{% for objective in quest.objectives %} {{ objective.objectiveText }}{% if objective.isCompleted %} (Done){% endif %}{% if not loop.is_last %};{% endif %}{% endfor %}
+{% endif %}
 {% endfor %}
 {% endif %}
 
