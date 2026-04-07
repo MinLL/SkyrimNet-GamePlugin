@@ -719,3 +719,33 @@ int function TriggerSilentNarration() Global Native
 ;     ; Your code to handle the package removed event
 ; EndEvent
 ;
+
+; -----------------------------------------------------------------------------
+; --- World Knowledge Management ---
+; -----------------------------------------------------------------------------
+
+; Create a world knowledge entry that NPCs can reference during dialogue.
+; World knowledge entries use Inja condition expressions to control which NPCs
+; receive the knowledge. Unlike per-actor memories, these are shared facts.
+;
+; - content: Knowledge text (required). Embedded for semantic search.
+; - conditionExpr: Inja condition controlling NPC eligibility. Examples:
+;     "" (empty = all NPCs)
+;     "is_in_faction(actorUUID, \"CompanionsFaction\")"
+;     "decnpc(actorUUID).race == \"Nord\""
+;     "is_in_npc_group(actorUUID, \"MyGroup\")"
+;     "get_quest_stage(\"MQ101\") >= 50"
+; - alwaysInject: If true, always included when condition passes (deterministic).
+;     If false, only surfaces via semantic search (probabilistic).
+; - importance: Score 0.0-1.0. Higher = more likely to appear in search results.
+; - displayName: Optional human-readable label. Pass "" to omit.
+;
+; Returns: Memory ID (> 0) on success, 0 on error.
+;
+; Example:
+;   int id = SkyrimNetApi.AddWorldKnowledge( \
+;       "The Companions honor the old ways of the warrior.", \
+;       "is_in_faction(actorUUID, \"CompanionsFaction\")", \
+;       true, 0.8, "Companions Lore")
+int function AddWorldKnowledge(String content, String conditionExpr, bool alwaysInject, float importance, String displayName) Global Native
+
