@@ -67,7 +67,7 @@
         {% endif %}
 
         {% set lastLocation = event.location %}
-        {% if showTimeGap or lastSignificantTime == 0 %}{% set lastSignificantTime = event.gameTime %}{% endif %}
+        {% if showTimeGap or lastSignificantTime == 0 %}{% if existsIn(event, "gameTimeEnd") and event.gameTimeEnd %}{% set lastSignificantTime = event.gameTimeEnd %}{% else %}{% set lastSignificantTime = event.gameTime %}{% endif %}{% endif %}
     {% endif %}
 {% endif %}
 {% endfor %}
