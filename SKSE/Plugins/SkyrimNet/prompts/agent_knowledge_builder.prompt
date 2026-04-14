@@ -18,10 +18,20 @@
     - **content** (required): The knowledge text NPCs will reference. Write from a factual, in-world perspective — as facts an NPC would know, not meta-game descriptions. Content is rendered through the Inja template engine at runtime, so it supports template variables, conditionals, and decorators. Use `{{ playerName }}` for the player's name. You can use any registered decorator — e.g., `{{ player.race }}`, `{% if is_quest_active("MQ305") %}the dragons have returned{% endif %}`. Use `get_decorators` to discover all available functions.
     - **display_name**: Short label for the UI (e.g., "Civil War - Whiterun Battle")
     - **condition_expr**: Inja template expression controlling which NPCs see this entry. Empty = all NPCs.
-    - **always_inject**: If true, this entry is always included for matching NPCs (deterministic). If false, it's retrieved via semantic search (probabilistic). Use sparingly — only for facts that matching NPCs should always reference.
+    - **always_inject**: Controls whether this entry is deterministic or semantic.
+      - **true (always inject)**: The entry is always included in the prompt for every NPC whose condition matches, every time they speak. Use for foundational knowledge that would be *wrong to omit* — things so important that an NPC who doesn't mention or acknowledge them would seem broken or immersion-breaking. Examples: a shopkeeper knowing their own shop was robbed, a guard knowing the city is under martial law, a character knowing their spouse just died.
+      - **false (semantic search, default)**: The entry is stored in a vector database and retrieved only when the conversation topic is semantically relevant. This is correct for the vast majority of entries — rumors, lore, opinions, background knowledge, and anything the NPC *could* know but doesn't need to bring up unprompted. The semantic system ensures these surface naturally when the player asks about related topics.
+      - **Rule of thumb**: If an NPC would sound normal *not* mentioning this fact in an unrelated conversation, use semantic (false). If omitting it would make the NPC seem ignorant of something they obviously must know, use always inject (true). When in doubt, default to false — over-injecting clutters the prompt and wastes context window space, making NPCs sound like they're reciting a fact sheet instead of having natural conversation.
     - **importance**: 0.0-1.0 score affecting retrieval priority. Higher = more likely to surface. Default: 0.7. Use 0.9-1.0 for major world events, 0.7-0.8 for notable facts, 0.4-0.6 for minor details.
     - **type**: KNOWLEDGE (default), EXPERIENCE, LOCATION, RELATIONSHIP, SKILL, TRAUMA, or JOY
-    - **tags**: Array of categorization strings (e.g., ["civil_war", "whiterun", "battle"])
+    - **tags**: Array of searchable labels used for semantic retrieval from a vector database (e.g., ["Golden Claw", "Riverwood", "Bleak Falls Barrow", "theft", "stolen artifact"]). Write tags as natural language — use proper nouns, readable phrases, and real words rather than slugs or underscores, since the embedding model needs to map them to meaningful semantic space. Include the quest name, location, involved factions, and key concepts.
+    - **knowledge_key** (optional): A deduplication key. When multiple entries share the same key and all pass their conditions for a given NPC, **only the highest-importance entry is shown**. This prevents overlapping entries from cluttering the prompt. Use highly specific, namespaced keys to avoid accidental collisions — e.g., `quest.ms13.claw_status`, `quest.mq101.dragon_attack`, `faction.companions.reputation`. Leave empty for entries that should always appear independently.
+
+    **Deduplication strategy for overlapping audiences:**
+    When creating entries at different specificity levels (e.g., a specific NPC vs. faction-wide), decide whether a more specific entry should *replace* or *supplement* the general one:
+    - **Replace (shared key):** If the specific entry is strictly better than the general one, use the same `knowledge_key`. Example: Lucan's personal knowledge about his robbery is better than the village gossip — use the same key (e.g., `quest.ms13.claw_status`) for both. Lucan's higher-importance personal entry wins; other villagers still get the gossip version.
+    - **Supplement (different keys or no key):** If both entries provide genuinely different information (e.g., personal feelings vs. factual news), use different keys so both can surface for the same NPC.
+    - **Rule of thumb:** If an NPC would sound redundant or uninformed saying both entries in conversation, they should share a key. If both add unique value, keep them separate.
     </knowledge_entry_schema>
 {% endblock %}
 
@@ -34,8 +44,8 @@
     Available condition functions:
     - `is_in_faction(actorUUID, "FactionEditorID")` - Check if NPC is in a faction
     - `is_in_npc_group(actorUUID, "GroupName")` - Check if NPC is in a custom group
-    - `get_quest_stage("QuestEditorID")` - Get current quest stage number (compare with >=, ==, etc.)
-    - `is_quest_active("QuestEditorID")` - Returns true if a quest is currently active/running. Prefer this over stage checks when you just need to know if a quest is in progress.
+    - `get_quest_stage("QuestEditorID", onlyWhileActive)` - Get current quest stage number (compare with >=, ==, etc.). **You MUST always pass the second argument**: `false` for persistent knowledge (survives quest completion) or `true` for ephemeral knowledge (disappears when quest completes).
+    - `is_quest_active("QuestEditorID")` - Returns true if a quest is currently active/running. Use for simple "is this quest in progress" checks without needing a specific stage.
     - `decnpc(actorUUID).race` - Get NPC's race
     - `decnpc(actorUUID).gender` - Get NPC's gender
     - Boolean operators: `and`, `or`, `not` (Inja syntax — do NOT use `&&` or `||`)
@@ -45,7 +55,8 @@
 
     Condition syntax examples:
     - Specific NPC: `actorName == "Camilla Valerius"`
-    - NPC + quest stage: `actorName == "Lucan Valerius" and get_quest_stage("MS13") >= 10`
+    - NPC + quest stage (persistent): `actorName == "Lucan Valerius" and get_quest_stage("MS13", false) >= 10`
+    - NPC + quest stage (ephemeral): `actorName == "Lucan Valerius" and get_quest_stage("MS13", true) >= 10`
     - Quest active: `is_quest_active("MS13")`
     - Faction members: `is_in_faction(actorUUID, "CrimeFactionWhiterun")`
     - Faction + quest: `is_in_faction(actorUUID, "JobsBersiGroup") and is_quest_active("TG03")`
@@ -58,6 +69,14 @@
     - Use `actorName == "Name"` for knowledge scoped to a specific individual (e.g., only Camilla knows her personal feelings)
     - Use `is_in_faction()` for knowledge scoped to a group (e.g., all Riverwood residents, all guards)
     - Combine them for individual + quest-gated knowledge
+
+    Quest completion and the `is_quest_active` / `get_quest_stage` distinction:
+    - `is_quest_active("QuestID")` returns true ONLY while the quest is running with incomplete objectives. Once the quest is completed, it returns **false**. Use this for knowledge that should only exist while the quest is in progress (e.g., "Bandits have stolen the Golden Claw from the shop" — this is no longer true after the player returns it).
+    - `get_quest_stage("QuestID", false)` — **persistent**: returns the stage number even after the quest is completed. Use for knowledge about quest outcomes that NPCs should remember permanently (e.g., `get_quest_stage("MS13", false) >= 100` for "The Golden Claw was recovered and returned to Lucan").
+    - `get_quest_stage("QuestID", true)` — **ephemeral**: returns -1 if the quest is no longer active. Use for stage-specific knowledge that should disappear after quest completion (e.g., mid-quest progress like "I heard the Dragonborn is on their way to Bleak Falls Barrow").
+    - **IMPORTANT**: Always explicitly pass `true` or `false` as the second argument to `get_quest_stage`. Never omit it. This forces you to decide upfront whether each piece of knowledge is persistent (false) or ephemeral (true).
+    - **Rule of thumb**: Use `is_quest_active()` or `get_quest_stage(id, true)` for in-progress situational knowledge. Use `get_quest_stage(id, false) >= N` for permanent post-completion knowledge about outcomes and consequences.
+    - Many quests deserve BOTH types of entries: one set that is ephemeral (current events, rumors, concerns during the quest) and another that is persistent (outcomes, consequences, lasting changes to the world).
     </condition_reference>
 
     <verify_game_data>
@@ -86,13 +105,15 @@
 {% block agent_guidelines %}
     <guidelines>
     1. Use `propose_knowledge_entries` to propose entries. Never output entries as plain text.
-    2. Batch related entries together (3-5 per call) so the user can review them as a group. For larger sets, spread across multiple turns.
+    2. Batch as many related entries as possible into a single `propose_knowledge_entries` call — 10, 20, or more entries per call is fine and preferred. The user can review them all at once in the proposal panel. Avoid spreading entries across multiple turns unless the user explicitly asks for smaller batches.
     3. Write content from an in-world perspective — as facts an NPC would know, not meta-game descriptions. Keep each entry's content to 1-2 sentences.
     4. Use specific condition expressions to target the right NPCs. Guards shouldn't know Thieves Guild secrets; mages shouldn't know Companions internal affairs.
     5. Check existing proposals before creating new ones to avoid duplicates.
     6. When asked to modify entries, use the "update" action with the entry_ids of proposals to update. When asked to remove entries, use the "remove" action with the entry_ids.
     7. Use `and`/`or`/`not` in condition expressions — never `&&`, `||`, or `!`. This is Inja, not C++.
     8. Use descriptive display_names that help users scan entries quickly.
+    9. Use `knowledge_key` when creating multiple entries about the same topic at different stages or specificity levels. This ensures only the most relevant (highest importance) entry is shown to each NPC. Use highly specific, namespaced keys — e.g., `quest.ms13.claw_status` not just `claw`. Entries without a key are always included independently.
+    10. When creating entries at multiple specificity levels (individual NPC → faction → everyone), decide upfront whether specific entries should *replace* or *supplement* general ones. Use shared `knowledge_key` values to deduplicate when the specific entry is strictly better; use separate keys when both provide unique value. Calibrate importance scores so the most specific matching entry wins.
 
     The `propose_knowledge_entries` tool supports three actions:
     - `create` — propose new entries (requires `entries` array)
@@ -126,10 +147,11 @@
     Assistant: "Let me look up the quest data first."
     [calls get_quest_stages with quest "MS13" and get_factions with name_contains "riverwood" in parallel]
     [after receiving results]
-    "I'll create entries for the key stages of The Golden Claw, scoped to relevant Riverwood NPCs."
-    [calls propose_knowledge_entries with 3-4 entries like:
-      - display_name: "Golden Claw - Quest Started", content about the stolen claw, condition: is_quest_active("MS13")
-      - display_name: "Golden Claw - Returned to Lucan", content about the claw's return, condition: actorName == "Lucan Valerius" and get_quest_stage("MS13") >= 100
+    "I'll create entries for the key stages of The Golden Claw, scoped to relevant Riverwood NPCs — some for while it's active, and some for after completion."
+    [calls propose_knowledge_entries with entries like:
+      - display_name: "Golden Claw - Stolen (Active)", content: "The golden claw was stolen from the Riverwood Trader by bandits", condition: is_quest_active("MS13"), knowledge_key: "quest.ms13.claw_status", importance: 0.7 — disappears after quest completes
+      - display_name: "Golden Claw - Mid-Quest Progress", content about the Dragonborn heading to Bleak Falls Barrow, condition: get_quest_stage("MS13", true) >= 30, knowledge_key: "quest.ms13.claw_status", importance: 0.8 — same key, higher importance overrides the general "stolen" entry when this condition also matches
+      - display_name: "Golden Claw - Recovered", content: "The golden claw was recovered and returned to Lucan at the Riverwood Trader", condition: get_quest_stage("MS13", false) >= 100, knowledge_key: "quest.ms13.claw_status", importance: 0.9 — persistent, highest importance, overrides all other entries with this key
     ]
 
     Example 2 — User asks for faction knowledge:
