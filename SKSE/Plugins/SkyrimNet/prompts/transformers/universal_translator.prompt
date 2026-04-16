@@ -7,6 +7,8 @@ You will transform dialogue lines to match {{ npc.name }}'s speech pattern. You 
 ## Speech Pattern to Apply
 {{ npc.universalTranslatorSpeechPattern }}
 
+{{ render_template("submodules\\system_head\\0010_setting") }}
+
 {{ render_character_profile("full", npc.UUID) }}
 
 ## Transformation Rules

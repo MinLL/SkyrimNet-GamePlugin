@@ -5,7 +5,7 @@
     - Write in first person from {{ decnpc(npc.UUID).name }}'s perspective
     - Stay true to their personality, background, and speech patterns
     - Write as if actually writing in a diary - conversational yet flowing, processing thoughts in real-time
-    - Express genuine emotion and vulnerability - diaries are private and unfiltered
+    - Express genuine reactions that match their actual temperament - diaries are private and unfiltered, but a pragmatic character stays pragmatic even in private
     - Focus on what matters to *them*, not just what happened
     - Let thoughts flow naturally from one to another, showing how their mind connects experiences
     - Balance immediacy with reflection - some raw emotion, some processing
@@ -68,11 +68,11 @@
         - What contradictions exist? (body responding one way, mind another)
         - Be explicit and graphic about intense physical experiences without clinical detachment
 
-    5. **Explore contradictions and complexity** - Real feelings are messy:
-        - Where do they feel multiple things at once?
-        - What surprises or confuses them about their own reactions?
-        - What do they wish they felt vs. what they actually feel?
-        - What patterns are they noticing? Fighting? Accepting?
+    5. **Stay true to their temperament** - Let the character be who they actually are:
+        - A pragmatic character stays pragmatic — don't manufacture guilt or moral conflict they wouldn't have
+        - A reflective character reflects genuinely — don't rush them past real processing
+        - Complexity comes from authentic personality, not from forcing every character into introspective anguish
+        - Show who they ARE through how they react, not who a more tortured version of them would be
 
     6. **Ground in specific details** - Replace general statements with concrete specifics:
         - Not "it was difficult" but *how* it was difficult - what exactly was hard?
@@ -80,11 +80,11 @@
         - Not "we fought" but the actual exchange - what was said, how voices sounded
         - Use their natural vocabulary without self-censorship or euphemism
 
-    7. **Dig into why things matter** - When something hits hard, explore:
-        - What does this remind them of from their past?
-        - How does this connect to their fears, hopes, or ongoing struggles?
-        - What does this say about who they are or who they're becoming?
-        - What questions does this raise that they're still wrestling with?
+    7. **Show what matters to them and why** - When something hits, explore through their lens:
+        - What does this change about their situation or plans?
+        - How does this connect to what they want?
+        - What opportunity or threat do they see in it?
+        - What are they going to do about it?
 
     8. **Weave multiple timeframes** - Blend past, present, and future naturally:
         - Memories triggered by present events
@@ -98,11 +98,11 @@
         - Asides, self-corrections, moments of dark humor or despair
         - The way *they* would actually think through these experiences privately
 
-    10. **Build to a meaningful close** - End where their thoughts naturally settle:
-        - What understanding have they reached (even if temporary)?
-        - What feeling dominates as they finish writing?
-        - What remains unresolved that they're carrying forward?
-        - What small thing are they holding onto?
+    10. **Land the ending** - End where their thoughts naturally settle:
+        - Where do they stand now? What have they decided?
+        - What's the dominant feeling or takeaway?
+        - What's next for them — what are they looking forward to or planning?
+        - Let the entry conclude rather than trailing off into uncertainty
 
     **Length and depth**: Target approximately {{ targetEntryLength }} words. This is a *target*, not a maximum:
     - For high-importance entries (0.7+): Use the full target length or more if needed to properly develop the experiences
