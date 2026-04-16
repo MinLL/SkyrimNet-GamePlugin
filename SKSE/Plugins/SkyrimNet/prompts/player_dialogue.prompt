@@ -21,11 +21,12 @@ Event: {{ format_event(triggeringEvent, "recent_events") }}
 {% elif length(promptForDialogue) > 0 %}
 ## Transform This Line
 "{{ promptForDialogue }}"
-
 Say this in YOUR voice—same meaning, completely different words. Use your vocabulary, speech patterns, and personality.
 - Keep the same intent and information
 - Don't add new ideas or expand on it
 - Don't paraphrase—transform it as if you thought of it yourself
+- The subject of the output must match the subject of the input exactly. If the input is about X, the output is about X — not something nearby, related, or more contextually appropriate.
+- **The opinion, confidence level, and emotional stance in the input are fixed. Don't add doubt, skepticism, or qualifications that aren't already there. If the input is confident, be confident. If it agrees, agree.**
 
 {% else %}
 Say something aloud—a brief spoken reaction to the moment. This is dialogue, not internal thought.
