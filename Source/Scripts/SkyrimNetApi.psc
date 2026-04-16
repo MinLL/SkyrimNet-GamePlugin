@@ -53,6 +53,7 @@ int function UnregisterAction(String actionName) Global Native
 
 ; Makes the specified actor run the specified action. Arguments can be supplied as a json string. Runs the action irrespective of cooldowns or eligibility.
 int function ExecuteAction(string actionName, Actor akOriginator, string argsJson) global native
+int function ExecuteActionByUUID(string actionName, string originatorUuid, string argsJson) global native
 
 ; Sets the cooldown for the specified action
 int function SetActionCooldown(string actionName, int cooldownTimeSeconds) global native
@@ -73,10 +74,13 @@ int function GetRemainingCooldown(string actionName) global native
 
 int function RegisterShortLivedEvent(String eventId, String eventType, String description, \
                                     String data, int ttlMs, Actor sourceActor, Actor targetActor) Global Native
+int function RegisterShortLivedEventByUUID(String eventId, String eventType, String description, \
+                                    String data, int ttlMs, String sourceUuid = "", String targetUuid = "") Global Native
 
 ; Register a persistent event for historical tracking and analysis
 ; Returns 0 on success, 1 on failure
 int function RegisterEvent(String eventType, String content, Actor originatorActor, Actor targetActor) Global Native
+int function RegisterEventByUUID(String eventType, String content, String originatorUuid = "", String targetUuid = "") Global Native
 
 ; -----------------------------------------------------------------------------
 ; --- Dialogue Management ---
@@ -85,10 +89,12 @@ int function RegisterEvent(String eventType, String content, Actor originatorAct
 ; Register dialogue from a speaker (general announcement, no specific listener)
 ; Returns 0 on success, 1 on failure
 int function RegisterDialogue(Actor speaker, String dialogue) Global Native
+int function RegisterDialogueByUUID(String speakerUuid, String dialogue) Global Native
 
 ; Register dialogue from a speaker to a specific listener
 ; Returns 0 on success, 1 on failure
 int function RegisterDialogueToListener(Actor speaker, Actor listener, String dialogue) Global Native
+int function RegisterDialogueToListenerByUUID(String speakerUuid, String listenerUuid, String dialogue) Global Native
 
 ; Immediately purge all ongoing NPC dialogue
 ; This function stops all dialogue processing:
@@ -199,6 +205,7 @@ int function SendCustomPromptToLLM(String promptName, String variant, String con
 ; 
 ; Returns 0 on success, 1 on failure
 int function DirectNarration(String content, Actor originatorActor = None, Actor targetActor = None) Global Native
+int function DirectNarrationByUUID(String content, String originatorUuid, String targetUuid = "") Global Native
 
 ; Register a persistent event that informs actors without triggering dialogue reactions
 ; This function creates an event that NPCs will be aware of for context, but will NOT
@@ -222,6 +229,7 @@ int function DirectNarration(String content, Actor originatorActor = None, Actor
 ; 
 ; Returns 0 on success, 1 on failure (including empty content)
 int function RegisterPersistentEvent(String content, Actor originatorActor = None, Actor targetActor = None) Global Native
+int function RegisterPersistentEventByUUID(String content, String originatorUuid = "", String targetUuid = "") Global Native
 
 ; Transform freeform text into player dialogue using the LLM dialogue pipeline
 ; This is the API equivalent of the "Transform Dialogue" hotkey feature.
@@ -256,6 +264,13 @@ Actor function GetJsonActor(String jsonString, String key, Actor defaultValue) G
 ; Note: "everyone" or empty string returns None (no specific target)
 ; This searches both the player and all nearby NPCs
 Actor function FindActorByName(String actorName) Global Native
+
+; SkyrimNet entity UUID for a loaded actor (uppercase hex). Empty string if actor is invalid. Use with Register*ByUUID / ExecuteActionByUUID.
+String function GetEntityUUID(Actor akActor) Global Native
+; Resolve entity metadata from UUID.
+String function GetEntityDisplayNameByUUID(String entityUuid) Global Native
+Bool function IsVirtualEntity(String entityUuid) Global Native
+Actor function GetActorByUUID(String entityUuid) Global Native
 
 ; Joins a list of strings into a comma/and-separated list with optional noun phrase
 ; - strings: The array of strings to join (e.g., ["apple", "orange", "banana"])
@@ -328,6 +343,7 @@ String function UpdateActorDynamicBio(Actor actor) Global Native
 ; Returns a status message indicating whether the diary generation was submitted successfully
 ; The generation happens asynchronously in the background
 String function GenerateDiaryEntry(Actor actor) Global Native
+String function GenerateDiaryEntryByUUID(String entityUuid) Global Native
 
 ; -----------------------------------------------------------------------------
 ; --- Event Schema Registry Functions ---
