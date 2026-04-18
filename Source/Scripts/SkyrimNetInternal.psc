@@ -6,7 +6,7 @@ scriptname SkyrimNetInternal
 Bool Function ClearTimelineMessage() global
     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
     if !skynet
-        Debug.MessageBox("Fatal Error: AnimationGeneric failed to retrieve controller.")
+        Debug.MessageBox("Fatal Error: ClearTimelineMessage failed to retrieve controller.")
         return False
     endif
 
@@ -122,69 +122,6 @@ Function OpenTrade_Execute(Actor akActor, string contextJson, string paramsJson)
     akActor.ShowBarterMenu()
 EndFunction
 
-
-; Eligibility function for an "Animation<type>" action
-bool Function Animation_IsEligible(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] Animation_IsEligible called for " + akActor.GetDisplayName())
-
-    if akActor.IsInCombat()
-        Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is in combat. Cannot animate.")
-        return false
-    endif
-
-    if !akActor.GetRace().IsPlayable()
-        Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is not a human. Cannot animate.")
-        return false
-    endif
-
-    if akActor.GetSitState() > 0
-        Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is using furniture. Cannot animate.")
-        return false
-    endif
-
-    if SkyrimNetApi.HasPackage(akActor, "FollowPlayer")
-        Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is following player. Cannot animate.")
-        return false
-    endif
-
-    Debug.Trace("[SkyrimNetInternal] Animation_IsEligible: " + akActor.GetDisplayName() + " is eligible to animate.")
-    return true
-EndFunction
-
-Function AnimationGeneric(Actor akOriginator, string contextJson, string paramsJson) global
-    if (!akOriginator)
-        Debug.Trace("[SkyrimNetInternal] AnimationGeneric: akOriginator is null")
-        return
-    endif
-
-    String _anim = SkyrimNetApi.GetJsonString(paramsJson, "anim", "none")
-
-    If _anim == "none"
-        Debug.Trace("[SkyrimNetInternal] AnimationGeneric: _anim is none")
-        return
-    endif
-
-    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
-    if !skynet
-        Debug.MessageBox("Fatal Error: AnimationGeneric failed to retrieve controller.")
-        return
-    endif
-
-    Debug.Trace("[SkyrimNetInternal] AnimationGeneric: Playing: " + _anim)
-    skynet.libs.PlayGenericAnimation(akOriginator, _anim)
-EndFunction
-
-Function AnimationPrayer(Actor akOriginator, string contextJson, string paramsJson) global
-    GlobalVariable prayAnimationGlobal = Game.GetFormFromFile(0x0E99, "SkyrimNet.esp") as GlobalVariable
-    if (!akOriginator)
-        Debug.Trace("[SkyrimNetInternal] AnimationPrayer: akOriginator is null")
-        return
-    endif
-    Debug.Trace("[SkyrimNetInternal] AnimationPrayer: Praying with " + akOriginator.GetDisplayName())
-    PrayAnimationGlobal.SetValue(10)
-    Utility.wait(5)
-    PrayAnimationGlobal.SetValue(0)
-EndFunction
 
 ; Companion stuff
 bool Function Companion_IsEligible(Actor akActor, string contextJson, string paramsJson) global

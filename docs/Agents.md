@@ -29,9 +29,6 @@ Character profiles are periodically updated, using recent events and important m
 ### Action Usage
 Evaluating the context of the current dialogue, this model will determine the appropriate action to use, (IE. Follow player, Wait, Slap_target)
 
-### Gesture Usage
-Similarly to actions, evaluations are performed to determine the appropriate gesture for NPC's to use while speaking.
-
 ## Meta
 
 ### Mood Evaluation
