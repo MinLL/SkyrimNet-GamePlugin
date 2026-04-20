@@ -247,6 +247,23 @@ int function RegisterPersistentEventByUUID(String content, String originatorUuid
 ; Returns 0 on success, 1 on failure (including empty text)
 int function TransformDialogue(String dialogueText) Global Native
 
+; Generate an unvoiced NPC thought and persist it to the NPC's event history.
+; The thought is generated asynchronously via the LLM and stored as an EVENT_NPC_THOUGHTS
+; event whose audience is the thinking NPC only — private by default, never spoken aloud,
+; and never heard by other NPCs or the player. It will surface in that NPC's prompts
+; (dialogue, actions, etc.) on subsequent LLM calls, coloring their behavior.
+;
+; Respects per-NPC and global cooldowns from NpcThoughts.yaml. Skips silently if the NPC
+; is dead/unconscious/sleeping or if the caller passes the player (use TriggerPlayerThought
+; for the player).
+;
+; Examples:
+; GenerateNPCThought(guardRef, "You just saw the player pick a lock")
+; GenerateNPCThought(followerRef, "The Jarl insulted your honor — how do you feel?")
+;
+; Returns 0 on success, 1 on failure (null actor or unresolvable entity)
+int function GenerateNPCThought(Actor npcActor, String promptHint) Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Utility Functions ---
 ; -----------------------------------------------------------------------------
@@ -511,6 +528,12 @@ int function TriggerToggleContinuousMode() Global Native
 ; - When disabled, NPCs will not autonomously react to world events
 ; Functions identically to pressing the configured world event reactions toggle key
 int function TriggerToggleWorldEventReactions() Global Native
+
+; Toggles the runtime master switch for NPC action execution
+; - Disables BOTH embedded-in-dialogue actions and the separate-call action evaluation flow
+; - Shows notification with current state (Actions: ON/OFF)
+; - Runtime only: not persisted to config, resets to enabled on game restart
+int function TriggerToggleActions() Global Native
 
 ; --- Interaction Control Functions ---
 
