@@ -512,6 +512,12 @@ int function TriggerToggleContinuousMode() Global Native
 ; Functions identically to pressing the configured world event reactions toggle key
 int function TriggerToggleWorldEventReactions() Global Native
 
+; Toggles the runtime master switch for NPC action execution
+; - Disables BOTH embedded-in-dialogue actions and the separate-call action evaluation flow
+; - Shows notification with current state (Actions: ON/OFF)
+; - Runtime only: not persisted to config, resets to enabled on game restart
+int function TriggerToggleActions() Global Native
+
 ; --- Interaction Control Functions ---
 
 ; Simulates pressing the whisper mode toggle hotkey

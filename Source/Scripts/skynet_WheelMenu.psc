@@ -33,10 +33,10 @@ EndFunction
 
 Function DisplayUtilities() global
 
-    string labels = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode,Interrupt Dialogue"
-    string options = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode,Interrupt Dialogue"
+    string labels = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Toggle Actions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode,Interrupt Dialogue"
+    string options = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Toggle Actions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode,Interrupt Dialogue"
 
-    ; Option 7: White/Blacklist management only if there's a target under the crosshair
+    ; Option 8: White/Blacklist management only if there's a target under the crosshair
     Actor akTarget = GetTargetFromCrosshair()
     If akTarget
         labels += ",White/Blacklist Mgmt"
@@ -54,18 +54,21 @@ Function DisplayUtilities() global
         ; Toggle NPC reactions to world events
         SkyrimNetApi.TriggerToggleWorldEventReactions()
     elseif result == 3
+        ; Toggle runtime master switch for NPC actions (embedded + separate-call flows)
+        SkyrimNetApi.TriggerToggleActions()
+    elseif result == 4
         ; Continue narration
         SkyrimNetApi.TriggerContinueNarration()
-    elseif result == 4
+    elseif result == 5
         ; Toggle continuous mode
         SkyrimNetApi.TriggerToggleContinuousMode()
-    elseif result == 5
+    elseif result == 6
         ; Toggle whisper mode
         SkyrimNetApi.TriggerToggleWhisperMode()
-    elseif result == 6
+    elseif result == 7
         ; Interrupt all ongoing dialogue
         SkyrimNetApi.TriggerInterruptDialogue()
-    elseif result == 7
+    elseif result == 8
         ; White/Blacklist management submenu
         ; This option only appears if there's a target under the crosshair
         skynet_WheelMenu.DisplayFactionManagement(akTarget)
