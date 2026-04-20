@@ -247,6 +247,23 @@ int function RegisterPersistentEventByUUID(String content, String originatorUuid
 ; Returns 0 on success, 1 on failure (including empty text)
 int function TransformDialogue(String dialogueText) Global Native
 
+; Generate an unvoiced NPC thought and persist it to the NPC's event history.
+; The thought is generated asynchronously via the LLM and stored as an EVENT_NPC_THOUGHTS
+; event whose audience is the thinking NPC only — private by default, never spoken aloud,
+; and never heard by other NPCs or the player. It will surface in that NPC's prompts
+; (dialogue, actions, etc.) on subsequent LLM calls, coloring their behavior.
+;
+; Respects per-NPC and global cooldowns from NpcThoughts.yaml. Skips silently if the NPC
+; is dead/unconscious/sleeping or if the caller passes the player (use TriggerPlayerThought
+; for the player).
+;
+; Examples:
+; GenerateNPCThought(guardRef, "You just saw the player pick a lock")
+; GenerateNPCThought(followerRef, "The Jarl insulted your honor — how do you feel?")
+;
+; Returns 0 on success, 1 on failure (null actor or unresolvable entity)
+int function GenerateNPCThought(Actor npcActor, String promptHint) Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Utility Functions ---
 ; -----------------------------------------------------------------------------
