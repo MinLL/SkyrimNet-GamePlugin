@@ -73,7 +73,9 @@
 [ user ]
             {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}{{ timeIndicator }}*{{ format_event(event, "verbose") }}*
             {% else %}
-            {% if event.type == "dialogue_background" %}[Background] {% endif %}{% if event.type == "player_thoughts" %}[{{ get_name(event.originatingActor) }}'s internal thoughts] {% endif %}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %}{% if decnpc(event.targetActor).isVirtualPrivate and not _npc_is_private_virtual %}{% if decnpc(event.originatingActor).isFemale %} (talking to herself){% else %} (talking to himself){% endif %}{% else %} (to {{ get_name(event.targetActor) }}){% endif %}{% endif %}: {% else if event.type == "dialogue_background" and event.data and event.data.speaker != "" %}{{ event.data.speaker }}: {% endif %}{{ format_event(event, "verbose") }}
+            {% if event.type == "player_thoughts" %}{{ format_event(event, "verbose") }}
+            {% else %}{% if event.type == "dialogue_background" %}[Background] {% endif %}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %}{% if decnpc(event.targetActor).isVirtualPrivate and not _npc_is_private_virtual %}{% if decnpc(event.originatingActor).isFemale %} (talking to herself){% else %} (talking to himself){% endif %}{% else %} (to {{ get_name(event.targetActor) }}){% endif %}{% endif %}: {% else if event.type == "dialogue_background" and event.data and event.data.speaker != "" %}{{ event.data.speaker }}: {% endif %}{{ format_event(event, "verbose") }}
+            {% endif %}
             {% endif %}
 [ end user ]
         {% endif %}
