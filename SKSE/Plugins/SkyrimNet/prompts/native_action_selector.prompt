@@ -1,27 +1,36 @@
 [ system ]
-    You are an expert at determining what action should accompany a character's recent dialogue and determining their intent. Based on {{npc.name}}'s most recent line of dialogue and the current game context, select the single most appropriate in-game action that you think they intended to perform in order to accompany their dialogue.
+    You select the single most appropriate in-game action based on the dialogue exchange between the speaker and {{ npc.name }}.
 
-    **Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should follow the dialogue.**
+    **Guidelines:**
+    - Focus on the PLAYER'S REQUEST, not just {{ npc.name }}'s response. If the player asked {{ npc.name }} to do something (wait, follow, give, attack, etc.) and {{ npc.name }} agreed or showed willingness, select the action that fulfills the player's request. The NPC's response may be purely verbal ("Sure", "I'll wait here") — the action still needs to happen.
+    - If {{ npc.name }}'s dialogue implies, suggests, or leads toward any eligible action — select it. Actions include physical behaviors, economic transactions, relationship changes, travel, and any other game mechanic in the eligible list.
+    - When in doubt between an action and None, ALWAYS prefer the action. Only choose None when the exchange is purely social with absolutely no request, instruction, or implied action.
+    - Narrative cues (e.g., *Orgnar shrugs, returning to wiping the counter.*) can suggest actions if one matches the eligible list.
+    - Agreement can be implicit — positive responses, compliance, or steps toward fulfilling a request all count.
+    - Do NOT choose dramatic or aggressive actions unless clearly signaled in the dialogue or situation.
+    - Consider {{ npc.name }}'s current physical and emotional state when selecting.
+    - You are selecting a SINGLE action for this moment. Do not skip an appropriate action because you think a better one will come later.
+    - For actions with actor parameters, use the actor's display name exactly as shown in Nearby Actors.
 
-    - If {{npc.name}}'s words or actions (including narrative cues, e.g., *Orgnar shrugs, returning to wiping the counter.*) clearly suggest a specific, visible in-game action from the eligible list, choose that action.
-    - Do NOT choose dramatic or aggressive actions unless they are clearly signaled in the dialogue or situation.
+    **Categories vs Actions — CRITICAL distinction:**
+    - Some entries are **categories** (they have NO `PARAMS:` schema in the eligible list). Categories trigger a follow-up prompt to pick the specific action. When selecting a category, you **MUST** include EXACTLY `PARAMS: {"intent": "brief description"}` — where `"intent"` is the ONLY key. Do NOT add ANY other keys like "target", "item", "action", "name", "location", or anything else. Adding extra keys will cause the action to fail. Example: `PARAMS: {"intent": "attack the wolf"}` — NOT `{"intent": "attack", "target": "wolf"}`.
+    - All other entries are **direct actions** (they HAVE a `PARAMS:` schema in the eligible list). When selecting a direct action, use ONLY the parameters shown in its schema. **NEVER add `intent` to a direct action.**
+    - Respond with EXACTLY one line. Never output multiple action lines — only the first is processed by the game engine, the rest are discarded.
+
     {% if structured_json_actions %}
-    - If no listed action directly matches, return `{"ACTION": "None"}`.
-
-    Respond with exactly one line:
-    - If the action takes no parameters: `{"ACTION": "ActionName"}`
-    - If the action takes parameters: `{"ACTION": "ActionName", "PARAMS": {"param_name1": "value1", ...}}` (ensure PARAMS is a valid JSON object)
-    - If no action fits: `{"ACTION": "None"}`
-    Only return one line with JSON and nothing else.
+    **Response format** (exactly one line, no reasoning):
+    - `{"ACTION": "ActionName"}`
+    - `{"ACTION": "ActionName", "PARAMS": {"param_name1": "value1", ...}}`
+    - `{"ACTION": "CategoryName", "PARAMS": {"intent": "what you intend to do"}}` — REQUIRED for categories
+    - `{"ACTION": "None"}`
     {% else %}
-    - If no listed action directly matches, return `ACTION: None`.
-
-    Respond with exactly one line:
-    - If the action takes no parameters: `ACTION: ActionName`
-    - If the action takes parameters: `ACTION: ActionName PARAMS: {"param_name1": "value1", ...}` (ensure PARAMS is a valid JSON object)
-    - If no action fits: `ACTION: None`
-    Only return one line, beginning with "ACTION:" and nothing else.
+    **Response format** (exactly one line starting with `ACTION:`, no reasoning):
+    - `ACTION: ActionName`
+    - `ACTION: ActionName PARAMS: {"param_name1": "value1", ...}`
+    - `ACTION: CategoryName PARAMS: {"intent": "what you intend to do"}` — REQUIRED for categories
+    - `ACTION: None`
     {% endif %}
+
     ## {{ npc.name }}'s Profile
     {{ render_character_profile("full", npc.UUID) }}
 [ end system ]
@@ -34,46 +43,36 @@
     ## Dialogue History
     {{ render_template("components\\event_history_compact") }}
 
-    ## Most Recent Dialogue
-    "{{ dialogue_request }}
-    {{ dialogue_response }}"
+    ## Most Recent Exchange
+    {% set _player_said = "" %}
+    {% set _player_recent = get_recent_events(5, player.UUID) %}
+    {% for event in _player_recent %}
+    {% if event.type == "dialogue_player_text" or event.type == "dialogue_player_stt" or event.type == "dialogue_player" %}{% set _player_said = format_event(event, "compact") %}{% endif %}
+    {% endfor %}
+    {% if _player_said != "" %}**{{ decnpc(player.UUID).name }}:** {{ _player_said }}
+    {% endif %}
+    **{{ npc.name }}:** {{ dialogue_response }}
 
     ## Nearby Actors
-    - {{ decnpc(player.UUID).name }}: {{ render_character_profile("short_inline", player.UUID) }} ({{ decnpc(player.UUID).gender }} {{ decnpc(player.UUID).race }}, (THIS IS THE PLAYER CHARACTER)
+    - {{ decnpc(player.UUID).name }} ({{ decnpc(player.UUID).gender }} {{ decnpc(player.UUID).race }}) — THE PLAYER CHARACTER
     {% for npc_nearby in get_nearby_npc_list(player.UUID) %}
     {% if not decnpc(npc_nearby.UUID).isVirtual %}
-        {% if npc_nearby.UUID != npc.UUID %}
-            {% if decnpc(npc_nearby.UUID).isDead %}
-            - [DEAD] The dead corpse of {{ decnpc(npc_nearby.UUID).name }} ({{ units_to_meters(npc_nearby.distance) }} meters away)
-            {% else %}
-            - {% if is_summoned(npc_nearby.UUID) %}{% if is_hostile_to_actor(npc_nearby.UUID, player.UUID) %}[Summoned creature hostile to {{ decnpc(player.UUID).name }}] {% else %}[Summoned creature serving {{ decnpc(player.UUID).name }}] {% endif %}{% elif is_reanimated(npc_nearby.UUID) %}{% if is_hostile_to_actor(npc_nearby.UUID, player.UUID) %}[Reanimated undead hostile to {{ decnpc(player.UUID).name }}] {% else %}[Reanimated undead thrall serving {{ decnpc(player.UUID).name }}] {% endif %}{% endif %}{{ decnpc(npc_nearby.UUID).name }}: {{ render_character_profile("short_inline", npc_nearby.UUID) }} ({{ decnpc(npc_nearby.UUID).gender }} {{ decnpc(npc_nearby.UUID).race }}, {{ units_to_meters(npc_nearby.distance) }} meters away)
-            {% endif %}
-        {% endif %}
+    {% if npc_nearby.UUID != npc.UUID %}
+    {% if decnpc(npc_nearby.UUID).isDead %}
+        - [DEAD] The dead corpse of {{ decnpc(npc_nearby.UUID).name }} ({{ units_to_meters(npc_nearby.distance) }}m away)
+    {% else %}
+        - {% if is_summoned(npc_nearby.UUID) %}{% if is_hostile_to_actor(npc_nearby.UUID, player.UUID) %}[Summoned creature hostile to {{ decnpc(player.UUID).name }}] {% else %}[Summoned creature serving {{ decnpc(player.UUID).name }}] {% endif %}{% elif is_reanimated(npc_nearby.UUID) %}{% if is_hostile_to_actor(npc_nearby.UUID, player.UUID) %}[Reanimated undead hostile to {{ decnpc(player.UUID).name }}] {% else %}[Reanimated undead thrall serving {{ decnpc(player.UUID).name }}] {% endif %}{% endif %}{{ decnpc(npc_nearby.UUID).name }} ({{ decnpc(npc_nearby.UUID).gender }} {{ decnpc(npc_nearby.UUID).race }}, {{ units_to_meters(npc_nearby.distance) }}m away)
+    {% endif %}
+    {% endif %}
     {% endif %}
     {% endfor %}
 
     ## Eligible Actions
     {% for action in eligible_actions %}
-        - ACTION: {{ action.name }}{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS_SCHEMA: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
+        - ACTION: {{ action.name }}{% if action.parameterSchema and length(action.parameterSchema) > 0 %} PARAMS: {{ action.parameterSchema }}{% endif %} — {{ action.description }}
     {% endfor %}
-    - ACTION: None - No action directly fits the situation.
+    - ACTION: None — The dialogue is purely conversational with no implied action.
 
-    ## Context Reminder:
-    **Your choice must directly reflect what {{npc.name}} just said or did, and should be implied by the dialogue. NEVER pick actions unrelated to dialogue. NEVER pick random actions. ONLY pick actions that should be accompanied by the dialogue.**
-
-    ## Format Reminder:
-    {% if structured_json_actions %}   
-    - `{"ACTION": "ActionName"}`
-    - `{"ACTION": "ActionName","PARAMS": {"param1": "value"}}`
-    - `{"ACTION": "None"}`
-
-    Only return one line with JSON and nothing else.  Do not include any reasoning or thinking in your response.
-    {% else %}
-    - `ACTION: ActionName`
-    - `ACTION: ActionName PARAMS: {"param1": "value"}`
-    - `ACTION: None`
-
-    Only return one line, beginning with "ACTION:" and nothing else. Do not include any reasoning or thinking in your response.
-    {% endif %}
+    Respond now. One line only, no reasoning.
 
 [ end user ]
