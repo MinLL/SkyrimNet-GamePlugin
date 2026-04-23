@@ -3,8 +3,9 @@
 After your dialogue, you may optionally perform ONE action if appropriate. Output dialogue FIRST, then action on a separate line.
 
 **Action Format:**
-- `ACTION: ActionName` — action with no parameters  
+- `ACTION: ActionName` — action with no parameters
 - `ACTION: ActionName PARAMS: {"param": "value"}` — action with parameters
+- `ACTION: CategoryName PARAMS: {"intent": "what you intend to do"}` — REQUIRED for categories
 - Omit the ACTION line entirely if no action fits
 
 **Available Actions:**
@@ -16,5 +17,7 @@ After your dialogue, you may optionally perform ONE action if appropriate. Outpu
 - Only use an action if it matches what you said, agreed to, or are doing
 - Agreement can be implicit—positive responses or steps toward fulfilling a request count
 - You can initiate actions unprompted if it fits your character
+- Some entries are **action categories** that group related actions (e.g., "Inventory", "Economy"). Selecting a category triggers a follow-up to pick the specific action within it
+- **REQUIRED**: When selecting a category, you MUST include `PARAMS: {"intent": "..."}` describing what you intend to do. Example: `ACTION: Economy PARAMS: {"intent": "sell a health potion to the player for 450 gold"}`. Category selections without intent will fail.
 - Output dialogue lines BEFORE the ACTION line (this allows speech to start while action is parsed)
 {% endif %}
