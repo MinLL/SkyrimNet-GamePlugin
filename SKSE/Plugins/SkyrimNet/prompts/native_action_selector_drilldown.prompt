@@ -7,6 +7,7 @@
     - If {{ npc.name }}'s dialogue implies, suggests, or leads toward any eligible action — select it.
     - Agreement can be implicit — positive responses or steps toward fulfilling a request count.
     - Do NOT choose dramatic or aggressive actions unless clearly signaled in the dialogue or situation.
+    - Consider {{ npc.name }}'s current physical and emotional state when selecting.
     - For actions with actor parameters, use the actor's display name exactly as shown in Nearby Actors or in the PARAMS choices.
     - Respond with EXACTLY one line. Never output multiple action lines — only the first is processed by the game engine, the rest are discarded.
 
@@ -21,6 +22,9 @@
     - `ACTION: ActionName PARAMS: {"param_name1": "value1", ...}`
     - `ACTION: None`
     {% endif %}
+
+    ## {{ npc.name }}'s Profile
+    {{ render_character_profile("action", npc.UUID) }}
 [ end system ]
 
 [ user ]
