@@ -67,8 +67,6 @@ You can confirm that CUDA is being used on the Test & Easy Setup page in the Spe
 - [Dragonborn Voice Over - Skyrim VR Patch](https://www.nexusmods.com/skyrimspecialedition/mods/84329?tab=files), if using Dragonborn Voice Over
 
 
-*⚠️ Important: CUDA Toolkit is required for the CUDA build to load properly*
-
 ### 🌐 **External API Requirements**
 - **LLM Provider**: OpenRouter API key (or compatible OpenAI API)
 - **Cloud Processing**: VastAI account (optional, for cloud GPU access and automatic XTTS provisioning)
