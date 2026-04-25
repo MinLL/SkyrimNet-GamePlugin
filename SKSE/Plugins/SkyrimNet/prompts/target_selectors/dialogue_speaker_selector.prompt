@@ -3,25 +3,45 @@
 Select which NPC should speak next, if anyone. Output only: `0` (silence) or `[speaker]>[target]`
 
 ## Output Format
-- `0` = No one speaks (preferred when uncertain)
+- `0` = No one speaks
 - `Lydia>player` = Lydia speaks to player
 - `Ulfric Stormcloak>Galmar Stone-Fist` = Ulfric speaks to Galmar
 
 ## Selection Criteria
-Only select an NPC if their silence would feel unnatural. Evaluate in order:
+Evaluate candidates using these factors (highest priority first):
 
-1. **Direct involvement**: Was this NPC explicitly addressed or directly involved?
-2. **Authority/duty**: Does their role (guard, merchant, innkeeper) require response?
-3. **Personal stakes**: Are they emotionally affected (friend, family, ally involved)?
-4. **Witnessed event**: Did they clearly witness something noteworthy?
-5. **Interjection match**: Does their Interjection profile indicate they'd speak here?
+1. **Direct involvement**: Was this NPC explicitly addressed, referenced by name, or directly involved in what just happened?
+2. **Unresolved exchange**: Someone was asked a direct question or given a request that hasn't been answered yet. This is the ONLY conversational momentum that demands continuation — not vague topical interest.
+3. **Authority/duty**: Does their role (guard, merchant, innkeeper, jarl) demand a response in this situation?
+4. **Personal stakes**: Are they emotionally affected (friend, family, ally, rival involved)?
+5. **Witnessed event**: Did they clearly witness something noteworthy that they'd realistically react to?
+6. **Interjection profile**: Does their Interjection guidance indicate they'd speak here?
+
+## When to Choose Silence (0)
+Silence is preferred when uncertain. Not every line needs a reply — conversations should end naturally.
+
+Choose silence when:
+{% if lastDialogueTarget.name %}- **Direct question to the player** — {{ lastSpeaker.name }} just spoke to {% if lastDialogueTarget.UUID == player.UUID %}the player{% else %}{{ lastDialogueTarget.name }}{% endif %}. {% if lastDialogueTarget.UUID == player.UUID %}If it was a **direct question or request**, choose silence — the player should answer.{% endif %}
+{% else %}- **Direct question to the player** — If an NPC asked the player a direct question or made a direct request, choose silence so the player can respond.
+{% endif %}- The last exchange was a natural conclusion — farewell, transaction complete, question answered, agreement reached
+- The last response was a closing statement — acknowledgment, thanks, agreement, or farewell. These do NOT need replies.
+- The same two NPCs have been going back and forth for several turns — the topic is likely exhausted
+- The recent dialogue is circular — similar points being restated, pleasantries traded, or small talk looping
+- No NPC has a compelling reason to speak — don't force dialogue to fill silence
+- The scene is winding down with no new stimulus
+
+Do NOT choose silence when:
+- Someone was asked a direct question that hasn't been answered
+- Something dramatic, dangerous, funny, or unexpected just happened
+- Two NPCs are mid-conversation — let it reach a natural conclusion before going silent
 
 **Restrictions:**
-- Never select an NPC just because they're listed
-- Silence is natural and preferred over forced dialogue
+- Never select an NPC just because they're listed — proximity alone is not a reason for bystanders to speak
 - Honor each NPC's Interjection guidance strictly
-- Do NOT select {{ lastSpeaker.name }} as speaker (may be target)
-- Regular NPCs cannot hear the speech of Virtual NPCs. Do not select an NPC to respond directly to a Virtual NPC.
+- Do NOT select {{ lastSpeaker.name }} as speaker (they just spoke — but they CAN be selected as target)
+{% if lastDialogueTarget.name %}- {{ lastSpeaker.name }} was addressing {% if lastDialogueTarget.UUID == player.UUID %}the player{% else %}{{ lastDialogueTarget.name }}{% endif %}.{% if lastDialogueTarget.UUID != player.UUID %} {{ lastDialogueTarget.name }} is the natural next speaker if the exchange warrants a reply.{% endif %}
+{% endif %}- **No meta-commentary about silence** — Never select an NPC to comment on the player not talking, to urge the player to speak, or to narrate the waiting. NPCs do not have awareness that "the player is taking too long to respond" — they simply wait.
+- Regular NPCs cannot hear Virtual NPCs. Do not select an NPC to respond directly to a Virtual NPC.
 - Virtual NPCs may be selected as speaker but may NOT be selected as a target unless the speaker is also a Virtual NPC.
 
 {{ get_scene_context(0, 0, "full")}}
@@ -34,18 +54,45 @@ Only select an NPC if their silence would feel unnatural. Evaluate in order:
 ## Recent Dialogue
 {{ render_template("components\\event_history_compact") }}
 
+{% if existsIn(lastSpeaker, "name") and existsIn(lastDialogueTarget, "name") %}
+**Last exchange:** {{ lastSpeaker.name }} was speaking to {{ lastDialogueTarget.name }}
+{% elif existsIn(lastSpeaker, "name") %}
+**Last speaker:** {{ lastSpeaker.name }} (general comment, no specific target)
+{% endif %}
+
 ## Candidates
 {% for candidate in candidateDialogues %}
-{% if decnpc(candidate.UUID).isVirtual %}
-{{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}**{% if decnpc(candidate.UUID).isVirtualPrivate %} (Virtual NPC){% endif %}
+{% if candidate.UUID and candidate.UUID != 0 %}
+{% set cinfo = decnpc(candidate.UUID) %}
+{% if cinfo.isVirtual %}
+{{ candidate.id }}. **{{ cinfo.name }}**{% if cinfo.isVirtualPrivate %} (Virtual NPC){% endif %}
    - {{ render_character_profile("short_inline", candidate.UUID) }}
    - **Interjection**: {{ render_character_profile("interject_inline", candidate.UUID) }}
 {% else %}
-{{ candidate.id }}. **{{ decnpc(candidate.UUID).name }}** ({{ decnpc(candidate.UUID).gender }} {{ decnpc(candidate.UUID).race }}, {{ units_to_meters(candidate.distance) }}m)
+{{ candidate.id }}. **{{ cinfo.name }}** ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(candidate.distance) }}m)
    - {{ render_character_profile("short_inline", candidate.UUID) }}
    - **Interjection**: {{ render_character_profile("interject_inline", candidate.UUID) }}
 {% endif %}
+{% endif %}
 {% endfor %}
 
+**Targeting rules:**
+- Consider who was just speaking to whom.{% if existsIn(lastSpeaker, "name") and existsIn(lastDialogueTarget, "name") %} {{ lastSpeaker.name }} was just speaking to {{ lastDialogueTarget.name }} — if {{ lastDialogueTarget.name }} is a candidate, they should typically respond back to {{ lastSpeaker.name }}, not redirect to the player.{% endif %}
+- Only use `player` as target when the NPC is genuinely addressing the player.
+- NPC-to-NPC exchanges should wind down. After 2-3 back-and-forths between the same two NPCs, the topic is usually resolved — the next turn can pivot back to the player (target = `player`) or end in silence.
+- A chosen speaker CAN pivot their target back to `player` even if the immediately prior line was NPC-to-NPC — if the speaker's reason to speak is genuinely directed at the player (reacting to something the player did, answering the player's earlier question, sharing a decision with the player, pulling the player's attention to something), target = `player`. The prior NPC-to-NPC line does not lock in future targeting.
+- **Always specify a target** — every output must be exactly `0` or `[speaker]>[target]`. Never output `[speaker]>` with an empty target. Never leave the target ambiguous or unnamed. If unsure, prefer `player` over an NPC name you're not confident about.
+
+### Examples
+- CORRECT: `Aela the Huntress>Lydia`
+- CORRECT: `0`
+- INCORRECT: `Aela the Huntress [Female Nord]>Lydia` (do not add gender and race)
+- INCORRECT: `Aela the Huntress to Lydia` (use ">" not "to")
+- INCORRECT: `**Aela the Huntress**>**Lydia**` (no asterisks)
+- INCORRECT: `Aela>Lydia` (use exact full name, not shortened)
+- INCORRECT: `Aela>{{ player.name }}` (target player as lowercase "player")
+- INCORRECT: `Aela the Huntress>Lydia (because of context)` (no commentary)
+
+IMPORTANT: Do NOT select {{ lastSpeaker.name }} as speaker!
 Output format: `0` or `[Name]>[target]`
 [ end user ]
