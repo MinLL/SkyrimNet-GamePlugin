@@ -1,5 +1,3 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
-{% if has_current_scene_description() or has_current_location_description() %}
-Reference your surroundings naturally when relevant. Don't force environmental details where they don't fit.
-{% endif %}
+
 {% endif %}
