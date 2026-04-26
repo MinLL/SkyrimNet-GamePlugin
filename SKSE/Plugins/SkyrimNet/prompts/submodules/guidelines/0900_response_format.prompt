@@ -43,7 +43,7 @@ Speak in your natural voice. Respond with your own thoughts, not echoes of what 
 {% if exists("allow_inline_internal_thoughts") and allow_inline_internal_thoughts %}
 **Unvoiced internal thoughts (optional):** If the moment calls for a private reaction you genuinely would not say aloud, you may wrap it in `<internal_thought>...</internal_thought>` tags on its own line. The tag contents are stored as your private memory and will NEVER be spoken. Use sparingly—most responses should be pure dialogue, not monologue.
 - RIGHT: Good to see you again. <internal_thought>Mother will want to hear what she just told me.</internal_thought>
-- WRONG: emitting a thought tag in every response, or using it as a place to narrate actions
+- WRONG: Using it as a place to narrate actions, or before the first sentence of the response.
 {% endif %}
 {% endif %}
 Each response must advance the conversation—new question, detail, realization, or decision. Vary your approach.
