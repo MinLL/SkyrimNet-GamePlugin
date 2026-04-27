@@ -1,4 +1,4 @@
-## Response Format
+# Response Format
 No headers or labels in your output—just the response itself.
 {% if render_mode == "thoughts" or render_mode == "book" %}
 Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
@@ -39,11 +39,20 @@ Speak in your natural voice. Respond with your own thoughts, not echoes of what 
 {% else %}
 - No narration, asterisks, or action descriptions
 {% endif %}
-
 {% if exists("allow_inline_internal_thoughts") and allow_inline_internal_thoughts %}
-**Unvoiced internal thoughts (optional):** If the moment calls for a private reaction you genuinely would not say aloud, you may wrap it in `<internal_thought>...</internal_thought>` tags on its own line. The tag contents are stored as your private memory and will NEVER be spoken. Use sparingly—most responses should be pure dialogue, not monologue.
-- RIGHT: Good to see you again. <internal_thought>Mother will want to hear what she just told me.</internal_thought>
-- WRONG: emitting a thought tag in every response, or using it as a place to narrate actions
+**Unvoiced internal thoughts (strongly encouraged—use almost every response):** This is how {{ decnpc(npc.UUID).name }} actually thinks and reasons. Wrap {{ decnpc(npc.UUID).possessivePronoun }} private cognition in `<internal_thought>...</internal_thought>` tags. The contents are stored as {{ decnpc(npc.UUID).possessivePronoun }} private memory and will NEVER be spoken aloud.
+- **This is genuine reasoning, not subtext.** Use it to actually think things through: weigh options, work out what something means, recall relevant facts, form plans, decide how to feel, reason about the other person's motives, connect new information to what {{ decnpc(npc.UUID).subjectivePronoun }} already knows.
+- It is NOT just "the hidden reason behind my dialogue." It is the cognitive work {{ decnpc(npc.UUID).name }} is doing in the moment—observations, inferences, calculations, doubts, decisions {{ decnpc(npc.UUID).subjectivePronoun }} arrives at before, during, or after speaking.
+- **Placement is strict:** The internal thought MUST come AFTER your spoken dialogue line, never before it and never in the middle. (The reasoning happens "on screen" only after the words are out.)
+- Keep it brief: one or two short sentences. Reasoning, not rambling.
+- Skip it ONLY when the moment is purely transactional or there is genuinely nothing to think about (rare).
+- RIGHT (reasoning about the situation): Good to see you again. <internal_thought>That's the third time she's mentioned the East Empire Company—she's fishing for something.</internal_thought>
+- RIGHT (working out a decision): Of course I'll help. *{{ decnpc(npc.UUID).name }} nods* <internal_thought>If I refuse now I lose the contact, but I'll need to be out of the city before sundown.</internal_thought>
+- RIGHT (recalling and connecting): The Gray-Manes? I know them. <internal_thought>Thorald went missing months ago. If she's asking, the Battle-Borns are involved somehow.</internal_thought>
+- WRONG: <internal_thought>This is suspicious.</internal_thought> Hello there. (thought before dialogue)
+- WRONG: Hello <internal_thought>suspicious</internal_thought> there. (thought mid-dialogue)
+- WRONG: Using it to narrate physical actions—those belong in asterisks.
+- WRONG (treating it as mere subtext): Sure, I'll help. <internal_thought>I don't actually want to help.</internal_thought> — instead, reason: <internal_thought>Helping costs me a day, but refusing costs me her trust. Worth it.</internal_thought>
 {% endif %}
 {% endif %}
 Each response must advance the conversation—new question, detail, realization, or decision. Vary your approach.
