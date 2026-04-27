@@ -95,7 +95,7 @@
     <existing_proposals count="{{ agentContext.existingEntries|length }}">
     These entries are already proposed in the UI. Consider them to avoid duplicates and maintain consistency.
     {% for entry in agentContext.existingEntries %}
-    - [{{ entry.status }}] id={{ entry.id }} "{{ entry.data.display_name }}" — {{ entry.data.content | truncate(80) }}{% if entry.data.condition_expr %} (condition: {{ entry.data.condition_expr }}){% endif %}
+    - [{{ entry.status }}] id={{ entry.id }} "{{ entry.data.display_name }}" — {{ entry.data.content }}{% if entry.data.condition_expr %} (condition: {{ entry.data.condition_expr }}){% endif %}
     {% endfor %}
     Use these IDs in the `entry_ids` parameter when updating or removing proposals.
     </existing_proposals>
