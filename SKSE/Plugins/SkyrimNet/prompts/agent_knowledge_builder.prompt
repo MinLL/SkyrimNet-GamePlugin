@@ -93,9 +93,10 @@
 
     {% if agentContext and agentContext.existingEntries and agentContext.existingEntries|length > 0 %}
     <existing_proposals count="{{ agentContext.existingEntries|length }}">
-    These entries are already proposed in the UI. Consider them to avoid duplicates and maintain consistency.
+    These entries are already proposed in the UI. The full content is shown so you can preserve user-authored details (numbers, names, prices, specific phrasing) when updating an entry — never paraphrase or shorten content the user has set unless explicitly asked. When the user asks to modify an entry, rewrite the entire content with your changes applied on top of the existing text, keeping every other detail intact.
     {% for entry in agentContext.existingEntries %}
-    - [{{ entry.status }}] id={{ entry.id }} "{{ entry.data.display_name }}" — {{ entry.data.content | truncate(80) }}{% if entry.data.condition_expr %} (condition: {{ entry.data.condition_expr }}){% endif %}
+    - [{{ entry.status }}] id={{ entry.id }} display_name="{{ entry.data.display_name }}"{% if entry.data.condition_expr %} condition="{{ entry.data.condition_expr }}"{% endif %}
+      content: {{ entry.data.content }}
     {% endfor %}
     Use these IDs in the `entry_ids` parameter when updating or removing proposals.
     </existing_proposals>
