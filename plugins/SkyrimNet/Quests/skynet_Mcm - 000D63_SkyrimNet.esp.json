@@ -25,6 +25,11 @@
             "MutagenObjectType": "ScriptObjectProperty",
             "Name": "TelepathyEavesdropSpell",
             "Object": "0012E0:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TelepathyListenInSpell",
+            "Object": "0012E2:SkyrimNet.esp"
           }
         ]
       }
