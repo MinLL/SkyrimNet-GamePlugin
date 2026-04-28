@@ -71,8 +71,8 @@
     **Core Identity Blocks (RARELY change - high preservation priority):**
     - **background**: Character's history, origins, major life events that shaped them. Only update for truly transformative, life-altering events. Most events do NOT warrant background changes.
     - **personality**: Core character traits, behavioral patterns, emotional tendencies. Requires sustained patterns over multiple sessions to justify updates. Single events rarely change personality.
-    - **appearance**: Physical description and distinctive visual features that an outsider could reasonably perceive by looking at the character (height, build, hair, visible scars, etc.). Should NOT include internal thoughts, worn equipment or items, or non-visible characteristics. Only update for actual physical changes.
-    - **summary**: Brief overview of who the character is currently, containing only information that an outsider would immediately know about them (public reputation, obvious role/title, widely known achievements, etc.). Should NOT include private thoughts, hidden motivations, or insider knowledge. Update only for major changes visible to complete strangers.
+    - **appearance**: Physical description and distinctive visual features that an outsider could reasonably perceive **on first sight** (height, build, hair, visible scars, posture, dress style, etc.). MUST pass the Stranger Test (see INFORMATION VISIBILITY section below). Should NOT include internal thoughts, worn equipment or items, magical capabilities, or non-visible characteristics. Only update for actual physical changes.
+    - **summary**: Brief overview of who the character is currently, containing **only** information a stranger would observe or already know from public reputation (obvious role/title, widely known achievements, public faction membership, etc.). MUST pass the Stranger Test (see INFORMATION VISIBILITY section below). Should NOT include private thoughts, hidden motivations, secret backstory, diary contents, or insider knowledge. Update only for major changes visible to complete strangers.
 
     **Dynamic Development Blocks (moderate responsiveness - still conservative):**
     - **aspirations**: Current goals, ambitions, dreams, and motivations. Update for achieved goals or genuinely new major ambitions. Don't add minor wishes or passing interests.
@@ -222,6 +222,41 @@
     - **DEFAULT TO NO CHANGE** when events are routine or minor
     {% endif %}
 
+    ## INFORMATION VISIBILITY — STRANGER TEST (CRITICAL)
+
+    The `summary` and `appearance` blocks are **public-facing**. They describe what a stranger meeting this character for the first time, with no prior context, would observe or already know from public reputation.
+
+    **The Stranger Test — apply to every sentence in `summary` and `appearance`:**
+    > "Would someone meeting this character for the first time in a tavern, with no introduction, either observe this fact directly or already know it from public reputation?"
+
+    If the answer is no, the sentence does not belong in that block — even if it is true, important, or thematically relevant.
+
+    **NEVER include in `summary` or `appearance`:**
+    - Diary contents, internal monologue, or private reflections
+    - Memory contents not tied to a publicly known event
+    - Hidden motivations, secret goals, or ulterior aims
+    - Backstory the character has not openly shared (childhood trauma, hidden parentage, secret identities, past crimes, affairs, etc.)
+    - Internal emotional states (grief, anxiety, doubt, fear) unless visibly and habitually expressed
+    - Magical abilities or capabilities not openly demonstrated in public
+    - Worn equipment, carried items, or current inventory (these change moment-to-moment and belong nowhere in the bio)
+    - Relationships with people the character is not publicly associated with
+
+    **Where private content belongs instead:**
+    - Internal motivations, doubts, secret goals → `personality` or `aspirations`
+    - Hidden backstory, secret history → `background`
+    - Private feelings about specific people → `relationships`
+    - Trigger topics rooted in private experience → `interject_summary`
+
+    **Example — LEAK vs. CLEAN:**
+
+    LEAKED summary (do NOT produce content like this):
+    > "Lyra is a court mage who secretly grieves her dead sister and harbors doubts about her loyalty to the Jarl. She is widely respected for her skill with restoration magic."
+
+    CLEAN summary:
+    > "Lyra serves as a court mage in Whiterun's keep, widely respected for her skill with restoration magic."
+
+    The grief and disloyalty are private — they belong in `personality` or `background`, not `summary`. The diary and memory context you have been given is for **your understanding**, not for inclusion in public-facing blocks.
+
     ## Update Instructions
 
     **Step-by-Step Process:**
@@ -247,6 +282,7 @@
         - Is the change proportional to event significance?
         - Did I actively manage content length?
         - Would an outsider notice this change in the character?
+        - **Visibility check (CRITICAL)**: Does every sentence in `summary` and `appearance` pass the Stranger Test? Re-read each one and ask whether a stranger would observe it on first sight or already know it from public reputation. If not, move it to `personality`, `background`, `aspirations`, or `relationships`, or drop it entirely.
 
     **IMPORTANT**: Respond ONLY with a valid JSON object. Do not include any explanatory text before or after the JSON.
 
