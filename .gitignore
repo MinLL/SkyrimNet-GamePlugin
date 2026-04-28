@@ -32,8 +32,10 @@ SkyrimSE.code-workspace
 CLAUDE.local.md
 
 # Build artifacts
-Scripts/
-SkyrimNet.esp
+# Top-level Scripts/ holds compiled .pex output. Anchor with a leading slash so
+# the rule does NOT also match Source/Scripts/ (where .psc sources live).
+/Scripts/
+/SkyrimNet.esp
 
 PrismaUI/
 CppAPI/PublicAPI.h

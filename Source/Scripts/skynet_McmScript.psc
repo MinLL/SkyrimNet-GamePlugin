@@ -2,8 +2,26 @@ Scriptname skynet_McmScript extends SKI_ConfigBase
 
 skynet_Library library
 
+; Powers page properties — fill via CK on the MCM quest record (skynet_Mcm).
+Perk Property TelepathyPerk Auto
+Perk Property TelepathyCanonicalPerk Auto
+Spell Property TelepathyEavesdropSpell Auto
+
 int toggleShowWebUi
 int toggleInGameHotkeys
+
+; Powers page options
+int optionAddTelepathyPerk
+int optionRemoveTelepathyPerk
+int optionAddTelepathyCanonicalPerk
+int optionRemoveTelepathyCanonicalPerk
+int optionAddTelepathyEavesdropSpell
+int optionRemoveTelepathyEavesdropSpell
+
+; Track current MCM page locally — workaround for save-data instances where
+; SKI_ConfigBase's `CurrentPage` auto-property backing variable
+; (`::CurrentPage_var`) fails to resolve and spams the Papyrus log.
+string currentMcmPage = ""
 
 ; Hotkey options
 int optionHotkeyRecordSpeech
@@ -154,12 +172,13 @@ event OnConfigOpen()
     ; Fetch the library from the quest
     library = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) as skynet_Library)
     
-    Pages = new string[4]
+    Pages = new string[5]
 
     Pages[0] = "Overview"
     Pages[1] = "SkyrimNet Status"
     Pages[2] = "Hotkeys"
-    Pages[3] = "Developer"
+    Pages[3] = "Powers"
+    Pages[4] = "Developer"
     
     ; Initialize developer category names
     devCategoryNames = new string[6]
@@ -174,6 +193,8 @@ endevent
 
 event OnPageReset(string page)
 
+    currentMcmPage = page
+
     SetCursorFillMode(LEFT_TO_RIGHT)
     SetCursorPosition(0)
 
@@ -182,13 +203,15 @@ event OnPageReset(string page)
     else
         UnloadCustomContent()
     endif
-    
+
     if page == "Overview"
         DisplayOverview()
     elseif page == "SkyrimNet Status"
         DisplayStatus()
     elseif page == "Hotkeys"
         DisplayHotkeys()
+    elseif page == "Powers"
+        DisplayPowers()
     elseif page == "Developer"
         DisplayDeveloper()
     else
@@ -284,6 +307,81 @@ function DisplayHotkeys()
         optionHotkeyInterruptDialogue = AddKeyMapOption("Interrupt Dialogue", library.hotkeyInterruptDialogue)
     else
         AddTextOption("Enable in-game hotkeys to configure", "")
+    endif
+
+endfunction
+
+; ============================================================================
+; Powers Page — perk/spell add+remove for runtime features
+; ============================================================================
+; Adds and removes the telepathy perks and the eavesdrop spell on the player.
+; "Add Canonical" auto-grants the basic perk too (canonical implies basic).
+; Removal does NOT cascade — TelepathyManager::PlayerCanPerceive in C++ uses
+; HasPerk(basic) OR HasPerk(canonical), so removing basic alone still leaves
+; perception working when canonical is held.
+;
+; Layout: each section is a 3-row block (6 cells) so the 2-column LEFT_TO_RIGHT
+; grid stays aligned section-to-section:
+;   Row 1: <title header>      / (blank header)
+;   Row 2: Status: <state>     / (empty)
+;   Row 3: <Add button>        / <Remove button>
+function DisplayPowers()
+
+    Actor playerRef = Game.GetPlayer()
+
+    bool hasBasic     = playerRef.HasPerk(TelepathyPerk)
+    bool hasCanonical = playerRef.HasPerk(TelepathyCanonicalPerk)
+    bool hasSpell     = playerRef.HasSpell(TelepathyEavesdropSpell)
+
+    ; --- Telepathy (basic) ---
+    AddHeaderOption("Telepathy")
+    AddHeaderOption("")
+    if hasBasic
+        AddTextOption("Status", "Owned")
+    else
+        AddTextOption("Status", "Not owned")
+    endif
+    AddEmptyOption()
+    if hasBasic
+        optionAddTelepathyPerk    = AddTextOption("Add", "", OPTION_FLAG_DISABLED)
+        optionRemoveTelepathyPerk = AddTextOption("Remove", "")
+    else
+        optionAddTelepathyPerk    = AddTextOption("Add", "")
+        optionRemoveTelepathyPerk = AddTextOption("Remove", "", OPTION_FLAG_DISABLED)
+    endif
+
+    ; --- Canonical Telepathy (upgrade) ---
+    AddHeaderOption("Canonical Telepathy")
+    AddHeaderOption("")
+    if hasCanonical
+        AddTextOption("Status", "Owned")
+    else
+        AddTextOption("Status", "Not owned")
+    endif
+    AddEmptyOption()
+    if hasCanonical
+        optionAddTelepathyCanonicalPerk    = AddTextOption("Add", "", OPTION_FLAG_DISABLED)
+        optionRemoveTelepathyCanonicalPerk = AddTextOption("Remove", "")
+    else
+        optionAddTelepathyCanonicalPerk    = AddTextOption("Add", "(also grants Telepathy)")
+        optionRemoveTelepathyCanonicalPerk = AddTextOption("Remove", "", OPTION_FLAG_DISABLED)
+    endif
+
+    ; --- Telepathy: Eavesdrop spell ---
+    AddHeaderOption("Telepathy: Eavesdrop")
+    AddHeaderOption("")
+    if hasSpell
+        AddTextOption("Spell", "Owned")
+    else
+        AddTextOption("Spell", "Not owned")
+    endif
+    AddEmptyOption()
+    if hasSpell
+        optionAddTelepathyEavesdropSpell    = AddTextOption("Add", "", OPTION_FLAG_DISABLED)
+        optionRemoveTelepathyEavesdropSpell = AddTextOption("Remove", "")
+    else
+        optionAddTelepathyEavesdropSpell    = AddTextOption("Add", "")
+        optionRemoveTelepathyEavesdropSpell = AddTextOption("Remove", "", OPTION_FLAG_DISABLED)
     endif
 
 endfunction
@@ -616,7 +714,7 @@ event OnOptionSelect(int option)
     if option == toggleShowWebUi
         int result = SkyrimNetApi.OpenSkyrimNetUI()
         Debug.Trace("[SkyrimNetInternal] OpenSkyrimNetUI result: " + result)
-        
+
     ; === Hotkeys Page ===
     elseif option == toggleInGameHotkeys
         if library.inGameHotkeysEnabled
@@ -627,15 +725,92 @@ event OnOptionSelect(int option)
             SetToggleOptionValue(toggleInGameHotkeys, true)
         endif
         ForcePageReset()
-        
+
+    ; === Powers Page ===
+    ; Guard with currentMcmPage (local tracker) to avoid id collisions across pages.
+    elseif currentMcmPage == "Powers"
+        HandlePowersOptionSelect(option)
+
     ; === Developer Page Options ===
-    ; Check CurrentPage to ensure we're on the Developer page before handling developer options
-    ; This prevents cross-category conflicts when option IDs overlap
-    elseif CurrentPage == "Developer"
+    ; Check current page to ensure we're on the Developer page before handling
+    ; developer options. Use the script-local tracker; reading SKI_ConfigBase's
+    ; `CurrentPage` directly throws "::CurrentPage_var was not successfully looked up"
+    ; on some save-data instances.
+    elseif currentMcmPage == "Developer"
         HandleDeveloperOptionSelect(option)
     endif
 
 endevent
+
+function HandlePowersOptionSelect(int option)
+
+    Actor playerRef = Game.GetPlayer()
+
+    if option == optionAddTelepathyPerk
+        if !playerRef.HasPerk(TelepathyPerk)
+            playerRef.AddPerk(TelepathyPerk)
+        endif
+        ForcePageReset()
+    elseif option == optionRemoveTelepathyPerk
+        if playerRef.HasPerk(TelepathyPerk)
+            playerRef.RemovePerk(TelepathyPerk)
+        endif
+        ForcePageReset()
+    elseif option == optionAddTelepathyCanonicalPerk
+        ; Canonical implies basic — grant basic too if missing.
+        if !playerRef.HasPerk(TelepathyPerk)
+            playerRef.AddPerk(TelepathyPerk)
+        endif
+        if !playerRef.HasPerk(TelepathyCanonicalPerk)
+            playerRef.AddPerk(TelepathyCanonicalPerk)
+        endif
+        ForcePageReset()
+    elseif option == optionRemoveTelepathyCanonicalPerk
+        ; No cascade — only remove canonical. The C++ OR-fallback check makes
+        ; this safe; basic remains for perception.
+        if playerRef.HasPerk(TelepathyCanonicalPerk)
+            playerRef.RemovePerk(TelepathyCanonicalPerk)
+        endif
+        ForcePageReset()
+    elseif option == optionAddTelepathyEavesdropSpell
+        if !playerRef.HasSpell(TelepathyEavesdropSpell)
+            playerRef.AddSpell(TelepathyEavesdropSpell, False)
+        endif
+        ForcePageReset()
+    elseif option == optionRemoveTelepathyEavesdropSpell
+        if playerRef.HasSpell(TelepathyEavesdropSpell)
+            playerRef.RemoveSpell(TelepathyEavesdropSpell)
+        endif
+        ForcePageReset()
+    endif
+
+endfunction
+
+; ============================================================================
+; Tooltips — fired by SkyUI when the user hovers over an option.
+; SetInfoText() shows the text in the panel below the options grid.
+; ============================================================================
+event OnOptionHighlight(int option)
+
+    if currentMcmPage == "Powers"
+        HandlePowersOptionHighlight(option)
+    endif
+
+endevent
+
+function HandlePowersOptionHighlight(int option)
+
+    if option == optionAddTelepathyPerk || option == optionRemoveTelepathyPerk
+        SetInfoText("Telepathy (basic perception). With this perk, NPC thoughts appear in the in-game chat overlay; if you cast the Eavesdrop spell to toggle voicing on, they're also spoken via TTS in the NPC's voice with a thought-effect overlay so you can distinguish them from spoken dialogue. This perk affects only what YOU (the player at the keyboard) perceive — it does NOT change the LLM's view of the world or how your character behaves in dialogue.")
+    elseif option == optionAddTelepathyCanonicalPerk
+        SetInfoText("Canonical Telepathy (in-fiction). Strict superset of basic Telepathy. In addition to letting you perceive NPC thoughts, your character actually hears them — nearby NPC thoughts are added to your character's event history, so the LLM treats your character as in-fiction telepathic and dialogue can reference 'overheard' thoughts. Adding this also auto-grants the basic Telepathy perk.")
+    elseif option == optionRemoveTelepathyCanonicalPerk
+        SetInfoText("Removes Canonical Telepathy only. Basic Telepathy stays held — you'll continue to perceive NPC thoughts in the chat / Eavesdrop spell. Your character will stop being treated as in-fiction telepathic by the LLM.")
+    elseif option == optionAddTelepathyEavesdropSpell || option == optionRemoveTelepathyEavesdropSpell
+        SetInfoText("Telepathy: Eavesdrop is a Lesser Power that toggles TTS voicing of nearby NPC thoughts on or off. The toggle resets to OFF every game load. Casting it without any Telepathy perk does nothing audible (perception is gated). Voiced thoughts use the NPC's normal voice with a thought-style audio effect overlay, and subtitles wrap the thought with ~tildes~ so you can tell it apart from spoken dialogue.")
+    endif
+
+endfunction
 
 ; Handle Developer page option selections
 ; Separated to use CurrentPage check as guard against cross-category ID conflicts

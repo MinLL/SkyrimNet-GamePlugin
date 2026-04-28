@@ -1,0 +1,15 @@
+{
+  "FormKey": "0012DE:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_TelepathyCanonicalPerk",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Canonical Telepathy"
+  },
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": "Your mind reaches out and grasps the thoughts of those near you. Their minds know yours touched them — even if they can't say how."
+  },
+  "NumRanks": 1,
+  "Playable": true,
+  "Hidden": true
+}

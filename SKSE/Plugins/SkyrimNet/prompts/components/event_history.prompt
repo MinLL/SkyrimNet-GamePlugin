@@ -74,6 +74,7 @@
             {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}{{ timeIndicator }}*{{ format_event(event, "verbose") }}*
             {% else %}
             {% if event.type == "player_thoughts" %}{{ format_event(event, "verbose") }}
+            {% else if event.type == "npc_thoughts" %}{# Telepathy: an NPC's private thought rendered into a different actor's prompt context (canonical-telepath audience expansion). Mark it as telepathically observed so the LLM doesn't mistake it for spoken dialogue. Use "compact" (renders {{ thoughts }} via the schema), not "raw" — "raw" dumps the JSON data object. #}{{ get_name(event.originatingActor) }} *(thought, telepathically observed)*: {{ format_event(event, "compact") }}
             {% else %}{% if event.type == "dialogue_background" %}[Background] {% endif %}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %}{% if decnpc(event.targetActor).isVirtualPrivate and not _npc_is_private_virtual %}{% if decnpc(event.originatingActor).isFemale %} (talking to herself){% else %} (talking to himself){% endif %}{% else %} (to {{ get_name(event.targetActor) }}){% endif %}{% endif %}: {% else if event.type == "dialogue_background" and event.data and event.data.speaker != "" %}{{ event.data.speaker }}: {% endif %}{{ format_event(event, "verbose") }}
             {% endif %}
             {% endif %}

@@ -1,0 +1,33 @@
+{
+  "FormKey": "0012DF:SkyrimNet.esp",
+  "EditorID": "skynet_TelepathyEavesdropMagicEffect",
+  "VirtualMachineAdapter": {
+    "Scripts": [
+      {
+        "Name": "skynet_TelepathyEavesdrop"
+      }
+    ]
+  },
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet Telepathy Eavesdrop"
+  },
+  "MenuDisplayObject": "0435A5:Skyrim.esm",
+  "Flags": [
+    "NoDuration",
+    "NoArea",
+    "Painless"
+  ],
+  "Archetype": {
+    "MutagenObjectType": "MagicEffectArchetype",
+    "Type": "Script"
+  },
+  "CastType": "FireAndForget",
+  "DualCastScale": 1.0,
+  "CastingSoundLevel": "Normal",
+  "Sounds": [],
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": ""
+  }
+}
