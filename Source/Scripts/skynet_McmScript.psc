@@ -321,10 +321,10 @@ endfunction
 ; Powers Page — perk/spell add+remove for runtime features
 ; ============================================================================
 ; Adds and removes the telepathy perks and the eavesdrop spell on the player.
-; "Add Canonical" auto-grants the basic perk too (canonical implies basic).
-; Removal does NOT cascade — TelepathyManager::PlayerCanPerceive in C++ uses
-; HasPerk(basic) OR HasPerk(canonical), so removing basic alone still leaves
-; perception working when canonical is held.
+; The two perks are INDEPENDENT — granting one does not grant the other, and
+; removing one does not remove the other. Each Add/Remove button operates on
+; exactly one perk. See ai_docs/NPC_THOUGHTS.md "Telepathy" in the core repo
+; for the chat-UI / LLM-history / TTS behavior matrix.
 ;
 ; Layout: each section is a 3-row block (6 cells) so the 2-column LEFT_TO_RIGHT
 ; grid stays aligned section-to-section:
@@ -370,7 +370,7 @@ function DisplayPowers()
         optionAddTelepathyCanonicalPerk    = AddTextOption("Add", "", OPTION_FLAG_DISABLED)
         optionRemoveTelepathyCanonicalPerk = AddTextOption("Remove", "")
     else
-        optionAddTelepathyCanonicalPerk    = AddTextOption("Add", "(also grants Telepathy)")
+        optionAddTelepathyCanonicalPerk    = AddTextOption("Add", "")
         optionRemoveTelepathyCanonicalPerk = AddTextOption("Remove", "", OPTION_FLAG_DISABLED)
     endif
 
@@ -781,17 +781,12 @@ function HandlePowersOptionSelect(int option)
         endif
         ForcePageReset()
     elseif option == optionAddTelepathyCanonicalPerk
-        ; Canonical implies basic — grant basic too if missing.
-        if !playerRef.HasPerk(TelepathyPerk)
-            playerRef.AddPerk(TelepathyPerk)
-        endif
+        ; Canonical and basic are independent — only grant canonical here.
         if !playerRef.HasPerk(TelepathyCanonicalPerk)
             playerRef.AddPerk(TelepathyCanonicalPerk)
         endif
         ForcePageReset()
     elseif option == optionRemoveTelepathyCanonicalPerk
-        ; No cascade — only remove canonical. The C++ OR-fallback check makes
-        ; this safe; basic remains for perception.
         if playerRef.HasPerk(TelepathyCanonicalPerk)
             playerRef.RemovePerk(TelepathyCanonicalPerk)
         endif
@@ -835,11 +830,11 @@ endevent
 function HandlePowersOptionHighlight(int option)
 
     if option == optionAddTelepathyPerk || option == optionRemoveTelepathyPerk
-        SetInfoText("Telepathy (basic perception). With this perk, NPC thoughts appear in the in-game chat overlay; if you cast the Eavesdrop spell to toggle voicing on, they're also spoken via TTS in the NPC's voice with a thought-effect overlay so you can distinguish them from spoken dialogue. This perk affects only what YOU (the player at the keyboard) perceive — it does NOT change the LLM's view of the world or how your character behaves in dialogue.")
+        SetInfoText("Telepathy (player UX). All NPC thoughts always appear in the in-game chat overlay. If you toggle Eavesdrop on (debug power or Listen In spell), they're also spoken via TTS in the NPC's voice with a thought-effect overlay so you can distinguish them from spoken dialogue. This perk affects only what YOU (the player at the keyboard) perceive — it does NOT change the LLM's view of the world or how your character behaves in dialogue. Independent from Canonical Telepathy: granting one does not grant the other.")
     elseif option == optionAddTelepathyCanonicalPerk
-        SetInfoText("Canonical Telepathy (in-fiction). Strict superset of basic Telepathy. In addition to letting you perceive NPC thoughts, your character actually hears them — nearby NPC thoughts are added to your character's event history, so the LLM treats your character as in-fiction telepathic and dialogue can reference 'overheard' thoughts. Adding this also auto-grants the basic Telepathy perk.")
+        SetInfoText("Canonical Telepathy (in-fiction). Your character actually hears NPC thoughts — but only when actively eavesdropping. With Eavesdrop on (debug power or Listen In spell), nearby NPC thoughts are added to your character's event history, so the LLM treats your character as having overheard them; only those participated-in thoughts appear in the chat overlay. Without eavesdropping, NPCs think privately and you see nothing. Independent from basic Telepathy: granting one does not grant the other. Hold both for the in-fiction effect plus 'always show all thoughts in chat'.")
     elseif option == optionRemoveTelepathyCanonicalPerk
-        SetInfoText("Removes Canonical Telepathy only. Basic Telepathy stays held — you'll continue to perceive NPC thoughts in the chat / Eavesdrop spell. Your character will stop being treated as in-fiction telepathic by the LLM.")
+        SetInfoText("Removes Canonical Telepathy only. The basic Telepathy perk is unaffected. Your character will stop being treated as in-fiction telepathic by the LLM, and the chat overlay will no longer surface eavesdropped thoughts unless you also hold basic Telepathy.")
     elseif option == optionAddTelepathyEavesdropSpell || option == optionRemoveTelepathyEavesdropSpell
         SetInfoText("Telepathy: Eavesdrop (Debug) is a free Lesser Power that toggles TTS voicing of nearby NPC thoughts on or off — provided for testing. The toggle resets to OFF every game load. Casting it without any Telepathy perk does nothing audible (perception is gated). For in-fiction use, prefer the Telepathy: Listen In spell below — it is an Illusion spell with a real magicka cost and 60-second duration. Note that casting Listen In and waiting it out will force eavesdropping OFF when it expires, even if you had it ON via this debug power.")
     elseif option == optionAddTelepathyListenInSpell || option == optionRemoveTelepathyListenInSpell
