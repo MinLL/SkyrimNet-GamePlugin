@@ -1,0 +1,11 @@
+{% if triggeringEvent and triggeringEvent.type == "dialogue_player_telepathy" and exists("npc") and existsIn(npc, "UUID") %}
+{% set npcLocation = get_location(npc.UUID) %}
+{% set playerLocation = get_location(player.UUID) %}
+{% if npcLocation != playerLocation %}
+**Telepathic Contact — {{ player.name }} Is Not Here:**
+- {{ player.name }}'s words arrived in your mind via thought-projection. {{ player.name }} is **not physically present** with you.
+- Your location: {{ npcLocation }}. {{ player.name }}'s location: {{ playerLocation }}.
+- You cannot see {{ player.name }}, their surroundings, what they hold, or what they are doing. Do not narrate their gestures, posture, movement, or facial expressions; do not assume they are nearby, returning, or about to arrive.
+- Reply naturally — your response will reach them along the same channel.
+{% endif %}
+{% endif %}
