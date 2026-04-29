@@ -10,6 +10,26 @@
             "MutagenObjectType": "ScriptStringProperty",
             "Name": "ModName",
             "Data": "SkyrimNet"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TelepathyPerk",
+            "Object": "0012DD:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TelepathyCanonicalPerk",
+            "Object": "0012DE:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TelepathyEavesdropSpell",
+            "Object": "0012E0:SkyrimNet.esp"
+          },
+          {
+            "MutagenObjectType": "ScriptObjectProperty",
+            "Name": "TelepathyListenInSpell",
+            "Object": "0012E2:SkyrimNet.esp"
           }
         ]
       }

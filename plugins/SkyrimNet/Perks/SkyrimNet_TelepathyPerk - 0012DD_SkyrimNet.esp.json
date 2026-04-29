@@ -1,0 +1,15 @@
+{
+  "FormKey": "0012DD:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_TelepathyPerk",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Telepathy"
+  },
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": "You perceive the inner thoughts of those around you."
+  },
+  "NumRanks": 1,
+  "Playable": true,
+  "Hidden": true
+}

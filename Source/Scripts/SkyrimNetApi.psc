@@ -666,6 +666,26 @@ int function SetCppHotkeysEnabled(bool enabled) Global Native
 bool function IsCppHotkeysEnabled() Global Native
 
 ; -----------------------------------------------------------------------------
+; --- Telepathy ---
+; -----------------------------------------------------------------------------
+; Telepathy is a runtime feature that lets the player perceive NPC thoughts:
+; the SkyrimNet_TelepathyPerk gates display in the in-game chat overlay and
+; (when this eavesdrop toggle is on) TTS voicing of nearby NPC thoughts. The
+; SkyrimNet_TelepathyCanonicalPerk additionally adds the player to the audience
+; of nearby NPC-thought events so the LLM treats the character as in-fiction
+; telepathic. The eavesdrop toggle is a runtime-only atomic — it does NOT
+; persist across save/reload (resets to OFF every game load).
+
+; Flip the eavesdrop toggle. Returns the new state (true = ON, false = OFF).
+bool function ToggleTelepathyEavesdropping() Global Native
+
+; Returns the current eavesdrop state.
+bool function IsTelepathyEavesdroppingEnabled() Global Native
+
+; Set the eavesdrop state explicitly.
+function SetTelepathyEavesdroppingEnabled(bool enabled) Global Native
+
+; -----------------------------------------------------------------------------
 ; --- GameMaster State Queries ---
 ; -----------------------------------------------------------------------------
 

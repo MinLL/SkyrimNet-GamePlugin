@@ -1,0 +1,22 @@
+{
+  "FormKey": "0012E0:SkyrimNet.esp",
+  "EditorID": "skynet_TelepathyEavesdropDebugPower",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Telepathy: Eavesdrop (Debug)"
+  },
+  "MenuDisplayObject": "0435A5:Skyrim.esm",
+  "EquipmentType": "025BEE:Skyrim.esm",
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": ""
+  },
+  "Type": "LesserPower",
+  "CastType": "FireAndForget",
+  "Effects": [
+    {
+      "BaseEffect": "0012DF:SkyrimNet.esp",
+      "Data": {}
+    }
+  ]
+}
