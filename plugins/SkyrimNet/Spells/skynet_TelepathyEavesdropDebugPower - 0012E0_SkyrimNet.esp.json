@@ -1,9 +1,9 @@
 {
   "FormKey": "0012E0:SkyrimNet.esp",
-  "EditorID": "skynet_TelepathyEavesdropSpell",
+  "EditorID": "skynet_TelepathyEavesdropDebugPower",
   "Name": {
     "TargetLanguage": "English",
-    "Value": "Telepathy: Eavesdrop"
+    "Value": "Telepathy: Eavesdrop (Debug)"
   },
   "MenuDisplayObject": "0435A5:Skyrim.esm",
   "EquipmentType": "025BEE:Skyrim.esm",

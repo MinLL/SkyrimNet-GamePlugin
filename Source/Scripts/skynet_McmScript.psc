@@ -6,6 +6,10 @@ skynet_Library library
 Perk Property TelepathyPerk Auto
 Perk Property TelepathyCanonicalPerk Auto
 Spell Property TelepathyEavesdropSpell Auto
+{Lesser Power debug toggle. Property name kept stable for save compat — the
+ underlying form (0012E0) is now the "Eavesdrop (Debug)" lesser power.}
+Spell Property TelepathyListenInSpell Auto
+{Adept Illusion spell with a 60s duration. Auto-disables eavesdropping on expire.}
 
 int toggleShowWebUi
 int toggleInGameHotkeys
@@ -17,6 +21,8 @@ int optionAddTelepathyCanonicalPerk
 int optionRemoveTelepathyCanonicalPerk
 int optionAddTelepathyEavesdropSpell
 int optionRemoveTelepathyEavesdropSpell
+int optionAddTelepathyListenInSpell
+int optionRemoveTelepathyListenInSpell
 
 ; Track current MCM page locally — workaround for save-data instances where
 ; SKI_ConfigBase's `CurrentPage` auto-property backing variable
@@ -329,9 +335,10 @@ function DisplayPowers()
 
     Actor playerRef = Game.GetPlayer()
 
-    bool hasBasic     = playerRef.HasPerk(TelepathyPerk)
-    bool hasCanonical = playerRef.HasPerk(TelepathyCanonicalPerk)
-    bool hasSpell     = playerRef.HasSpell(TelepathyEavesdropSpell)
+    bool hasBasic       = playerRef.HasPerk(TelepathyPerk)
+    bool hasCanonical   = playerRef.HasPerk(TelepathyCanonicalPerk)
+    bool hasDebugPower  = playerRef.HasSpell(TelepathyEavesdropSpell)
+    bool hasListenIn    = playerRef.HasSpell(TelepathyListenInSpell)
 
     ; --- Telepathy (basic) ---
     AddHeaderOption("Telepathy")
@@ -367,21 +374,38 @@ function DisplayPowers()
         optionRemoveTelepathyCanonicalPerk = AddTextOption("Remove", "", OPTION_FLAG_DISABLED)
     endif
 
-    ; --- Telepathy: Eavesdrop spell ---
-    AddHeaderOption("Telepathy: Eavesdrop")
+    ; --- Telepathy: Eavesdrop (Debug) lesser power ---
+    AddHeaderOption("Telepathy: Eavesdrop (Debug)")
     AddHeaderOption("")
-    if hasSpell
-        AddTextOption("Spell", "Owned")
+    if hasDebugPower
+        AddTextOption("Power", "Owned")
     else
-        AddTextOption("Spell", "Not owned")
+        AddTextOption("Power", "Not owned")
     endif
     AddEmptyOption()
-    if hasSpell
+    if hasDebugPower
         optionAddTelepathyEavesdropSpell    = AddTextOption("Add", "", OPTION_FLAG_DISABLED)
         optionRemoveTelepathyEavesdropSpell = AddTextOption("Remove", "")
     else
         optionAddTelepathyEavesdropSpell    = AddTextOption("Add", "")
         optionRemoveTelepathyEavesdropSpell = AddTextOption("Remove", "", OPTION_FLAG_DISABLED)
+    endif
+
+    ; --- Telepathy: Listen In spell (timed Illusion spell) ---
+    AddHeaderOption("Telepathy: Listen In")
+    AddHeaderOption("")
+    if hasListenIn
+        AddTextOption("Spell", "Owned")
+    else
+        AddTextOption("Spell", "Not owned")
+    endif
+    AddEmptyOption()
+    if hasListenIn
+        optionAddTelepathyListenInSpell    = AddTextOption("Add", "", OPTION_FLAG_DISABLED)
+        optionRemoveTelepathyListenInSpell = AddTextOption("Remove", "")
+    else
+        optionAddTelepathyListenInSpell    = AddTextOption("Add", "")
+        optionRemoveTelepathyListenInSpell = AddTextOption("Remove", "", OPTION_FLAG_DISABLED)
     endif
 
 endfunction
@@ -782,6 +806,16 @@ function HandlePowersOptionSelect(int option)
             playerRef.RemoveSpell(TelepathyEavesdropSpell)
         endif
         ForcePageReset()
+    elseif option == optionAddTelepathyListenInSpell
+        if !playerRef.HasSpell(TelepathyListenInSpell)
+            playerRef.AddSpell(TelepathyListenInSpell, False)
+        endif
+        ForcePageReset()
+    elseif option == optionRemoveTelepathyListenInSpell
+        if playerRef.HasSpell(TelepathyListenInSpell)
+            playerRef.RemoveSpell(TelepathyListenInSpell)
+        endif
+        ForcePageReset()
     endif
 
 endfunction
@@ -807,7 +841,9 @@ function HandlePowersOptionHighlight(int option)
     elseif option == optionRemoveTelepathyCanonicalPerk
         SetInfoText("Removes Canonical Telepathy only. Basic Telepathy stays held — you'll continue to perceive NPC thoughts in the chat / Eavesdrop spell. Your character will stop being treated as in-fiction telepathic by the LLM.")
     elseif option == optionAddTelepathyEavesdropSpell || option == optionRemoveTelepathyEavesdropSpell
-        SetInfoText("Telepathy: Eavesdrop is a Lesser Power that toggles TTS voicing of nearby NPC thoughts on or off. The toggle resets to OFF every game load. Casting it without any Telepathy perk does nothing audible (perception is gated). Voiced thoughts use the NPC's normal voice with a thought-style audio effect overlay, and subtitles wrap the thought with ~tildes~ so you can tell it apart from spoken dialogue.")
+        SetInfoText("Telepathy: Eavesdrop (Debug) is a free Lesser Power that toggles TTS voicing of nearby NPC thoughts on or off — provided for testing. The toggle resets to OFF every game load. Casting it without any Telepathy perk does nothing audible (perception is gated). For in-fiction use, prefer the Telepathy: Listen In spell below — it is an Illusion spell with a real magicka cost and 60-second duration. Note that casting Listen In and waiting it out will force eavesdropping OFF when it expires, even if you had it ON via this debug power.")
+    elseif option == optionAddTelepathyListenInSpell || option == optionRemoveTelepathyListenInSpell
+        SetInfoText("Telepathy: Listen In is an instant Illusion spell (base 140 magicka, no cast time, silent, non-hostile) that activates Telepathy eavesdropping for 60 seconds. Magicka cost is discounted by standard Illusion perks (Apprentice / Adept / Novice Illusion etc.). When the duration expires, eavesdropping is forced OFF — including overriding the debug toggle if it was previously on. Voiced thoughts use the NPC's normal voice with a thought-style audio effect overlay, and subtitles wrap the thought with ~tildes~ so you can tell it apart from spoken dialogue.")
     endif
 
 endfunction

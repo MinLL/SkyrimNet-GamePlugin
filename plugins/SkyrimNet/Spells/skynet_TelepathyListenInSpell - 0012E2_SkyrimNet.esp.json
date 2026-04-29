@@ -1,0 +1,28 @@
+{
+  "FormKey": "0012E2:SkyrimNet.esp",
+  "EditorID": "skynet_TelepathyListenInSpell",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Telepathy: Listen In"
+  },
+  "MenuDisplayObject": "0435A5:Skyrim.esm",
+  "EquipmentType": "025BEE:Skyrim.esm",
+  "Description": {
+    "TargetLanguage": "English",
+    "Value": "Listen in on the thoughts of those nearby for 60 seconds. Cast is instant and silent. Affected by Illusion perks for magicka discount."
+  },
+  "Type": "Spell",
+  "CastType": "FireAndForget",
+  "ChargeTime": 0.0,
+  "CastDuration": 0.0,
+  "Effects": [
+    {
+      "BaseEffect": "0012E1:SkyrimNet.esp",
+      "Data": {
+        "Magnitude": 1.0,
+        "Area": 0,
+        "Duration": 60
+      }
+    }
+  ]
+}

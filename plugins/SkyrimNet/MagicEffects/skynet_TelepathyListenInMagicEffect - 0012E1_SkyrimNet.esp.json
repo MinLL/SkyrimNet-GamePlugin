@@ -1,20 +1,19 @@
 {
-  "FormKey": "0012DF:SkyrimNet.esp",
-  "EditorID": "skynet_TelepathyEavesdropMagicEffect",
+  "FormKey": "0012E1:SkyrimNet.esp",
+  "EditorID": "skynet_TelepathyListenInMagicEffect",
   "VirtualMachineAdapter": {
     "Scripts": [
       {
-        "Name": "skynet_TelepathyEavesdrop"
+        "Name": "skynet_TelepathyListenIn"
       }
     ]
   },
   "Name": {
     "TargetLanguage": "English",
-    "Value": "SkyrimNet Telepathy Eavesdrop"
+    "Value": "SkyrimNet Telepathy Listen In"
   },
   "MenuDisplayObject": "0435A5:Skyrim.esm",
   "Flags": [
-    "NoDuration",
     "NoArea",
     "Painless"
   ],
@@ -22,9 +21,12 @@
     "MutagenObjectType": "MagicEffectArchetype",
     "Type": "Script"
   },
+  "MagicSkill": "Illusion",
+  "ResistValue": "ResistMagic",
+  "BaseCost": 1.63,
   "CastType": "FireAndForget",
   "DualCastScale": 1.0,
-  "CastingSoundLevel": "Normal",
+  "CastingSoundLevel": "Silent",
   "Sounds": [],
   "Description": {
     "TargetLanguage": "English",
