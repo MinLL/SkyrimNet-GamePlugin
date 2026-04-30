@@ -1,0 +1,23 @@
+id: draugr
+name: Draugr
+sample: null
+stages:
+  - type: formant_shift
+    params:
+      semitones: -2.0
+  - type: pitch_shift
+    params:
+      semitones: -6.0
+  - type: bitcrush
+    params:
+      bits: 10
+      rate_div: 2
+  - type: distortion
+    params:
+      drive: 0.55
+      mix: 0.7
+  - type: reverb
+    params:
+      room_size: 0.5
+      decay: 0.6
+      wet: 0.3

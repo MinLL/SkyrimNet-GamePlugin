@@ -1,0 +1,21 @@
+id: ghost
+name: Ghost
+sample: null
+stages:
+  - type: pitch_shift
+    params:
+      semitones: -1.0
+  - type: chorus
+    params:
+      rate_hz: 0.8
+      depth_ms: 5.0
+      voices: 3
+  - type: whisper
+    params:
+      noise_db: -28.0
+      mix: 0.25
+  - type: reverb
+    params:
+      room_size: 0.9
+      decay: 0.85
+      wet: 0.55

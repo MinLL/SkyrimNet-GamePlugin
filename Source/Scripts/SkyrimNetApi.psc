@@ -808,3 +808,26 @@ int function TriggerSilentNarration() Global Native
 ;       true, 0.8, "Companions Lore")
 int function AddWorldKnowledge(String content, String conditionExpr, bool alwaysInject, float importance, String displayName) Global Native
 
+; -----------------------------------------------------------------------------
+; --- Voice Effect Management ---
+; -----------------------------------------------------------------------------
+
+; Set the active voice effect for an actor.
+; - akActor: Actor to update
+; - asEffectId: Effect recipe id (e.g. "werewolf"). Pass "" to clear.
+; Returns 0 on success, 1 on failure (unknown actor or effect id).
+int function SetVoiceEffect(Actor akActor, String asEffectId) Global Native
+
+; Clear the active voice effect for an actor (equivalent to SetVoiceEffect with "").
+; Returns 0 on success, 1 on failure.
+int function ClearVoiceEffect(Actor akActor) Global Native
+
+; Get the current voice effect id assigned to an actor.
+; Returns "" if none.
+String function GetVoiceEffect(Actor akActor) Global Native
+
+; UUID variants (for virtual entities or when you already have the UUID).
+int function SetVoiceEffectByUUID(String asEntityUUID, String asEffectId) Global Native
+int function ClearVoiceEffectByUUID(String asEntityUUID) Global Native
+String function GetVoiceEffectByUUID(String asEntityUUID) Global Native
+
