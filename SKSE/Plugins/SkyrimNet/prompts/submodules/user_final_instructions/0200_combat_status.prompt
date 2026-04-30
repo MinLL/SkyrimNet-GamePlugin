@@ -5,7 +5,6 @@
 {% if decnpc(npc.UUID).maxMagicka > 0 %}{% set magickaRatio = decnpc(npc.UUID).magicka / decnpc(npc.UUID).maxMagicka %}{% else %}{% set magickaRatio = 0 %}{% endif %}
 {% if decnpc(npc.UUID).maxStamina > 0 %}{% set staminaRatio = decnpc(npc.UUID).stamina / decnpc(npc.UUID).maxStamina %}{% else %}{% set staminaRatio = 0 %}{% endif %}
 {% set targets = get_combat_targets(npc.UUID) %}
-
 **COMBAT STATUS:**
 {% if length(targets) > 0 %}- Fighting: {% for t in targets %}{{ decnpc(t).name }}{% if not loop.is_last %}, {% endif %}{% endfor %}
 {% else %}- In active combat
@@ -27,6 +26,23 @@
 {% elif staminaRatio < 0.5 %}- Winded and slowing down
 {% elif staminaRatio < 0.75 %}- Breathing hard but capable
 {% else %}- Energy to spare
+{% endif %}
+{% endif %}
+{# Relative power level awareness vs responseTarget - compare levels to gauge threat. Rendered regardless of combat state so the NPC always has situational awareness. Level is one signal among many (gear, skills, magic, terrain) — describe lean of advantage rather than guaranteed outcomes. Never expose literal level numbers in the prompt: weaker LLMs will parrot them in dialogue. #}
+{% if exists("responseTarget") and isValidActor(responseTarget.UUID) and responseTarget.UUID != npc.UUID %}
+{% set npcLevel = decnpc(npc.UUID).level %}
+{% set targetLevel = decnpc(responseTarget.UUID).level %}
+{% set targetName = decnpc(responseTarget.UUID).name %}
+{% set levelDiff = npcLevel - targetLevel %}
+{% if targetLevel > 0 %}{% set levelRatio = npcLevel / targetLevel %}{% else %}{% set levelRatio = 2 %}{% endif %}
+**COMBAT STRENGTH ASSESSMENT:**
+{% if levelRatio >= 2.0 or levelDiff >= 20 %}- Your instincts tell you {{ targetName }} is well beneath you in raw capability — the advantage leans strongly your way, though gear and skill can still surprise
+{% elif levelRatio >= 1.5 or levelDiff >= 10 %}- Your instincts tell you {{ targetName }} is meaningfully less capable than you — you likely hold the edge, but they shouldn't be underestimated
+{% elif levelRatio >= 1.15 or levelDiff >= 4 %}- Your instincts tell you {{ targetName }} is a touch beneath you — a slight edge, nothing certain
+{% elif levelRatio >= 0.85 or levelDiff >= -3 %}- Your instincts tell you {{ targetName }} is roughly your equal — closely matched, the outcome would hinge on skill and circumstance
+{% elif levelRatio >= 0.65 or levelDiff >= -9 %}- Your instincts tell you {{ targetName }} is somewhat more capable than you — they likely have the edge, but you could still take them with the right approach
+{% elif levelRatio >= 0.5 or levelDiff >= -19 %}- Your instincts tell you {{ targetName }} is well beyond you in raw capability — a steep challenge, though possible with preparation, terrain, or clever tactics
+{% else %}- Your instincts tell you {{ targetName }} is far beyond you — overcoming them would be exceptionally difficult, requiring real cunning, strong gear, or outside help
 {% endif %}
 {% endif %}
 {% endif %}
