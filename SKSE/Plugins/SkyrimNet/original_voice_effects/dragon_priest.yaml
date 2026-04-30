@@ -1,0 +1,21 @@
+id: dragon_priest
+name: Dragon Priest
+sample: null
+stages:
+  - type: formant_shift
+    params:
+      semitones: -1.0
+  - type: pitch_shift
+    params:
+      semitones: -4.0
+  - type: eq
+    params:
+      mode: low
+      freq_hz: 5000.0
+      q: 0.8
+      gain_db: -3.0
+  - type: reverb
+    params:
+      room_size: 0.85
+      decay: 0.8
+      wet: 0.5

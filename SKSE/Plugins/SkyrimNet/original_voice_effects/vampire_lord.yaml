@@ -1,0 +1,24 @@
+id: vampire_lord
+name: Vampire Lord
+sample: null
+stages:
+  - type: formant_shift
+    params:
+      semitones: -2.0
+  - type: pitch_shift
+    params:
+      semitones: -4.0
+  - type: eq
+    params:
+      mode: low
+      freq_hz: 4000.0
+      q: 0.7
+      gain_db: 2.0
+  - type: reverb
+    params:
+      room_size: 0.6
+      decay: 0.7
+      wet: 0.35
+  - type: gain
+    params:
+      gain_db: 2.0

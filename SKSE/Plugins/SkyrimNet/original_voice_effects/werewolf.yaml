@@ -1,0 +1,19 @@
+id: werewolf
+name: Werewolf
+sample: null
+stages:
+  - type: formant_shift
+    params:
+      semitones: -3.0
+  - type: pitch_shift
+    params:
+      semitones: -5.0
+  - type: distortion
+    params:
+      drive: 0.4
+      mix: 0.6
+  - type: reverb
+    params:
+      room_size: 0.3
+      decay: 0.4
+      wet: 0.25
