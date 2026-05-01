@@ -1,0 +1,9 @@
+id: narrator_effect
+name: Narrator Effect
+sample: null
+stages:
+  - type: echo
+    params:
+      delay_ms: 200
+      feedback: 0.05
+      wet: 0.35
