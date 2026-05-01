@@ -17,13 +17,13 @@
     "NoArea",
     "Painless"
   ],
+  "BaseCost": 1.63,
+  "MagicSkill": "Illusion",
+  "ResistValue": "ResistMagic",
   "Archetype": {
     "MutagenObjectType": "MagicEffectArchetype",
     "Type": "Script"
   },
-  "MagicSkill": "Illusion",
-  "ResistValue": "ResistMagic",
-  "BaseCost": 1.63,
   "CastType": "FireAndForget",
   "DualCastScale": 1.0,
   "CastingSoundLevel": "Silent",

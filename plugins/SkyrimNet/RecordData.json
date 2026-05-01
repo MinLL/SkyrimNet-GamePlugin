@@ -1,7 +1,7 @@
 {
   "SpriggitSource": {
     "PackageName": "Spriggit.Json.Skyrim",
-    "Version": "0.40"
+    "Version": "0.40.1"
   },
   "ModKey": "SkyrimNet.esp",
   "GameRelease": "SkyrimSE",

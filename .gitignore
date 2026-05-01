@@ -39,3 +39,6 @@ CLAUDE.local.md
 
 PrismaUI/
 CppAPI/PublicAPI.h
+
+/external/SpriggitCLI-*
+Build_Config_Local.ps1
