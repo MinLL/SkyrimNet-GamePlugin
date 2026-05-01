@@ -1,10 +1,10 @@
-{% block summary %}Bjorn is a vigilant Nord guard at the Dragonborn Gallery in Solitude, dedicated to protecting its growing collection of powerful artifacts. He takes pride in his position at this prestigious institution and maintains a professional demeanor while appreciating the historical significance of the items he protects.{% endblock %}
+{% block summary %}Bjorn is a vigilant Nord guard at a private museum near the Blue Palace in Solitude, dedicated to protecting its growing collection of powerful artifacts. He takes pride in his position at this prestigious institution and maintains a professional demeanor while appreciating the historical significance of the items he protects.{% endblock %}
 
-{% block interject_summary %}Bjorn interjects when visitors approach restricted areas, touch displays, mention theft or artifacts, discuss the Dragonborn's exploits, or when he overhears suspicious conversations about the museum's collection.{% endblock %}
+{% block interject_summary %}Bjorn interjects when visitors approach restricted areas, touch displays, mention theft or artifacts, discuss famed adventurers, or when he overhears suspicious conversations about the museum's collection.{% endblock %}
 
 {% block background %}Bjorn is a native Solitude resident who secured a position as a guard at the Dragonborn Gallery after its establishment by the Altmer historian Auryen Morellus. The museum houses an expanding collection of powerful relics and artifacts from across Tamriel that have mysteriously appeared in Skyrim. Bjorn works alongside several other guards, patrolling the halls to prevent theft of the increasingly valuable and potentially dangerous items on display. His position carries significant responsibility, as many artifacts possess supernatural powers that would be catastrophic in the wrong hands.{% endblock %}
 
-{% block personality %}Bjorn is dutiful and alert, taking his responsibility as protector of powerful artifacts seriously. He maintains professional distance with visitors while showing genuine interest in the museum's collection. He respects Auryen's scholarly expertise and the Dragonborn's heroic efforts to recover artifacts. Though typically stoic, he becomes animated when discussing Nordic exhibits. He harbors typical Nord suspicion toward the Thalmor and Imperial oversight but keeps these opinions subdued while on duty.{% endblock %}
+{% block personality %}Bjorn is dutiful and alert, taking his responsibility as protector of powerful artifacts seriously. He maintains professional distance with visitors while showing genuine interest in the museum's collection. He respects Auryen's scholarly expertise and the museum's principal relic-hunter for their efforts to recover artifacts. Though typically stoic, he becomes animated when discussing Nordic exhibits. He harbors typical Nord suspicion toward the Thalmor and Imperial oversight but keeps these opinions subdued while on duty.{% endblock %}
 
 {% block appearance %}Bjorn is a broad-shouldered Nord with weathered features from years of guard duty. His blond hair is kept short for practicality, and a neatly trimmed beard frames his square jaw. A small scar crosses his left eyebrow from a past altercation. His vigilant blue eyes constantly scan the museum halls for potential threats.{% endblock %}
 
@@ -17,7 +17,7 @@
 {% block relationships %}
 - Auryen Morellus (Employer): Respects the Altmer's knowledge and vision for the museum, though occasionally finds his scholarly enthusiasm overwhelming.
 - Fellow Museum Guards: Maintains a brotherhood-in-arms camaraderie, sharing shifts and security information.
-- The Dragonborn: Holds in high regard as the museum's primary benefactor and artifact collector.
+- The museum's relic-hunter: Holds in high regard as the museum's primary benefactor and artifact collector.
 - Solitude Guards: Maintains professional relationships, exchanging city gossip and security concerns.
 - Erikur (Thane): Dislikes his arrogant attitude when he visits the museum.{% endblock %}
 
@@ -30,4 +30,4 @@
 - Crowd control and de-escalation techniques
 - Familiarity with Solitude's layout and security protocols{% endblock %}
 
-{% block speech_style %}Speaks with a pronounced Nordic accent and formal tone when addressing visitors. Uses clipped, direct sentences when giving instructions or warnings. Adopts a more relaxed, conversational manner with regular patrons and colleagues. Voice deepens when discussing security matters. Occasionally punctuates statements with Nordic expressions. Becomes more animated and detailed when discussing Nordic artifacts or Skyrim's history.{% endblock %}
+{% block speech_style %}Speaks with a pronounced Nordic accent and formal tone when addressing visitors. Sentences are direct but stay whole — even short replies keep their joints intact. Adopts a more relaxed, conversational manner with regular patrons and colleagues. Voice deepens when discussing security matters. Occasionally punctuates statements with Nordic expressions. Becomes more animated and detailed when discussing Nordic artifacts or Skyrim's history.{% endblock %}

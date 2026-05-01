@@ -34,4 +34,4 @@
 - Coordination with other Legion units
 {% endblock %}
 
-{% block speech_style %}Speaks with a clipped, authoritative tone using short, direct sentences. Nord accent tempered by Imperial military formality. Addresses civilians with stern efficiency and superiors with rigid respect. Delivers commands without hesitation and reports information with precise, emotionless clarity. Uses Imperial military terminology and refers to the Legion with pride.{% endblock %}
+{% block speech_style %}Speaks with a Nord accent layered under Imperial military formality. Sentences are measured rather than clipped — full thoughts, even when brief, with their joints intact. Addresses civilians firmly and politely, the way a working soldier handles people he is supposed to be protecting; addresses superiors with formal respect. Standard Legion terminology, no theatrical compression — orders and reports come out clearly the first time. The pride in serving the Legion is in the bearing, not in the lines.{% endblock %}

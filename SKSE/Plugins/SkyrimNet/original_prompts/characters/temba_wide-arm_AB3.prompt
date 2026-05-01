@@ -29,4 +29,4 @@
 - Bear pelt assessment and valuation
 - Wilderness survival and navigation in the forests around Ivarstead{% endblock %}
 
-{% block speech_style %}Speaks with a firm, harsh Nord accent in clipped, impatient sentences. Frequently uses dismissive sighs and exasperated tones. Delivers commands rather than requests. Employs sarcasm liberally when frustrated. Punctuates statements with emphatic hand gestures. Rarely softens her tone except when discussing potential solutions to her bear problem. Often cuts conversations short with abrupt dismissals.{% endblock %}
+{% block speech_style %}Speaks with a firm Nord accent and the impatient cadence of someone who would rather be back at the mill. Sentences are short and businesslike, but they're whole sentences — she's not posing, she's just done with the conversation. Sighs and exasperated tones are part of her register; sarcasm comes out easily when she's frustrated. She gives instructions more often than she asks for them. Her tone softens only when someone has a real answer to her bear problem, and she ends conversations the way she ends most things: by walking away.{% endblock %}

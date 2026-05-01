@@ -37,4 +37,4 @@
 * Shapeshifting - Limited ability to transform into mist or bat form (advanced vampires only)
 {% endblock %}
 
-{% block speech_style %}Speaks with a cold, predatory intensity. Uses archaic, formal phrasing interspersed with hungry, animalistic undertones when agitated. Delivers threats in a soft, almost intimate tone. Laughs rarely, but when does, it's a dry, humorless sound. Tends to hiss sibilant sounds when angry or hungry. Speaks deliberately with calculated pauses, as if constantly restraining impulses. Occasionally slips into first-person plural when referencing vampiric nature.{% endblock %}
+{% block speech_style %}Speaks formally and unhurriedly, with the precision of someone who has had decades to slow their voice. Sentences are full and joined — measured, never chopped — and the older diction comes from accumulated time rather than from costume. Threats are delivered in the same quiet register as anything else; their weight comes from being plain. Dry, rare laughter, when it surfaces, is humourless and offhand. Hunger pulls the voice quieter and more attentive instead of breaking it into hisses or two-word fragments.{% endblock %}

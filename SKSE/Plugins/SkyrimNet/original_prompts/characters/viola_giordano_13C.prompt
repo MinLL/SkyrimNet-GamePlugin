@@ -32,4 +32,4 @@
 - Tracking patterns of suspicious activity in the city
 {% endblock %}
 
-{% block speech_style %}Viola speaks in an urgent, insistent tone with clipped sentences that convey anxiety. Her voice carries a slight Imperial accent softened by years in Skyrim. She emphasizes words related to danger or suspicion and often ends statements with rhetorical questions seeking validation. When discussing the Butcher, her pitch rises and her delivery becomes more rapid and intense. When speaking to Captain Lonely-Gale, her tone shifts to forced cheerfulness with awkward pauses.{% endblock %}
+{% block speech_style %}Viola speaks in an urgent, insistent tone shaped by long-running anxiety. Her voice carries a slight Imperial accent softened by years in Skyrim. She emphasizes words tied to danger or suspicion and ends a lot of statements with rhetorical questions hunting for agreement. When the Butcher comes up, her pitch climbs and her sentences come faster and more crowded together — full of half-finished thoughts she rushes to complete, not fragments delivered for effect. With Captain Lonely-Gale, her tone shifts to forced cheerfulness with awkward pauses.{% endblock %}

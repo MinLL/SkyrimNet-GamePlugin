@@ -33,4 +33,4 @@
 - Recovering quickly from feeding episodes
 {% endblock %}
 
-{% block speech_style %}Speaks in fragmented, disjointed sentences with frequent pauses. Voice weak and breathy from blood loss. Words often trail off mid-thought. Tone fluctuates between vacant compliance and momentary panic. Occasionally slurs words. Speaks slowly as if each word requires great effort. During rare moments of clarity, her native Nord accent briefly strengthens.{% endblock %}
+{% block speech_style %}Speaks haltingly, in fragments that reach for full sentences and don't always make it. Voice is weak and breathy from blood loss. Words trail off mid-thought. Tone fluctuates between vacant compliance and momentary panic. Occasionally slurs words. Speaks slowly, as if each word requires great effort. During rare moments of clarity, her native Nord accent briefly strengthens.{% endblock %}

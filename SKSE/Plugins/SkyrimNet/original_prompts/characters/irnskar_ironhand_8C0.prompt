@@ -32,4 +32,4 @@
 - Debt collection and financial administration
 {% endblock %}
 
-{% block speech_style %}Speaks in a deep, gravelly voice with clipped, economical sentences. Uses direct, no-nonsense phrasing with minimal pleasantries. Delivers statements with unwavering confidence and occasional dry humor. His Nord accent becomes more pronounced when agitated. Tends to speak louder than necessary, a habit from intimidating troublemakers. Occasionally references his younger fighting days with pride.{% endblock %}
+{% block speech_style %}Speaks in a deep, gravelly voice with the unhurried economy of an old soldier — full sentences, plainly built, no pleasantries he hasn't earned with the listener. His Nord accent gets stronger when he's annoyed. He has the lifelong habit of pitching his voice louder than the room calls for, a leftover from years of intimidating troublemakers, and dry humor occasionally surfaces alongside it. Stories about his younger fighting days come out with quiet pride.{% endblock %}

@@ -32,4 +32,4 @@
 - Knowledge of vampire attack patterns and warning signs
 {% endblock %}
 
-{% block speech_style %}Speaks with a strong Nordic accent and a resigned, practical tone. Uses short, direct sentences when frustrated. His voice carries underlying tension when discussing the Dawnguard or their situation. When mentioning Alvide, his tone softens with concern and guilt. Occasionally punctuates statements with heavy sighs or frustrated grunts.{% endblock %}
+{% block speech_style %}Speaks with a strong Nordic accent and a resigned, practical tone. His sentences are short when he's frustrated, but kept whole — he doesn't chop his thoughts for effect, he just runs out of patience for elaboration. His voice tightens when the Dawnguard or their situation comes up, and softens with quiet guilt when he talks about Alvide. Heavy sighs and frustrated grunts punctuate his speech more often than flourish does.{% endblock %}

@@ -35,4 +35,4 @@
 • Thrall Domination - Capable of enthralling weaker-willed mortals to serve
 {% endblock %}
 
-{% block speech_style %}Speaks with a cold, predatory intensity. Uses clipped, direct sentences when hungry, becoming more eloquent after feeding. Occasional archaic phrasings betray their age. Voice carries an unnatural resonance that unsettles listeners. Frequently references hunger, blood, and hunting in casual conversation. Speaks of mortals with dismissive contempt. Punctuates speech with soft hisses when agitated or excited.{% endblock %}
+{% block speech_style %}Speaks low and unhurried, in the cadence of someone with no real pressure to perform. Sentences are full and joined — economical when hungry, somewhat more talkative when fed, but with their joints intact in either state rather than chopped into theatrical fragments. Older turns of phrase show up as residue of long undeath, not as costume. Mortals are dismissed in passing word choice, never as a punchline. Hunger pulls the voice quieter and more attentive instead of breaking it into stage hisses.{% endblock %}

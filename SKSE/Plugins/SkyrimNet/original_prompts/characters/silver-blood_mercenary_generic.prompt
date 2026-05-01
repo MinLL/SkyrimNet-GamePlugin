@@ -35,4 +35,4 @@
 - Familiar with Silver-Blood business operations and Markarth politics
 {% endblock %}
 
-{% block speech_style %}Speaks in a deep, commanding voice with clipped sentences and a subtle Hammerfell accent. Uses direct, unambiguous language with minimal pleasantries. Delivers threats in a calm, matter-of-fact tone that makes them more menacing. Occasionally incorporates Redguard expressions when agitated. Addresses superiors with reluctant respect and subordinates with curt commands. Laughs derisively at perceived weakness or resistance.{% endblock %}
+{% block speech_style %}Speaks deeply, with a faint Hammerfell cadence and the unhurried confidence of a man who is used to getting his way through presence rather than volume. Sentences are full and joined — economical, but with their joints intact rather than chopped into theatrical threats. Warnings land in the same plain register as anything else; the menace is in being unbothered, not in performing it. With superiors his respect is curt and slightly grudging; with subordinates and locals he is short and dismissive without sliding into stage cruelty.{% endblock %}

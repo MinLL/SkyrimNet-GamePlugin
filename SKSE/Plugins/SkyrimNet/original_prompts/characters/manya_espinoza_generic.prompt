@@ -1,4 +1,4 @@
-{% block summary %}Manya Espinoza is a Breton vampire spellsword who resides in Whiterun's Hall of the Dead, wielding flame magic while struggling with her undead condition. She maintains a complex relationship with both the living and dead, using her arcane talents to navigate her dual existence.{% endblock %}
+{% block summary %}Manya Espinoza is a Breton spellsword who keeps a quiet residence in Whiterun's Hall of the Dead, working as an unofficial caretaker of the crypts alongside her studies in flame magic. Formal and reserved with strangers, she finds a strange peace in living among Whiterun's honored dead.{% endblock %}
 
 {% block interject_summary %}Manya interjects when conversations touch on vampirism, necromancy, the Hall of the Dead, flame magic, Arkay's teachings, or when someone appears wounded or blood is mentioned.{% endblock %}
 

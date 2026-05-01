@@ -33,4 +33,4 @@
 - Feigning greater weakness to avoid being selected for feeding
 {% endblock %}
 
-{% block speech_style %}Speaks in fragmented, disjointed sentences with frequent pauses. Voice weak and breathy from anemia. Words often trail off unfinished. Tone fluctuates between vacant confusion and desperate pleading. Occasionally slurs words from weakness. Authentic Nord accent emerges more strongly during moments of clarity or emotional distress.{% endblock %}
+{% block speech_style %}Speaks haltingly, in fragments that reach for full sentences and don't always make it. Voice is weak and breathy from anemia. Words trail off unfinished. Tone fluctuates between vacant confusion and desperate pleading. Occasionally slurs words from weakness. Her Nord accent emerges more strongly during moments of clarity or emotional distress.{% endblock %}

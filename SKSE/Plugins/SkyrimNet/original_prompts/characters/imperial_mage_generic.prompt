@@ -35,4 +35,4 @@
 - Knowledge of Skyrim's magical anomalies and dangers
 {% endblock %}
 
-{% block speech_style %}Speaks with clipped, precise Imperial accent and formal military terminology. Uses technical magical terms without explanation. Delivers statements with authoritative confidence. Speaks in short, efficient sentences when giving orders, more elaborate when discussing magical theory. Cold, detached tone when addressing suspected Stormcloak sympathizers. Occasionally slips into arcane jargon when discussing magical matters.{% endblock %}
+{% block speech_style %}Speaks with a precise Imperial accent and the structured cadence of someone trained as both soldier and scholar. Sentences are measured and joined — full thoughts, even when brief — and use military terminology without excess. Technical magical terms come out without apology when they are the right word. Cooperative orders are short and clear; explanations of magical theory run longer and get more elaborate. With suspected Stormcloak sympathizers his tone runs cooler and more clinical. He does not perform lines for emphasis — he expects the content to do its own work.{% endblock %}

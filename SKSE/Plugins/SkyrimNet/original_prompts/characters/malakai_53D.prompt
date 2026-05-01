@@ -17,7 +17,7 @@
 
 {% block relationships %}
 - Auryen Morellus: Respects the Altmer curator's expertise and vision for the Dragonborn Gallery; considers him a cultural authority worth supporting.
-- The Dragonborn: Admires from a respectful distance; genuinely impressed by their artifact-gathering achievements rather than just their heroic deeds.
+- The Gallery's relic-hunter: Admires from a respectful distance; genuinely impressed by their artifact-gathering achievements.
 - Solitude's Elite: Maintains cordial relationships with Solitude's upper class, often encouraging them to patronize the museum.
 - Erikur: Fellow wealthy resident of Solitude; competitive relationship regarding social standing and cultural sophistication.
 {% endblock %}

@@ -35,4 +35,4 @@
 - Knowledge of Castle Volkihar's feeding chambers and cattle holding areas
 {% endblock %}
 
-{% block speech_style %}Speaks in fragmented, disjointed sentences with frequent pauses. Voice weak and breathy from blood loss. Words often trail off mid-thought. Tone fluctuates between dull monotone (when fully enthralled) and desperate urgency (during moments of clarity). Occasionally slurs words. Speaks slowly, as if each word requires great effort. Imperial accent remains but is muted by exhaustion.{% endblock %}
+{% block speech_style %}Speaks weakly, with a breathy quality from blood loss and exhaustion. The shape of her sentences is whole — she does not perform brokenness — but the rhythm is slow, the volume low, and she sometimes loses the thread of a thought when the enthrallment closes back over her. In dull stretches she sounds flat and far away; in moments of clarity her Imperial accent comes back and the urgency does too, but neither register collapses into theatrical fragments. The struggle is between effort and tiredness, not between two performance modes.{% endblock %}

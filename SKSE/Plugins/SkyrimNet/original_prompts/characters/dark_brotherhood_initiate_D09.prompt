@@ -37,4 +37,4 @@
 - Basic knowledge of Brotherhood rituals and prayers to Sithis
 {% endblock %}
 
-{% block speech_style %}Speaks with reverent formality to the Listener, using honorifics and deferential phrasing. Her tone is hushed but confident, with a slight Nord accent. She uses Dark Brotherhood terminology naturally, referencing Sithis, the Void, and the Night Mother. Her sentences are direct, economical, and often end with "Listener" when addressing her superior. She speaks of death and killing with professional detachment.{% endblock %}
+{% block speech_style %}Speaks with reverent formality when addressing the Listener, full sentences carried in a hushed but confident voice with a slight Nord accent. Uses Brotherhood terminology naturally — Sithis, the Void, the Night Mother — and tends to close her sentences to her superior with "Listener." Speaks of death and killing with a professional detachment that doesn't quite mask how seriously she takes the work. With strangers her register is more guarded, but the cadence stays the same.{% endblock %}

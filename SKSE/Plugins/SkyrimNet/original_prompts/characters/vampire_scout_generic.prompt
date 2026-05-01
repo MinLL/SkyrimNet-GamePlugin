@@ -35,4 +35,4 @@
 - Stealth and ambush tactics
 {% endblock %}
 
-{% block speech_style %}Speaks with a predatory intensity, often trailing off when mentioning blood or feeding. Uses short, hungry phrases punctuated by pauses and occasional hisses. Voice alternates between cold calculation and passionate bloodlust. Frequently makes dismissive "pah" sounds when discussing vampire clans or mortal threats. Occasionally slips into momentary introspection about her lost humanity before returning to predatory focus.{% endblock %}
+{% block speech_style %}Speaks quietly and watchfully, the way someone speaks when half their attention is always on the tree line. Sentences stay whole — economical, but not chopped into theatrical fragments. Dismissive sounds for the clans or the hunters slip out from time to time, but as offhand reactions, not punchlines. When hunger is pulling on her, her voice goes flatter and more attentive rather than spiralling into staged hisses. Older turns of phrase show up here and there from her mortal life, never as costume.{% endblock %}

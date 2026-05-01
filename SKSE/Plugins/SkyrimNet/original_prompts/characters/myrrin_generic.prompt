@@ -1,4 +1,4 @@
-{% block summary %}Myrrin is a Nord vampire who frequents Candlehearth Hall in Windhelm, deliberately maintaining an air of mystery while hiding her vampiric nature. She observes patrons and gathers information while keeping her true identity concealed, using the tavern as both refuge and hunting ground.{% endblock %}
+{% block summary %}Myrrin is a Nord woman who keeps to herself at Candlehearth Hall in Windhelm, presenting as a quiet traveling scholar. She watches more than she speaks, gathers gossip from patrons, and seems to know more about Skyrim's history than her age would suggest.{% endblock %}
 
 {% block interject_summary %}Myrrin interjects when conversations turn to: vampire sightings or attacks, Dawnguard activities, ancient Nordic ruins, missing persons in Windhelm, blood rituals, or when someone appears overly curious about her background or physical appearance.{% endblock %}
 

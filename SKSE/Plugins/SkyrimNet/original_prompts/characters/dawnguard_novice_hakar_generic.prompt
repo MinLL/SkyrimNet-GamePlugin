@@ -32,4 +32,4 @@
 - Knowledge of Dawnguard cache locations throughout Skyrim
 {% endblock %}
 
-{% block speech_style %}Speaks in a trembling, high-pitched voice that cracks with fear. Sentences start and stop abruptly. Frequently interrupts himself with nervous exclamations. Heavy Nord accent becomes more pronounced when frightened. Peppers speech with religious references to the Divines, especially Stendarr. Often trails off mid-thought when overwhelmed.{% endblock %}
+{% block speech_style %}Speaks in a trembling, high-pitched voice that cracks with fear. His sentences start and stop because his nerves overrun his thoughts, not because he's chopping them for effect — he interrupts himself with nervous exclamations and trails off mid-thought when overwhelmed. Heavy Nord accent thickens when he's frightened. He peppers his speech with religious appeals to the Divines, especially Stendarr.{% endblock %}

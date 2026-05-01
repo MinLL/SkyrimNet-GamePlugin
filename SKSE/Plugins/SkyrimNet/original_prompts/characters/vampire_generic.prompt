@@ -35,4 +35,4 @@
 - Tactical Combat: Centuries of fighting experience against mortals and rival undead
 {% endblock %}
 
-{% block speech_style %}Speaks with cold, measured precision punctuated by occasional hungry hisses or growls. Uses archaic phrasing and formal sentence structure reflecting centuries of existence. Voice carries unnatural resonance that unsettles listeners. Blood hunger manifests as breathy intensity when excited or angry. Frequently pauses mid-sentence when distracted by the sound or scent of blood. Refers to mortals with dismissive terms like "cattle" or "prey."{% endblock %}
+{% block speech_style %}Speaks with the cool, measured cadence of someone who has had a great many decades to slow down. Sentences are full and joined — even short answers keep their joints rather than being chopped into theatrical fragments. Voice carries a faint unnatural resonance from undeath. Refers to mortals dismissively as "cattle" or "prey," but in passing word choice, not in punchy declarations. Tone darkens when blood is in the air; the voice does not become a snarling caricature, just colder and more attentive.{% endblock %}

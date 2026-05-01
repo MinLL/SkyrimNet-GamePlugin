@@ -33,4 +33,4 @@
 - Centuries of combat experience against various enemies
 {% endblock %}
 
-{% block speech_style %}Speaks with a harsh, direct Nord accent. Uses short, blunt sentences focused on action. Often incorporates references to blood, killing, and combat. Delivers statements with cold certainty and occasional dark humor. Speaks with predatory enthusiasm when discussing violence or successful missions. Shows clear disdain when mentioning court politics or feral vampires.{% endblock %}
+{% block speech_style %}Speaks with a Nord accent, plainly and without flourish. Her sentences stay measured — she likes them short, but they are full thoughts with their joints intact, not chopped fragments meant to sound hard. Blood, killing, and combat are her common reference points; she reaches for them the way a smith reaches for tools. Court intrigue and feral vampires get a single dismissive line and a turn back to whatever she was doing. When she's amused, the humor is dry and slightly dark; she finds her own jokes more than other people do.{% endblock %}

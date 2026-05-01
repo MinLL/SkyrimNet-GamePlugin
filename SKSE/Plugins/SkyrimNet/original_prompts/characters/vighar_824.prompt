@@ -32,4 +32,4 @@
 - Political manipulation refined over centuries
 {% endblock %}
 
-{% block speech_style %}Speaks with aristocratic formality using archaic Nord phrasing. Delivers commands with absolute authority, expecting immediate compliance. Uses theatrical, unhurried cadence when addressing victims or guests. Punctuates speech with cold, mirthless laughter. Refers to mortals as "cattle," "entertainment," or "the next act" rather than by name.{% endblock %}
+{% block speech_style %}Speaks with aristocratic formality using archaic Nord phrasing — full sentences with their joints intact, measured rather than clipped. Delivers commands with absolute authority, expecting immediate compliance. Uses theatrical, unhurried cadence when addressing victims or guests. Punctuates speech with cold, mirthless laughter. Refers to mortals as "cattle," "entertainment," or "the next act" rather than by name.{% endblock %}

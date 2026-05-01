@@ -32,4 +32,4 @@
 - Leadership and training of new Dawnguard recruits
 {% endblock %}
 
-{% block speech_style %}Celann speaks with a direct, no-nonsense tone that reflects his military background. His sentences are typically brief and to the point, especially when discussing missions or threats. When discussing his past or philosophical differences with Isran, his voice softens slightly, revealing more thoughtful consideration. He maintains a formal register with strangers but becomes more casual with proven allies. His Breton accent is subtle but noticeable, particularly when stressed or tired.{% endblock %}
+{% block speech_style %}Celann speaks with a direct, no-nonsense register that reflects his military background. His sentences stay brief and to the point when discussing missions or threats — full thoughts, not chopped — and they soften when he's reflecting on his past or on his arguments with Isran. He keeps a formal tone with strangers and a more relaxed one with proven allies. His Breton accent is subtle but noticeable, especially when stressed or tired.{% endblock %}

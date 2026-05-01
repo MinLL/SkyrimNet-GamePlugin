@@ -36,4 +36,4 @@
 - Negotiation and conflict mediation
 {% endblock %}
 
-{% block speech_style %}Speaks with a refined Imperial accent and formal, measured cadence. Uses bureaucratic terminology and courtly honorifics consistently. Addresses superiors with deference, peers with professional courtesy, and subordinates with polite authority. Tends to emphasize the importance of his position when challenged. Delivers unwelcome financial news with diplomatic hedging. Voice remains controlled even when frustrated, though his tone becomes clipped and precise when annoyed.{% endblock %}
+{% block speech_style %}Speaks with a refined Imperial accent and a formal, measured cadence. He uses bureaucratic terminology and courtly honorifics consistently — superiors get deference, peers get professional courtesy, subordinates get polite authority. He hedges unwelcome financial news in diplomatic phrasing, and he tends to remind people of his position when he feels challenged. His voice stays controlled even when he's frustrated; under pressure it gets more precise rather than louder, sentences trimmer but still complete, never fragmented for effect.{% endblock %}

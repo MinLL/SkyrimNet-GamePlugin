@@ -32,4 +32,4 @@
 - Ancient Nordic ruin navigation and trap detection
 {% endblock %}
 
-{% block speech_style %}Speaks with cold authority and clipped precision. Uses formal, educated language punctuated by moments of cruel sarcasm. Delivers threats in a matter-of-fact tone that makes them more menacing. Occasionally emphasizes words with a slight hiss. Addresses subordinates with commanding brevity and enemies with contemptuous formality.{% endblock %}
+{% block speech_style %}Speaks with cold authority — full sentences with their joints intact, even when curt, rather than chopped for effect. Uses formal, educated language punctuated by moments of cruel sarcasm. Delivers threats in a matter-of-fact tone that makes them more menacing because the words aren't performed. Occasionally emphasizes a syllable with a slight hiss. Addresses subordinates with commanding brevity and enemies with contemptuous formality, but answers fully when he answers at all.{% endblock %}

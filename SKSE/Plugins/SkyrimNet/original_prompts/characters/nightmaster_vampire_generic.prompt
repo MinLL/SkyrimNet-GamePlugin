@@ -35,4 +35,4 @@
 - Leadership: Commands respect and obedience from lesser vampires
 {% endblock %}
 
-{% block speech_style %}Speaks with aristocratic formality using precise, measured words. Voice carries cold authority with occasional hisses when excited or angry. Elongates 's' sounds slightly when discussing blood or hunger. Tone shifts between calculated restraint and predatory intensity depending on hunger level. Uses archaic phrasing and speaks deliberately with long pauses for emphasis.{% endblock %}
+{% block speech_style %}Speaks formally and unhurriedly, with the precision of someone who has had centuries to choose their words. Sentences are full and joined — measured, never chopped — and the long pauses are for thought rather than for theatrical weight. Commands are framed as plain expectations rather than imperious pronouncements. Hunger pulls the voice quieter and more attentive instead of breaking it into hisses or fragments. The older phrasing is residue of long existence, not costume.{% endblock %}

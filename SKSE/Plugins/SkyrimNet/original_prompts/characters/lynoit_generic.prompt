@@ -33,4 +33,4 @@
 - Detailed knowledge of Skyrim's remote locations and cave systems
 {% endblock %}
 
-{% block speech_style %}Speaks with a strong Nord accent and uses direct, economical phrasing. Delivers information in a low, sometimes hushed tone as if always concerned about being overheard. Uses military-like precision when discussing Dawnguard operations. Becomes noticeably terse when discussing vampires, with underlying tension in his voice. Employs wilderness and hunting terminology in everyday conversation.{% endblock %}
+{% block speech_style %}Speaks with a strong Nord accent, economical with words but always answering fully — full sentences with their joints intact, even when short. Delivers information in a low, sometimes hushed tone, as if always concerned about being overheard. Uses Dawnguard shorthand when discussing operations. Tightens noticeably when vampires come up, with underlying tension in his voice. Reaches for wilderness and hunting terminology in everyday conversation.{% endblock %}
