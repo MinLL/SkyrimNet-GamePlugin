@@ -1,4 +1,7 @@
 [ system ]
+{% set tagCompanion = papyrus_util("GetIntValue", 0, "SeverActions_TagCompanion", 1) %}
+{% set tagEngaged = papyrus_util("GetIntValue", 0, "SeverActions_TagEngaged", 1) %}
+{% set tagInScene = papyrus_util("GetIntValue", 0, "SeverActions_TagInScene", 1) %}
 Determine which NPC the player is addressing and who should respond. Analyze the player's input, nearby NPCs, and recent context.
 {{ get_scene_context(player.UUID, 0, "target_selection")}}
 [ end system ]
@@ -11,7 +14,7 @@ Determine which NPC the player is addressing and who should respond. Analyze the
 
 {% if crosshairTarget and crosshairTarget.UUID and crosshairTarget.UUID != 0 %}
 {{ "## Player's Crosshair Target" }}
-The player is looking directly at: **{{ crosshairTarget.name }}** ({{ units_to_meters(crosshairTarget.distance) }}m away)
+The player is looking directly at: **{{ crosshairTarget.name }}** ({{ units_to_meters(crosshairTarget.distance) }}m away){% if tagCompanion and is_follower(crosshairTarget.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_faction(crosshairTarget.UUID, "SeverActions_ActivelyFollowing") %} [ENGAGED]{% endif %}{% if tagInScene and (is_in_faction(crosshairTarget.UUID, "SexLabAnimatingFaction") or is_in_faction(crosshairTarget.UUID, "OStimExcitementFaction")) %} [IN SCENE]{% endif %}
 {% endif %}
 
 {{ "## Recent Dialogue" }}
@@ -30,7 +33,8 @@ Determine the interaction type:
 - **Name/reference**: Does the player's dialogue directly name or reference a specific NPC?
 - **Distance**: Strongly favor NPCs closer to the player. This is a very strong factor.
 - **Recent interaction**: Has the player recently been talking to a specific NPC? Ongoing conversations should continue naturally.
-- **Role match**: Does the dialogue content match an NPC's background, role, or recent actions?
+{% if tagCompanion %}- **Companion priority**: Companions (followers) are more likely to be addressed for general comments, opinions, or reactions.
+{% endif %}- **Role match**: Does the dialogue content match an NPC's background, role, or recent actions?
 
 **For NPC-to-NPC dialogue**, determine:
 - Which NPC the player is primarily addressing (the speaker)
