@@ -15,16 +15,13 @@
   "Flags": [
     "ManualCostCalc"
   ],
-  "Type": "Spell",
   "CastType": "FireAndForget",
-  "ChargeTime": 0.0,
   "HalfCostPerk": "0C44C4:Skyrim.esm",
   "Effects": [
     {
       "BaseEffect": "0012E1:SkyrimNet.esp",
       "Data": {
         "Magnitude": 1.0,
-        "Area": 0,
         "Duration": 60
       }
     }
