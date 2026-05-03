@@ -12,7 +12,7 @@
     ## Visible People (authoritative list; everyone below is on-camera):
     {% for npc in visibleNPCs %}
         {% set pos = get_actor_position_relative_to_camera(npc.UUID) %}
-        - {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) — {{pos.meters}}m, {{pos.cardinalDirection}} {% if is_in_combat(npc.UUID) %}[COMBAT] {% endif %}{% if has_weapon_drawn(npc.UUID) %}[Armed] {% endif %}{% if is_swimming(npc.UUID) %}[Swimming]{% else if is_sprinting(npc.UUID) %}[Running]{% else if is_sneaking(npc.UUID) %}[Sneaking]{% endif %}
+        - {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) — {{pos.meters}}m, {{pos.cardinalDirection}} {% if is_unconscious(npc.UUID) %}[UNCONSCIOUS] {% else %}{% if is_in_combat(npc.UUID) %}[COMBAT] {% endif %}{% if has_weapon_drawn(npc.UUID) %}[Armed] {% endif %}{% if is_swimming(npc.UUID) %}[Swimming]{% else if is_sprinting(npc.UUID) %}[Running]{% else if is_sneaking(npc.UUID) %}[Sneaking]{% endif %}{% endif %}
     {% endfor %}
     {% else %}
     ## Visible People: (none detected)

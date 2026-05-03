@@ -12,6 +12,9 @@ Determine which NPC the player is addressing and who should respond. Analyze the
 {% if crosshairTarget and crosshairTarget.UUID and crosshairTarget.UUID != 0 %}
 {{ "## Player's Crosshair Target" }}
 The player is looking directly at: **{{ crosshairTarget.name }}** ({{ units_to_meters(crosshairTarget.distance) }}m away)
+{% if is_unconscious(crosshairTarget.UUID) %}
+BUT {{ crosshairTarget.name }} is currently unconscious and THEREFORE is unable to reply in any way. Choose another NPC nearby that makes the most sense to reply if one exists.
+{% endif %}
 {% endif %}
 
 {{ "## Recent Dialogue" }}
