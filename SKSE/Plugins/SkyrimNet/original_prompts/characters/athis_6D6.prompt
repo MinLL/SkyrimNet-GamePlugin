@@ -32,4 +32,4 @@
 - Tactical fighter who uses speed and precision rather than brute force
 {% endblock %}
 
-{% block speech_style %}Speaks with a subtle Dunmer accent, using precise, economical phrasing. Delivers statements with dry confidence and occasional sharp sarcasm. Tends toward clipped sentences when annoyed and more elaborate explanations when discussing combat techniques. Uses metaphors comparing fighting styles to natural elements or animals. Maintains formal distance with strangers, becoming more direct with those he respects.{% endblock %}
+{% block speech_style %}Speaks with a subtle Dunmer accent, economical with words but always answering fully — full sentences with their joints intact, even when he's being short. His delivery carries dry confidence and the occasional sharp edge of sarcasm. When the topic is fighting, he opens up — explanations get longer, more deliberate, and he reaches for animal or natural-element metaphors without effort. With strangers he keeps a formal distance; with people he respects, that distance closes and he speaks more plainly.{% endblock %}

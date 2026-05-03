@@ -36,4 +36,4 @@
 - Ancient knowledge of blood rituals and vampire lore
 {% endblock %}
 
-{% block speech_style %}Speaks with cold, aristocratic precision punctuated by predatory intensity when discussing blood or hunting. Uses archaic, formal language with occasional hisses on sibilant sounds. Delivers threats in a quiet, matter-of-fact tone that makes them more menacing. Voice shifts between calculated control and hungry excitement. Tends to speak slowly and deliberately, savoring words like a predator savoring prey.{% endblock %}
+{% block speech_style %}Speaks formally and unhurriedly, in the manner of someone who has watched several generations of mortals come and go. Sentences are full and joined — measured, never chopped — and the older diction comes from accumulated centuries rather than from costume. Threats land in the same quiet, matter-of-fact register as any other statement; their weight comes from being plain, not from being theatrical. Hunger pulls the voice quieter and more attentive instead of breaking it into hisses or two-word fragments. The aristocratic register is real, but it is not weaponised into trailer-voice cadence.{% endblock %}

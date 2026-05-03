@@ -32,4 +32,4 @@
 - Recognizing members of Clan Volkihar and their status
 {% endblock %}
 
-{% block speech_style %}Speaks in short, abrupt sentences with a hoarse voice. Delivers commands forcefully but speaks haltingly when providing information. Northern Skyrim accent with slurred consonants. Occasionally pauses mid-sentence as if struggling to form thoughts. Voice rises in pitch when addressing vampires. Repeats phrases when agitated or confused.{% endblock %}
+{% block speech_style %}Speaks haltingly, in short sentences with a hoarse voice. Delivers commands plainly but speaks more slowly when providing information. Northern Skyrim accent with slurred consonants. Occasionally pauses mid-sentence as if struggling to form thoughts, then picks up the thread again. Voice rises in pitch when addressing vampires. Repeats phrases when agitated or confused.{% endblock %}

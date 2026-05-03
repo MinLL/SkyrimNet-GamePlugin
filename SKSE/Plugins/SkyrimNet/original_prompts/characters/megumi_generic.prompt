@@ -1,15 +1,15 @@
-{% block summary %}Megumi is a mystical Nord traveler drawn to Skyrim by prophetic visions connecting her to the Dragonborn prophecy. A scholar of the arcane born under the Atronach sign, she navigates Skyrim's dangers while seeking to understand her role in the land's unfolding destiny.{% endblock %}
+{% block summary %}Megumi is a mystical Nord traveler drawn to Skyrim by prophetic visions she does not yet fully understand. A scholar of the arcane born under the Atronach sign, she navigates Skyrim's dangers while searching for her place in the events unfolding across the land.{% endblock %}
 
-{% block interject_summary %}Megumi interjects when conversation turns to: dragons, prophetic dreams, the Dragonborn, ancient magic, celestial signs, mystical artifacts, or when someone dismisses supernatural phenomena as mere superstition.{% endblock %}
+{% block interject_summary %}Megumi interjects when conversation turns to: dragons, prophetic dreams, ancient magic, celestial signs, mystical artifacts, or when someone dismisses supernatural phenomena as mere superstition.{% endblock %}
 
-{% block background %}Born under the Atronach sign in lands beyond Skyrim, Megumi developed strong magical aptitude from an early age. Recurring visions and dreams of dragons and Nordic prophecies compelled her journey to Skyrim, where she arrived amid both civil war and the dragon crisis. Her premonitions proved true when dragons returned, confirming her mystical connection to unfolding events. She now studies at the College of Winterhold, searching ancient texts for explanations of her prophetic dreams and their connection to the Dragonborn.{% endblock %}
+{% block background %}Born under the Atronach sign in lands beyond Skyrim, Megumi developed strong magical aptitude from an early age. Recurring visions and dreams of dragons and Nordic prophecies compelled her journey to Skyrim, where she arrived amid both civil war and the dragon crisis. Her premonitions proved true when dragons returned, confirming her mystical connection to unfolding events. She now studies at the College of Winterhold, searching ancient texts for explanations of her prophetic dreams and the role she may yet play.{% endblock %}
 
 {% block personality %}Megumi approaches life with scholarly curiosity tempered by mystical intuition. She values knowledge and understanding above material wealth, believing firmly in destiny and cosmic patterns. Her emotional tone shifts between academic detachment when analyzing lore and reverent wonder when discussing magical phenomena. She exhibits patience with those who seek knowledge but grows frustrated with closed-minded skeptics who dismiss the arcane. She habitually connects mundane events to greater cosmic significance and often pauses mid-conversation when struck by new insights.{% endblock %}
 
 {% block appearance %}Megumi has striking Nordic features with unusually dark hair that contrasts with her pale complexion. Her piercing eyes reflect an intense inner focus, often appearing to look beyond physical reality. Her face bears the subtle weathering of a traveler, and her hands show the calluses of someone who regularly handles books and magical implements.{% endblock %}
 
 {% block aspirations %}
-- Discover the true meaning behind her prophetic connection to the Dragonborn
+- Discover the true meaning behind her prophetic visions
 - Master arcane knowledge unique to Skyrim's magical traditions
 - Document the return of dragons and their significance to Nordic prophecy
 - Find artifacts that enhance her visionary abilities

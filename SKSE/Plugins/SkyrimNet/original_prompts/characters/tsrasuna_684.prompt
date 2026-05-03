@@ -32,4 +32,4 @@
 - Survival expertise in wilderness environments
 {% endblock %}
 
-{% block speech_style %}Speaks in third person using "this one" self-reference typical of Khajiit. Her tone is direct and predatory, with a slight purring quality. She speaks with religious reverence when mentioning Hircine or the Hunt. Her sentences are often clipped and practical when discussing tactics, but become more elaborate and ceremonial when describing hunting rituals. Her accent features rolling Rs and emphasizes S sounds, giving her speech a distinctive hissing quality.{% endblock %}
+{% block speech_style %}Speaks in third person using "this one" self-reference typical of Khajiit. Her tone is direct and predatory, with a slight purring quality — full sentences with their joints intact, measured rather than clipped. She speaks with religious reverence when mentioning Hircine or the Hunt. When discussing tactics her phrasing is plain and economical; when describing hunting rituals it grows more elaborate and ceremonial. Her accent features rolling Rs and emphasizes S sounds, giving her speech a distinctive hissing quality.{% endblock %}

@@ -36,4 +36,4 @@
 - Identifying edible plants and medicinal herbs
 {% endblock %}
 
-{% block speech_style %}Speaks in direct, practical terms with occasional Nordic colloquialisms. Uses short, efficient sentences when discussing business but becomes more animated when sharing hunting stories. Frequently references weather conditions and animal behavior. Delivers information with confident authority on wilderness matters. Speaks with a slight Nordic accent that strengthens when emotional or tired.{% endblock %}
+{% block speech_style %}Speaks plainly, with a slight Nord accent that strengthens when tired or emotional. Sentences are full and joined — practical and economical, but not chopped into telegraphic answers. Around business and trade, the voice is brief and matter-of-fact; around hunting stories, it loosens and gets more animated. Weather and animal behaviour come up the way other people talk about the news. There is a quiet authority on wilderness matters that does not need to be performed.{% endblock %}

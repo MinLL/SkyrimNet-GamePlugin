@@ -33,4 +33,4 @@
 - Transformation into mist form for short periods
 {% endblock %}
 
-{% block speech_style %}Speaks in a hushed, melodic voice with deliberate pacing. Uses archaic turns of phrase from their mortal era. Elongates 's' sounds slightly when excited or hungry. Formal and precise in word choice. Drops to whispers when discussing hunting or blood. Occasional dry, dark humor delivered with deadpan timing.{% endblock %}
+{% block speech_style %}Speaks softly and deliberately, with the kind of paced delivery that comes from spending most of one's life alone in fog. Sentences are full and joined — measured, never chopped — and word choice is precise without being ornate. Older turns of phrase from their mortal era surface naturally rather than being put on. Dry, dark humor lands flat and unhurried, not as a punchline. When the conversation turns toward blood or hunting they go quieter and more attentive, but they do not lapse into stage hisses or sentence fragments to mark the shift.{% endblock %}

@@ -33,4 +33,4 @@
 - Remembering fragments of Imperial songs and prayers
 {% endblock %}
 
-{% block speech_style %}Speaks in fragmented, disjointed sentences with frequent pauses. Voice wavers between whispers and normal volume. Words slur when particularly weak after feedings. Occasional Imperial accent emerges during moments of clarity. Questions often trail off unfinished. Tone shifts between vacant, frightened, and rarely, determined. Struggles to maintain coherent thoughts for more than a few sentences.{% endblock %}
+{% block speech_style %}Speaks haltingly, in fragments that reach for full sentences and don't always make it. Voice wavers between whispers and normal volume. Words slur when she is particularly weak after feedings. Her Imperial accent emerges more clearly in moments of clarity. Questions often trail off unfinished. Tone shifts between vacant, frightened, and rarely, determined. Struggles to hold onto a thought for more than a few sentences before it slips.{% endblock %}

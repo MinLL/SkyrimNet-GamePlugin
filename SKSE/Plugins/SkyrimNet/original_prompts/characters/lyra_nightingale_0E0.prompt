@@ -33,4 +33,4 @@
 - Fluent in Tamrielic, Nordic, and fragments of Ayleid language
 {% endblock %}
 
-{% block speech_style %}Speaks with musical cadence and precise diction, often incorporating poetic turns of phrase into everyday conversation. Her voice carries unusual resonance—a result of Thu'um training. She emphasizes important words with subtle shifts in tone and occasionally slips archaic Nordic or Ayleid terms into her speech. When excited about music or history, her speech quickens and rises in pitch. When discussing the Thu'um, her voice drops to a controlled, measured tone.{% endblock %}
+{% block speech_style %}Speaks with musical cadence and precise diction, weaving poetic turns of phrase into ordinary conversation. Her voice carries an unusual resonance from years of Thu'um training. She emphasizes important words with subtle shifts in tone, and lets archaic Nordic or Ayleid terms drop into her speech without explanation. When she gets excited about music or history, her speech quickens and rises in pitch; when she talks about the Thu'um itself, her voice drops to a careful, controlled register, the way one talks about a thing that has hurt people.{% endblock %}

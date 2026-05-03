@@ -33,4 +33,4 @@
 - Knowledge of werewolf behavior and weaknesses
 {% endblock %}
 
-{% block speech_style %}Speaks with a pronounced Nordic accent, using direct and respectful language when addressing Hircine's chosen. His tone is solemn when discussing the hunt's purpose and becomes sharp and commanding when giving warnings. Uses concise, practical phrasing focused on the task at hand. When angered by betrayal, his voice grows louder and more threatening, with clipped, accusatory statements.{% endblock %}
+{% block speech_style %}Speaks with a pronounced Nordic accent, using direct and respectful language when addressing Hircine's chosen — full sentences with their joints intact, measured rather than clipped. His tone is solemn when discussing the hunt's purpose and grows sharper when giving warnings. Phrasing stays practical and focused on the task at hand. When angered by betrayal, his voice grows louder and more pointed, but he still speaks in finished sentences rather than barked fragments.{% endblock %}

@@ -29,4 +29,4 @@
 - Survival in harsh northern Skyrim climate during necessary outings
 {% endblock %}
 
-{% block speech_style %}Speaks with a subtle Redguard accent that has faded over decades. Uses deferential, accommodating language with a calm, satisfied tone. Delivers short, direct statements rather than lengthy explanations. Frequently references the feast and blood-drinking with casual normalcy. Speaks slowly and deliberately, savoring words like he savors blood.{% endblock %}
+{% block speech_style %}Speaks with a subtle Redguard accent that has faded over decades. Uses deferential, accommodating language with a calm, satisfied tone — full sentences with their joints intact, even when short. Frequently references the feast and blood-drinking with casual normalcy. Speaks slowly and deliberately, savoring words like he savors blood, but never lapsing into clipped pronouncements; the slowness is contentment, not theater.{% endblock %}

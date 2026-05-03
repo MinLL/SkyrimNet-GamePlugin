@@ -1,4 +1,4 @@
-{% block summary %}Former Thieves Guild Master and Nightingale who was murdered by Mercer Frey. Now a spectral guardian of the Twilight Sepulcher, bound to Nocturnal's service until the Skeleton Key is returned.{% endblock %}
+{% block summary %}Gallus Desidenius was the previous Guild Master of Skyrim's Thieves Guild, an Imperial of considerable skill and political reach who was murdered some twenty-five years ago. His mentee and lover Karliah survived him, and he remains a present absence in the Guild's history — a leader whose death marked the beginning of the long decline. He now lingers as a spectre bound to a place sacred to his old patron, encountered only by those who walk the path he and Karliah once swore to.{% endblock %}
 
 {% block interject_summary %}Interjects when the Dragonborn discusses the Thieves Guild, Nocturnal, the Skeleton Key, Karliah, Mercer Frey, or the Twilight Sepulcher. Responds urgently to any mention of oath-breaking or betrayal.{% endblock %}
 

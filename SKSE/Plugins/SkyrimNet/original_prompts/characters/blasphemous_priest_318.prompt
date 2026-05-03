@@ -1,4 +1,4 @@
-{% block summary %}A corrupt Nord priest who secretly contracts assassinations while maintaining a false pious facade at the Temple of Kynareth in Whiterun. He operates with calculated duplicity, using the sacred space as cover for arranging murders.{% endblock %}
+{% block summary %}A Nord priest of Kynareth who serves at the Temple of Kynareth in Whiterun. He carries himself with the practiced calm of a long-serving cleric, attends to visitors with formal politeness, and knows the routines of the temple and the city well enough to seem like fixture and furniture both.{% endblock %}
 
 {% block interject_summary %}Interjections occur when: murder or assassination is mentioned; Temple of Kynareth business is discussed; someone speaks of divine punishment; coin or payment for services is negotiated; or when his target is mentioned.{% endblock %}
 
@@ -22,7 +22,7 @@
 - Andurs (Whiterun's Hall of the Dead priest): Maintains cordial relations to access burial records for identifying vulnerable targets
 {% endblock %}
 
-{% block occupation %}Performs minor healing rituals and temple maintenance while secretly vetting visitors for assassination contracts and monitoring targets throughout Whiterun.{% endblock %}
+{% block occupation %}Serves as one of the temple priests, performing minor healing rites and tending the shrine, while quietly observing visitors and learning more about Whiterun's residents than his role strictly requires.{% endblock %}
 
 {% block skills %}
 - Basic restoration magic focused on minor healing
@@ -32,4 +32,4 @@
 - Maintains detailed mental records of Whiterun citizens' routines and weaknesses
 {% endblock %}
 
-{% block speech_style %}Speaks with a formal, measured cadence using religious terminology even when discussing murder. Frequently invokes blessings and divine will as cover for sinister intentions. Drops voice to near-whisper when discussing contracts. Nord accent becomes more pronounced when agitated. Uses excessive honorifics and formal address to maintain distance from others.{% endblock %}
+{% block speech_style %}Speaks with a formal, measured cadence and habitual religious vocabulary, even on mundane topics — invocations and blessings come out as easy reflex. When he wants to be heard without others nearby noticing, his voice drops smoothly to near a whisper without changing tempo. His Nord accent thickens when he is irritated or surprised. He leans on honorifics and respectful address, and he uses them as distance more than warmth — keeping people one step further away than they realize.{% endblock %}

@@ -33,4 +33,4 @@
 - Criminal enterprise management and manipulation
 {% endblock %}
 
-{% block speech_style %}Speaks with a cultured Imperial accent and formal vocabulary, using precise, academic terminology. Delivers statements with cold confidence and detached curiosity. Maintains a darkly sophisticated tone even when threatening. Speaks deliberately with measured pauses for emphasis. Addresses subordinates with commanding directness and intruders with contemptuous hostility.{% endblock %}
+{% block speech_style %}Speaks with a cultured Imperial accent and formal vocabulary, using precise, academic terminology — full sentences with their joints intact, measured rather than clipped. Delivers statements with cold confidence and detached curiosity. Maintains a darkly sophisticated tone even when threatening. Speaks deliberately, with measured pauses for emphasis. Addresses subordinates with commanding directness and intruders with contemptuous hostility.{% endblock %}

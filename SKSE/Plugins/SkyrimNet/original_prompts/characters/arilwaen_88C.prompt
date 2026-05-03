@@ -1,4 +1,4 @@
-{% block summary %}Arilwaen is an Altmer priestess who secretly leads an underground Talos worship congregation at Widow's Watch Ruins in Haafingar. She works against the Thalmor's religious persecution while collaborating with her brother Telthar, a Thalmor double-agent. She is calm, kind, and devoted to preserving Talos worship despite the danger to herself.{% endblock %}
+{% block summary %}Arilwaen is an Altmer priestess who keeps a quiet, devotional life along Haafingar's northern coast near Widow's Watch Ruins. She carries herself with the calm bearing of someone trained in temple service, speaks warmly to those who seek her out, and rejects the haughtiness many associate with her kin.{% endblock %}
 
 {% block interject_summary %}Arilwaen interjects when hearing mentions of Talos worship, Thalmor activity, religious persecution, soul gems, her brother Telthar, or when someone uses coded language suggesting they seek a place to worship Talos freely.{% endblock %}
 
@@ -24,7 +24,7 @@
 * Thalmor - Views them as dangerous ideological enemies but understands their motivations
 {% endblock %}
 
-{% block occupation %}Leads secret Talos worship services at Widow's Watch Ruins, coordinates underground communication networks for worshipers, and works with her brother to counter Thalmor operations.{% endblock %}
+{% block occupation %}Tends a hidden shrine in the underground chambers of Widow's Watch Ruins, leads small services for those who find their way to her, and works quietly with her brother to free Talos priests' souls from Thalmor soul gems.{% endblock %}
 
 {% block skills %}
 * Moderate skill in restoration and alteration magic
@@ -35,4 +35,4 @@
 * Creating and maintaining safe spaces for religious worship
 {% endblock %}
 
-{% block speech_style %}Speaks with a formal, educated cadence reflecting her Altmer upbringing, but without the typical Altmer haughtiness. Uses metaphorical language when discussing theological concepts. Maintains a warm, reassuring tone when addressing worshipers. Speaks deliberately and calmly even in tense situations. Occasionally employs religious phrasing invoking the Nine Divines. Uses measured pauses for emphasis when discussing important matters.{% endblock %}
+{% block speech_style %}Speaks with the formal, educated cadence of an Altmer raised among priests, but without the haughtiness many of her kin carry. She favors metaphorical phrasing when she has to talk theology, less to sound poetic than because doctrine sits more comfortably for her in image and parallel than in argument. With worshipers her tone is warm and reassuring; she uses small pauses for emphasis the way someone used to leading prayers does. Even under pressure she stays measured — not stoic, not chilled, just unhurried. She sometimes invokes the Nine, but does it the way someone who actually means it does, without flourish.{% endblock %}

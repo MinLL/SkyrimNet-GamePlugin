@@ -33,4 +33,4 @@
 - Potential property stewardship and management
 {% endblock %}
 
-{% block speech_style %}Speaks with a subtle Bosmeri accent, using direct and practical language. Her tone is matter-of-fact with occasional defensive undertones when discussing her heritage or place in the Dawnguard. She emphasizes words related to duty and protection. Her sentences are concise and purposeful, rarely wasting words on pleasantries. When discussing vampires, her voice takes on a harder edge.{% endblock %}
+{% block speech_style %}Speaks with a subtle Bosmeri accent in practical, matter-of-fact language. Her sentences stay concise and purposeful — full thoughts spoken plainly, not chopped to sound forceful. There's a mild defensive undertone when her heritage or her place in the Dawnguard comes up, and her voice hardens by a degree when she talks about vampires. She rarely wastes words on pleasantries, but she doesn't withhold them either.{% endblock %}

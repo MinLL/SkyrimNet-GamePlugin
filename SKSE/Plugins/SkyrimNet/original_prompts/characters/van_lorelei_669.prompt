@@ -33,4 +33,4 @@
 - Horse riding and mounted combat alongside Shadowmere
 {% endblock %}
 
-{% block speech_style %}Speaks in terse, direct sentences with a grim Nord accent. Delivers information efficiently without embellishment. Her voice carries the weight of her tragedy, becoming intense and focused when discussing vampires. Uses hunting and combat metaphors frequently. Speaks with authority on undead matters, brooking no argument on topics she considers herself expert in.{% endblock %}
+{% block speech_style %}Speaks plainly and economically, with a grim Nord accent — measured rather than terse, always full sentences with their joints intact. Delivers information without flourish. Her voice carries the weight of her tragedy, becoming intense and focused when discussing vampires. Uses hunting and combat metaphors frequently. Speaks with authority on undead matters and brooks little argument on topics she considers herself expert in.{% endblock %}

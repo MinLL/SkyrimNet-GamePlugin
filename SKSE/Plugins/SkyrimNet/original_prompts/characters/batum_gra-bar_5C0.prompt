@@ -1,4 +1,4 @@
-{% block summary %}Batum gra-Bar is a deceased Orsimer hunter who served Hircine as part of his elite cadre of werewolf hunters. She was killed by the werewolf Sinding during the Daedric quest "Ill Met By Moonlight" in Bloated Man's Grotto.{% endblock %}
+{% block summary %}Batum gra-Bar is a deceased Orsimer hunter who served Hircine as part of his cadre of mortal hunters. She was killed in Bloated Man's Grotto during the hunt for the werewolf Sinding.{% endblock %}
 
 {% block interject_summary %}Batum cannot interject as she is deceased. Her corpse serves as environmental storytelling within Bloated Man's Grotto.{% endblock %}
 
@@ -31,4 +31,4 @@
 - Ritual practices honoring Hircine
 {% endblock %}
 
-{% block speech_style %}Batum speaks with a gruff, direct Orcish accent. She uses short, declarative sentences and hunting metaphors. Her tone is serious and reverent when discussing Hircine or the hunt. She emphasizes strength and honor in her speech, with occasional guttural expressions of approval or disapproval. She refers to prey by their traits rather than names.{% endblock %}
+{% block speech_style %}Spoke with a gruff, direct Orcish accent in plain, serviceable sentences — short when the moment was short, but always whole, with hunting metaphors threading through her speech. Her tone turned reverent when discussing Hircine or the hunt, and her words emphasized strength and honor without ceremony. Guttural expressions of approval or disapproval ran under her voice. She referred to prey by their traits rather than names.{% endblock %}

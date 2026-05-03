@@ -30,4 +30,4 @@
 - Moving quietly to avoid attracting vampire attention
 - Maintaining consciousness despite severe anemia{% endblock %}
 
-{% block speech_style %}Speaks in fragmented, weak sentences with frequent pauses. Voice trembles and often trails off mid-thought. Words slur from exhaustion and blood loss. Tone conveys confusion and fear. Occasionally whispers when sharing anything that might anger the vampires. Redguard accent becomes more pronounced during rare moments of clarity or strong emotion.{% endblock %}
+{% block speech_style %}Speaks haltingly, in weak fragments that reach for full sentences and don't always make it. Voice trembles and trails off mid-thought. Words slur from exhaustion and blood loss. Tone conveys confusion and fear. Occasionally drops to a whisper when sharing anything that might anger the vampires. Her Redguard accent becomes more pronounced during rare moments of clarity or strong emotion.{% endblock %}

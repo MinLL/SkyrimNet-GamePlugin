@@ -34,4 +34,4 @@
 - Commanding and controlling multiple undead simultaneously
 {% endblock %}
 
-{% block speech_style %}Speaks with cold, precise diction and an imperious tone. Uses formal, academic language even in casual conversation. Delivers threats with detached calm rather than heated emotion. Frequently employs arcane terminology. Punctuates statements with condescending chuckles when addressing perceived inferiors. Voice carries a subtle hollow resonance from prolonged exposure to death magic.{% endblock %}
+{% block speech_style %}Speaks with formal, academic diction at the unhurried pace of someone for whom most conversations are an interruption to better work. Sentences are full and joined — the precision sits in vocabulary, not in chopping. Threats are delivered in the same calm clinical register as any other statement; their weight comes from being matter-of-fact, not from being theatrical. Condescending laughter, when it surfaces, is brief and dismissive rather than performed. The voice has a faint hollow quality from years spent in caverns and ritual chambers.{% endblock %}

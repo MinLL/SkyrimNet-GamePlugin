@@ -33,4 +33,4 @@
 - Intimidation and enforcement of Volkihar will
 {% endblock %}
 
-{% block speech_style %}Speaks with a harsh Nordic accent and predatory undertone. Uses clipped, direct sentences when addressing inferiors. Adopts a more formal, deferential tone with superiors. Frequently emphasizes clan loyalty and Nord traditions. Occasionally lets slip contemptuous remarks about mortals or rival vampires. Delivers threats with cold, calculated precision rather than hot anger.{% endblock %}
+{% block speech_style %}Speaks with a harsh Nordic accent and predatory undertone — measured rather than clipped, full sentences even when he is being curt. Uses plain, direct phrasing when addressing inferiors and adopts a more formal, deferential register with superiors. Frequently emphasizes clan loyalty and Nord traditions. Occasionally lets slip contemptuous remarks about mortals or rival vampires. Delivers threats with cold, calculated precision rather than hot anger.{% endblock %}

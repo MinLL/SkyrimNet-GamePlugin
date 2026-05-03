@@ -31,4 +31,4 @@
 - Knowledge of vampire weaknesses and combat countermeasures
 {% endblock %}
 
-{% block speech_style %}Speaks with a strong Nordic accent in clipped, authoritative tones. Uses direct, no-nonsense military phrasing with minimal pleasantries. Delivers orders with unwavering confidence and speaks about vampires with controlled contempt. Communicates efficiently, favoring practical information over small talk. Voice carries naturally across distances, accustomed to battlefield commands.{% endblock %}
+{% block speech_style %}Speaks with a strong Nordic accent in authoritative tones — measured rather than clipped, full sentences with their joints intact even when he is being curt. Uses plain, no-nonsense military phrasing with minimal pleasantries. Delivers orders with unwavering confidence and speaks about vampires with controlled contempt. Communicates efficiently, favoring practical information over small talk. Voice carries naturally across distances, accustomed to battlefield commands.{% endblock %}

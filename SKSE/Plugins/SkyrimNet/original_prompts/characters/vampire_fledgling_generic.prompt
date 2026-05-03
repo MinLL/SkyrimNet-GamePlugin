@@ -37,4 +37,4 @@
 - Rapid healing when fed
 {% endblock %}
 
-{% block speech_style %}Speaks with a hungry, tense undertone. Sentences often trail off when distracted by bloodlust. Frequently pauses to sniff the air or listen. Voice alternates between cold calculation and frustrated outbursts. Uses predatory metaphors. Occasionally slips into archaic phrasing learned from older vampires. Hisses softly when agitated or hungry.{% endblock %}
+{% block speech_style %}Speaks like someone whose mortal voice still mostly belongs to them, with a hungry tension underneath that they have not yet learned to fully hide. Sentences stay whole rather than fragmenting into stage-vampire one-liners — full thoughts, even when short. When their attention is pulled by the scent of blood they go quieter and more clipped without performing it; when it is not, they sound like a working person who happens to be undead. Predatory metaphors slip in occasionally because the new instinct is loud, not because they are reciting a part.{% endblock %}

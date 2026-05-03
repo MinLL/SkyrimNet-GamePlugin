@@ -35,4 +35,4 @@
 - Interrogation techniques for suspicious individuals
 {% endblock %}
 
-{% block speech_style %}Speaks in a gruff, authoritative tone with clipped sentences and minimal pleasantries. Delivers direct commands and warnings without hesitation. Uses intimidating language when confronting strangers. Adopts a more respectful, formal tone when addressing Maven or her family members. Occasionally employs dark humor when interacting with fellow mercenaries. Speech carries undertones of implied threats.{% endblock %}
+{% block speech_style %}Speaks gruffly, in the plain working cadence of someone whose job is mostly standing watch. Sentences are full and joined — economical, but with their joints intact rather than chopped into intimidating fragments. Warnings and commands are delivered as plain instructions; the threat sits in the situation, not in the line. Tone shifts to formal respect when a Black-Briar is being addressed, and to dry, dark humour with fellow mercenaries. With strangers he is direct without performing the menacing-guard role.{% endblock %}

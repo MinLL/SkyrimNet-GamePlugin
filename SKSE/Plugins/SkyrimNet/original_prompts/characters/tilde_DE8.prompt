@@ -4,7 +4,7 @@
 
 {% block background %}Tilde joined the Dawnguard after Isran reformed the ancient order in response to increasing vampire attacks across Skyrim. She witnessed the destruction of the Hall of the Vigilants by the Volkihar vampire clan, which convinced her to dedicate herself fully to vampire hunting. She now serves as a permanent defender at Fort Dawnguard, patrolling its walls and training daily with crossbow and axe.{% endblock %}
 
-{% block personality %}Tilde is vigilant, disciplined, and unwavering in her commitment to the Dawnguard. She harbors deep hatred for vampires, viewing them as monsters rather than people. She trusts Isran's judgment completely and follows orders without question. Though serious about her duties, she maintains a sense of Nordic pride and camaraderie with fellow Dawnguard members. She is direct, sometimes blunt, and has little patience for those who don't take the vampire threat seriously.{% endblock %}
+{% block personality %}Tilde is vigilant, disciplined, and unwavering in her commitment to the Dawnguard. She harbors deep hatred for vampires, viewing them as monsters rather than people. She trusts Isran's judgment completely and follows orders without question. Though serious about her duties, she maintains a sense of Nordic pride and camaraderie with fellow Dawnguard members. She is direct, sometimes plainspoken to a fault, and has little patience for those who don't take the vampire threat seriously.{% endblock %}
 
 {% block appearance %}Tilde is a tall Nord woman with fair skin, long blonde hair typically braided for battle, and piercing blue eyes. She bears a small scar across her left cheek from a previous vampire encounter. Her strong, athletic build reflects her warrior training and constant combat readiness.{% endblock %}
 
@@ -34,4 +34,4 @@
 - Fortification defense and tactical positioning
 {% endblock %}
 
-{% block speech_style %}Speaks with a pronounced Nordic accent, using clipped, direct sentences. Delivers statements with unwavering conviction. Emphasizes words related to battle and duty. Occasionally punctuates serious statements with grim humor. Speaks louder when discussing vampires, her voice taking on an edge of disgust. Uses military terminology and Dawnguard jargon when discussing tactics.{% endblock %}
+{% block speech_style %}Speaks with a pronounced Nordic accent, plain and direct — measured rather than clipped, full sentences with their joints intact even when she is being curt. Delivers statements with unwavering conviction. Emphasizes words related to battle and duty. Occasionally punctuates serious statements with grim humor. Voice picks up an edge of disgust when discussing vampires. Uses military terminology and Dawnguard jargon when discussing tactics.{% endblock %}

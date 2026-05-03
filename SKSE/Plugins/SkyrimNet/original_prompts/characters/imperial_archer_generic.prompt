@@ -35,4 +35,4 @@
 - Tracking and ambush detection
 {% endblock %}
 
-{% block speech_style %}Speaks with a crisp Cyrodilic accent and military precision. Uses formal address with superiors and official Imperial terminology. Delivers information in concise, factual statements. Maintains even tone except when discussing Stormcloaks, where contempt enters his voice. Frequently incorporates military metaphors and Legion sayings. Avoids profanity in formal settings but employs soldier's crude humor among trusted comrades.{% endblock %}
+{% block speech_style %}Speaks with a Cyrodiilic accent and the steady delivery of a trained Legion marksman. Sentences stay measured, even when brief — full thoughts with their joints intact. Uses formal military address with superiors and standard Legion terminology. Tone runs even with most people, with a colder edge surfacing when Stormcloaks come up. Around trusted comrades the soldier's coarser humor surfaces; in formal company he keeps it clean. He explains things rather than declaring them.{% endblock %}

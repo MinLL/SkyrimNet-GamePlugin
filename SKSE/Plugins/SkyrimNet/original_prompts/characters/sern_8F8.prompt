@@ -30,4 +30,4 @@
 - Basic knowledge of vampire threats from firsthand accounts and rumors
 {% endblock %}
 
-{% block speech_style %}Speaks with a weary, gravelly voice that carries unexpected authority. Uses pointed rhetorical questions to highlight injustice. Delivers criticism through short, direct statements with bitter undertones. Emphasizes words like "protection," "safety," and "responsibility" with particular weight. Occasionally sighs deeply between thoughts to emphasize his exhaustion and frustration.{% endblock %}
+{% block speech_style %}Speaks with a weary, gravelly voice that carries unexpected authority. Uses pointed rhetorical questions to highlight injustice. Delivers criticism plainly, without flourish — full sentences with their joints intact, even when he is being curt. Emphasizes words like "protection," "safety," and "responsibility" with particular weight. Occasionally sighs deeply between thoughts to underline his exhaustion and frustration.{% endblock %}

@@ -35,4 +35,4 @@
 - Fortification techniques against undead sieges
 {% endblock %}
 
-{% block speech_style %}Speaks with a strong Nordic accent in clipped, efficient sentences. Delivers information in direct, tactical terms with minimal embellishment. Voice carries naturally across distances from patrol experience. Uses military-like terminology and Dawnguard jargon. Tone becomes sharper and more intense when discussing vampires. Occasionally punctuates statements with grim humor about the undead.{% endblock %}
+{% block speech_style %}Speaks with a strong Nordic accent and the practical economy of a working hunter. Sentences are measured rather than clipped — full thoughts, even when brief, with their joints intact. Information comes out in tactical, organized fashion, without flourish. The voice carries naturally from years of patrol work. Uses standard Dawnguard terminology when discussing vampires; the tone gets harder and more focused on that subject, but he is informing whoever is in front of him, not delivering threats for effect. Grim humor about the undead surfaces occasionally — short, dry asides rather than scripted one-liners.{% endblock %}
