@@ -1,9 +1,6 @@
 # Default preset — mirrors the in-code TextModelConfig defaults.
 # Mod-registered variants inherit base by default (intentionally not
 # listed here so they fall through to the base rotation).
-providers:
-  active_provider_id: openrouter
-
 openrouter:
   model_name: deepseek/deepseek-v3.2
   model_params:

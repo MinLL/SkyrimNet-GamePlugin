@@ -1,9 +1,6 @@
 # Budget preset — Gemma-3 27B for the cheap bulk variants, Qwen 235B
 # for jobs that need more reasoning, and Grok Fast / Qwen-VL for meta
 # and vision. Mod-registered variants inherit base.
-providers:
-  active_provider_id: openrouter
-
 openrouter:
   model_name: google/gemma-4-31b-it
   model_params:

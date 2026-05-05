@@ -4,9 +4,6 @@
 # vision. Higher cost — expect a noticeable bill on heavy sessions.
 # Sonnet runs at temp 1.0 for more variety in dialogue.
 # Mod-registered variants inherit base.
-providers:
-  active_provider_id: openrouter
-
 openrouter:
   model_name: anthropic/claude-sonnet-4.6
   model_params:
