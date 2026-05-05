@@ -1,0 +1,30 @@
+# SkyrimNet model-presets manifest. The dashboard fetches this once
+# (cached ~10 min) and uses it to enumerate built-in presets and the
+# recommended-models file. Drop a new YAML file into ./presets/ and
+# add an entry below — no code change needed.
+version: 1
+recommended_models: recommended-models.yaml
+presets:
+  - id: openrouter-budget
+    name: Budget
+    description: >-
+      Cheap, fast models (Grok Fast, Gemini Flash, GLM). Good for
+      high-volume runs. Requires an OpenRouter API key.
+    provider: openrouter
+    file: presets/openrouter-budget.yaml
+
+  - id: openrouter-default
+    name: Default
+    description: >-
+      Sonnet for dialogue + DeepSeek rotation. Solid quality/cost
+      mix. Requires an OpenRouter API key.
+    provider: openrouter
+    file: presets/openrouter-default.yaml
+
+  - id: openrouter-performance
+    name: Performance
+    description: >-
+      Sonnet 4.6 across the board for highest dialogue quality.
+      Higher cost. Requires an OpenRouter API key.
+    provider: openrouter
+    file: presets/openrouter-performance.yaml

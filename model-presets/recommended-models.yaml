@@ -1,0 +1,25 @@
+# Recommended models surfaced in the dashboard's ModelPicker
+# "Recommended" section. Keys are provider id → variant → list of
+# { id, temp } entries. The picker uses `dialogue` as the fallback
+# variant, so any variant we don't list here gets the dialogue list.
+openrouter:
+  dialogue:
+    - { id: anthropic/claude-sonnet-4.6,    temp: 0.7 }
+    - { id: deepseek/deepseek-v3.2,         temp: 0.7 }
+    - { id: qwen/qwen3-235b-a22b-2507,      temp: 0.7 }
+    - { id: z-ai/glm-4.7,                   temp: 0.7 }
+    - { id: x-ai/grok-4.1-fast,             temp: 0.7 }
+    - { id: google/gemini-2.5-flash,        temp: 0.7 }
+
+  memory:
+    - { id: google/gemini-2.5-flash, temp: 0.5 }
+    - { id: x-ai/grok-4.1-fast,      temp: 0.5 }
+    - { id: deepseek/deepseek-v3.2,  temp: 0.5 }
+
+  meta:
+    - { id: x-ai/grok-4.1-fast,      temp: 0.3 }
+    - { id: google/gemini-2.5-flash, temp: 0.3 }
+
+  vision:
+    - { id: qwen/qwen3-vl-235b-a22b-instruct, temp: 0.5 }
+    - { id: google/gemini-2.5-flash,          temp: 0.5 }

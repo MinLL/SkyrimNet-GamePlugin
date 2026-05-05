@@ -1,0 +1,84 @@
+# Budget preset — Gemma-3 27B for the cheap bulk variants, Qwen 235B
+# for jobs that need more reasoning, and Grok Fast / Qwen-VL for meta
+# and vision. Mod-registered variants inherit base.
+providers:
+  active_provider_id: openrouter
+
+openrouter:
+  model_name: google/gemma-4-31b-it
+  model_params:
+    - { name: google/gemma-4-31b-it, provider_id: openrouter, temperature: 0.7 }
+
+  default_params:
+    temperature: 0.7
+    max_tokens: 4096
+    top_p: 1
+    top_k: 5
+    frequency_penalty: 0
+    presence_penalty: 0
+
+  variants:
+    AgentDefault:
+      model_name: anthropic/claude-haiku-4.5
+      timeout: 120
+      model_params:
+        - { name: anthropic/claude-haiku-4.5, provider_id: openrouter, temperature: 0.7 }
+      default_params: { temperature: 0.7, max_tokens: 32000 }
+
+    CharacterProfileGeneration:
+      model_name: qwen/qwen3-235b-a22b-2507
+      timeout: 300
+      model_params:
+        - { name: qwen/qwen3-235b-a22b-2507, provider_id: openrouter, temperature: 0.7 }
+      default_params: { temperature: 0.7, max_tokens: 10000 }
+
+    DiaryGeneration:
+      model_name: qwen/qwen3-235b-a22b-2507
+      timeout: 120
+      model_params:
+        - { name: qwen/qwen3-235b-a22b-2507, provider_id: openrouter, temperature: 0.8 }
+      default_params: { temperature: 0.8, max_tokens: 12000 }
+
+    UniversalTranslator:
+      model_name: x-ai/grok-4.1-fast
+      model_params:
+        - { name: x-ai/grok-4.1-fast, provider_id: openrouter, temperature: 0.7 }
+      default_params: { temperature: 0.7, max_tokens: 512 }
+
+    combat:
+      model_name: google/gemma-4-31b-it
+      model_params:
+        - { name: google/gemma-4-31b-it, provider_id: openrouter, temperature: 0.8 }
+      default_params: { temperature: 0.8, max_tokens: 2000 }
+
+    action_evaluation:
+      model_name: google/gemma-4-31b-it
+      model_params:
+        - { name: google/gemma-4-31b-it, provider_id: openrouter, temperature: 0.7 }
+      default_params: { temperature: 0.7, max_tokens: 500 }
+
+    gamemaster_evaluation:
+      model_name: google/gemma-4-31b-it
+      timeout: 30
+      model_params:
+        - { name: google/gemma-4-31b-it, provider_id: openrouter, temperature: 0.8 }
+      default_params: { temperature: 0.8, max_tokens: 256 }
+
+    memory:
+      model_name: qwen/qwen3-235b-a22b-2507
+      timeout: 60
+      model_params:
+        - { name: qwen/qwen3-235b-a22b-2507, provider_id: openrouter, temperature: 0.7 }
+      default_params: { temperature: 0.7, max_tokens: 4000 }
+
+    meta:
+      model_name: x-ai/grok-4.1-fast
+      model_params:
+        - { name: x-ai/grok-4.1-fast, provider_id: openrouter, temperature: 0.7 }
+      default_params: { temperature: 0.7, max_tokens: 100 }
+
+    vision:
+      model_name: qwen/qwen3-vl-235b-a22b-instruct
+      model_params:
+        - { name: qwen/qwen3-vl-235b-a22b-instruct, provider_id: openrouter, temperature: 0.7 }
+      default_params: { temperature: 0.7, max_tokens: 4000 }
