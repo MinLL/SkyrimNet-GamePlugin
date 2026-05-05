@@ -3,82 +3,75 @@
 # Haiku for the agent; Grok Fast for meta and translator; Qwen VL for
 # vision. Higher cost — expect a noticeable bill on heavy sessions.
 # Sonnet runs at temp 1.0 for more variety in dialogue.
-# Mod-registered variants inherit base.
-openrouter:
-  model_name: anthropic/claude-sonnet-4.6
-  model_params:
-    - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+# Mod-registered variants inherit the default rotation.
+variants:
+  default:
+    model_name: anthropic/claude-sonnet-4.6
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 4096 }
 
-  default_params:
-    temperature: 1.0
-    max_tokens: 4096
-    top_p: 1
-    top_k: 5
-    frequency_penalty: 0
-    presence_penalty: 0
+  AgentDefault:
+    model_name: anthropic/claude-haiku-4.5
+    timeout: 120
+    model_params:
+      - { name: anthropic/claude-haiku-4.5, provider_id: openrouter, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 32000 }
 
-  variants:
-    AgentDefault:
-      model_name: anthropic/claude-haiku-4.5
-      timeout: 120
-      model_params:
-        - { name: anthropic/claude-haiku-4.5, provider_id: openrouter, temperature: 0.7 }
-      default_params: { temperature: 0.7, max_tokens: 32000 }
+  CharacterProfileGeneration:
+    model_name: anthropic/claude-sonnet-4.6
+    timeout: 300
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 10000 }
 
-    CharacterProfileGeneration:
-      model_name: anthropic/claude-sonnet-4.6
-      timeout: 300
-      model_params:
-        - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
-      default_params: { temperature: 1.0, max_tokens: 10000 }
+  DiaryGeneration:
+    model_name: anthropic/claude-sonnet-4.6
+    timeout: 120
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 12000 }
 
-    DiaryGeneration:
-      model_name: anthropic/claude-sonnet-4.6
-      timeout: 120
-      model_params:
-        - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
-      default_params: { temperature: 1.0, max_tokens: 12000 }
+  UniversalTranslator:
+    model_name: x-ai/grok-4.1-fast
+    model_params:
+      - { name: x-ai/grok-4.1-fast, provider_id: openrouter, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 512 }
 
-    UniversalTranslator:
-      model_name: x-ai/grok-4.1-fast
-      model_params:
-        - { name: x-ai/grok-4.1-fast, provider_id: openrouter, temperature: 0.7 }
-      default_params: { temperature: 0.7, max_tokens: 512 }
+  combat:
+    model_name: deepseek/deepseek-v3.2
+    model_params:
+      - { name: deepseek/deepseek-v3.2, provider_id: openrouter, temperature: 0.8 }
+    default_params: { temperature: 0.8, max_tokens: 2000 }
 
-    combat:
-      model_name: deepseek/deepseek-v3.2
-      model_params:
-        - { name: deepseek/deepseek-v3.2, provider_id: openrouter, temperature: 0.8 }
-      default_params: { temperature: 0.8, max_tokens: 2000 }
+  action_evaluation:
+    model_name: anthropic/claude-sonnet-4.6
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 500 }
 
-    action_evaluation:
-      model_name: anthropic/claude-sonnet-4.6
-      model_params:
-        - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
-      default_params: { temperature: 1.0, max_tokens: 500 }
+  gamemaster_evaluation:
+    model_name: deepseek/deepseek-v3.2
+    timeout: 30
+    model_params:
+      - { name: deepseek/deepseek-v3.2, provider_id: openrouter, temperature: 0.8 }
+    default_params: { temperature: 0.8, max_tokens: 256 }
 
-    gamemaster_evaluation:
-      model_name: deepseek/deepseek-v3.2
-      timeout: 30
-      model_params:
-        - { name: deepseek/deepseek-v3.2, provider_id: openrouter, temperature: 0.8 }
-      default_params: { temperature: 0.8, max_tokens: 256 }
+  memory:
+    model_name: anthropic/claude-sonnet-4.6
+    timeout: 60
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 4000 }
 
-    memory:
-      model_name: anthropic/claude-sonnet-4.6
-      timeout: 60
-      model_params:
-        - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
-      default_params: { temperature: 1.0, max_tokens: 4000 }
+  meta:
+    model_name: x-ai/grok-4.1-fast
+    model_params:
+      - { name: x-ai/grok-4.1-fast, provider_id: openrouter, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 100 }
 
-    meta:
-      model_name: x-ai/grok-4.1-fast
-      model_params:
-        - { name: x-ai/grok-4.1-fast, provider_id: openrouter, temperature: 0.7 }
-      default_params: { temperature: 0.7, max_tokens: 100 }
-
-    vision:
-      model_name: qwen/qwen3-vl-235b-a22b-instruct
-      model_params:
-        - { name: qwen/qwen3-vl-235b-a22b-instruct, provider_id: openrouter, temperature: 0.7 }
-      default_params: { temperature: 0.7, max_tokens: 4000 }
+  vision:
+    model_name: qwen/qwen3-vl-235b-a22b-instruct
+    model_params:
+      - { name: qwen/qwen3-vl-235b-a22b-instruct, provider_id: openrouter, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 4000 }

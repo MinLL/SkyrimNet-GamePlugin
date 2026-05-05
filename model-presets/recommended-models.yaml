@@ -1,25 +1,201 @@
 # Recommended models surfaced in the dashboard's ModelPicker
 # "Recommended" section. Keys are provider id → variant → list of
-# { id, temp } entries. The picker uses `dialogue` as the fallback
-# variant, so any variant we don't list here gets the dialogue list.
-openrouter:
-  dialogue:
-    - { id: anthropic/claude-sonnet-4.6,    temp: 0.7 }
-    - { id: deepseek/deepseek-v3.2,         temp: 0.7 }
-    - { id: qwen/qwen3-235b-a22b-2507,      temp: 0.7 }
-    - { id: z-ai/glm-4.7,                   temp: 0.7 }
-    - { id: x-ai/grok-4.1-fast,             temp: 0.7 }
-    - { id: google/gemini-2.5-flash,        temp: 0.7 }
+# entries. The picker uses `default` as the fallback variant, so
+# any variant we don't list here gets the default list.
+#
+# Variant keys are the canonical TextModelConfig names — same keys
+# the rest of the codebase uses (`combat`, `CharacterProfileGeneration`,
+# `AgentDefault`, etc.). The Models page's friendly labels
+# ("Dialogue", "Helper Agent", etc.) are display-only.
+#
+# ── Entry syntax ────────────────────────────────────────────────
+# Every field except `id` is optional. When a user picks a model
+# from the picker, any field present on its entry is applied to
+# that rotation slot.
+#
+#   - id: anthropic/claude-sonnet-4.6   # required: provider's model id
+#     temperature: 0.7                  # 0.0 – 2.0
+#     max_tokens: 4000                  # output cap
+#     top_p: 1.0                        # nucleus sampling
+#     top_k: 5                          # top-k sampling (0 = unused)
+#     frequency_penalty: 0              # -2.0 – 2.0
+#     presence_penalty: 0               # -2.0 – 2.0
+#
+# Bare-string form when you have nothing to apply:
+#   - anthropic/claude-haiku-4.5
+#
+# `temp` is accepted as a legacy alias for `temperature`.
+#
+# ── Cross-provider notes ────────────────────────────────────────
+# Each non-OpenRouter entry is the SAME model as one of the
+# OpenRouter recommendations, just under that provider's id format.
+# If a provider doesn't host the same model, the variant gets an
+# explicit empty list rather than a substitute — better to show
+# "no recommendations" than route the user to a different model
+# than the one we'd pick on OpenRouter.
+#
+# Verified against each provider's live /v1/models endpoint.
 
-  memory:
-    - { id: google/gemini-2.5-flash, temp: 0.5 }
-    - { id: x-ai/grok-4.1-fast,      temp: 0.5 }
-    - { id: deepseek/deepseek-v3.2,  temp: 0.5 }
+openrouter:
+  default:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: qwen/qwen3-235b-a22b-2507
+    - id: z-ai/glm-4.7
+    - id: google/gemma-4-31b-it
 
   meta:
-    - { id: x-ai/grok-4.1-fast,      temp: 0.3 }
-    - { id: google/gemini-2.5-flash, temp: 0.3 }
+    - id: x-ai/grok-4.1-fast
+    - id: google/gemini-2.5-flash
+
+  combat:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+    - id: qwen/qwen3-235b-a22b-2507
+
+  action_evaluation:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+
+  gamemaster_evaluation:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+
+  AgentDefault:
+    - id: anthropic/claude-haiku-4.5
+
+  CharacterProfileGeneration:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: qwen/qwen3-235b-a22b-2507
+    - id: z-ai/glm-4.7
+
+  DiaryGeneration:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: qwen/qwen3-235b-a22b-2507
+    - id: z-ai/glm-4.7
+
+  memory:
+    - id: deepseek/deepseek-v3.2
 
   vision:
-    - { id: qwen/qwen3-vl-235b-a22b-instruct, temp: 0.5 }
-    - { id: google/gemini-2.5-flash,          temp: 0.5 }
+    - id: qwen/qwen3-vl-235b-a22b-instruct
+
+  UniversalTranslator:
+    - id: google/gemini-2.5-flash
+    - id: x-ai/grok-4.1-fast
+
+# Nvidia NIM hosts very few of the OpenRouter recommendations. Only
+# GLM-4.7 (`z-ai/glm4.7`, no dash) and Gemma 4 31B IT have direct
+# equivalents. DeepSeek v3 is gone (replaced by v4); Qwen3-235B-
+# A22B-2507 isn't there either (Qwen3-Next / Qwen3.5 are different
+# models).
+nvidia:
+  default:
+    - id: z-ai/glm4.7
+    - id: google/gemma-4-31b-it
+  meta: []
+  combat: []
+  action_evaluation: []
+  gamemaster_evaluation: []
+  AgentDefault: []
+  CharacterProfileGeneration:
+    - id: z-ai/glm4.7
+  DiaryGeneration:
+    - id: z-ai/glm4.7
+  memory: []
+  vision: []
+  UniversalTranslator: []
+
+# NanoGPT — multi-provider proxy that hosts every model OpenRouter
+# recommends. Naming convention varies (Anthropic uses bare ids,
+# xAI keeps the prefix, GLM uses zai-org/ namespace).
+nanogpt:
+  default:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: Qwen/Qwen3-235B-A22B-Instruct-2507
+    - id: zai-org/glm-4.7
+    - id: google/gemma-4-31b-it
+
+  meta:
+    - id: x-ai/grok-4.1-fast
+    - id: gemini-2.5-flash
+
+  combat:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+    - id: Qwen/Qwen3-235B-A22B-Instruct-2507
+
+  action_evaluation:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+
+  gamemaster_evaluation:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+
+  AgentDefault:
+    - id: claude-haiku-4-5-20251001
+
+  CharacterProfileGeneration:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: Qwen/Qwen3-235B-A22B-Instruct-2507
+    - id: zai-org/glm-4.7
+
+  DiaryGeneration:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: Qwen/Qwen3-235B-A22B-Instruct-2507
+    - id: zai-org/glm-4.7
+
+  memory:
+    - id: deepseek/deepseek-v3.2
+
+  vision:
+    - id: qwen3-vl-235b-a22b-instruct-original
+
+  UniversalTranslator:
+    - id: gemini-2.5-flash
+    - id: x-ai/grok-4.1-fast
+
+# Chutes only carries DeepSeek-V3.2, GLM-4.7, and Gemma-4-31B of the
+# OpenRouter recommendations (all with the -TEE suffix that Chutes
+# uses for trusted-execution-environment builds — same underlying
+# models). Qwen3-235B is only available in the Thinking variant
+# there, not Instruct, so it's omitted.
+chutes:
+  default:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+    - id: zai-org/GLM-4.7-TEE
+    - id: google/gemma-4-31B-turbo-TEE
+
+  meta: []
+
+  combat:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+
+  action_evaluation:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+
+  gamemaster_evaluation:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+
+  AgentDefault: []
+
+  CharacterProfileGeneration:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+    - id: zai-org/GLM-4.7-TEE
+
+  DiaryGeneration:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+    - id: zai-org/GLM-4.7-TEE
+
+  memory:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+
+  vision: []
+
+  UniversalTranslator: []
