@@ -39,7 +39,7 @@ Function DisplayUtilities() global
     string labels = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Toggle Actions,Continue Narration,Toggle Continuous Mode,Interrupt Dialogue"
     string options = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Toggle Actions,Continue Narration,Toggle Continuous Mode,Interrupt Dialogue"
 
-    ; Option 8: White/Blacklist management only if there's a target under the crosshair
+    ; Option 7: White/Blacklist management only if there's a target under the crosshair
     Actor akTarget = GetTargetFromCrosshair()
     If akTarget
         labels += ",White/Blacklist Mgmt"
