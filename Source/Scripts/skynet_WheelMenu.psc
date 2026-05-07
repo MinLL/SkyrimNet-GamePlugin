@@ -10,8 +10,8 @@ EndEvent
 ; Text input modes (Think, Transform, Direct, Silent) are handled via prefixes in the PrismaUI chat
 Function DisplayWheel() global
 
-    string labels = "Text Input,Think to Self,Auto Roleplay,Utilities"
-    string options = "Text Input,Think to Self,Auto Roleplay,Utilities Menu"
+    string labels = "Text Input,Think to Self,Auto Roleplay,Toggle Whisper Mode,Utilities"
+    string options = "Text Input,Think to Self,Auto Roleplay,Toggle Whisper Mode,Utilities Menu"
 
     int result = skynet_WheelMenu.MenuWheel(StringUtil.Split(options, ","), StringUtil.Split(labels, ","))
 
@@ -25,6 +25,9 @@ Function DisplayWheel() global
         ; Direct player dialogue processing
         SkyrimNetApi.TriggerPlayerDialogue()
     elseif result == 3
+        ; Toggle whisper mode
+        SkyrimNetApi.TriggerToggleWhisperMode()
+    elseif result == 4
         ; Utilities submenu
         skynet_WheelMenu.DisplayUtilities()
     endif
@@ -33,8 +36,8 @@ EndFunction
 
 Function DisplayUtilities() global
 
-    string labels = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Toggle Actions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode,Interrupt Dialogue"
-    string options = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Toggle Actions,Continue Narration,Toggle Continuous Mode,Toggle Whisper Mode,Interrupt Dialogue"
+    string labels = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Toggle Actions,Continue Narration,Toggle Continuous Mode,Interrupt Dialogue"
+    string options = "Go Back,Toggle GameMaster,Toggle NPC Reactions,Toggle Actions,Continue Narration,Toggle Continuous Mode,Interrupt Dialogue"
 
     ; Option 8: White/Blacklist management only if there's a target under the crosshair
     Actor akTarget = GetTargetFromCrosshair()
@@ -63,12 +66,9 @@ Function DisplayUtilities() global
         ; Toggle continuous mode
         SkyrimNetApi.TriggerToggleContinuousMode()
     elseif result == 6
-        ; Toggle whisper mode
-        SkyrimNetApi.TriggerToggleWhisperMode()
-    elseif result == 7
         ; Interrupt all ongoing dialogue
         SkyrimNetApi.TriggerInterruptDialogue()
-    elseif result == 8
+    elseif result == 7
         ; White/Blacklist management submenu
         ; This option only appears if there's a target under the crosshair
         skynet_WheelMenu.DisplayFactionManagement(akTarget)
