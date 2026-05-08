@@ -1,12 +1,6 @@
 # Recommended models surfaced in the dashboard's ModelPicker
 # "Recommended" section. Keys are provider id → variant → list of
-# entries. The picker uses `default` as the fallback variant, so
-# any variant we don't list here gets the default list.
-#
-# Variant keys are the canonical TextModelConfig names — same keys
-# the rest of the codebase uses (`combat`, `CharacterProfileGeneration`,
-# `AgentDefault`, etc.). The Models page's friendly labels
-# ("Dialogue", "Helper Agent", etc.) are display-only.
+# entries.
 #
 # ── Entry syntax ────────────────────────────────────────────────
 # Every field except `id` is optional. When a user picks a model
@@ -25,16 +19,6 @@
 #   - anthropic/claude-haiku-4.5
 #
 # `temp` is accepted as a legacy alias for `temperature`.
-#
-# ── Cross-provider notes ────────────────────────────────────────
-# Each non-OpenRouter entry is the SAME model as one of the
-# OpenRouter recommendations, just under that provider's id format.
-# If a provider doesn't host the same model, the variant gets an
-# explicit empty list rather than a substitute — better to show
-# "no recommendations" than route the user to a different model
-# than the one we'd pick on OpenRouter.
-#
-# Verified against each provider's live /v1/models endpoint.
 
 openrouter:
   default:
@@ -86,11 +70,6 @@ openrouter:
     - id: google/gemini-2.5-flash
     - id: x-ai/grok-4.1-fast
 
-# Nvidia NIM hosts very few of the OpenRouter recommendations. Only
-# GLM-4.7 (`z-ai/glm4.7`, no dash) and Gemma 4 31B IT have direct
-# equivalents. DeepSeek v3 is gone (replaced by v4); Qwen3-235B-
-# A22B-2507 isn't there either (Qwen3-Next / Qwen3.5 are different
-# models).
 nvidia:
   default:
     - id: z-ai/glm4.7
@@ -108,9 +87,6 @@ nvidia:
   vision: []
   UniversalTranslator: []
 
-# NanoGPT — multi-provider proxy that hosts every model OpenRouter
-# recommends. Naming convention varies (Anthropic uses bare ids,
-# xAI keeps the prefix, GLM uses zai-org/ namespace).
 nanogpt:
   default:
     - id: anthropic/claude-sonnet-4.6
@@ -161,11 +137,6 @@ nanogpt:
     - id: gemini-2.5-flash
     - id: x-ai/grok-4.1-fast
 
-# Chutes only carries DeepSeek-V3.2, GLM-4.7, and Gemma-4-31B of the
-# OpenRouter recommendations (all with the -TEE suffix that Chutes
-# uses for trusted-execution-environment builds — same underlying
-# models). Qwen3-235B is only available in the Thinking variant
-# there, not Instruct, so it's omitted.
 chutes:
   default:
     - id: deepseek-ai/DeepSeek-V3.2-TEE
