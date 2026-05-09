@@ -1,0 +1,172 @@
+# Recommended models surfaced in the dashboard's ModelPicker
+# "Recommended" section. Keys are provider id → variant → list of
+# entries.
+#
+# ── Entry syntax ────────────────────────────────────────────────
+# Every field except `id` is optional. When a user picks a model
+# from the picker, any field present on its entry is applied to
+# that rotation slot.
+#
+#   - id: anthropic/claude-sonnet-4.6   # required: provider's model id
+#     temperature: 0.7                  # 0.0 – 2.0
+#     max_tokens: 4000                  # output cap
+#     top_p: 1.0                        # nucleus sampling
+#     top_k: 5                          # top-k sampling (0 = unused)
+#     frequency_penalty: 0              # -2.0 – 2.0
+#     presence_penalty: 0               # -2.0 – 2.0
+#
+# Bare-string form when you have nothing to apply:
+#   - anthropic/claude-haiku-4.5
+#
+# `temp` is accepted as a legacy alias for `temperature`.
+
+openrouter:
+  default:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: qwen/qwen3-235b-a22b-2507
+    - id: z-ai/glm-4.7
+    - id: google/gemma-4-31b-it
+
+  meta:
+    - id: x-ai/grok-4.1-fast
+    - id: google/gemini-2.5-flash
+
+  combat:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+    - id: qwen/qwen3-235b-a22b-2507
+
+  action_evaluation:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+
+  gamemaster_evaluation:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+
+  AgentDefault:
+    - id: anthropic/claude-haiku-4.5
+
+  CharacterProfileGeneration:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: qwen/qwen3-235b-a22b-2507
+    - id: z-ai/glm-4.7
+
+  DiaryGeneration:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: qwen/qwen3-235b-a22b-2507
+    - id: z-ai/glm-4.7
+
+  memory:
+    - id: deepseek/deepseek-v3.2
+
+  vision:
+    - id: qwen/qwen3-vl-235b-a22b-instruct
+
+  UniversalTranslator:
+    - id: google/gemini-2.5-flash
+    - id: x-ai/grok-4.1-fast
+
+nvidia:
+  default:
+    - id: z-ai/glm4.7
+    - id: google/gemma-4-31b-it
+  meta: []
+  combat: []
+  action_evaluation: []
+  gamemaster_evaluation: []
+  AgentDefault: []
+  CharacterProfileGeneration:
+    - id: z-ai/glm4.7
+  DiaryGeneration:
+    - id: z-ai/glm4.7
+  memory: []
+  vision: []
+  UniversalTranslator: []
+
+nanogpt:
+  default:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: Qwen/Qwen3-235B-A22B-Instruct-2507
+    - id: zai-org/glm-4.7
+    - id: google/gemma-4-31b-it
+
+  meta:
+    - id: x-ai/grok-4.1-fast
+    - id: gemini-2.5-flash
+
+  combat:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+    - id: Qwen/Qwen3-235B-A22B-Instruct-2507
+
+  action_evaluation:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+
+  gamemaster_evaluation:
+    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v3.2
+
+  AgentDefault:
+    - id: claude-haiku-4-5-20251001
+
+  CharacterProfileGeneration:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: Qwen/Qwen3-235B-A22B-Instruct-2507
+    - id: zai-org/glm-4.7
+
+  DiaryGeneration:
+    - id: anthropic/claude-sonnet-4.6
+    - id: deepseek/deepseek-v3.2
+    - id: Qwen/Qwen3-235B-A22B-Instruct-2507
+    - id: zai-org/glm-4.7
+
+  memory:
+    - id: deepseek/deepseek-v3.2
+
+  vision:
+    - id: qwen3-vl-235b-a22b-instruct-original
+
+  UniversalTranslator:
+    - id: gemini-2.5-flash
+    - id: x-ai/grok-4.1-fast
+
+chutes:
+  default:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+    - id: zai-org/GLM-4.7-TEE
+    - id: google/gemma-4-31B-turbo-TEE
+
+  meta: []
+
+  combat:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+
+  action_evaluation:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+
+  gamemaster_evaluation:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+
+  AgentDefault: []
+
+  CharacterProfileGeneration:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+    - id: zai-org/GLM-4.7-TEE
+
+  DiaryGeneration:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+    - id: zai-org/GLM-4.7-TEE
+
+  memory:
+    - id: deepseek-ai/DeepSeek-V3.2-TEE
+
+  vision: []
+
+  UniversalTranslator: []
