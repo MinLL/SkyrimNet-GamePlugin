@@ -10,7 +10,7 @@ It is the only project of its kind that runs as a single SKSE plugin. No WSL. No
 
 ## Why SkyrimNet is built this way
 
-Most AI mods for Skyrim work by running a separate program — typically an external exe, or an entire web serving stack inside the Linux virtual machine — that the mod talks to over a network connection. This incurs a significant setup cost (Users don't want to instal Linux to play a Skyrim mod). This introduces latency, a considerable amount of system load, and many sources of bugs/issues.
+Most AI mods for Skyrim work by running a separate program — typically an external exe, or an entire web serving stack inside the Linux virtual machine — that the mod talks to over a network connection. This incurs a significant setup cost (Users don't want to install Linux to play a Skyrim mod). This introduces latency, a considerable amount of system load, and many sources of bugs/issues.
 
 SkyrimNet is different. It is a native Windows DLL that loads inside Skyrim itself. The benefits are practical, not theoretical:
 
