@@ -196,6 +196,7 @@ Events involving Player: {{ length(playerEvents) }}
 - {{ actorName }} is_sprinting: {% if is_sprinting(actorUUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
 - {{ actorName }} is_walking: {% if is_walking(actorUUID) %}🚶 WALKING{% else %}✗ Not walking{% endif %}
 - {{ actorName }} is_swimming: {% if is_swimming(actorUUID) %}🏊 SWIMMING{% else %}✗ Not swimming{% endif %}
+- {{ actorName }} is_mounted: {% if is_mounted(actorUUID) %}🐎 MOUNTED{% else %}✗ Not mounted{% endif %}
 - {{ actorName }} is_unconscious: {% if is_unconscious(actorUUID) %}💤 UNCONSCIOUS{% else %}✗ Conscious{% endif %}
 
 **Player Movement States:**
@@ -203,6 +204,7 @@ Events involving Player: {{ length(playerEvents) }}
 - Player is_sprinting: {% if is_sprinting(player.UUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
 - Player is_walking: {% if is_walking(player.UUID) %}🚶 WALKING{% else %}✗ Not walking{% endif %}
 - Player is_swimming: {% if is_swimming(player.UUID) %}🏊 SWIMMING{% else %}✗ Not swimming{% endif %}
+- Player is_mounted: {% if is_mounted(player.UUID) %}🐎 MOUNTED{% else %}✗ Not mounted{% endif %}
 
 ---
 
