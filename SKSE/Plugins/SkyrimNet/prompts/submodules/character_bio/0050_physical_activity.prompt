@@ -15,7 +15,9 @@
         {% if is_swimming(actorUUID) %}
             - {{ decnpc(actorUUID).name }} is currently swimming.
         {% endif %}
-{{is_mounted(actorUUID)}}
+        {% if is_mounted(actorUUID) != "" %}
+            - {{ decnpc(actorUUID).name }} is currently mounted on {{is_mounted(actorUUID)}}.
+        {% endif %}
         {% if is_knocked_down(actorUUID) %}
             - {{ decnpc(actorUUID).name }} is currently badly wounded, and is kneeling on the ground.
         {% endif %}

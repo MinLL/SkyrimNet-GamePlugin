@@ -7,6 +7,8 @@
     {% endif %}
     {% if is_unconscious(npc.UUID) %}
     - {{ npc.name }} is unconscious & unresponsive
+    {% elif is_mounted(npc.UUID) != "" %}
+    - {{ npc.name }} is riding {{ is_mounted(npc.UUID) }}
     {% elif npc.furniture != "None" %}
         {# Convert furniture name to lowercase for matching #}
         {% set furniture_lower = lower(npc.furniture) %}
