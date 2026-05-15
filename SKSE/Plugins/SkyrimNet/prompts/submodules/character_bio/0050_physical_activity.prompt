@@ -6,14 +6,10 @@
         {% if is_sneaking(actorUUID) %}
             - {{ decnpc(actorUUID).name }} is currently trying to move silently, and avoid being seen or heard.
         {% endif %}
-        {% if is_sprinting(actorUUID) %}
-            - {{ decnpc(actorUUID).name }} is currently sprinting at full speed.
-        {% endif %}
-        {% if is_swimming(actorUUID) %}
-            - {{ decnpc(actorUUID).name }} is currently swimming.
-        {% endif %}
         {% if is_mounted(actorUUID) != "" %}
-            - {{ decnpc(actorUUID).name }} is currently mounted on {% if is_mounted(actorUUID) != get_mount_race(actorUUID) %}{{is_mounted(actorUUID)}}, {{get_mount_race(actorUUID)}}{% else %}a {{lower(is_mounted(actorUUID))}}{% endif %}.
+            - {{ decnpc(actorUUID).name }} is currently mounted on {% if is_mounted(actorUUID) != get_mount_race(actorUUID) %}{{is_mounted(actorUUID)}}, {{get_mount_race(actorUUID)}}{% else %}a {{lower(is_mounted(actorUUID))}}{% endif %}{% if is_sprinting(actorUUID) %}, galloping at full speed{% endif %}.
+        {% elif is_sprinting(actorUUID) %}
+            - {{ decnpc(actorUUID).name }} is currently sprinting at full speed.
         {% elif get_furniture(actorUUID) != "" %}
             - {{ decnpc(actorUUID).name }} is currently using a {{get_furniture(actorUUID)}}.
         {% elif is_knocked_down(actorUUID) %}
