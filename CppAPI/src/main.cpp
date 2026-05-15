@@ -45,9 +45,9 @@ bool RegisterMountDecorator() {
         });
 
     if (ok) {
-        logger::info("Registered is_mounted decorator");
+        logger::info("Registered get_mount_race decorator");
     } else {
-        logger::error("Failed to register is_mounted decorator");
+        logger::error("Failed to register get_mount_race decorator");
     }
 
     ok = PublicRegisterDecorator(
