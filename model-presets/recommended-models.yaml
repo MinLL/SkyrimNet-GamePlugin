@@ -29,20 +29,20 @@ openrouter:
     - id: google/gemma-4-31b-it
 
   meta:
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
     - id: google/gemini-2.5-flash
 
   combat:
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
     - id: qwen/qwen3-235b-a22b-2507
 
   action_evaluation:
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
 
   gamemaster_evaluation:
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
 
   AgentDefault:
@@ -68,7 +68,7 @@ openrouter:
 
   UniversalTranslator:
     - id: google/gemini-2.5-flash
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
 
 nvidia:
   default:
@@ -96,20 +96,20 @@ nanogpt:
     - id: google/gemma-4-31b-it
 
   meta:
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
     - id: gemini-2.5-flash
 
   combat:
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
     - id: Qwen/Qwen3-235B-A22B-Instruct-2507
 
   action_evaluation:
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
 
   gamemaster_evaluation:
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
 
   AgentDefault:
@@ -135,7 +135,7 @@ nanogpt:
 
   UniversalTranslator:
     - id: gemini-2.5-flash
-    - id: x-ai/grok-4.1-fast
+    - id: deepseek/deepseek-v4-flash
 
 chutes:
   default:

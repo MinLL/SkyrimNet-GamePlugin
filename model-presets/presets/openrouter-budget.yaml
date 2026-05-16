@@ -1,5 +1,5 @@
 # Budget preset — Gemma-3 27B for the cheap bulk variants, Qwen 235B
-# for jobs that need more reasoning, and Grok Fast / Qwen-VL for meta
+# for jobs that need more reasoning, and DeepSeek Flash / Qwen-VL for meta
 # and vision. Mod-registered variants inherit the default rotation.
 variants:
   default:
@@ -30,9 +30,9 @@ variants:
     default_params: { temperature: 0.8, max_tokens: 12000 }
 
   UniversalTranslator:
-    model_name: x-ai/grok-4.1-fast
+    model_name: deepseek/deepseek-v4-flash
     model_params:
-      - { name: x-ai/grok-4.1-fast, provider_id: openrouter, temperature: 0.7 }
+      - { name: deepseek/deepseek-v4-flash, provider_id: openrouter, temperature: 0.7 }
     default_params: { temperature: 0.7, max_tokens: 512 }
 
   combat:
@@ -62,9 +62,9 @@ variants:
     default_params: { temperature: 0.7, max_tokens: 4000 }
 
   meta:
-    model_name: x-ai/grok-4.1-fast
+    model_name: deepseek/deepseek-v4-flash
     model_params:
-      - { name: x-ai/grok-4.1-fast, provider_id: openrouter, temperature: 0.7 }
+      - { name: deepseek/deepseek-v4-flash, provider_id: openrouter, temperature: 0.7 }
     default_params: { temperature: 0.7, max_tokens: 100 }
 
   vision:
