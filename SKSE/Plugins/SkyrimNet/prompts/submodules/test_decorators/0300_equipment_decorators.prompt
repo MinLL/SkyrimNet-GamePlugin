@@ -1,5 +1,5 @@
 {# TEST SUBMODULE - Equipment & Inventory Decorators #}
-{# Tests: get_worn_equipment, worn_has_keyword, get_inventory, get_merchant_inventory #}
+{# Tests: get_worn_equipment, worn_has_keyword, get_inventory, get_merchant_inventory, get_tempered_items #}
 {# CATEGORY: Equipment #}
 
 {% set actor = decnpc(actorUUID) %}
@@ -179,7 +179,35 @@ Player armor type unknown
 
 ---
 
-### Test 5: get_merchant_inventory() - Merchant Shop Items
+### Test 5: get_tempered_items() - Tempered Weapons/Armor
+
+{% set tempered = get_tempered_items(actorUUID) %}
+
+**{{ actorName }}'s Tempered Items:**
+{% if length(tempered) > 0 %}
+{% for t in tempered %}
+- FormID: {{ t.formID }} | Quality: {{ t.quality }} | Health: {{ t.healthPercent }}
+{% endfor %}
+
+**Cross-reference with worn equipment:**
+{% for slot, item in equipment %}
+{% set temp_quality = "" %}
+{% for t in tempered %}
+{% if t.formID == item.formID %}
+{% set temp_quality = t.quality %}
+{% endif %}
+{% endfor %}
+{% if temp_quality != "" %}
+- {{ item.name }} [{{ temp_quality }}]
+{% endif %}
+{% endfor %}
+{% else %}
+(No tempered items found - all equipment is standard quality)
+{% endif %}
+
+---
+
+### Test 6: get_merchant_inventory() - Merchant Shop Items
 
 {# Gets items for sale from a merchant's faction container (separate from personal inventory) #}
 
