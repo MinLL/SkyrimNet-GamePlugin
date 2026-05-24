@@ -1,7 +1,8 @@
 [ system ]
-{% set tagCompanion = papyrus_util("GetIntValue", 0, "SeverActions_TagCompanion", 1) %}
-{% set tagEngaged = papyrus_util("GetIntValue", 0, "SeverActions_TagEngaged", 1) %}
-{% set tagInScene = papyrus_util("GetIntValue", 0, "SeverActions_TagInScene", 1) %}
+{% set ss = get_speaker_selector_settings() %}
+{% set tagCompanion = ss.tagCompanion %}
+{% set tagEngaged = ss.tagEngaged %}
+{% set tagInScene = ss.tagInScene %}
 Determine which NPC the player is addressing and who should respond. Analyze the player's input, nearby NPCs, and recent context.
 {{ get_scene_context(player.UUID, 0, "target_selection")}}
 [ end system ]
@@ -14,7 +15,7 @@ Determine which NPC the player is addressing and who should respond. Analyze the
 
 {% if crosshairTarget and crosshairTarget.UUID and crosshairTarget.UUID != 0 %}
 {{ "## Player's Crosshair Target" }}
-The player is looking directly at: **{{ crosshairTarget.name }}** ({{ units_to_meters(crosshairTarget.distance) }}m away){% if tagCompanion and is_follower(crosshairTarget.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_faction(crosshairTarget.UUID, "SeverActions_ActivelyFollowing") %} [ENGAGED]{% endif %}{% if tagInScene and (is_in_faction(crosshairTarget.UUID, "SexLabAnimatingFaction") or is_in_faction(crosshairTarget.UUID, "OStimExcitementFaction")) %} [IN SCENE]{% endif %}
+The player is looking directly at: **{{ crosshairTarget.name }}** ({{ units_to_meters(crosshairTarget.distance) }}m away){% if tagCompanion and is_follower(crosshairTarget.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_package(crosshairTarget.UUID, "SkyrimNet_PlayerFollowPackage") %} [ENGAGED]{% endif %}{% if tagInScene and (is_in_faction(crosshairTarget.UUID, "SexLabAnimatingFaction") or is_in_faction(crosshairTarget.UUID, "OStimExcitementFaction")) %} [IN SCENE]{% endif %}
 {% endif %}
 
 {{ "## Recent Dialogue" }}
