@@ -1,8 +1,9 @@
 [ system ]
-{% set zerochance = papyrus_util("GetIntValue", 0, "SeverActions_ZeroChance", 50) %}
-{% set tagCompanion = papyrus_util("GetIntValue", 0, "SeverActions_TagCompanion", 1) %}
-{% set tagEngaged = papyrus_util("GetIntValue", 0, "SeverActions_TagEngaged", 1) %}
-{% set tagInScene = papyrus_util("GetIntValue", 0, "SeverActions_TagInScene", 1) %}
+{% set ss = get_speaker_selector_settings() %}
+{% set zerochance = ss.silenceChancePercent %}
+{% set tagCompanion = ss.tagCompanion %}
+{% set tagEngaged = ss.tagEngaged %}
+{% set tagInScene = ss.tagInScene %}
 ## Task
 Select which NPC should speak next, if anyone. Output only: {% if random < zerochance %}`0` (silence) or {% endif %}`[speaker]>[target]`
 
@@ -78,7 +79,7 @@ Do NOT choose silence when:
    - {{ render_character_profile("short_inline", candidate.UUID) }}
    - **Interjection**: {{ render_character_profile("interject_inline", candidate.UUID) }}
 {% else %}
-{{ candidate.id }}. **{{ cinfo.name }}** ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(candidate.distance) }}m){% if tagCompanion and is_follower(candidate.UUID) %} **[COMPANION]**{% endif %}{% if tagEngaged and is_in_faction(candidate.UUID, "SeverActions_ActivelyFollowing") %} **[ENGAGED]**{% endif %}{% if tagInScene and (is_in_faction(candidate.UUID, "SexLabAnimatingFaction") or is_in_faction(candidate.UUID, "OStimExcitementFaction")) %} **[IN SCENE]**{% endif %}
+{{ candidate.id }}. **{{ cinfo.name }}** ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(candidate.distance) }}m){% if tagCompanion and is_follower(candidate.UUID) %} **[COMPANION]**{% endif %}{% if tagEngaged and is_in_package(candidate.UUID, "SkyrimNet_PlayerFollowPackage") %} **[ENGAGED]**{% endif %}{% if tagInScene and (is_in_faction(candidate.UUID, "SexLabAnimatingFaction") or is_in_faction(candidate.UUID, "OStimExcitementFaction")) %} **[IN SCENE]**{% endif %}
    - {{ render_character_profile("short_inline", candidate.UUID) }}
    - **Interjection**: {{ render_character_profile("interject_inline", candidate.UUID) }}
 {% endif %}
