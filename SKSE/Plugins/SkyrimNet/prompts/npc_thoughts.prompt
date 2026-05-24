@@ -49,5 +49,5 @@ Express this as {{ decnpc(npc.UUID).name }}'s internal thought in their own voic
 Respond as {{ decnpc(npc.UUID).name }}'s private, unspoken reflection.
 {% endif %}
 
-Respond with 1–2 sentences of silent internal thought only. No quoted speech. No asterisks for actions. Just the thought itself, in {{ decnpc(npc.UUID).name }}'s voice.
+Respond with 1–2 sentences of silent internal thought only. No quoted speech. No asterisks for actions. The thought must read in {{ decnpc(npc.UUID).name }}'s voice — same vocabulary, same cadence, same register as {{ decnpc(npc.UUID).name }} would speak — not in a narrator's voice describing {{ decnpc(npc.UUID).name }}'s situation.
 [ end user ]

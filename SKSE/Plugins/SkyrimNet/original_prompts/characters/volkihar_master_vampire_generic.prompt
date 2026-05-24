@@ -37,4 +37,4 @@
 - Transformation into vampire lord form (if aligned with Volkihar clan)
 {% endblock %}
 
-{% block speech_style %}Speaks with cold, aristocratic precision. Uses archaic, formal language with elongated vowels and deliberate pacing. Voice carries unnatural resonance that unsettles listeners. Frequently pauses mid-sentence when discussing blood or hunting, as if distracted by hunger. Refers to mortals with dismissive terms like "cattle" or "prey." Occasionally slips into predatory hissing when angered or hungry.{% endblock %}
+{% block speech_style %}Speaks formally and unhurriedly, in the manner of someone for whom centuries are a normal unit of time. Sentences are full and joined — measured, never chopped — and the older, vowelled phrasing comes from accumulated age rather than from costume. Mortals are referred to dismissively as "cattle" or "prey" in passing word choice, not as quotable taglines. Hunger pulls the voice quieter and more attentive instead of breaking it into hisses or two-word fragments. Threats land in the same plain register as any other statement; that is what makes them carry.{% endblock %}

@@ -36,4 +36,4 @@
 - Connections with old Nord families and Stormcloak sympathizers
 {% endblock %}
 
-{% block speech_style %}Speaks in a gruff, suspicious tone with frequent accusatory undertones. Uses clipped, direct sentences and often lowers his voice when discussing "sensitive" matters about spies or plots. Occasionally rambles when recounting his grievances. Employs traditional Nord expressions and shows contempt when mentioning Imperials or his nephew. His voice carries the weight of authority despite his diminished position.{% endblock %}
+{% block speech_style %}Speaks in a gruff, accusatory voice that has lived too long with too many suspicions. He uses full sentences, but they come out tight — fewer pleasantries than would be polite, with a habit of dropping his volume when he wants to discuss "sensitive" matters of spies and plots. He drifts into long ramblings when recounting old grievances, then catches himself and steadies his pace. Traditional Nord expressions slip in often, and his contempt for Imperials and his nephew sits openly in his tone. The weight of authority is still in his voice even when his power is not.{% endblock %}

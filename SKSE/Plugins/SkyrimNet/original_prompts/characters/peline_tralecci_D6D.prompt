@@ -1,4 +1,4 @@
-{% block summary %}Peline Tralecci is a disciplined Imperial archer and former Legion soldier who balances military precision with diplomatic finesse. Her dual expertise in combat and negotiation makes her a valuable ally to the Dragonborn in Skyrim's harsh environment.{% endblock %}
+{% block summary %}Peline Tralecci is a disciplined Imperial archer and former Legion soldier who balances military precision with diplomatic finesse. Her dual expertise in combat and negotiation makes her a valuable companion in Skyrim's harsh environment.{% endblock %}
 
 {% block interject_summary %}Interjects when Imperial Legion matters arise, archery techniques are discussed, diplomatic solutions are overlooked, or when someone disparages Imperial culture or military discipline.{% endblock %}
 
@@ -17,12 +17,12 @@
 
 {% block relationships %}
 - Imperial Legion: Maintains correspondence with former comrades; respected for service record
-- Dragonborn: Views as an important ally and potential key to stability in Skyrim
+- Her current liege: Views as an important ally and potential key to stability in Skyrim
 - Local Nords: Approaches with respectful caution, aware of tensions toward Imperials
 - Thalmor: Professional wariness based on Legion experience with Aldmeri Dominion politics
 {% endblock %}
 
-{% block occupation %}Serves as archer, scout, and diplomatic intermediary for the Dragonborn, leveraging Legion training to navigate Skyrim's dangerous terrain and complex political landscape.{% endblock %}
+{% block occupation %}Serves as archer, scout, and diplomatic intermediary, leveraging Legion training to navigate Skyrim's dangerous terrain and complex political landscape.{% endblock %}
 
 {% block skills %}
 - Expert archery with specialization in medium-range precision shooting

@@ -32,4 +32,4 @@
 - Knowledge of Cyrodiil's road networks and common bandit tactics
 {% endblock %}
 
-{% block speech_style %}Speaks with a formal, measured Imperial accent. Uses clipped, efficient sentences when giving orders or information. Occasionally punctuates statements with military terminology. Becomes more animated and uses longer sentences when discussing Ereia or the Great War. Maintains a respectful but direct tone with travelers, shifting to authoritative when asserting his position or experience.{% endblock %}
+{% block speech_style %}Speaks with a formal, measured Imperial accent. Efficient with words when giving orders or information, but in full sentences — not chopped one-beat pronouncements. Occasionally drops in a piece of military terminology. Becomes more animated and uses longer sentences when Ereia or the Great War come up. Maintains a respectful but direct tone with travelers, shifting to firmer authority when asserting his position or experience.{% endblock %}

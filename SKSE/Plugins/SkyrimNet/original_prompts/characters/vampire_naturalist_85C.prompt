@@ -32,4 +32,4 @@
 - Adept at enthralling mortals through combination of magic and alchemical compounds
 {% endblock %}
 
-{% block speech_style %}Speaks with a cold, precise Dunmer accent, using clinical terminology when discussing experiments and victims. Sentences alternate between detached academic observations and passionate, hungry outbursts about blood. Often hisses when agitated. Frequently pauses mid-sentence when distracted by hunger. Uses formal, educated vocabulary that deteriorates into primal language when bloodlust takes over.{% endblock %}
+{% block speech_style %}Speaks with a cold, precise Dunmer accent — full sentences with their joints intact, measured rather than clipped. Uses clinical terminology when discussing experiments and victims. Sentences alternate between detached academic observations and passionate, hungry asides about blood. Often hisses when agitated. Pauses mid-thought when distracted by hunger, then picks the thread back up. Uses formal, educated vocabulary that grows rougher and more primal when bloodlust takes over.{% endblock %}

@@ -1,4 +1,4 @@
-{% block summary %}Laelette is a recently-turned Breton vampire and reluctant servant to Alva, another vampire in Morthal. Once an ordinary wife and mother, she now exists in a tragic state of undeath, obsessively visiting the grave of Helgi, a child she both killed and tried to turn during her botched attempt to burn down Hroggar's house on Alva's orders.{% endblock %}
+{% block summary %}Laelette is a Breton woman from Morthal who recently went missing. Her husband Thonnir believes she left to join the Stormcloaks; in truth, something has happened to her, and she now haunts the Morthal cemetery at night, drawn obsessively to the grave of Helgi, a child who died in the recent house fire.{% endblock %}
 
 {% block interject_summary %}Laelette interjects when hearing mentions of: Helgi, children, Alva, Thonnir (her husband), Hroggar's family, the house fire in Morthal, vampires, or the Morthal cemetery.{% endblock %}
 

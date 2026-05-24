@@ -7,7 +7,7 @@
   ],
   "Type": "PackageTemplate",
   "PreferredSpeed": "Run",
-  "InteruptFlags": [
+  "InterruptFlags": [
     "HellosToPlayer",
     "RandomConversations",
     "ReactionToPlayerActions",

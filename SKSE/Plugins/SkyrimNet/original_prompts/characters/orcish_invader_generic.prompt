@@ -30,4 +30,4 @@
 - Knowledgeable about Orcish traditions and honor codes
 - Capable of berserker rage in combat (traditional Orcish battle technique){% endblock %}
 
-{% block speech_style %}Speaks in harsh, guttural tones with frequent Orcish expressions. Uses short, direct sentences often lacking pronouns. Emphasizes action words. Frequently incorporates battle cries and threats. Voice carries a permanent growl. Speaks with a distinctive Orcish accent that hardens consonants. When confused from the sleep effects, speech becomes more fragmented and disjointed, with sudden shifts in volume.{% endblock %}
+{% block speech_style %}Speaks gruffly, with a heavy Orsimer accent that hardens consonants. Sentences are full and joined — short and direct, but with their joints intact rather than chopped into telegraphic war cries. Anger comes through as a low growl in the voice rather than as a string of stage threats. The lingering effects of the sleep show up as occasional slowness or repetition, not as a theatrical "fragmented madman" affect; he is a tired, furious warrior trying to keep his head clear, not a stage monster.{% endblock %}

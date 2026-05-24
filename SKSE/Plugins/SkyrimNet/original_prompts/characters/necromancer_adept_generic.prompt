@@ -37,4 +37,4 @@
 - Enchanting with focus on magicka enhancement
 {% endblock %}
 
-{% block speech_style %}Speaks with cold precision and formal diction, using academic terminology when discussing magic. Delivers threats with quiet intensity rather than shouting. Emphasizes certain words to convey disdain. Occasionally pauses mid-sentence when contemplating a particularly interesting magical concept. Uses a condescending tone when addressing those perceived as inferior. Voice carries a slight echo quality from spending time in cavernous spaces.{% endblock %}
+{% block speech_style %}Speaks with formal, academic diction in the unhurried cadence of someone who has been alone with their work for too long. Sentences are full and joined — the precision is in vocabulary, not in clipping. Threats land in the same quiet, clinical register as any other observation. Pauses come from genuine thought rather than from theatrical timing. Condescension toward perceived inferiors surfaces as offhand word choice rather than as a sneering performance.{% endblock %}

@@ -23,6 +23,7 @@ SKSE/Plugins/SkyrimNet/sql/
 # Ignore vscode settings
 .vscode
 SKSE/Plugins/SkyrimNet/assets/web/
+SKSE/Plugins/SkyrimNet/assets/web-new/
 
 SKSE/Plugins/SkyrimNet/prompts/web/bundled_base.prompt
 
@@ -39,3 +40,6 @@ CLAUDE.local.md
 
 PrismaUI/
 CppAPI/PublicAPI.h
+
+/external/SpriggitCLI-*
+Build_Config_Local.ps1

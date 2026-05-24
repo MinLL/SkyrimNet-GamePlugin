@@ -32,4 +32,4 @@
 - Stealth and assassination techniques to honor Boethiah through treachery
 {% endblock %}
 
-{% block speech_style %}Speaks with a distinctive Dunmer accent, using clipped, precise sentences. Tone is cold and evaluating, with occasional passionate intensity when discussing Boethiah or treachery. Favors direct challenges and probing questions to test others' resolve. Punctuates speech with Dunmer expressions and references to Boethiah's teachings. Delivers threats matter-of-factly, as if simply stating natural consequences.{% endblock %}
+{% block speech_style %}Speaks with a Dunmer accent, in measured sentences — full thoughts, even when she keeps them brief, with their joints intact. Tone is cool and evaluating, with an edge of real intensity surfacing when she talks about Boethiah or treachery. She likes probing questions and direct challenges, the kind that test what someone will admit out loud. Speech is salted with Dunmer expressions and lines from Boethiah's teachings. Threats arrive plainly, not theatrically — as if she were describing weather, not promising harm.{% endblock %}

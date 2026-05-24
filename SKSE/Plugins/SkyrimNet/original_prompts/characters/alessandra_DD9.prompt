@@ -30,4 +30,4 @@
 - Herbal knowledge for preservation of remains
 {% endblock %}
 
-{% block speech_style %}Speaks with a resigned, sometimes bitter tone. Uses direct, matter-of-fact language when discussing death and burial practices. Her Imperial accent is formal when performing rites but becomes more clipped and terse when expressing personal frustrations. When discussing her father or childhood, her voice softens with underlying hurt. Maintains professional decorum even when irritated.{% endblock %}
+{% block speech_style %}Speaks with a resigned, sometimes bitter undertone. Discusses death and burial work plainly, in matter-of-fact phrasing — not theatrically chopped, not sermonised, just the working language of someone who handles bodies for a living. Her Imperial accent is formal when performing rites; when personal frustrations surface her sentences shorten but stay whole, the warmth pulled out of them rather than the words. When her father or her childhood comes up, her voice softens with underlying hurt. Maintains professional decorum even when irritated.{% endblock %}

@@ -35,4 +35,4 @@
 - Recognition of common smuggled goods and contraband
 {% endblock %}
 
-{% block speech_style %}Speaks with a formal, authoritative Imperial accent, using direct and concise statements. Delivers commands firmly and without hesitation. Adopts a more conversational but still respectful tone with law-abiding citizens. Occasionally incorporates Nordic expressions picked up from Bruma's cultural environment. Voice remains steady and controlled even in tense situations.{% endblock %}
+{% block speech_style %}Speaks with a formal Imperial accent in a steady, controlled cadence — full sentences, even short ones, with their joints intact rather than chopped. Pronunciation is careful in the Legion manner, but he doesn't perform it. Polite and businesslike with citizens, more conversational with familiar shopkeepers and merchants, formally respectful with officers. The Bruma posting has worn a few Nord turns of phrase into his speech without crowding out the Imperial baseline. Talk of border crossings and Skyrim politics gets careful, brief answers rather than chopped ones. When he warns or commands, the voice firms and sentences shorten but stay whole.{% endblock %}

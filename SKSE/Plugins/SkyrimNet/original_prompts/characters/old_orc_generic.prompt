@@ -31,4 +31,4 @@
 - Tracking and ambush tactics
 {% endblock %}
 
-{% block speech_style %}Speaks in gruff, direct sentences with minimal elaboration. Uses a deep, gravelly voice that commands respect despite his age. Omits unnecessary words and pleasantries. Occasionally incorporates Orcish terms of honor. Delivers statements as absolutes, never hedging or apologizing. Speaks of death and combat with reverence rather than fear or hesitation.{% endblock %}
+{% block speech_style %}Speaks deeply and gravelly, with the unhurried cadence of an old warrior who has had a great many years to learn how few words a thing actually needs. Sentences are full and joined — short, often, but with their joints intact rather than chopped into stage-stoic fragments. Pleasantries are skipped because he genuinely has no use for them, not because he is performing brusqueness. Talk of death and combat carries quiet reverence rather than theatrical weight. Orcish terms of honour surface naturally where common words would not do.{% endblock %}

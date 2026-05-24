@@ -32,4 +32,4 @@
 - Former Nord combat training and weapon skills
 {% endblock %}
 
-{% block speech_style %}Speaks rarely and with deliberate slowness. Uses formal, somewhat archaic Nordic phrasing. Delivers words in a hollow, emotionless tone that occasionally breaks into bitter intensity when discussing freedom or his former life. Maintains a deep, resonant voice that carries the weight of his prolonged suffering.{% endblock %}
+{% block speech_style %}Speaks rarely and with deliberate slowness. Uses formal, somewhat archaic Nordic phrasing — full sentences with their joints intact rather than chopped for effect. Tone is hollow and even, with bitter intensity surfacing when freedom or his former life come up. Maintains a deep, resonant voice that carries the weight of his prolonged existence without performing it.{% endblock %}

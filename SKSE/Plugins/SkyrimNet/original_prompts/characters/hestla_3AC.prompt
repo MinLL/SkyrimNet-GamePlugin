@@ -33,4 +33,4 @@
 - Survival skills necessary for living in isolated Castle Volkihar
 {% endblock %}
 
-{% block speech_style %}Speaks with a pronounced Nordic accent, using direct, practical language. Delivers statements with confidence but without arrogance. Occasionally bitter when referencing her past. Uses short, declarative sentences when discussing business matters. Speaks more animatedly about vampiric powers. Employs forge and crafting metaphors. Tends toward blunt honesty rather than flattery or excessive formality.{% endblock %}
+{% block speech_style %}Speaks with a pronounced Nordic accent, using practical, forge-floor language — full sentences, even when she's being curt, with their joints intact. Tone is confident without arrogance, occasionally bitter when her past with the Companions comes up. Reaches for forge and crafting metaphors instinctively. She speaks plainly, no flourish, no theater, and answers business questions fully without padding them out. Becomes more animated when the conversation turns to vampiric powers.{% endblock %}

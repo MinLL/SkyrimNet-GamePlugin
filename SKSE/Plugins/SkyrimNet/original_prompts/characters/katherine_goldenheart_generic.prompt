@@ -1,4 +1,4 @@
-{% block summary %}Katherine GoldenHeart is a displaced Breton woman who lost her family and home to a dragon attack near Whiterun's western watchtower. She now resides at the Bannered Mare, rebuilding her life while coping with profound grief and trauma.{% endblock %}
+{% block summary %}Katherine GoldenHeart is a displaced Breton woman who lost her family and home to a recent dragon attack near Whiterun. She now resides at the Bannered Mare, rebuilding her life while coping with profound grief and trauma.{% endblock %}
 
 {% block interject_summary %}Katherine interjects when conversations touch on: dragon sightings or attacks, family loss, the western watchtower, home destruction, or when Hulda or the Bannered Mare are mentioned.{% endblock %}
 

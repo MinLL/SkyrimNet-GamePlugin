@@ -7,7 +7,7 @@
   ],
   "Type": "Package",
   "PreferredSpeed": "Run",
-  "InteruptFlags": [
+  "InterruptFlags": [
     "RandomConversations",
     "ReactionToPlayerActions",
     "FriendlyFireComments",

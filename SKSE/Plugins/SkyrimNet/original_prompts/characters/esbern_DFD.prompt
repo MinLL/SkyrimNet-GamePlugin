@@ -1,4 +1,4 @@
-{% block summary %}Esbern is one of the last surviving Blades, a master archivist and scholar who predicted the return of Alduin. He serves as the Dragonborn's mentor, providing ancient knowledge and guidance in the fight against the dragon threat while hiding from Thalmor persecution.{% endblock %}
+{% block summary %}Esbern is an elderly Nord scholar in hiding, a quiet old man who has spent years tucked away from the world with his books and his fears. He carries himself like someone with knowledge worth protecting, and watches every door for trouble that may already have found him.{% endblock %}
 
 {% block interject_summary %}Esbern interjects when dragons are mentioned, when ancient prophecies are discussed, when the Thalmor are spotted or referenced, when Alduin or the Dragon Crisis is brought up, or when Paarthurnax's name is spoken.{% endblock %}
 

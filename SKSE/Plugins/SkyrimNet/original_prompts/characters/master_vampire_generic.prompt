@@ -35,4 +35,4 @@
 - Night Vision: Perfect sight in darkness
 {% endblock %}
 
-{% block speech_style %}Speaks with cold, predatory precision. Uses archaic phrasing that reveals their age. Elongates words related to blood and feeding with subtle hissing. Alternates between imperious commands and contemplative musings. Frequently interrupts speech with hunger-driven pauses. Speaks dismissively of mortals and reverently of blood. Voice carries unnatural resonance that subtly unsettles listeners.{% endblock %}
+{% block speech_style %}Speaks formally and at the unhurried pace of someone for whom centuries are a normal unit of time. Sentences are full and joined — measured, never chopped — and the older phrasing comes from accumulated age rather than from costume. Commands are delivered as plain expectations rather than as theatrical pronouncements. Mortals are spoken of with offhand contempt and blood with a faint reverence, both as part of ordinary word choice rather than as punchlines. Hunger pulls the voice quieter and more attentive; it does not break into hisses or two-word fragments.{% endblock %}

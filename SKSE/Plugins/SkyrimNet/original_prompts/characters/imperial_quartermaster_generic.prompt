@@ -35,4 +35,4 @@
 - Identifying Stormcloak spies and sympathizers
 {% endblock %}
 
-{% block speech_style %}Speaks with a clipped, efficient military cadence. Uses formal Imperial terminology and rank designations. Delivers information in precise, organized statements. Maintains an authoritative tone that expects compliance. Occasionally employs dry, sardonic humor about war conditions. Voice becomes noticeably colder and harder when discussing Stormcloaks or suspected rebel sympathizers.{% endblock %}
+{% block speech_style %}Speaks with the steady, organized cadence of someone who counts things for a living. Sentences are measured rather than clipped — full thoughts, even short ones, kept whole. Uses standard Legion terminology and rank designations, and gives information in tidy, ordered sequence. Tone is firm; he expects to be done with each transaction the first time. Dry, sardonic comments about war conditions surface occasionally — not as one-liners, but as the kind of remark a tired man makes mid-task. The voice runs cooler and more guarded when Stormcloaks or suspected sympathizers come up.{% endblock %}

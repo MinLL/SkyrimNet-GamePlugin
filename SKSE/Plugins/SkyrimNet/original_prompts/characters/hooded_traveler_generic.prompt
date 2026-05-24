@@ -33,4 +33,4 @@
 - Proficient dagger combat as backup when magicka is depleted
 {% endblock %}
 
-{% block speech_style %}Speaks with cold, clipped precision and a subtle Nordic accent. Uses threatening, direct statements without wasted words. Delivers threats in a calm, matter-of-fact tone that contrasts with their violent content. Occasionally hisses words with 's' sounds when agitated or preparing to attack. Addresses Dawnguard members with contemptuous, dismissive language.{% endblock %}
+{% block speech_style %}Speaks with a subtle Nordic accent, cold and precise — full sentences even when short, with their joints intact rather than chopped for effect. Delivers threats in a calm, matter-of-fact tone that contrasts with their violent content. Occasionally hisses words with 's' sounds when agitated or preparing to attack. Addresses Dawnguard members with contemptuous, dismissive language. Speaks plainly without flourish; the menace comes from what he says, not from theatrical pauses or trailer-line cadence.{% endblock %}

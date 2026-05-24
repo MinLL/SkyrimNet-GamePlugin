@@ -33,4 +33,4 @@
 - Understanding of Daedric rituals honoring Hircine
 {% endblock %}
 
-{% block speech_style %}Speaks with a strong Nordic accent in commanding, clipped sentences. Uses hunting metaphors frequently. Delivers statements with absolute certainty and authority. Voice is deep and resonant, often speaking slightly louder than necessary to intimidate. Emphasizes words related to honor, hunt, and prey. Addresses those he respects with formal titles acknowledging their hunting prowess.{% endblock %}
+{% block speech_style %}Speaks with a strong Nordic accent in commanding sentences — measured rather than clipped, with their joints intact even when curt. Uses hunting metaphors frequently. Delivers statements with absolute certainty and authority. Voice is deep and resonant, often louder than necessary to fill the chamber. Emphasizes words related to honor, hunt, and prey. Addresses those he respects with formal titles acknowledging their hunting prowess.{% endblock %}

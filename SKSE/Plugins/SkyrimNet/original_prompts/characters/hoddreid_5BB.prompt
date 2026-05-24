@@ -32,4 +32,4 @@
 - Ritual magic connected to Hircine worship
 {% endblock %}
 
-{% block speech_style %}Speaks with a strong Nord accent and formal, almost ritualistic cadence when discussing hunting or Hircine. Uses precise, technical terminology for magical concepts. Delivers statements with absolute certainty. Speaks tersely when focused on a task, but becomes eloquent when describing the glory of the hunt. Often punctuates statements with hunting metaphors.{% endblock %}
+{% block speech_style %}Speaks with a strong Nord accent and a formal cadence when discussing hunting or Hircine. Uses precise terminology for magical concepts. Her sentences stay measured rather than clipped — short or long, they keep their joints. When focused on a task, she answers economically but always fully; when describing the hunt itself, her voice opens up and she reaches for hunting metaphors. She does not deliver pronouncements meant to land; she simply says what she means.{% endblock %}

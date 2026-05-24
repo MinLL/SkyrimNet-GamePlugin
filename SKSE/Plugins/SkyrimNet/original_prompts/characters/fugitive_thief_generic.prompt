@@ -32,4 +32,4 @@
 - Familiar with hiding spots and escape routes throughout the region
 {% endblock %}
 
-{% block speech_style %}Speaks in hurried, breathless bursts with frequent glances over his shoulder. Uses clipped, imperative sentences with an urgent, threatening tone. His Imperial accent becomes more pronounced when stressed. Frequently interrupts himself mid-thought when spooked by sounds. Punctuates threats with nervous laughter or forced intimidation. Speaks quietly but intensely, constantly checking that no one else is listening.{% endblock %}
+{% block speech_style %}Speaks fast and low, in the panicked cadence of someone who keeps glancing over his own shoulder mid-sentence. Sentences come out whole when he can manage it; when he cannot, they break off because real fear is interrupting them, not because he is performing tough-guy fragments. The Imperial accent thickens when he is stressed. Threats come out forced and a little too loud, with nervous laughter underneath; quieter moments of pleading or bargaining sit closer to his real voice. Either way, the lines feel improvised rather than rehearsed.{% endblock %}

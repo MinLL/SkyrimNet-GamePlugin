@@ -3,7 +3,7 @@
   "EditorID": "SkyrimNet_PlayerDialoguePackage",
   "Type": "Package",
   "PreferredSpeed": "Run",
-  "InteruptFlags": [
+  "InterruptFlags": [
     "AggroRadiusBehavior"
   ],
   "ScheduleMonth": -1,

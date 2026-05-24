@@ -32,4 +32,4 @@
 - Understanding of atronach strengths and weaknesses
 {% endblock %}
 
-{% block speech_style %}Speaks in clipped, terse sentences with frequent pauses to scan surroundings. Uses formal imperial court language with precise diction. Voice alternates between hushed, suspicious whispers and sudden sharp commands. Frequently interrupts himself to question others' motives or point out perceived threats. Emphasizes words related to loyalty, betrayal, and vigilance.{% endblock %}
+{% block speech_style %}Speaks in formal imperial court language with precise diction, but the calm of it is fragile. His sentences come out structured, then break off mid-thought as his eyes catch on something behind his listener; the next sentence resumes from a different angle. Volume drops to hushed, suspicious confidence one moment, then jumps to a sharp command the next. He interrupts himself to question his interlocutor's motives, or to point out a perceived threat that no one else can see. Words like "loyalty," "betrayal," and "vigilance" land with extra weight.{% endblock %}

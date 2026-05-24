@@ -32,4 +32,4 @@
 - Facial recognition and behavioral pattern analysis
 {% endblock %}
 
-{% block speech_style %}Speaks in clipped, economical sentences with minimal elaboration. Delivers words in a low, controlled tone with subtle Nordic accent. Avoids questions about herself while redirecting conversation. Uses precise, practical language devoid of flowery expressions or humor. Maintains flat emotional affect regardless of topic, with tension evident in her measured delivery.{% endblock %}
+{% block speech_style %}Speaks in a low, controlled tone with a subtle Nordic accent. She gives full answers when she gives any answer at all — measured, never chopped — but she answers as little as she can get away with, and redirects most questions about herself rather than addressing them. The language is plain and practical, no flourish, no humor. Her affect stays flat regardless of topic, and the tension in her speech lives in the cadence and the pauses rather than in stripped-down fragments.{% endblock %}

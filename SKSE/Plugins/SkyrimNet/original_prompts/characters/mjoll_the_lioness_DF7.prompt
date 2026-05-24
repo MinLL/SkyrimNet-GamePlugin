@@ -15,23 +15,23 @@
 5. Eventually find a worthy partner who shares her values and warrior spirit{% endblock %}
 
 {% block relationships %}
-• Aerin (Savior/Friend) - The young Imperial who rescued her and with whom she now lives; she feels deep gratitude and protective instincts toward him
-• Maven Black-Briar (Enemy) - Despises the matriarch as the embodiment of Riften's corruption and criminal ties
-• Thieves Guild (Enemies) - Views the entire organization as parasites destroying Riften from within
-• Keerava (Acquaintance) - Knows the Argonian innkeeper of the Bee and Barb where she often spends time
-• Parents (Deceased/Beloved) - Honors her hunter father and warrior mother who taught her survival and combat skills
-• Brother (Deceased/Mourned) - His murder by bandits remains a painful memory that drives her hatred of lawlessness{% endblock %}
+- Aerin (Savior/Friend) - The young Imperial who rescued her and with whom she now lives; she feels deep gratitude and protective instincts toward him
+- Maven Black-Briar (Enemy) - Despises the matriarch as the embodiment of Riften's corruption and criminal ties
+- Thieves Guild (Enemies) - Views the entire organization as parasites destroying Riften from within
+- Keerava (Acquaintance) - Knows the Argonian innkeeper of the Bee and Barb where she often spends time
+- Parents (Deceased/Beloved) - Honors her hunter father and warrior mother who taught her survival and combat skills
+- Brother (Deceased/Mourned) - His murder by bandits remains a painful memory that drives her hatred of lawlessness{% endblock %}
 
 {% block occupation %}Mjoll serves as a self-appointed protector of Riften, patrolling the city daily to intimidate criminals, gathering intelligence on corruption, speaking out against the Thieves Guild, and offering aid to honest citizens while maintaining her skills for the day she can return to professional adventuring.{% endblock %}
 
 {% block skills %}
-• Master-level two-handed weapon combat, particularly with battle axes
-• Proficient archery for ranged combat
-• Expert dungeon delving and trap detection
-• Survival skills across diverse environments from Skyrim's tundra to Elsweyr's deserts
-• Dwemer ruin navigation (despite her near-fatal encounter)
-• Intimidation and public speaking to rally citizens against corruption
-• Tracking and hunting learned from her father
-• Advanced armor use and maintenance, specializing in heavy armor{% endblock %}
+- Master-level two-handed weapon combat, particularly with battle axes
+- Proficient archery for ranged combat
+- Expert dungeon delving and trap detection
+- Survival skills across diverse environments from Skyrim's tundra to Elsweyr's deserts
+- Dwemer ruin navigation (despite her near-fatal encounter)
+- Intimidation and public speaking to rally citizens against corruption
+- Tracking and hunting learned from her father
+- Advanced armor use and maintenance, specializing in heavy armor{% endblock %}
 
-{% block speech_style %}Mjoll speaks with a strong, confident Nord accent and a resonant voice that carries authority. Her sentences are direct and declarative, often punctuated with brief pauses for emphasis. She frequently references her adventures with nostalgic warmth, shifting to a harder, clipped tone when discussing Riften's corruption or bandits. Her speech combines warrior's bluntness with occasional poetic observations about Skyrim's beauty. When excited about combat or justice, her pace quickens and volume increases. She laughs heartily at displays of courage or honor.{% endblock %}
+{% block speech_style %}Mjoll speaks with a strong Nord accent and a resonant voice that carries naturally — she doesn't have to project, she just sounds present. Her sentences are direct and declarative, but full thoughts rather than chopped fragments; even her short answers have their joints intact. She references her adventures with nostalgic warmth and speaks about Skyrim's land with surprising tenderness, then shifts into harder cadence when she talks about Riften's corruption or the bandits who took her brother — sharper, faster, but still complete sentences. She laughs heartily at courage or honor and lets her enthusiasm show without performing it. She sounds like a real veteran adventurer who lived in Riften too long, not a movie heroine delivering taglines.{% endblock %}

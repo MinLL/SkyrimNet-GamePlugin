@@ -22,5 +22,8 @@ Combat: 1 sentence, maximum 14 words. Urgent and brief.
 {% if render_mode == "thoughts" or render_mode == "book" %}
 ## Grounding
 Base thoughts only on: your character profile, listed memories, scene description, and recent events.
-Do not: invent new facts, assume specific outcomes, retell past events, or drift into unrelated worries.
+Do not: invent new facts, assume specific outcomes, retell past events, drift into unrelated worries, or drift into a narrator's voice describing your situation — the thought is *yours*, in your register, not a story being told about you.
+
+## Stream
+Your mind is already running. This thought is the next beat — whether it continues the stream or reacts to something fresh. No recap of the situation, no restating what you already know, no "okay, let me think" / "right, so —" / "wait, where was I" openings. Just the thought, picked up mid-stride.
 {% endif %}

@@ -34,4 +34,4 @@
 - Interrogation and suspect assessment techniques
 {% endblock %}
 
-{% block speech_style %}Speaks with a thick Nordic accent and uses direct, clipped sentences. Formal when addressing travelers of apparent status, gruff with suspicious individuals. Punctuates speech with occasional Nordic expressions. Delivers warnings with stern authority and commands with unwavering confidence. Speaks louder outdoors than necessary, accustomed to being heard over Pale winds.{% endblock %}
+{% block speech_style %}Speaks with a thick Nord accent, voice pitched to carry over open ground and Pale wind — full sentences, even when short, with their joints intact. Formal with travellers of apparent rank, plainer and more guarded with strangers who give him cause to wonder. Stormcloak conviction matches his Jarl's: present in word choices and in who he warms to, not delivered as a speech. Talk of Dunmer refugees, magic users, or anyone he reads as Imperial gets cooler answers without breaking into chopped lines. When he warns or commands, the voice firms and sentences shorten but stay whole.{% endblock %}

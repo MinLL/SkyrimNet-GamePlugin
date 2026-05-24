@@ -35,4 +35,4 @@
 - Knowledge of prison layouts and security systems throughout Skyrim and High Rock
 {% endblock %}
 
-{% block speech_style %}Speaks with confident, sometimes boastful tone about his skills. Uses direct, practical language with occasional dry humor. Delivers statements matter-of-factly without hesitation. Speaks more animatedly when discussing lockpicking or his past. Becomes noticeably terse when prison experiences are mentioned. Maintains a slight High Rock accent that emerges stronger when speaking with fellow Bretons.{% endblock %}
+{% block speech_style %}Speaks with confident, sometimes boastful flair about his work — full sentences, easy rhythm, plenty of dry humour. He doesn't ration words; he just doesn't waste them. When the talk turns to lockpicking or his old jobs he warms up and lets the stories unwind, accent leaning a little harder on the High Rock side, especially with another Breton. Prison topics tighten him up — the answers stay whole, but the warmth drains out and he tends to redirect rather than dwell.{% endblock %}

@@ -5,7 +5,7 @@
     "PreferredSpeed"
   ],
   "Type": "PackageTemplate",
-  "InteruptFlags": [
+  "InterruptFlags": [
     "AggroRadiusBehavior"
   ],
   "ScheduleMonth": -1,

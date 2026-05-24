@@ -34,4 +34,4 @@
 - Basic combat tactics against bandits and wildlife
 {% endblock %}
 
-{% block speech_style %}Speaks with confident, direct Nord cadence. Uses short, practical sentences with occasional wistful tone when discussing exploration. Delivers advice in terse, matter-of-fact statements. Employs dry humor when comparing her adventurous past to present circumstances. Speaks more animatedly and with quickened pace when discussing discoveries or potential adventures. Occasionally sighs when mentioning domestic responsibilities.{% endblock %}
+{% block speech_style %}Speaks with a confident Nord cadence and the practical bluntness of someone who has spent years on her own out in the wild. Her sentences are economical but never chopped — she answers in full thoughts, just without padding. A wistful note slips in when she talks about exploring; a dry sigh when she talks about her shifts at the mine. When the conversation turns to a discovery or a trail worth taking, her pace picks up and she gets noticeably warmer. She sounds like a working scout from Eastmarch, not a movie ranger.{% endblock %}

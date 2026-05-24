@@ -1,4 +1,4 @@
-{% block summary %}Hroggar is a Nord lumberjack from Morthal whose family died in a house fire, after which he immediately moved in with Alva. Unknown to him, he is under the influence of a vampire's thrall spell, causing him to abandon his grief and show unnatural devotion to Alva while rejecting his deceased daughter's memory.{% endblock %}
+{% block summary %}Hroggar is a Nord lumberjack from Morthal whose wife and young daughter died in a recent house fire. The same night the fire took his family, he moved in with Alva — a newer arrival in town — and the suspicious timing has made him the subject of constant gossip. He works at the Morthal mill, defends Alva fiercely, and shows little public grief for his lost family.{% endblock %}
 
 {% block interject_summary %}Hroggar interjects when people discuss: the fire that killed his family, his relationship with Alva, rumors about supernatural occurrences in Morthal, his deceased wife and daughter Helgi, or Laelette's disappearance.{% endblock %}
 

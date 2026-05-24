@@ -33,4 +33,4 @@
 - Proficient in setting traps for both animals and pursuers
 {% endblock %}
 
-{% block speech_style %}Lagdu speaks in clipped, efficient sentences with a harsh Orsimer accent, emphasizing consonants and dropping unnecessary words. Her tone is direct and unembellished, often ending statements with definitive declarations. When discussing hunting or archery, her voice becomes more animated and confident. She frequently incorporates Orsimer expressions about strength and honor. When mentioning Sevaris, her voice noticeably tightens with suppressed emotion.{% endblock %}
+{% block speech_style %}Lagdu speaks with a harsh Orsimer accent, emphasizing consonants. Her phrasing is plain and unembellished — full sentences without flourish, the kind of speech a hunter uses when the words have to be useful. On hunting or archery her voice becomes more animated and confident; the cynicism softens. Orsimer expressions about strength and honor surface readily. When Sevaris' name comes up, her voice noticeably tightens with suppressed emotion.{% endblock %}

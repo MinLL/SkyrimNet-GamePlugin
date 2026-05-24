@@ -35,4 +35,4 @@
 - Identifying and avoiding ambush locations
 {% endblock %}
 
-{% block speech_style %}Speaks in clipped, efficient sentences with proper Imperial accent. Uses military terminology and time references frequently. Delivers information in precise, organized manner. Speaks rapidly but clearly, often while slightly short of breath. Formal with strangers, more relaxed with fellow soldiers. Punctuates speech with directional gestures. Occasionally interrupts conversations to check surroundings or reference the sun's position for time.{% endblock %}
+{% block speech_style %}Speaks with a proper Imperial accent at the brisk pace of a man who is always behind on the day. Sentences stay measured rather than clipped — full thoughts, even when he is half out of breath, with their joints intact. Uses military terminology and time references frequently because that is how his work is organized. Formal with strangers, more relaxed with fellow soldiers. Hands move when he talks — pointing directions, gesturing at the road. Occasionally breaks off mid-conversation to scan the surroundings or check the sun.{% endblock %}

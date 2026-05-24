@@ -32,38 +32,53 @@ Faction Property FacCreature Auto
 FormList Property UniquesRename Auto
 FormList Property NonUniqueNoRename Auto
 
-Function ChangeName(Actor akTarget, String newFirstName, String newLastName)
+Bool Function FormListHas(FormList akList, Form akForm)
+	If akList == None || akForm == None
+		Return False
+	EndIf
+
+	Return akList.Find(akForm) >= 0
+EndFunction
+
+Bool Function ShouldRenameActor(Actor akTarget)
+	If akTarget == None
+		Return False
+	EndIf
 
 	ActorBase TargetRef = akTarget.GetLeveledActorBase()
 	ActorBase TargetBase = akTarget.GetActorBase()
 
-	Debug.Trace("RealNamesExtended: UniquesRename.Find(TargetRef) = " + UniquesRename.Find(TargetBase))
-	Debug.Trace("RealNamesExtended: NonUniqueNoRename.Find(TargetRef) = " + NonUniqueNoRename.Find(TargetBase))
+	Bool ForceRename = FormListHas(UniquesRename, TargetRef) || FormListHas(UniquesRename, TargetBase)
+	Bool BlockRename = FormListHas(NonUniqueNoRename, TargetRef) || FormListHas(NonUniqueNoRename, TargetBase)
+	Bool TargetIsUnique = False
 
-	Bool ShouldRename
-	if TargetRef.IsUnique()
-		If UniquesRename.Find(TargetBase) >= 0
-			; Target is Unique, but is on the list to rename anyway
-			; Debug.Trace("RealNamesExtended: Will Rename")
-			ShouldRename = True
-		Else
-			; Target is unique, and not on the list to rename anyway
-			; Debug.Trace("RealNamesExtended: Won't Rename")
-			ShouldRename = False
-		EndIf
-	Else ; Target is not unique
-		If NonUniqueNoRename.Find(TargetBase) >= 0
-			; Target is not unique, but is on the list to not rename
-			; Debug.Trace("RealNamesExtended: Won't Rename")
-			ShouldRename = False
-		Else
-			; Target is not unique, and is not on the list to not rename
-			; Debug.Trace("RealNamesExtended: Will Rename")
-			ShouldRename = True
-		EndIf
+	If TargetRef != None && TargetRef.IsUnique()
+		TargetIsUnique = True
 	EndIf
 
-	If !ShouldRename
+	If TargetBase != None && TargetBase.IsUnique()
+		TargetIsUnique = True
+	EndIf
+
+	Debug.Trace("RealNamesExtended: ForceRename = " + ForceRename)
+	Debug.Trace("RealNamesExtended: BlockRename = " + BlockRename)
+	Debug.Trace("RealNamesExtended: TargetIsUnique = " + TargetIsUnique)
+
+	If BlockRename
+		; Explicit exclusions win even if an actor is also present in RealNamesUniqueRename.
+		Return False
+	EndIf
+
+	If TargetIsUnique && !ForceRename
+		Return False
+	EndIf
+
+	Return True
+EndFunction
+
+Function ChangeName(Actor akTarget, String newFirstName, String newLastName)
+
+	If !ShouldRenameActor(akTarget)
 		; Debug.Notification("Target is a unique NPC. You cannot change its name!")
 		Return
 	EndIf

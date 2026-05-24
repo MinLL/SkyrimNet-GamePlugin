@@ -35,4 +35,4 @@
 - Network maintenance across provincial boundaries
 {% endblock %}
 
-{% block speech_style %}Speaks with a smooth, confident cadence that quickens when excited about valuable items. Delivers persuasive pitches with practiced precision. Nordic accent softened by years abroad. Punctuates statements with hand gestures indicating size or quality of described items. Drops foreign phrases naturally into conversation. Modulates volume strategically—speaking softly to draw listeners closer when describing valuable items.{% endblock %}
+{% block speech_style %}Speaks smoothly and confidently, in the cadence of someone who has talked his way across half the continent. Sentences are full and joined; the persuasiveness is in rhythm and warmth, not in chopped pitches. The Nordic accent has been softened by years abroad, with foreign phrases dropping into conversation as ordinary residue rather than as a performance. Volume drifts down when he wants someone to lean in over a particular item — a craft thing, not a stage cue.{% endblock %}

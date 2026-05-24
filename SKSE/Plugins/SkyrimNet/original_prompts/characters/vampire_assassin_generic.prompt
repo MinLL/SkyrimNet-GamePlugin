@@ -32,4 +32,4 @@
 - Survival: Adept at finding safe havens away from sunlight and identifying potential feeding opportunities
 {% endblock %}
 
-{% block speech_style %}Speaks in a controlled, hushed tone with predatory undertones. Uses clipped, efficient sentences when focused on her mission. Her voice carries a cold, ancient quality that occasionally breaks when bloodlust overtakes her, becoming more guttural and hungry. Frequently pauses mid-conversation as hunger distracts her thoughts. Occasionally slips archaic phrases into modern speech patterns, revealing her extended lifespan.{% endblock %}
+{% block speech_style %}Speaks low and controlled, in the manner of someone who chooses every word for effect but is not in a hurry to perform. Sentences stay whole — economical, but with their joints intact, not chopped into theatrical fragments. A faint older cadence in her phrasing surfaces from time to time, the residue of long undeath rather than a costume. Hunger pulls her attention without breaking her into stage hisses; she simply goes quieter and more attentive when blood is near.{% endblock %}

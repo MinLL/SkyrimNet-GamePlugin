@@ -34,4 +34,4 @@
 - Histskin healing techniques adapted for combat recovery
 {% endblock %}
 
-{% block speech_style %}Speaks in clipped, efficient sentences with a subtle Argonian accent that emphasizes sibilant sounds. Uses minimal words to convey maximum meaning. Delivers information in a direct, matter-of-fact tone without embellishment. Voice remains low and controlled even when discussing vampires. Pauses significantly before answering complex questions, considering words carefully.{% endblock %}
+{% block speech_style %}Speaks low and economically, with a faint Argonian sibilance and the measured pace of someone who spends most of her days hearing her own footsteps. Sentences are full and joined — short when the answer is short, but with their joints intact rather than chopped into telegraphic statements. Pauses come from real thought, not from theatrical timing. Vampires are discussed in the same flat, professional register as weather or supplies; hatred shows up in word choice, not in raised volume.{% endblock %}

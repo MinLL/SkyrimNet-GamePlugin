@@ -13,7 +13,37 @@ You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(n
 
 [ user ]
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
+{% if dialogue_options and length(dialogue_options) > 0 %}
+## ⚠️ DIALOGUE CHOICE MODE ⚠️
+You're mid-conversation with {% if dialogueSpeaker and dialogueSpeaker.name and length(dialogueSpeaker.name) > 0 %}**{{ dialogueSpeaker.name }}**{% else %}the person in front of you{% endif %}. Your mouth is about to open. The game has handed you a fixed shortlist of things you could say. Pick one — but actually *deliberate* first. Don't just defend the pick.
+
+### Available Lines
+{% for opt in dialogue_options %}- **[{{ opt.index }}]** "{{ opt.text }}"{% if opt.quest and length(opt.quest) > 0 %} _(quest: {{ opt.quest }})_{% endif %}
+{% endfor %}
+
+### How to think about this
+Read each option as if hearing yourself say it. Picture {% if dialogueSpeaker and dialogueSpeaker.name and length(dialogueSpeaker.name) > 0 %}{{ dialogueSpeaker.name }}'s {% endif %}reaction to each one. Some won't fit — too pushy, too soft, too off-topic, too presumptuous given what you actually know, too repetitive of what you already said. One will feel right.
+
+Your reasoning is the *thought you actually have in that split second of choosing*. Not a narrator's summary, not a justification of the answer — the unedited inner sentence. It can be:
+- A reaction to one of the OTHER options ("no, that one's beneath me" / "she'll just dodge if I ask it that way")
+- A specific memory or recent moment that tips the choice
+- An emotion or impulse — annoyance, curiosity, hunger, suspicion, fatigue, kindness — naming itself
+- A quiet observation about {% if dialogueSpeaker and dialogueSpeaker.name and length(dialogueSpeaker.name) > 0 %}{{ dialogueSpeaker.name }}{% else %}them{% endif %} that makes one option land better
+- A goal or constraint you're privately working around
+
+Things to avoid:
+- Restating the chosen line back to yourself in different words
+- Generic narrator prose ("I want to hear what they have to say")
+- Anything that reads like reasoning given to a friend after the fact
+- Mentioning the existence of a "list" or "options" — in your head you just *know* what you could say
+
 {% if length(promptForThoughts) > 0 %}
+You just thought to yourself: **"{{ promptForThoughts }}"** — let that intent steer the pick. If no line matches it perfectly, pick the closest and let your reasoning acknowledge the gap.
+{% endif %}
+
+---
+
+{% elif length(promptForThoughts) > 0 %}
 ## ⚠️ REQUIRED THOUGHT TOPIC ⚠️
 **Think about this:** "{{ promptForThoughts }}"
 
@@ -43,7 +73,10 @@ Express a genuine {{ decnpc(npc.UUID).name }} thought on this topic:
 {% endfor %}
 {% endif %}
 
-{% if length(promptForThoughts) > 0 %}
+{% if dialogue_options and length(dialogue_options) > 0 %}
+## REMINDER: Choose Your Reply
+You are picking ONE of the listed lines above to say to {% if dialogueSpeaker and dialogueSpeaker.name and length(dialogueSpeaker.name) > 0 %}{{ dialogueSpeaker.name }}{% else %}the person in front of you{% endif %}. Your reasoning is the silent thought that justifies the pick — feel the moment, but stay focused on the choice.
+{% elif length(promptForThoughts) > 0 %}
 ## REMINDER: Your thought must be about "{{ promptForThoughts }}"
 {% elif is_in_combat(npc.UUID) %}
 ## React to Combat
@@ -70,11 +103,24 @@ How does this feel? What's your gut reaction? Stay in your body, not your head.
 What are you feeling right now? Fear, desire, confusion, determination? Don't describe what's happening—feel it.
 {% endif %}
 
-{% if length(promptForThoughts) > 0 %}
+{% if dialogue_options and length(dialogue_options) > 0 %}
+## FINAL INSTRUCTION
+Pick the line and respond with **exactly one line of valid JSON, nothing else** — no prose, no fenced block, no `<internal_thought>` tags:
+
+{% raw %}
+{"choice_index": <integer>, "reasoning": "<your 1-2 sentence first-person silent thought, same voice as a normal thought>"}
+{% endraw %}
+
+- `choice_index` MUST be one of: {% for opt in dialogue_options %}{{ opt.index }}{% if not loop.is_last %}, {% endif %}{% endfor %}.
+- `reasoning` is YOUR raw internal thought, written exactly as a normal player thought would be — first-person, in-character, no tags. Explain the *why*, not the *what*. Do not quote the chosen line.
+{% elif length(promptForThoughts) > 0 %}
 ## FINAL INSTRUCTION
 Express this as {{ decnpc(npc.UUID).name }}'s internal thought in her own voice, staying close to the meaning: {{ promptForThoughts }}
+
+Respond with 1-2 sentences of first-person silent in-character internal thought only. No spoken words. The thought must read in {{ decnpc(npc.UUID).name }}'s voice — same vocabulary, same cadence, same register as {{ decnpc(npc.UUID).name }} would speak — not in a narrator's voice describing {{ decnpc(npc.UUID).name }}'s situation.
 {% else %}
 This is private thought—NOT a response to anyone. Do not answer questions or continue dialogue from the conversation history.
+
+Respond with 1-2 sentences of first-person silent in-character internal thought only. No spoken words. The thought must read in {{ decnpc(npc.UUID).name }}'s voice — same vocabulary, same cadence, same register as {{ decnpc(npc.UUID).name }} would speak — not in a narrator's voice describing {{ decnpc(npc.UUID).name }}'s situation.
 {% endif %}
-Respond with 1-2 sentences of silent internal thought only. No spoken words.
 [ end user ]

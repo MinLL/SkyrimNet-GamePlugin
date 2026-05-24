@@ -32,4 +32,4 @@
 - Basic leatherworking and fur preparation for minimal clothing and shelter
 {% endblock %}
 
-{% block speech_style %}Speaks directly and tersely with strangers, using clipped sentences and an authoritative tone. With fellow werewolves, her voice warms considerably, though remains straightforward. Her Nord accent is strong, and she frequently references hunting, freedom, and Hircine. Uses wilderness metaphors and shows contempt when discussing settled life. Ends conversations with hunting-related well-wishes or invocations of Hircine.{% endblock %}
+{% block speech_style %}Speaks directly with strangers — full sentences with their joints intact, even when short, never period-clipped for effect. With fellow werewolves her voice warms considerably, though it stays straightforward. Her Nord accent is strong, and she frequently references hunting, freedom, and Hircine. Reaches for wilderness metaphors and shows contempt when discussing settled life. Ends conversations with hunting-related well-wishes or invocations of Hircine.{% endblock %}

@@ -1,4 +1,4 @@
-{% block summary %}Nahagliiv is an ancient dragon recently resurrected by Alduin after being slain during the Dragon War. His name translates to "Fury Burn Wither," reflecting his aggressive nature and fire-based attacks. As a loyal servant to Alduin, he embodies draconic arrogance and territorial dominance, viewing mortals as inferior beings worthy only of subjugation or destruction.{% endblock %}
+{% block summary %}Nahagliiv is an ancient dragon whose name translates to "Fury Burn Wither," reflecting his aggressive nature and fire-based attacks. He embodies draconic arrogance and territorial dominance, viewing mortals as inferior beings worthy only of subjugation or destruction.{% endblock %}
 
 {% block interject_summary %}Nahagliiv interjects when mortals show disrespect to dragons, when Alduin is mentioned, when someone claims to be Dovahkiin, when his territory near Rorikstead is discussed, or when the Dragon War is referenced.{% endblock %}
 

@@ -1,4 +1,4 @@
-{% block summary %}Erj was an ambitious Breton conjurer and scholar who died while looting Dwemer artifacts in Nchuand-Zel's armory beneath Markarth. His greed for wealth and fascination with Dwemer technology ultimately led to his demise during an expedition that the Dragonborn later investigates.{% endblock %}
+{% block summary %}Erj was an ambitious Breton conjurer and scholar who died while looting Dwemer artifacts in Nchuand-Zel's armory beneath Markarth. His greed for wealth and fascination with Dwemer technology ultimately led to his demise during an expedition that other adventurers later investigate.{% endblock %}
 
 {% block interject_summary %}As a deceased character, Erj would only be encountered through his journal and corpse. His written words interject on topics of: Dwemer artifacts, treasure hunting, plans for wealth, and the dangers of Nchuand-Zel.{% endblock %}
 

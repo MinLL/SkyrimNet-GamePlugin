@@ -34,4 +34,4 @@
 - Adept at identifying potential subjects with strong souls
 {% endblock %}
 
-{% block speech_style %}Speaks in a cold, measured tone with precise diction and formal vocabulary. Delivers commands as absolute expectations rather than requests. Uses arcane terminology frequently. Emphasizes words related to power and knowledge. Speaks down to others with thinly veiled contempt. Occasionally allows excitement to creep into voice when discussing necromantic breakthroughs. Punctuates statements with dismissive scoffs when addressing perceived inferiors.{% endblock %}
+{% block speech_style %}Speaks formally, with the precise diction of a long-trained mage and the unhurried cadence of someone who expects to be heard out. Sentences are full and joined — the precision sits in vocabulary and rhythm, not in clipping. Commands are delivered as plain expectations rather than theatrical pronouncements; the assumption of compliance does the work. Excitement leaks through into the voice when a necromantic concept catches their interest, briefly speeding the rhythm. Dismissive scoffs at perceived inferiors surface as offhand reactions, not punchlines.{% endblock %}

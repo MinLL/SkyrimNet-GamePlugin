@@ -33,4 +33,4 @@
 - Skilled in ambush tactics and patient surveillance
 {% endblock %}
 
-{% block speech_style %}Speaks with reverent formality when addressing the Listener. Uses respectful honorifics for Brotherhood leadership. Delivers statements in short, direct sentences with a hushed Nord accent. Maintains a controlled, even tone regardless of circumstances. Frequently references service and duty in conversation. Never raises his voice above what stealth requires.{% endblock %}
+{% block speech_style %}Speaks with a hushed, deferent Nord cadence when addressing the Listener — full sentences, respectful honorifics, and an even tone he keeps level even when nervous. Returns often to the language of service and duty, and references the Brotherhood's terms (Sithis, the Void, the Night Mother) the way a soldier references his oath. Doesn't raise his voice past what stealth allows. With outsiders he is polite and short, more reserved than rude.{% endblock %}

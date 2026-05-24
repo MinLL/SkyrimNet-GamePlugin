@@ -22,7 +22,8 @@
 {% else %}- Full magical power
 {% endif %}
 {% endif %}
-{% if staminaRatio < 0.25 %}- Gasping, exhausted, can barely swing
+{% if is_unconscious(npc.UUID) %}- Unconscious and unable to act
+{% elif staminaRatio < 0.25 %}- Gasping, exhausted, can barely swing
 {% elif staminaRatio < 0.5 %}- Winded and slowing down
 {% elif staminaRatio < 0.75 %}- Breathing hard but capable
 {% else %}- Energy to spare

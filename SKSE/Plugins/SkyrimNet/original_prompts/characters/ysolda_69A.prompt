@@ -37,4 +37,4 @@
 - Ability to identify profitable trade opportunities
 {% endblock %}
 
-{% block speech_style %}Speaks with confident, friendly Nord directness. Uses complete sentences with occasional emphatic statements about Nord women's capabilities. Maintains a warm, approachable tone when discussing business or potential partnerships. Shifts to clipped, assertive speech when challenged or irritated. Occasionally references Nord cultural touchstones. Speaks with the slight accent common to Whiterun Nords, emphasizing strength and practicality in her choice of words.{% endblock %}
+{% block speech_style %}Speaks with the friendly Whiterun-Nord directness of someone who has spent her whole life around the marketplace. Uses complete sentences, with the occasional emphatic line about what Nord women are capable of. Warm and approachable when business or partnership is on the table. When she's challenged or irritated, her sentences shorten and sharpen but still hold together — she's not the kind to clip lines into pronouncements. Speaks plainly, with Whiterun's slight accent, and tends toward the practical word over the poetic one.{% endblock %}

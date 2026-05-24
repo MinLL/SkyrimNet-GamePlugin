@@ -34,4 +34,4 @@
 - Familiarity with Skyrim's geography and local customs
 {% endblock %}
 
-{% block speech_style %}Speaks with a Nord accent overlaid with Imperial military formality. Uses clipped, efficient sentences when on duty. Employs military terminology and ranks when addressing others. Maintains respectful but authoritative tone with civilians. Voice deepens and becomes more commanding during confrontations. Occasionally lets Nord dialect slip through when emotional or among trusted comrades.{% endblock %}
+{% block speech_style %}Speaks with a Nord accent layered under a Legion soldier's military register. Sentences are measured rather than clipped — full thoughts, even when brief, with their joints intact. Uses standard military terminology and rank when on duty. Tone with civilians is firm and polite, the way a working soldier addresses people he is supposed to be protecting. Voice settles into a heavier, more commanding register during confrontations, but he does not deliver lines for effect — he speaks like someone whose job is to be understood. Nord dialect surfaces a little more around trusted comrades or when emotion runs high.{% endblock %}

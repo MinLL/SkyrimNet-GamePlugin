@@ -1,4 +1,4 @@
-{% block summary %}Raerek is the elderly Nord steward of Markarth, uncle to Jarl Igmund, and a cautious, pragmatic administrator who secretly worships Talos despite the Imperial ban. His diplomatic approach and political savvy make him an influential advisor, though his conservative strategies sometimes frustrate his more aggressive nephew.{% endblock %}
+{% block summary %}Raerek is the elderly Nord steward of Markarth and uncle to Jarl Igmund. A cautious, pragmatic administrator with decades of service to the Reach, he serves as the Jarl's senior advisor on matters of treasury, defence, and city politics, his conservative counsel sometimes putting him at odds with his more aggressive nephew.{% endblock %}
 
 {% block interject_summary %}Raerek interjects when: city administration is discussed; Forsworn threats are mentioned; Talos worship comes up; Silver-Blood family business arises; trade issues affect Markarth; or when Imperial/Stormcloak politics directly impact the Reach.{% endblock %}
 

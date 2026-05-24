@@ -1,0 +1,77 @@
+# Performance preset — Sonnet 4.6 for dialogue/profiles/diary/action/
+# memory; DeepSeek 3.2 for combat/gamemaster (faster, still strong);
+# Haiku for the agent; DeepSeek Flash for meta and translator; Qwen VL for
+# vision. Higher cost — expect a noticeable bill on heavy sessions.
+# Sonnet runs at temp 1.0 for more variety in dialogue.
+# Mod-registered variants inherit the default rotation.
+variants:
+  default:
+    model_name: anthropic/claude-sonnet-4.6
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 4096 }
+
+  AgentDefault:
+    model_name: anthropic/claude-haiku-4.5
+    timeout: 120
+    model_params:
+      - { name: anthropic/claude-haiku-4.5, provider_id: openrouter, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 32000 }
+
+  CharacterProfileGeneration:
+    model_name: anthropic/claude-sonnet-4.6
+    timeout: 300
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 10000 }
+
+  DiaryGeneration:
+    model_name: anthropic/claude-sonnet-4.6
+    timeout: 120
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 12000 }
+
+  UniversalTranslator:
+    model_name: deepseek/deepseek-v4-flash
+    model_params:
+      - { name: deepseek/deepseek-v4-flash, provider_id: openrouter, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 512 }
+
+  combat:
+    model_name: deepseek/deepseek-v3.2
+    model_params:
+      - { name: deepseek/deepseek-v3.2, provider_id: openrouter, temperature: 0.8 }
+    default_params: { temperature: 0.8, max_tokens: 2000 }
+
+  action_evaluation:
+    model_name: anthropic/claude-sonnet-4.6
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 500 }
+
+  gamemaster_evaluation:
+    model_name: deepseek/deepseek-v3.2
+    timeout: 30
+    model_params:
+      - { name: deepseek/deepseek-v3.2, provider_id: openrouter, temperature: 0.8 }
+    default_params: { temperature: 0.8, max_tokens: 256 }
+
+  memory:
+    model_name: anthropic/claude-sonnet-4.6
+    timeout: 60
+    model_params:
+      - { name: anthropic/claude-sonnet-4.6, provider_id: openrouter, temperature: 1.0 }
+    default_params: { temperature: 1.0, max_tokens: 4000 }
+
+  meta:
+    model_name: deepseek/deepseek-v4-flash
+    model_params:
+      - { name: deepseek/deepseek-v4-flash, provider_id: openrouter, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 100 }
+
+  vision:
+    model_name: qwen/qwen3-vl-235b-a22b-instruct
+    model_params:
+      - { name: qwen/qwen3-vl-235b-a22b-instruct, provider_id: openrouter, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 4000 }
