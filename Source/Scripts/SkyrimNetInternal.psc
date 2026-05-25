@@ -31,6 +31,10 @@ Int Function GetDiaryScopeMessage() global
 
     Int _selection = skynet.libs.msgDiaryScope.Show()
     Debug.Trace("[SkyrimNetInternal] GetDiaryScopeMessage: User selected " + _selection)
+    if _selection == 4
+        Debug.Trace("[SkyrimNetInternal] GetDiaryScopeMessage: User cancelled")
+        return -1
+    endif
     return _selection
 EndFunction
 
