@@ -37,6 +37,12 @@
         "TargetLanguage": "English",
         "Value": "Target in Crosshair"
       }
+    },
+    {
+      "Text": {
+        "TargetLanguage": "English",
+        "Value": "Cancel"
+      }
     }
   ]
 }
