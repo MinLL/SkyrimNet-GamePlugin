@@ -1,0 +1,40 @@
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+{% if is_follower(actorUUID) or actorUUID == player.UUID %}
+{% set tracked_quests = get_selected_quests() %}
+{% set journal = get_quest_journal() %}
+{% set show_misc_tasks = show_misc_tasks | default(true) %}
+{% set show_inactive_quests = show_inactive_quests | default(false) %}
+{% if length(tracked_quests) > 0 %}
+{% if is_follower(actorUUID) %}## {{ player.name }}'s Party's Active Quests{% else %}## Active Quests{% endif %}
+(Quests remain available indefinitely unless explicitly stated otherwise. Do NOT create urgency, invent deadlines, or repeatedly remind about objectives.)
+{% for quest in tracked_quests %}
+{% for jq in journal %}{% if jq.editorID == quest.editorID %}
+{% if jq.journalText and not jq.isMisc %}
+**{{ jq.questName }}**
+{{ jq.journalText }}
+{% for obj in jq.objectives %}{% if obj.displayed %}{% if obj.completed %}
+- {{ obj.text }} [DONE]{% elif not obj.failed %}
+- {{ obj.text }}{% endif %}{% endif %}{% endfor %}
+
+{% endif %}
+{% endif %}{% endfor %}
+{% endfor %}
+{% if show_inactive_quests %}
+{% for jq in journal %}{% if jq.inQuestLog %}{% if jq.journalText %}
+**{{ jq.questName }}** (inactive)
+{{ jq.journalText }}
+{% endif %}{% endif %}{% endfor %}
+{% endif %}
+{% if show_misc_tasks %}
+### Misc. Tasks
+{% for quest in tracked_quests %}
+{% for jq in journal %}{% if jq.editorID == quest.editorID %}{% if jq.isMisc %}{% for obj in jq.objectives %}{% if obj.displayed and not obj.completed and not obj.failed %}
+- {{ obj.text }}{% endif %}{% endfor %}{% endif %}{% endif %}{% endfor %}
+{% endfor %}
+{% endif %}
+{% else %}
+## {{ player.name }}'s Party's Active Quests
+No active quests currently tracked.
+{% endif %}
+{% endif %}
+{% endif %}
