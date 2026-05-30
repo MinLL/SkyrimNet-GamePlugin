@@ -1,22 +1,23 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
+    {% if is_unconscious(actorUUID) or is_sneaking(actorUUID) or is_walking(actorUUID) or is_sprinting(actorUUID) or is_swimming(actorUUID) or is_knocked_down(actorUUID) %}
     ## Physical Activity
-    {% if is_unconscious(actorUUID) %}
+        {% if is_unconscious(actorUUID) %}
         - {{ decnpc(actorUUID).name }} is currently unconscious and unable to move or act.
-    {% else %}
+        {% endif %}
         {% if is_sneaking(actorUUID) %}
-            - {{ decnpc(actorUUID).name }} is currently trying to move silently, and avoid being seen or heard.
+        - {{ decnpc(actorUUID).name }} is currently trying to move silently, and avoid being seen or heard.
         {% endif %}
         {% if is_walking(actorUUID) %}
-                - {{ decnpc(actorUUID).name }} is currently able to move normally.
+        - {{ decnpc(actorUUID).name }} is currently walking at a steady pace.
         {% endif %}
         {% if is_sprinting(actorUUID) %}
-            - {{ decnpc(actorUUID).name }} is currently sprinting at full speed.
+        - {{ decnpc(actorUUID).name }} is currently sprinting at full speed.
         {% endif %}
         {% if is_swimming(actorUUID) %}
-            - {{ decnpc(actorUUID).name }} is currently swimming.
+        - {{ decnpc(actorUUID).name }} is currently swimming.
         {% endif %}
         {% if is_knocked_down(actorUUID) %}
-            - {{ decnpc(actorUUID).name }} is currently badly wounded, and is kneeling on the ground.
+        - {{ decnpc(actorUUID).name }} is currently heavily bruised, and is kneeling on the ground.
         {% endif %}
     {% endif %}
 {% endif %}
