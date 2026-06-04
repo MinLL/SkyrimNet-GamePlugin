@@ -1,5 +1,3 @@
-{# Modified from prompt originally from jykej: #}
-{# https://discord.com/channels/1287232260617015336/1372339819459514368/1442640958671032350 #}
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
 {% if is_follower(actorUUID) or actorUUID == player.UUID %}
 {% set tracked_quests = get_selected_quests() %}
