@@ -1,23 +1,31 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
-    {% if is_unconscious(actorUUID) or is_sneaking(actorUUID) or is_walking(actorUUID) or is_sprinting(actorUUID) or is_swimming(actorUUID) or is_knocked_down(actorUUID) %}
-    ## Physical Activity
-        {% if is_unconscious(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently unconscious and unable to move or act.
-        {% endif %}
-        {% if is_sneaking(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently trying to move silently, and avoid being seen or heard.
-        {% endif %}
-        {% if is_walking(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently walking at a steady pace.
-        {% endif %}
-        {% if is_sprinting(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently sprinting at full speed.
-        {% endif %}
-        {% if is_swimming(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently swimming.
-        {% endif %}
-        {% if is_knocked_down(actorUUID) %}
-        - {{ decnpc(actorUUID).name }} is currently heavily bruised, and is kneeling on the ground.
+    {% set unconscious = is_unconscious(actorUUID) %}
+    {% set sneaking = is_sneaking(actorUUID) %}
+    {% set walking = is_walking(actorUUID) %}
+    {% set sprinting = is_sprinting(actorUUID) %}
+    {% set swimming = is_swimming(actorUUID) %}
+    {% set knockedDown = is_knocked_down(actorUUID) %}
+    {% if unconscious or sneaking or walking or sprinting or swimming or knockedDown %}
+        {% set actor = decnpc(actorUUID) %}
+        ## Physical Activity
+        {% if unconscious %}
+            - {{ actor.name }} is currently unconscious and unable to move or act.
+        {% else %}
+            {% if sneaking %}
+                - {{ actor.name }} is currently trying to move silently, and avoid being seen or heard.
+            {% endif %}
+            {% if walking %}
+                - {{ actor.name }} is currently walking at a steady pace.
+            {% endif %}
+            {% if sprinting %}
+                - {{ actor.name }} is currently sprinting at full speed.
+            {% endif %}
+            {% if swimming %}
+                - {{ actor.name }} is currently swimming.
+            {% endif %}
+            {% if knockedDown %}
+                - {{ actor.name }} is currently badly wounded, and is kneeling on the ground.
+            {% endif %}
         {% endif %}
     {% endif %}
 {% endif %}
