@@ -38,7 +38,7 @@ variants:
   combat:
     model_name: google/gemma-4-26b-a4b-it
     model_params:
-      - { name: google/gemma-4-31b-it, provider_id: openrouter, temperature: 0.8 }
+      - { name: google/gemma-4-26b-a4b-it, provider_id: openrouter, temperature: 0.8 }
     default_params: { temperature: 0.8, max_tokens: 2000 }
 
   action_evaluation:
@@ -51,7 +51,7 @@ variants:
     model_name: meta-llama/llama-3.3-70b-instruct
     timeout: 30
     model_params:
-      - { name: google/gemma-4-31b-it, provider_id: openrouter, temperature: 0.8 }
+      - { name: meta-llama/llama-3.3-70b-instruct, provider_id: openrouter, temperature: 0.8 }
     default_params: { temperature: 0.8, max_tokens: 256 }
 
   memory:
