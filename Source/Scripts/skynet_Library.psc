@@ -586,6 +586,7 @@ Int Property hotkeyToggleOpenMic = -1 Auto Hidden
 Int Property hotkeyCaptureCrosshair = -1 Auto Hidden
 Int Property hotkeyGenerateDiaryBio = -1 Auto Hidden
 Int Property hotkeyInterruptDialogue = -1 Auto Hidden
+Int Property hotkeyOpenDashboard = -1 Auto Hidden
 
 Bool Property inGameHotkeysEnabled = false Auto Hidden
 
@@ -677,6 +678,12 @@ Function RegisterConfiguredHotkeys()
     If hotkeyInterruptDialogue != -1
         RegisterForKey(hotkeyInterruptDialogue)
     EndIf
+    ; The dashboard toggle is deliberately NOT a RegisterForKey hotkey. Once the
+    ; dashboard owns input focus Skyrim suppresses its OnKeyDown, so a key hotkey
+    ; could only ever open it, never close it. Instead the key/button is handed
+    ; to the dashboard's input sink, which sees raw keyboard + controller input
+    ; regardless of focus and toggles it open AND closed. -1 (unbound) disables.
+    SkyrimNetApi.SetDashboardToggleKey(hotkeyOpenDashboard)
 EndFunction
 
 Function UnregisterAllHotkeys()
@@ -723,6 +730,9 @@ Function UnregisterAllHotkeys()
     If hotkeyInterruptDialogue != -1
         UnregisterForKey(hotkeyInterruptDialogue)
     EndIf
+    ; Clear the sink's toggle key. In native-hotkey mode the C++ hotkey owns the
+    ; dashboard toggle (OS-level key polling), so the sink stays idle.
+    SkyrimNetApi.SetDashboardToggleKey(-1)
 EndFunction
 
 Function EnableInGameHotkeys()
@@ -865,6 +875,9 @@ Function HandleHotkeyPress(Int keyCode)
     ElseIf keyCode == hotkeyInterruptDialogue && hotkeyInterruptDialogue != -1
         SkyrimNetApi.TriggerInterruptDialogue()
     EndIf
+    ; Note: the dashboard toggle is intentionally absent here — it's driven by
+    ; the dashboard's input sink (SetDashboardToggleKey), not RegisterForKey, so
+    ; it can close while open. See RegisterConfiguredHotkeys.
 EndFunction
 
 Function HandleHotkeyRelease(Int keyCode, Float holdTime)
