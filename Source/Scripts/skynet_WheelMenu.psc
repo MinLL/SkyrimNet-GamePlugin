@@ -10,10 +10,21 @@ EndEvent
 ; Text input modes (Think, Transform, Direct, Silent) are handled via prefixes in the PrismaUI chat
 Function DisplayWheel() global
 
-    string labels = "Text Input,Think to Self,Auto Roleplay,Toggle Whisper Mode,Utilities"
-    string options = "Text Input,Think to Self,Auto Roleplay,Toggle Whisper Mode,Utilities Menu"
+    ; Build with explicit slot indices (UIWheelMenu has 8 fixed wedges, 0-7).
+    ; Slots 0-4 keep the original layout so existing muscle memory holds; slot 5
+    ; is left as a gap and Open Dashboard sits at slot 6 (past Utilities) so the
+    ; new entry doesn't shove the original cluster around.
+    UIMenuBase wheelMenu = uiextensions.GetMenu("UIWheelMenu")
+    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 0, "Text Input", "Text Input")
+    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 1, "Think to Self", "Think to Self")
+    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 2, "Auto Roleplay", "Auto Roleplay")
+    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 3, "Toggle Whisper Mode", "Toggle Whisper Mode")
+    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 4, "Utilities", "Utilities Menu")
+    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 5, "", "", false)
+    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 6, "Open Dashboard", "Open Dashboard")
+    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 7, "", "", false)
 
-    int result = skynet_WheelMenu.MenuWheel(StringUtil.Split(options, ","), StringUtil.Split(labels, ","))
+    int result = wheelMenu.OpenMenu()
 
     if result == 0
         ; Text input — use prefixes for modes: % Think, ' Transform, ! Direct, /silent Silent
@@ -30,6 +41,11 @@ Function DisplayWheel() global
     elseif result == 4
         ; Utilities submenu
         skynet_WheelMenu.DisplayUtilities()
+    elseif result == 6
+        ; Toggle the in-game dashboard. Note: UIExtensions menus generally don't
+        ; render in VR, so the bindable "Open Dashboard" Papyrus hotkey is the
+        ; real VR path — this wheel entry is the convenience path for flatrim.
+        SkyrimNetApi.TriggerToggleDashboard()
     endif
 
 EndFunction
