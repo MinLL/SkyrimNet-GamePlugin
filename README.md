@@ -220,7 +220,7 @@ SkyrimNet's modder API has a growing ecosystem of plugins built on top of it. A 
 
 ### 📋 **Optional Dependencies**
 - [UIExtensions](https://www.nexusmods.com/skyrimspecialedition/mods/17561) - Required for Input Wheel
-- [Dragonborn Voice Over](https://www.nexusmods.com/skyrimspecialedition/mods/84329) - Required for several optional features: voicing player lines in Dialogue menus (DBVO but with real-time audio generation), TTS for mods with silent voices, and Universal Translator. To enable these features, install DBVO but disable or delete the DBVO.esp file (no voice pack is required).
+- [Dragonborn Voice Over](https://www.nexusmods.com/skyrimspecialedition/mods/84329) - Download the 1.1.1 version, not the newer 2.0 versions. Required for several optional features: voicing player lines in Dialogue menus (DBVO but with real-time audio generation), TTS for mods with silent voices, and Universal Translator. To enable these features, install DBVO but disable or delete the DBVO.esp file (no voice pack is required).
 - [CUDA Toolkit 12.x](https://developer.nvidia.com/cuda-12-9-1-download-archive) - If you have an NVIDIA GPU with CUDA support, CUDA toolkit 12.x (**not** the most recent 13.x versions) can be used to increase performance of local Whisper STT. Restart your PC after installing it.
 You can confirm that CUDA is being used on the Test & Easy Setup page in the Speech-to-Text Test section:
   - <img width="600" height="122" alt="image" src="https://github.com/user-attachments/assets/68fdc4b5-70a3-402c-a258-ea33518d73a2" />
