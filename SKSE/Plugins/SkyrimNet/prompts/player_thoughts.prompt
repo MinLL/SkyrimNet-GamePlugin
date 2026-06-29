@@ -61,6 +61,18 @@ Express a genuine {{ decnpc(npc.UUID).name }} thought on this topic:
 ---
 
 {% endif %}
+{% set selectedQuests = get_selected_quests() %}
+{% if selectedQuests and length(selectedQuests) > 0 %}
+## Active Quests
+{% for quest in selectedQuests %}
+{% if quest.name == "IntelEngine" %}
+{{ get_intelengine_quests(npc.UUID) }}
+{% else %}
+**{{ quest.name }}** ({{ quest.type }}):{% for objective in quest.objectives %} {{ objective.objectiveText }}{% if objective.isCompleted %} (Done){% endif %}{% if not loop.is_last %};{% endif %}{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
 {% if dialogue_options and length(dialogue_options) > 0 %}
 ## REMINDER: Choose Your Reply
 You are picking ONE of the listed lines above to say to {% if dialogueSpeaker and dialogueSpeaker.name and length(dialogueSpeaker.name) > 0 %}{{ dialogueSpeaker.name }}{% else %}the person in front of you{% endif %}. Your reasoning is the silent thought that justifies the pick — feel the moment, but stay focused on the choice.
