@@ -678,12 +678,16 @@ Function RegisterConfiguredHotkeys()
     If hotkeyInterruptDialogue != -1
         RegisterForKey(hotkeyInterruptDialogue)
     EndIf
-    ; The dashboard toggle is deliberately NOT a RegisterForKey hotkey. Once the
-    ; dashboard owns input focus Skyrim suppresses its OnKeyDown, so a key hotkey
-    ; could only ever open it, never close it. Instead the key/button is handed
-    ; to the dashboard's input sink, which sees raw keyboard + controller input
-    ; regardless of focus and toggles it open AND closed. -1 (unbound) disables.
-    SkyrimNetApi.SetDashboardToggleKey(hotkeyOpenDashboard)
+    ; Open Dashboard is a normal RegisterForKey hotkey like the rest, so it works
+    ; with controller buttons too (the C++ key poll only sees keyboard/mouse, never
+    ; the gamepad). OnKeyDown only ever OPENS it: once the dashboard owns input focus
+    ; Skyrim suppresses OnKeyDown, so closing is handled by Escape / the dashboard's
+    ; own close button rather than this hotkey. Keep the input-sink toggle key cleared
+    ; so the poll never double-fires the toggle alongside this OnKeyDown.
+    If hotkeyOpenDashboard != -1
+        RegisterForKey(hotkeyOpenDashboard)
+    EndIf
+    SkyrimNetApi.SetDashboardToggleKey(-1)
 EndFunction
 
 Function UnregisterAllHotkeys()
@@ -729,6 +733,9 @@ Function UnregisterAllHotkeys()
     EndIf
     If hotkeyInterruptDialogue != -1
         UnregisterForKey(hotkeyInterruptDialogue)
+    EndIf
+    If hotkeyOpenDashboard != -1
+        UnregisterForKey(hotkeyOpenDashboard)
     EndIf
     ; Clear the sink's toggle key. In native-hotkey mode the C++ hotkey owns the
     ; dashboard toggle (OS-level key polling), so the sink stays idle.
@@ -874,10 +881,11 @@ Function HandleHotkeyPress(Int keyCode)
         SkyrimNetApi.TriggerGenerateDiaryBio()
     ElseIf keyCode == hotkeyInterruptDialogue && hotkeyInterruptDialogue != -1
         SkyrimNetApi.TriggerInterruptDialogue()
+    ElseIf keyCode == hotkeyOpenDashboard && hotkeyOpenDashboard != -1
+        ; OnKeyDown only opens the dashboard; once it has input focus Skyrim
+        ; suppresses OnKeyDown, so Escape / the close button handle closing.
+        SkyrimNetApi.TriggerToggleDashboard()
     EndIf
-    ; Note: the dashboard toggle is intentionally absent here — it's driven by
-    ; the dashboard's input sink (SetDashboardToggleKey), not RegisterForKey, so
-    ; it can close while open. See RegisterConfiguredHotkeys.
 EndFunction
 
 Function HandleHotkeyRelease(Int keyCode, Float holdTime)
