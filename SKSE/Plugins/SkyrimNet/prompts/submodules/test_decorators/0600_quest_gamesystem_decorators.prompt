@@ -319,6 +319,11 @@ First 10 Plugins: {{ join(allPlugins, ", ") }}
 **get_narrator_uuid():**
 - Narrator UUID: {{ get_narrator_uuid() }}
 
+**get_allowed_audio_tags():**
+- {{ actorName }} Allowed Audio Tags: {{ join(get_allowed_audio_tags(actorUUID), ", ") }}
+- Chatterbox Allowed Audio Tags: {{ join(get_allowed_audio_tags("chatterbox"), ", ") }}
+- Higgs Allowed Audio Tags: {{ join(get_allowed_audio_tags("higgs"), ", ") }}
+
 ---
 
 ### Test 10: Item & Spell Customization
