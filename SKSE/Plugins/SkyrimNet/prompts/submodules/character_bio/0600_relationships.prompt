@@ -3,7 +3,9 @@
         ## Relationships
     {% endif %}
     {% block relationships %}{% endblock %}
-    {% if not is_player(actorUUID) %}
+    {# Travel history is auto-generated context, not part of the authored bio block —
+       keep it out of the single-block "bio_relationships" render mode #}
+    {% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(actorUUID) %}
         ### Travel History with {{ player.name }}
         {% if is_follower(actorUUID) %}
             - {{ decnpc(actorUUID).name }} is a member of {{ player.name }}'s party, and is currently actively traveling in the group.
