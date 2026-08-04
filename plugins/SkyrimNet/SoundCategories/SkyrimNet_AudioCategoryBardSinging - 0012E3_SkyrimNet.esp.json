@@ -1,0 +1,14 @@
+{
+  "FormKey": "0012E3:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_AudioCategoryBardSinging",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet Bards"
+  },
+  "Flags": [
+    "ShouldAppearOnMenu"
+  ],
+  "Parent": "0DDDC5:Skyrim.esm",
+  "StaticVolumeMultiplier": 0.5,
+  "DefaultMenuVolume": 1.0
+}
