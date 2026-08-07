@@ -8,7 +8,7 @@
   "Flags": [
     "ShouldAppearOnMenu"
   ],
-  "Parent": "0DDDC5:Skyrim.esm",
+  "Parent": "0EB803:Skyrim.esm",
   "StaticVolumeMultiplier": 0.5,
   "DefaultMenuVolume": 1.0
 }
