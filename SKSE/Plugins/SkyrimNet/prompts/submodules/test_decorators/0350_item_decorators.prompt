@@ -1,0 +1,66 @@
+{# TEST SUBMODULE - Item Decorators #}
+{# Tests: get_item_count, has_item #}
+{# CATEGORY: Equipment #}
+
+{% set actor = decnpc(actorUUID) %}
+{% set actorName = actor.name %}
+
+## 📦 ITEM DECORATOR TESTS
+
+### Test 1: get_item_count() - Count Specific Items
+
+{% set goldCount = get_item_count(actorUUID, "Gold001") %}
+{% set lockpickCount = get_item_count(actorUUID, "Lockpick") %}
+
+**{{ actorName }}'s Inventory Counts:**
+- **Gold Coins:** {{ goldCount }}
+- **Lockpicks:** {{ lockpickCount }}
+
+---
+
+### Test 2: get_item_count() - Item Not Found
+
+{% set unicornCount = get_item_count(actorUUID, 999999999) %}
+
+**Non-existent Item Count:**
+- **Unicorn (999999999):** {{ unicornCount }} (should be 0)
+
+---
+
+### Test 3: has_item() - Check Item Presence
+
+{% set hasGold = has_item(actorUUID, "Gold001") %}
+{% set hasLockpick = has_item(actorUUID, "Lockpick") %}
+
+**{{ actorName }}'s Item Presence:**
+- **Has Gold Coins:** {% if hasGold %}✓ YES{% else %}✗ NO{% endif %}
+- **Has Lockpicks:** {% if hasLockpick %}✓ YES{% else %}✗ NO{% endif %}
+
+---
+
+### Test 4: has_item() - Player Comparison
+
+{% set playerHasGold = has_item(player.UUID, "Gold001") %}
+{% set playerHasLockpick = has_item(player.UUID, "Lockpick") %}
+
+**Player's Item Presence:**
+- **Has Gold:** {% if playerHasGold %}✓ YES{% else %}✗ NO{% endif %}
+- **Has Lockpick:** {% if playerHasLockpick %}✓ YES{% else %}✗ NO{% endif %}
+
+---
+
+### Test 5: Conditional Usage
+
+{% if has_item(actorUUID, "Gold001") %}
+**{{ actorName }}** has at least one gold coin.
+  {% set coinPurse = get_item_count(actorUUID, "Gold001") %}
+  {% if coinPurse > 100 %}
+  They have a substantial purse of {{ coinPurse }} gold!
+  {% elif coinPurse > 10 %}
+  They have some coin — {{ coinPurse }} gold pieces.
+  {% else %}
+  They're nearly broke with only {{ coinPurse }} gold.
+  {% endif %}
+{% else %}
+**{{ actorName }}** has no gold at all.
+{% endif %}

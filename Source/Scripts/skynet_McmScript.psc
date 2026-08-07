@@ -44,6 +44,7 @@ int optionHotkeyToggleOpenMic
 int optionHotkeyCaptureCrosshair
 int optionHotkeyGenerateDiaryBio
 int optionHotkeyInterruptDialogue
+int optionHotkeyOpenDashboard
 
 int useImage
 
@@ -303,6 +304,7 @@ function DisplayHotkeys()
         optionHotkeyToggleWorldEventReactions = AddKeyMapOption("Toggle World Events", library.hotkeyToggleWorldEventReactions)
         optionHotkeyToggleWhisperMode = AddKeyMapOption("Toggle Whisper Mode", library.hotkeyToggleWhisperMode)
         optionHotkeyToggleOpenMic = AddKeyMapOption("Toggle Open Mic", library.hotkeyToggleOpenMic)
+        optionHotkeyOpenDashboard = AddKeyMapOption("Open Dashboard", library.hotkeyOpenDashboard)
         
         AddHeaderOption("Other Hotkeys")
         AddHeaderOption("")
@@ -1187,6 +1189,9 @@ event OnOptionKeyMapChange(int option, int keyCode, string conflictControl, stri
     elseif option == optionHotkeyInterruptDialogue
         library.hotkeyInterruptDialogue = finalKeyCode
         SetKeyMapOptionValue(option, keyCode)
+    elseif option == optionHotkeyOpenDashboard
+        library.hotkeyOpenDashboard = finalKeyCode
+        SetKeyMapOptionValue(option, keyCode)
     endif
 
     ; Re-register hotkeys to pick up the change immediately
@@ -1194,7 +1199,7 @@ event OnOptionKeyMapChange(int option, int keyCode, string conflictControl, stri
         library.UnregisterAllHotkeys()
         library.RegisterConfiguredHotkeys()
     endif
-    
+
 endevent
 
 event OnOptionDefault(int option)
@@ -1243,6 +1248,9 @@ event OnOptionDefault(int option)
     elseif option == optionHotkeyInterruptDialogue
         library.hotkeyInterruptDialogue = -1
         SetKeyMapOptionValue(option, -1)
+    elseif option == optionHotkeyOpenDashboard
+        library.hotkeyOpenDashboard = -1
+        SetKeyMapOptionValue(option, -1)
     endif
 
     ; Re-register hotkeys to pick up the change immediately
@@ -1250,7 +1258,7 @@ event OnOptionDefault(int option)
         library.UnregisterAllHotkeys()
         library.RegisterConfiguredHotkeys()
     endif
-    
+
 endevent
 
 ; ============================================================================

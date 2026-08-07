@@ -586,6 +586,7 @@ Int Property hotkeyToggleOpenMic = -1 Auto Hidden
 Int Property hotkeyCaptureCrosshair = -1 Auto Hidden
 Int Property hotkeyGenerateDiaryBio = -1 Auto Hidden
 Int Property hotkeyInterruptDialogue = -1 Auto Hidden
+Int Property hotkeyOpenDashboard = -1 Auto Hidden
 
 Bool Property inGameHotkeysEnabled = false Auto Hidden
 
@@ -677,6 +678,16 @@ Function RegisterConfiguredHotkeys()
     If hotkeyInterruptDialogue != -1
         RegisterForKey(hotkeyInterruptDialogue)
     EndIf
+    ; Open Dashboard is a normal RegisterForKey hotkey like the rest, so it works
+    ; with controller buttons too (the C++ key poll only sees keyboard/mouse, never
+    ; the gamepad). OnKeyDown only ever OPENS it: once the dashboard owns input focus
+    ; Skyrim suppresses OnKeyDown, so closing is handled by Escape / the dashboard's
+    ; own close button rather than this hotkey. Keep the input-sink toggle key cleared
+    ; so the poll never double-fires the toggle alongside this OnKeyDown.
+    If hotkeyOpenDashboard != -1
+        RegisterForKey(hotkeyOpenDashboard)
+    EndIf
+    SkyrimNetApi.SetDashboardToggleKey(-1)
 EndFunction
 
 Function UnregisterAllHotkeys()
@@ -723,6 +734,12 @@ Function UnregisterAllHotkeys()
     If hotkeyInterruptDialogue != -1
         UnregisterForKey(hotkeyInterruptDialogue)
     EndIf
+    If hotkeyOpenDashboard != -1
+        UnregisterForKey(hotkeyOpenDashboard)
+    EndIf
+    ; Clear the sink's toggle key. In native-hotkey mode the C++ hotkey owns the
+    ; dashboard toggle (OS-level key polling), so the sink stays idle.
+    SkyrimNetApi.SetDashboardToggleKey(-1)
 EndFunction
 
 Function EnableInGameHotkeys()
@@ -864,6 +881,10 @@ Function HandleHotkeyPress(Int keyCode)
         SkyrimNetApi.TriggerGenerateDiaryBio()
     ElseIf keyCode == hotkeyInterruptDialogue && hotkeyInterruptDialogue != -1
         SkyrimNetApi.TriggerInterruptDialogue()
+    ElseIf keyCode == hotkeyOpenDashboard && hotkeyOpenDashboard != -1
+        ; OnKeyDown only opens the dashboard; once it has input focus Skyrim
+        ; suppresses OnKeyDown, so Escape / the close button handle closing.
+        SkyrimNetApi.TriggerToggleDashboard()
     EndIf
 EndFunction
 

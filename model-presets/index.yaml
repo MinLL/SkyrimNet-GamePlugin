@@ -16,6 +16,6 @@ presets:
     file: presets/openrouter-default.yaml
 
   - id: openrouter-performance
-    name: Performance
+    name: Premium
     provider: openrouter
     file: presets/openrouter-performance.yaml

@@ -5,14 +5,73 @@
 {% set has_audio_tags = actor_tags_enabled or narrator_tags_enabled %}
 
 {% if has_audio_tags and (dialogue_mode or thought_mode) %}
-  {% set useChatterboxTags = get_actor_tts(npc.UUID) == "chatterbox" and actor_tags_enabled %}
+  {% set tts_engine = get_actor_tts(npc.UUID) %}
+  {% set useHiggsV3Tags = (tts_engine == "higgs" or tts_engine == "higgs_v3") and actor_tags_enabled %}
+  {% set useChatterboxTags = tts_engine == "chatterbox" and actor_tags_enabled %}
 
   {% set chatterboxEmotionTags = ["[angry]", "[fear]", "[surprised]", "[whispering]", "[advertisement]", "[dramatic]", "[narration]","[happy]", "[sarcastic]"] %}
   {% set chatterboxSoundTags = ["[clear throat]","[sigh]","[shush]","[cough]","[groan]","[sniff]","[gasp]","[chuckle]","[laugh]","[crying]"] %}
+  {% set allowed_audio_tags = get_allowed_audio_tags(npc.UUID) %}
   ## Voice Performance Tags
-  Use [square bracket tags] to direct vocal performance. Tags control emotion, delivery, and reactions—the AI voice interprets them contextually.
+  {% if useHiggsV3Tags %}
+    Use control tags `[category-tag]` to steer emotion, prosody, style, and sound effects.
+  {% else %}
+    Use [square bracket tags] to direct vocal performance. Tags control emotion, delivery, and reactions—the AI voice interprets them contextually.
+  {% endif %}
   
-  {% if useChatterboxTags %}
+  {% if useHiggsV3Tags %}
+    {% set originalEmotionsTags = ["emotion-affection", "emotion-amusement", "emotion-anger", "emotion-arousal", "emotion-awe", "emotion-bitterness", "emotion-confusion", "emotion-contemplation", "emotion-contentment", "emotion-determination", "emotion-disgust", "emotion-elation", "emotion-enthusiasm", "emotion-fear", "emotion-helplessness", "emotion-longing", "emotion-pride", "emotion-relief", "emotion-sadness", "emotion-shame", "emotion-surprise"] %}
+    {% set originalStylesTags = ["style-singing", "style-shouting", "style-whispering"] %}
+    {% set originalProsodyTags = ["prosody-speed_very_slow", "prosody-speed_slow", "prosody-speed_fast", "prosody-speed_very_fast", "prosody-pitch_low", "prosody-pitch_high", "prosody-expressive_high", "prosody-expressive_low"] %}
+    {% set originalSfxTags = ["sfx-cough", "sfx-laughter", "sfx-crying", "sfx-screaming", "sfx-burping", "sfx-humming", "sfx-sigh", "sfx-sniff", "sfx-sneeze"] %}
+    {% set filteredEmotionsTags = "" %}
+    {% set filteredStylesTags = "" %}
+    {% set filteredProsodyTags = "" %}
+    {% set filteredSfxTags = "" %}
+
+    {% for tag in allowed_audio_tags %}
+      {% if tag in originalEmotionsTags %}
+        {% set filteredEmotionsTags = filteredEmotionsTags + "`["+tag+"]`," %}
+      {% endif %}
+      {% if tag in originalStylesTags %}
+        {% set filteredStylesTags = filteredStylesTags + "`["+tag+"]`," %}
+      {% endif %}
+      {% if tag in originalProsodyTags %}
+        {% set filteredProsodyTags = filteredProsodyTags + "`["+tag+"]`," %}
+      {% endif %}
+      {% if tag in originalSfxTags %}
+        {% set filteredSfxTags = filteredSfxTags + "`["+tag+"]`," %}
+      {% endif %}
+    {% endfor %}
+
+    {% set exampleTag1 = "[sfx-sigh]Haah," %}
+    {% set exampleTag2 = "[emotion-elation]" %}
+    {% set exampleTag3 = "[style-whispering]" %}
+    {% set exampleTag4 = "[prosody-pitch_low]" %}
+
+    **Format:** `[category-tag]`, glued to text with no space. Only use tags from the catalog below — anything else degrades audio or gets read aloud literally. These are audio-only; never mix them with non-audio markup like `<internal_thought>`.
+
+    **Placement**
+    - **Sentence-level** (emotion, style, prosody `speed_*`/`pitch_*`/`expressive_*`): at the **very start** of the sentence — colors the whole sentence, so tag it once, not repeatedly.
+    - **Inline sfx**: at the exact spot the sound occurs, glued to a short onomatopoeia. e.g. `[sfx-cough]Ahem, let's begin.`
+    
+    **Stacking:** Combine at most **one tag per category** at a sentence start (e.g. emotion + style, or emotion + a prosody tag) — they control different things. Never stack two from the *same* category. Inline `sfx` can be added on top anywhere.
+
+    **Bare onomatopoeia needs no tag.** "Ohh", "Mmh", "Ugh", "Aah" can sit directly in the line as light texture. Use the `sfx` tag only when you want a distinct, emphasized beat.
+
+    
+    **Tag catalog (41 total):**
+    - **Emotions:** {{filteredEmotionsTags}}
+    - **Styles:** {{filteredStylesTags}}
+    - **Prosody:** {{filteredProsodyTags}}
+    - **SFX (inline, glued to onomatopoeia):** {{filteredSfxTags}}
+
+    **Examples**
+    - `[emotion-arousal][prosody-pitch_low]Come closer... I have a secret.`
+    - `[emotion-elation][sfx-laughter]Haha, welcome, welcome!`
+    - `You want the truth? [emotion-bitterness]Fine. He was never coming back.`
+    - `[emotion-anger][emotion-disgust]...` ❌ two emotions — pick one.
+  {% elif useChatterboxTags %}
     {% set exampleTag1 = "[sigh]" %}
     {% set exampleTag2 = "[happy]" %}
     {% set exampleTag3 = "[whispering]" %}
@@ -52,7 +111,8 @@
     Tags only work in dialogue, not *narration*.
   {% endif %}
 
-  {% if not useChatterboxTags %}
+  {% if not useChatterboxTags and not useHiggsV3Tags %}
     Use sparingly—1-2 per response max.
   {% endif %}
 {% endif %}
+

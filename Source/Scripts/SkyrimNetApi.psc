@@ -543,6 +543,25 @@ int function TriggerToggleActions() Global Native
 ; Functions identically to pressing the configured whisper toggle key
 int function TriggerToggleWhisperMode() Global Native
 
+; Toggles the in-game PrismaUI dashboard overlay (open if closed, close if open)
+; - Honors the same guards as the C++ dashboard hotkey: no-op while the chat
+;   overlay is open; on open, applies crosshair-target navigation per the
+;   Dashboard config (enabled / shift / disabled)
+; - Works regardless of whether C++ hotkeys are enabled, so VR users running
+;   in-game (Papyrus) hotkeys can still reach the dashboard via the wheel menu
+;   or a bound key
+; Returns 0 on success, 1 on failure
+int function TriggerToggleDashboard() Global Native
+
+; Tell the dashboard's input sink which key/button currently toggles the
+; dashboard (the in-game hotkey's keycode), so it can close the dashboard while
+; it's open. While the dashboard owns input focus the normal Papyrus OnKeyDown
+; is suppressed, so the key alone can't close it; the input sink handles that.
+; Pass -1 to disable (e.g. when in-game hotkeys are turned off).
+; - keyCode: DXScanCode (keyboard) or gamepad keycode, same as RegisterForKey
+; Returns 0 on success, 1 on failure
+int function SetDashboardToggleKey(int keyCode) Global Native
+
 ; --- Thought System Functions ---
 
 ; Simulates pressing the text thought hotkey
