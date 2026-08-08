@@ -227,6 +227,7 @@ mcp_skyrimnet-mcp_validate_custom_trigger:
 | `equip` | Equipment change | `actor`, `item`, `action`, `equipped` |
 | `sleep_start` / `sleep_stop` | Sleep events | `actor` |
 | `book_read` | Book reading | `book_name`, `book_title`, `book_text` |
+| `book_read_manual` | Capture Crosshair hotkey book event - emitted once after Book Menu closes for first accepted capture in session | `book_name`, `book_title`, `book_text`, `book_vision_description` |
 | `quest_stage` | Quest progression | `quest`, `quest_id`, `stage` |
 | `quest_start_stop` | Quest start/end | `quest`, `quest_id`, `started` (boolean) |
 | `location_change` | Location changed | `actor`, `from_location`, `to_location` |
