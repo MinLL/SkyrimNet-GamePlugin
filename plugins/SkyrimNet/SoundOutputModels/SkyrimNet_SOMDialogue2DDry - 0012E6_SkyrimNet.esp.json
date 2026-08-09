@@ -1,0 +1,28 @@
+{
+  "FormKey": "0012E6:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_SOMDialogue2DDry",
+  "Data": {
+    "ReverbSendPercent": 0.0
+  },
+  "Type": "DefinedSpeakerOutput",
+  "OutputChannels": {
+    "Channel0": {
+      "L": 100,
+      "R": 100,
+      "RL": 50,
+      "RR": 50,
+      "BL": 50,
+      "BR": 50
+    },
+    "Channel1": {
+      "L": 100,
+      "RL": 100,
+      "BL": 100
+    },
+    "Channel2": {
+      "R": 100,
+      "RR": 100,
+      "BR": 100
+    }
+  }
+}
