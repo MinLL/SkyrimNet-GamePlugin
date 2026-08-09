@@ -1,0 +1,14 @@
+{
+  "FormKey": "0012E5:SkyrimNet.esp",
+  "EditorID": "SkyrimNet_AudioCategoryVirtualSpeakers",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet Virtual Speakers"
+  },
+  "Flags": [
+    "ShouldAppearOnMenu"
+  ],
+  "Parent": "0EB803:Skyrim.esm",
+  "StaticVolumeMultiplier": 0.9,
+  "DefaultMenuVolume": 0.8
+}
