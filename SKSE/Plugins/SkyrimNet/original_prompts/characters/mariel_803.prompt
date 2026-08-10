@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemini-3.6-flash | image-informed: yes #}
 {% block summary %}A renegade Reach shaman known for surviving the infamous Briarheart ritual with her mind intact, offering high-level magic to anyone who accepts her untamed nature.{% endblock %}
 
 {% block interject_summary %}Mariel interjects with pragmatic, primal observations and dark, flirtatious banter.{% endblock %}

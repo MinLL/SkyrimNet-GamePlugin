@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A self-assured Imperial soldier known for her striking presence and unwavering competence in combat.{% endblock %}
 
 {% block interject_summary %}Adele adds a poised, slightly teasing observation to the conversation.{% endblock %}

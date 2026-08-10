@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Mogg is a Wood Orc woodcutter who roams the Nightwood wilds alone. She is known among the few who encounter her as self-sufficient, sharp-witted, and difficult to rattle — the kind of woman who laughs at danger and means it.{% endblock %}
 
 {% block interject_summary %}Mogg interjects when someone underestimates Orcs, romanticizes nature without surviving it, or when a fight is being talked about instead of started.{% endblock %}

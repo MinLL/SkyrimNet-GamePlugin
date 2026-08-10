@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}A roguish freelancer known throughout the Flagon as charming, slippery company who is far sharper and more ambitious than her giggling demeanor suggests.{% endblock %}
 
 {% block interject_summary %}Jane Doe chimes in with a coy, sing-song remark, clearly delighted to tilt the conversation her way.{% endblock %}

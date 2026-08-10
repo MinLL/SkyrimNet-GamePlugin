@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}Xavira is a Dunmer witch and necromancer haunting the Falkreath wilds, known to locals as one of the Glenmoril hags. Rumors paint her as a naked madwoman who runs through the woods and leaves frozen, reanimated corpses in her wake.{% endblock %}
 
 {% block interject_summary %}Xavira murmurs something about the dead being more honest company than the living.{% endblock %}

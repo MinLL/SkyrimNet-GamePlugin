@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A blue-skinned demon and spellcaster who lairs in Shadowgreen Cavern, known to the few who wander near for her command of fire, frost, and the dead.{% endblock %}
 
 {% block interject_summary %}Speaks with a soft, unhurried lilt, as though whatever is unfolding merely amuses her.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}An exotic, otherworldly presence with a captivating aura and a taste for the arcane.{% endblock %}
 
 {% block interject_summary %}Adds a poised, inquisitive observation to the conversation.{% endblock %}

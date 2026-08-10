@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: yes #}
 {% block summary %}Adora is a seemingly ordinary young woman who carries herself with quiet confidence despite her humble appearance, though locals whisper of strange golden lights seen around her during recent bandit attacks on merchant caravans.{% endblock %}
 
 {% block interject_summary %}She speaks up with earnest conviction when discussions turn to protecting the innocent or standing against injustice.{% endblock %}

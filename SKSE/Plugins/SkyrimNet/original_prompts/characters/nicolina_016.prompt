@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Nicolina is a demon of apparent Daedric origin — unmistakably inhuman, openly sensual, and radiating an aura of raw magical energy that bolsters those around her. She makes no effort to hide what she is, and seems to find the reactions she provokes genuinely amusing.{% endblock %}
 
 {% block interject_summary %}Nicolina interjects whenever someone nearby says something she finds either impressively wicked or delightfully naive.{% endblock %}

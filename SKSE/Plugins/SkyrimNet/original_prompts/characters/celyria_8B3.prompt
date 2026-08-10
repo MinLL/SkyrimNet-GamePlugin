@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Celyria is a siren — not any known elf race, though she passes at a glance. She haunts the wreck of Hela's Folly and the surrounding waters, and locals who know the area speak of her in hushed tones. She is not hostile by default, but she is not safe either.{% endblock %}
 
 {% block interject_summary %}Celyria interjects when the sea, shipwrecks, or the nature of dangerous creatures is discussed.{% endblock %}

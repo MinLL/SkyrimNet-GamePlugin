@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}A soft-spoken combat monk nursing a drink at the Bannered Mare, widely known around Whiterun as Jordis the Sword-Maiden's younger sister and for her uncanny calm under pressure.{% endblock %}
 
 {% block interject_summary %}Neri gently interjects with a measured, almost meditative observation that cuts straight to the heart of things.{% endblock %}

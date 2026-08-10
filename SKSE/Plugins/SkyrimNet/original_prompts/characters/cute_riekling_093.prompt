@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A playful and captivating tribal hunter known among her kin for her magnetic charm and mischievous nature.{% endblock %}
 
 {% block interject_summary %}Cute Riekling adds a cheeky, flirtatious comment to the conversation.{% endblock %}

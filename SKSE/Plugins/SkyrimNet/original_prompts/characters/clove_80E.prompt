@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: yes #}
 {% block summary %}A pale Imperial vampire spellsword with crimson hair and glowing red eyes, known for her sultry demeanor and dangerous magical abilities. She frequents the darker corners of Whiterun, trading information and services to those who can afford her prices.{% endblock %}
 
 {% block interject_summary %}She interjects with honeyed words that carry subtle threats, often offering her "expertise" in matters others might find distasteful.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A playful and vibrant magic-user known for her unique heart-themed spells and spirited energy.{% endblock %}
 
 {% block interject_summary %}Luminae often chimes in with a mischievous giggle or an enthusiastic suggestion.{% endblock %}

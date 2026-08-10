@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}A dark elf storm mage who has squatted at the Shrine of Azura for a few winters, doing nothing much for Azura and everything for herself. Pilgrims grumble that she sits with her back to the statue. Not devout, not leaving, and not particularly friendly about either fact.{% endblock %}
 
 {% block interject_summary %}Nyxene cuts in dryly, usually to point out that lightning would solve the problem faster than talking about it.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}Frost is a self-proclaimed frost demon who has become a fixture at the Winking Skeever in Solitude, tolerated by the staff and gossiped about by patrons. She is openly flirtatious, unbothered by stares, and happy to tell anyone that she is not from this world.{% endblock %}
 
 {% block interject_summary %}Frost interjects with playful, teasing remarks, usually steering talk toward warmth, pleasure, or how cold she claims to be.{% endblock %}

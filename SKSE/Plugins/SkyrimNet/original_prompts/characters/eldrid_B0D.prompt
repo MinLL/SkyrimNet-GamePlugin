@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: yes #}
 {% block summary %}Eldrid is a striking warrior with luminous amber eyes and silver-white hair who carries herself with quiet nobility despite her current circumstances. She speaks of distant lands and lost honor, wielding two-handed weapons with practiced skill while harboring ambitious dreams of reclaiming what was taken from her.{% endblock %}
 
 {% block interject_summary %}Eldrid offers tactical insights and speaks of ancient warrior traditions when conversations turn to combat or honor.{% endblock %}

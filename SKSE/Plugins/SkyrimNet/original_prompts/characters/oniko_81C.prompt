@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A flirtatious oni who holds court at the Four Shields Tavern in Dragon's Bridge, turning heads with her exotic looks and easy laughter. Travelers know her for her sharp tongue, sharper naginata, and an open fondness for strong drink and stronger company.{% endblock %}
 
 {% block interject_summary %}Oniko tosses in a teasing remark or a purred double entendre, rarely letting a serious moment linger.{% endblock %}

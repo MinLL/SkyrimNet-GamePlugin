@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A Nord sellsword known as "Shield-Breaker" for her knack of shattering enemy formations with brutal two-handed strikes. Currently convalescing at the Temple of Kynareth after a job gone wrong, though she insists she's fine.{% endblock %}
 
 {% block interject_summary %}Katria weighs in with confident, often irreverent remarks, never shy about speaking her mind.{% endblock %}

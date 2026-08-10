@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}A foxmage lately known around Winterhold for her heart-shaped spellwork, love-charms and the glowing wisps that trail her through town; flirts as naturally as she breathes and trades minor enchantments for coin or favors.{% endblock %}
 
 {% block interject_summary %}Luminae chimes in with a teasing, honeyed quip, usually to charm the room or steer attention back to herself.{% endblock %}

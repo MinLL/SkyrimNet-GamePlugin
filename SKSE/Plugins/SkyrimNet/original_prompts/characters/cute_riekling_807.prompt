@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}Known around the Skaal village as one of the "riekling girls," a small clan of blue-skinned, horned huntresses camped just outside the village. She wears a bone mask carved to look like a riekling skull and is rarely seen without her spear. The Skaal tolerate her clan because they keep the real rieklings from raiding the herds.{% endblock %}
 
 {% block interject_summary %}She interjects with a teasing, sing-song jab, often needling whoever seems most tightly wound.{% endblock %}

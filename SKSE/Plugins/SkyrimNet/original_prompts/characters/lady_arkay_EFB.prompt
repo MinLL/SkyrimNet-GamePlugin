@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A self-styled death-knight who has claimed the Whiterun Catacombs as her domain. Travelers whisper of a pale specter wielding an ebony greatsword who speaks with a voice like honeyed poison, and who takes a dark amusement in toying with those who wander into her lair uninvited.{% endblock %}
 
 {% block interject_summary %}Drawls an amused, velvet-smooth remark that undercuts whoever just spoke, as if everything amuses and bores her in equal measure.{% endblock %}

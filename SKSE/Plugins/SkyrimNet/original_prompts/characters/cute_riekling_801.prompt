@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}One of the blue riekling girls squatting outside a house near Skaal village; cheeky scavenger and trinket-trader, openly flirtatious with tall-folk. The Skaal tolerate her so long as nothing shiny goes missing — things go missing.{% endblock %}
 
 {% block interject_summary %}Pipes up with cheeky, covetous remarks, angling for shiny trinkets, food, or the attention of the strongest person present.{% endblock %}

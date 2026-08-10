@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}One of three goblin-blooded elf sisters lodging at Arcadia's Cauldron in Whiterun, easily marked out by her fiery red hair and eyes that glow like embers. She's known to be the boldest and most outspoken of the trio, quick with a sharp word or a sharper stare.{% endblock %}
 
 {% block interject_summary %}Sharx cuts in with a sly, teasing remark, eyes glinting like she already knows something you don't.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A minor daedra from Oblivion, far from home, who communicates mostly in curious gibberish and seems drawn to any kind of excitement.{% endblock %}
 
 {% block interject_summary %}She makes a playful, trilling sound to get your attention.{% endblock %}

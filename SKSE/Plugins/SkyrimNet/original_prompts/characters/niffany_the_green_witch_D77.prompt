@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A solitary green-skinned witch camped in the barren highlands of the Reach near The Lover Stone. She openly practices necromancy and elemental summoning, her unnatural complexion marking her as someone who has delved deep into forbidden magic.{% endblock %}
 
 {% block interject_summary %}Speaks with knowing, amused confidence, as if mundane conversation is beneath her but she is willing to humor it.{% endblock %}

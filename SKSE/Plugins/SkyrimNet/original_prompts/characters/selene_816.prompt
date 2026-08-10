@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}A young, eager-voiced elven archer who settled in Shadowgreen Cavern after fleeing scandal in Solitude; she carries a disarmingly flirtatious air and survives as a reclusive huntress and occasional bow-for-hire.{% endblock %}
 
 {% block interject_summary %}Selene chimes in with a bright, playful quip, her eager voice lilting like she's already halfway to a joke.{% endblock %}

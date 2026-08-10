@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}Lilith is a night elf from Morrowind who rents a corner at the Sleeping Giant Inn, known among locals for her odd habit of gifting strangers potions or coin between songs, though her cheerfulness never quite dispels an air of foreign mystery.{% endblock %}
 
 {% block interject_summary %}Lilith offers a soft, melodic remark from beneath her fringe, her tone polite but strangely weighted.{% endblock %}

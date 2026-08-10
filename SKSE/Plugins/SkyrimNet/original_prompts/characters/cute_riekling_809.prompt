@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: yes #}
 {% block summary %}A playful blue-skinned creature with ram horns and glowing violet eyes who delights in mischief and seduction, known around Skaal village for her flirtatious nature and tribal wisdom.{% endblock %}
 
 {% block interject_summary %}Cute Riekling chimes in with sultry observations and mischievous suggestions that often carry surprising insight.{% endblock %}

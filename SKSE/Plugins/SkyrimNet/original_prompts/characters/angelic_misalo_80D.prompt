@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}Angelic Misalo presents herself as a genuine angel sent to serve mortals, residing openly in Solitude's Temple of the Divines where she blesses visitors with warmth, light, and conspicuously affectionate attention. Locals speak of her as a living miracle; few notice how much she savors the devotion.{% endblock %}
 
 {% block interject_summary %}She interjects with soft, teasing blessings or playful remarks framed as divine guidance.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}The restless spirit of Friga Shatter-Shield, murdered in Windhelm and now haunting the Hall of the Dead. Locals whisper she lingers because her killer was never caught. She speaks softly and carries the chill of the grave with her presence.{% endblock %}
 
 {% block interject_summary %}Her voice drifts like wind through a cracked tomb door — quiet, mournful, yet oddly warm for a ghost.{% endblock %}

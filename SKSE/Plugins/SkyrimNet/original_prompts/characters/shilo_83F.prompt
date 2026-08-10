@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}Known around the Blue Palace courtyard for chatting up guards and courtiers as if they're all in on some private joke, and for a rumored reputation as a blade-for-hire nobody has actually seen work. Unnervingly cheerful for someone whispered to be a killer.{% endblock %}
 
 {% block interject_summary %}She interjects with a grin, tossing in some jab or oddly specific detail as if she's been eavesdropping the whole time.{% endblock %}

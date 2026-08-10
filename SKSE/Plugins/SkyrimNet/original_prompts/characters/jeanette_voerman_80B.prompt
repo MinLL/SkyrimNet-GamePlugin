@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A flirtatious Breton vampire who haunts the Bards College common room with a coy smile and sharp fangs. Known as the livelier, messier Voerman sister — and the one currently not speaking to the other.{% endblock %}
 
 {% block interject_summary %}"Oh, you're still talking? I thought we'd moved on to the fun part."{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemini-3.6-flash | image-informed: yes #}
 {% block summary %}A rowdy and uninhibited Selachii warrior renowned along the docks for her cheerful bloodlust, fierce appetite, and mercenary spirit. Anyone speaking with her immediately notices her jovial, shameless directness and eagerness for a good fight.{% endblock %}
 
 {% block interject_summary %}Mako interjects with rowdy, toothy enthusiasm, eager to offer brute force or cheeky commentary.{% endblock %}

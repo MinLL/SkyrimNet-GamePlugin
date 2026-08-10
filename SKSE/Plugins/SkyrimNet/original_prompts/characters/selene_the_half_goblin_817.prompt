@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A half-goblin two-handed warrior with a condescending demeanor, exotic appearance, and openly flirtatious nature.{% endblock %}
 
 {% block interject_summary %}She cuts in with a sly remark, mixing playful seduction with subtle condescension.{% endblock %}

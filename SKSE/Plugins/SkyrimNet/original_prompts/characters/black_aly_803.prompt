@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}A fiercely self-assured archeress from another world, readily known for her lethal bow arm, bawdy tongue, and open contempt for anyone who mistakes birthright for competence.{% endblock %}
 
 {% block interject_summary %}Black Aly cuts in with a crude observation or a bold challenge wrapped in a smirk.{% endblock %}

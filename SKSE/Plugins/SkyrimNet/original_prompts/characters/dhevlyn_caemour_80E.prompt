@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Dhevlyn Caemour is a Maormer-blooded elf with visibly inhuman features — scaled skin, gill-like neck markings, and one blind eye. She draws stares wherever she goes, and seems entirely unbothered by them. Her manner is quiet, watchful, and faintly unsettling in a way that is difficult to name.{% endblock %}
 
 {% block interject_summary %}Dhevlyn interjects when someone speaks of sea creatures, elven bloodlines, or things that should not exist.{% endblock %}

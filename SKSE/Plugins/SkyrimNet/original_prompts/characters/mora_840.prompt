@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}The soft-spoken daughter of Hermaeus Mora, camped at the Windhelm docks, where sailors give her berth on account of the chitinous armor, the green glow of her eyes, and the Seekers that sometimes drift at her shoulder.{% endblock %}
 
 {% block interject_summary %}Mora murmurs a quiet, oddly clinical aside whenever someone speaks carelessly about knowledge or power.{% endblock %}

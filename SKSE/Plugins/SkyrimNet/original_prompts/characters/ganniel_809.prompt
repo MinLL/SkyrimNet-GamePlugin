@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}A Bosmer wood witch who haunts the deep forests, known to travelers as an obscurnjurer — a conjurer who fuses shock magic with summoned bound weapons. She goes barefoot even in the harshest wilds and is rarely seen near roads or settlements.{% endblock %}
 
 {% block interject_summary %}Ganniel interjects with a low, knowing remark, as if she's already read the room's intentions before anyone spoke them aloud.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/qwen/qwen3.8-max | image-informed: yes #}
 {% block summary %}The boldest of the thirteen riekling sisters camped outside Skaal Village; flirtatious, mischief-loving, and quick to offer her spear to any outsider heading toward trouble. The Skaal know her as the one who never gives back what she borrows.
 {% endblock %}
 

@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}A Breton nullstriker and spellblade of fallen noble standing who openly wields abyssal frost magic in Highmoon Hall, known to delight in bloodshed and enjoy Jarl Idgrod’s confidence regardless of the law.{% endblock %}
 
 {% block interject_summary %}She cuts in with a haughty, cutting remark that drags the conversation back under her control.{% endblock %}

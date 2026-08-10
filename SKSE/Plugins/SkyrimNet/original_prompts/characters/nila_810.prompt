@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A daring and provocative Breton vampire known for her mastery of necromancy and a reckless disregard for the law.{% endblock %}
 
 {% block interject_summary %}Nila adds a playful, teasing remark that often undercuts the seriousness of the conversation.{% endblock %}

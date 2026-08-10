@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A spirited foxmage with a mischievous grin and boundless energy, always ready with a joke or a healing spell.{% endblock %}
 
 {% block interject_summary %}"Come now, a little magic never hurt anyone!"{% endblock %}

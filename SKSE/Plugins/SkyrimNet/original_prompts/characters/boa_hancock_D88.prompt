@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Boa Hancock carries herself like a queen who has been briefly inconvenienced by having to exist in the same world as everyone else. Extraordinarily beautiful, imperious, and accustomed to being worshipped, she makes no effort to conceal her contempt for those she considers beneath her — which is most people. She is known for her devastating magic arrows and her habit of wearing very little while somehow still managing to look down on everyone around her.{% endblock %}
 
 {% block interject_summary %}She interjects when someone nearby says something she finds beneath her dignity, which is often.{% endblock %}

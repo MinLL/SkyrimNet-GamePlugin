@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A charming half-Breton, half-Dunmer fire mage with a warm smile and open demeanor who seems perpetually cheerful and approachable.{% endblock %}
 
 {% block interject_summary %}"I couldn't help but overhear—mind if I add a little fire to this conversation?"{% endblock %}

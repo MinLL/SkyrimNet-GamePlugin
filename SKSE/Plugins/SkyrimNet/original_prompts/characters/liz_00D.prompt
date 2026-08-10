@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}A sweet, soft-spoken young forager with an all-consuming love of mushrooms, currently held by the bandits of Robber's Gorge after they caught her picking fungi on their turf. Talks about mushrooms to anyone within earshot.{% endblock %}
 
 {% block interject_summary %}Chimes in softly with an earnest mushroom fact or a gentle, slightly off-topic observation.{% endblock %}

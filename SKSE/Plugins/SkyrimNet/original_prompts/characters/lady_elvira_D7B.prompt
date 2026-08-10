@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}A pale-lavender, exotic beauty with electric-blue hair and glowing purple eyes, marked from face to chest with strange cyan scale-patterns. Travelers passing Nightgate Inn whisper that she's not entirely human, and that she's been haunting these roads for far longer than she looks.{% endblock %}
 
 {% block interject_summary %}Elvira cuts in with a low, amused purr, as if she already knew what you were about to say.{% endblock %}

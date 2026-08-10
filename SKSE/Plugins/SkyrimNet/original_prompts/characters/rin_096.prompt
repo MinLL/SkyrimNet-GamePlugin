@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A devoted knight-errant of the Divines known for her unwavering loyalty and a cynical streak that contrasts with her pious reputation.{% endblock %}
 
 {% block interject_summary %}Rin offers a blunt, grounded perspective that often cuts through pretension.{% endblock %}

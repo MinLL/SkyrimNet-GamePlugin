@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A dangerously alluring sorceress who speaks in riddles and scorches the air with raw power, visibly marked by her Septim bloodline and a monstrous tattoo across her back.{% endblock %}
 
 {% block interject_summary %}A thunderous whisper that cuts through the conversation with dimensional resonance.{% endblock %}

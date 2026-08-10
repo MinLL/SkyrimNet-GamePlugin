@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A half-Khajiit Ohmes Raht sellsword who has made herself at home around Ivarstead's mill, known for her cocky grin, sharp blades, and sharper tongue. Locals know her as a capable fighter who takes work guarding caravans or dealing with the occasional bear, and as someone who never misses a chance to tease.{% endblock %}
 
 {% block interject_summary %}Chie jumps in with a wink and a teasing jab, offering her blades or her company depending on which gets the bigger reaction.{% endblock %}

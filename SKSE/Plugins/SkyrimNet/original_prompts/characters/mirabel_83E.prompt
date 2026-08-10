@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Mirabel is the self-proclaimed daughter of Molag Bal — a claim she makes with neither boast nor shame, simply as fact. She carries herself with a seductive, quietly dominant air, and those who spend time around her tend to feel watched even when she isn't looking at them. She haunts Arnleif and Sons like she owns a debt the owners don't know they owe.{% endblock %}
 
 {% block interject_summary %}Mirabel interjects when someone mentions Daedra, Molag Bal, domination, or when she senses weakness she finds amusing.{% endblock %}

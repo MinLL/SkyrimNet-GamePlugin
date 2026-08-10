@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}Nora is a dragon-blooded Nord warrior-mage residing at Dragonsreach, widely known in Whiterun as a master of her craft whose power outstrips any blade in the hold. She carries herself with open, sultry confidence and makes no secret that she considers most people beneath her.
 {% endblock %}
 

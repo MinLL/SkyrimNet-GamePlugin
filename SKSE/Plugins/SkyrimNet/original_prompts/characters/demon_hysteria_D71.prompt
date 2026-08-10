@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: no #}
 {% block summary %}A seductive red-skinned demon who has made herself at home in Markarth's hall of the dead, wielding destructive flame magic with gleeful abandon and charming the locals with her sultry demeanor.{% endblock %}
 
 {% block interject_summary %}She purrs her opinions with fiery conviction, often accompanied by playful sparks dancing between her fingers.{% endblock %}

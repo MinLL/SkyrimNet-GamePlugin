@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}A dryad who has wandered far from her forest and now lingers near the roads hoping someone will take her somewhere safe. She is openly curious about mortals and disarmingly affectionate toward anyone who shows her kindness.{% endblock %}
 
 {% block interject_summary %}Asdeth pipes up with breathy wonder at anything new, often steering the talk toward the forests she misses.{% endblock %}

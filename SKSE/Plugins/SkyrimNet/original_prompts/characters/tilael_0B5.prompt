@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Tilael is an elven woman of otherworldly appearance found at the Bee and Barb in Riften. She carries herself with quiet gravity and speaks little to strangers. Those who know her by reputation describe her as cautious, perceptive, and not easily read.{% endblock %}
 
 {% block interject_summary %}Tilael interjects when she senses deception, recognizes a name from her past, or hears something that touches on the nature of curses or elven bloodlines.{% endblock %}

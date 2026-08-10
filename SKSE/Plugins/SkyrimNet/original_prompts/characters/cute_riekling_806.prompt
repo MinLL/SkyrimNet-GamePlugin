@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemini-3.6-flash | image-informed: yes #}
 {% block summary %}A mischievous and surprisingly articulate Solstheim tribal scout known for her flirtatious banter and cheeky curiosity toward travelers.{% endblock %}
 
 {% block interject_summary %}Cute Riekling chimes in with playful, teasing remarks to disrupt serious conversations.{% endblock %}

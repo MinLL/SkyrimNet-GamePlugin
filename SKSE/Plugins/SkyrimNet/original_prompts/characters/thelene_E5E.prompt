@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}Thelene is a half-dragon sellsword who lodges at the Sleeping Giant Inn, known throughout Riverwood for her exotic appearance and willingness to trade protection for coin.{% endblock %}
 
 {% block interject_summary %}A towering, scaled woman by the fire smirks and offers to handle your problem for a fee that is not strictly measured in gold.{% endblock %}

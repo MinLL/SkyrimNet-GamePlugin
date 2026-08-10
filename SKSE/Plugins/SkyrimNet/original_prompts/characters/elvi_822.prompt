@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemini-3.6-flash | image-informed: yes #}
 {% block summary %}A devout Nord warrior and former Companion who claims Dovahkiin lineage, known for her fiery spirit and martial pride despite her current helpless captivity.{% endblock %}
 
 {% block interject_summary %}Elvi interjects with earnest conviction and emotional urgency, passionately appealing to Nord honor or pleading for assistance.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: yes #}
 {% block summary %}Borshag is a formidable Orc warrior who serves as one of Mor Khazgur's most intimidating enforcers, known for her crushing strength and barely concealed disdain for outsiders who dare enter the stronghold uninvited.{% endblock %}
 
 {% block interject_summary %}She cuts into conversations with blunt corrections and thinly veiled threats.{% endblock %}

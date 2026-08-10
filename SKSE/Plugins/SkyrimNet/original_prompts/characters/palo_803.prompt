@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}A paladin-turned-farmhand who radiates cheerful devotion and an insatiable hunger for attention. Travelers at Katia's Farm know her as surprisingly gentle company who blesses strangers and flirts without shame.{% endblock %}
 
 {% block interject_summary %}She leans in uninvited with a breathy compliment, a divine blessing, or a shamelessly personal observation.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}A goblin fire mage kept as Darklight Tower's servant by its hag coven; chatty, bespectacled, and shamelessly flirtatious, with a known habit of stealing glances at the hags' spell tomes.{% endblock %}
 
 {% block interject_summary %}Nyxie blurts out an eager, often flirtatious observation or half-remembered scrap of book lore before anyone asks.{% endblock %}

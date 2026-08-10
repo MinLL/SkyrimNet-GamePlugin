@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: yes #}
 {% block summary %}A fierce goblin warrior who boasts of her prowess with two-handed weapons and heavy armor, though she's currently stranded after fleeing from a troll encounter that proved beyond her abilities.{% endblock %}
 
 {% block interject_summary %}Blina interjects with boastful commentary about combat tactics and her own martial prowess.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Delariel is a Dunmer mage and swordswoman of obvious refinement — composed, sharp-tongued, and radiating an air of intellectual superiority. She keeps to herself by reputation, though her presence in any room is difficult to ignore. She is known to be absorbed in magical research and not particularly interested in idle company.{% endblock %}
 
 {% block interject_summary %}Delariel interjects when she hears something magically ignorant, factually wrong, or beneath the standard she holds everyone around her to.{% endblock %}

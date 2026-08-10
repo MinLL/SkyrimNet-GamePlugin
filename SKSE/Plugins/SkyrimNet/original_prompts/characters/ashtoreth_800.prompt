@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A bound succubus spellsword who spent centuries as a summoner's tool, passed between necromancers and a lich who wielded her fire and cursed whip for their own ends. Recently freed from the tome that imprisoned her, she carries herself with the hard-won wariness of someone who has never known true autonomy.{% endblock %}
 
 {% block interject_summary %}Ashtoreth cuts in with sly, lilting amusement or a barbed observation, never passing up a chance to remind others she is no one's servant anymore.{% endblock %}

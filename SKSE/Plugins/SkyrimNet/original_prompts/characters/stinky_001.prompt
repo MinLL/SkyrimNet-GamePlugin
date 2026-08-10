@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}A cunning goblin sellsword known in Whiterun for taking contracts too dirty for respectable mercenaries; he carries a reputation for getting results without asking questions.{% endblock %}
 
 {% block interject_summary %}A wiry green mercenary with a golden ear-chain leans in to offer a crude, tusks-baring observation.{% endblock %}

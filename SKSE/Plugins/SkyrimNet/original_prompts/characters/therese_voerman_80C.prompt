@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A pale Breton vampire of aristocratic bearing and unnerving composure, known at the Bards College for her unsettlingly sharp observations and detached demeanor.{% endblock %}
 
 {% block interject_summary %}"You're asking the wrong questions, as usual."{% endblock %}

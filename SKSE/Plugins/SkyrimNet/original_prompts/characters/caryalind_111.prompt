@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemini-3.6-flash | image-informed: yes #}
 {% block summary %}A charismatic Aldmeri prince known by reputation for his theatrical flair, eloquent charm, and surprising willingness to assist those in distress.{% endblock %}
 
 {% block interject_summary %}Offers a dramatically grandiloquent interjection delivered with theatrical charm and flirtatious wit.{% endblock %}

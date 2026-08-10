@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}Nimbus is a sorceress of Septim blood who lives in magical seclusion in a hidden cave north of Riverwood. Locals whisper that she carries the madness and destructive gift of the Wolf Queen Potema herself, and that lightning answers her call like a loyal hound.{% endblock %}
 
 {% block interject_summary %}A crackling, theatrical remark about how pedestrian mortal concerns are compared to the storms she commands.{% endblock %}

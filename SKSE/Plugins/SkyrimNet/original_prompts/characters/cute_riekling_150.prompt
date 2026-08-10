@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}Cute Riekling is a small, bold blue-skinned riekling woman lurking just outside the Skaal village, known to the locals as a brazen little nuisance who flirts with hunters and helps herself to whatever isn't tied down. She openly offers companionship — travel, warmth, or otherwise — to anyone who looks strong enough to be worth her time.
 {% endblock %}
 

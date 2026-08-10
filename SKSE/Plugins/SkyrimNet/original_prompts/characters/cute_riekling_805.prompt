@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}A curious slate-blue riekling who camps with her sisters just outside the Skaal village, far friendlier and more interested in visitors than the cold-shouldered locals would like.{% endblock %}
 
 {% block interject_summary %}When talk turns dull or tense she pipes up with a teasing giggle and a sideways remark, steering things back toward her own amusement.{% endblock %}

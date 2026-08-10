@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}A strikingly exotic draenei restoration priestess from another world, Draeneiko offers warm, golden healing to anyone who needs it at the Temple of Kynareth. She is sweet, openly playful, and unbothered by attention of any kind.{% endblock %}
 
 {% block interject_summary %}Draeneiko chirps in with a bright, honeyed observation that's half comfort and half flirtation.{% endblock %}

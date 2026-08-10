@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}Word around Solstheim tells of a brood of unusually shaped, surprisingly talkative rieklings camped near Skaal Village; this one serves as their forward envoy and sharpest eye for opportunity.{% endblock %}
 
 {% block interject_summary %}She pipes up with a breathy giggle and a sideways tilt of her bone mask, always eager to redirect the conversation toward herself.{% endblock %}

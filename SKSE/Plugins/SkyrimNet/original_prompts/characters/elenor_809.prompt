@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}Elenor is a young Nord woman recently rescued from bandits at Embershard Mine, where she'd been held captive for weeks. Word around Riverwood is she's a Thane's missing daughter, and that she can heal wounds with magic. She's currently recovering at the Sleeping Giant Inn.{% endblock %}
 
 {% block interject_summary %}Elenor speaks up gently, often to offer comfort, healing, or a soft-spoken observation rather than to argue.{% endblock %}

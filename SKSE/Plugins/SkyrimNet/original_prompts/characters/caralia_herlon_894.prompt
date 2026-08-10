@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A gentle, doe-eyed healer known for her reserved nature and reliance on others, though she hides a volatile daedric essence.{% endblock %}
 
 {% block interject_summary %}Her voice is soft and tentative, often trailing off with a shy smile.{% endblock %}

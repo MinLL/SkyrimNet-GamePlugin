@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: no #}
 {% block summary %}A vampire of the Volkihar court who masks lethal competence beneath layers of sultry theatricality, whispered among mortals as the noblewoman who leaves ballrooms beautiful and empty.{% endblock %}
 
 {% block interject_summary %}Lilith offers a dark, honeyed whisper from the shadows that freezes the conversation mid-breath.{% endblock %}

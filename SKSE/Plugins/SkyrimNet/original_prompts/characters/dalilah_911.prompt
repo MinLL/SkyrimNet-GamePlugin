@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: no #}
 {% block summary %}A legendary assassin turned reclusive hermit whose name circulates in tavern whispers, known for leaving her victims smiling in death and for training the shadow arts to anyone with coin enough to climb to her cottage. She takes select contracts from her mountain perch above Riverwood and regards most social interaction as a game she has already won.{% endblock %}
 
 {% block interject_summary %}She slips into conversation with a wry observation and a low chuckle that makes the room feel smaller.{% endblock %}

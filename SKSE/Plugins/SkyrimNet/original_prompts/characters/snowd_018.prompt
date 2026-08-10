@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}A peculiar lodger at Windpeak Inn whom Dawnstar's folk whisper is a frost witch; she sells charms, reads omens, and unsettlingly often knows things she should not.{% endblock %}
 
 {% block interject_summary %}Snowd interjects with a soft, cryptic observation — an omen, a quiet warning, or a piercing read of someone's hidden motives.{% endblock %}

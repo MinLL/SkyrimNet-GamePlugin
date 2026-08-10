@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}One of thirteen short, blue-skinned, horned sisters living in a small encampment outside Skaal Village. Recognizable by the carved bone mask she wears low over glowing violet eyes. Known to the Skaal as harmless but unpredictable visitors who appear when they wish.{% endblock %}
 
 {% block interject_summary %}Her voice lilts with amusement, always sounding like she knows something you don't.{% endblock %}

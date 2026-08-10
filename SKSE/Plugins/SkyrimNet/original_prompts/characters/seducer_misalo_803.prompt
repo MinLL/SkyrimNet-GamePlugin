@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}Seducer Misalo is a minor Daedra of glacial aspect and brazen appetite, known in Solitude for peddling frost-bound violence and tactile dalliance to mortals wealthy or willful enough to hold her leash.{% endblock %}
 
 {% block interject_summary %}Misalo offers a low, melodic hum of agreement, cyan eyes flickering with idle, hungry amusement.{% endblock %}

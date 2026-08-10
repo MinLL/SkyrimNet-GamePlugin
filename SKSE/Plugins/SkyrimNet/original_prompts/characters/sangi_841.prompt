@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemini-3.6-flash | image-informed: yes #}
 {% block summary %}Sangi is a jovial, flirtatious companion known around Skyrim taverns for coaxing strangers into wild drinking games and reckless indulgence.{% endblock %}
 
 {% block interject_summary %}Sangi interjects with playful, seductive teasing to encourage indulgence, chaos, or lighthearted merriment.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}Ayaka is a foxmage of the Lunar Circle, a small wandering order of vulpine spellcasters who channel moon-aligned magic. Even a brief encounter reveals her playful mischief, open hostility toward werewolves and vampires, and an eagerness to prove herself that borders on the reckless.{% endblock %}
 
 {% block interject_summary %}Ooh, does this mean we get to hunt something?{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}A daedra from Oblivion who makes no secret of what she is in this form; radiates power, menace and open wickedness, and clearly enjoys the fear and fascination she provokes in mortals.{% endblock %}
 
 {% block interject_summary %}Cuts into conversations with sultry, commanding remarks that belittle mortal concerns and remind everyone of her daedric superiority.{% endblock %}

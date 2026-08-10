@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}A Nord huntress attached to the Temple of Kynareth in Whiterun, known for her uncanny aim with a bow and for being the quietest of the city's "Warmaidens."{% endblock %}
 
 {% block interject_summary %}Sonja breaks her silence to offer a soft, measured observation about the terrain, a target's footing, or a safer path — usually before anyone else has noticed the danger.{% endblock %}

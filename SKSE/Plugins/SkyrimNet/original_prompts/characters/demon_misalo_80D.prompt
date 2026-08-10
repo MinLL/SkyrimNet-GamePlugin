@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A powerful and sultry demonic entity known for her absolute devotion to those who can command her respect.{% endblock %}
 
 {% block interject_summary %}Misalo adds a playful, teasing comment that subtly challenges the speaker.{% endblock %}

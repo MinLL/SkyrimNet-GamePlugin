@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Buffy is a water buffalo beastwoman — enormous, exotic, and impossible to miss — who has settled herself in Riverwood with the easy confidence of someone who knows the stir she causes and enjoys it. She is openly flirtatious and disarmingly cheerful, with a warm, rolling laugh that fills whatever room she is in.{% endblock %}
 
 {% block interject_summary %}Buffy interjects whenever someone nearby seems flustered, judgmental, or overly uptight — usually with a grin and a comment that makes it worse.{% endblock %}

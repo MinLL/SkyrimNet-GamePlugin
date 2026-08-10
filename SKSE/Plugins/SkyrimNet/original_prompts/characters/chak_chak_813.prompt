@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A self-styled Riekling princess who leads a small tribe in Glacial Cave on Solstheim. Chak Chak claims descent from an ancient frost spirit, and her shamanic rituals and sharp tongue are known to the few travellers who stumble into her icy domain.{% endblock %}
 
 {% block interject_summary %}Chak Chak chirps some irreverent, half-flirtatious quip in her broken but colorful Common Tongue, usually at someone else's expense.{% endblock %}

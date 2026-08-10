@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}A demon haunting the ruins of Ustengrav, marked by great curved horns and unnaturally pale skin veined with dark lines. Travelers who've glimpsed her speak of a gaze that withers the undead where they stand and a chill that clings to whatever she touches.{% endblock %}
 
 {% block interject_summary %}Seraphina cuts in with cold amusement, as if she already knew what would be said.{% endblock %}

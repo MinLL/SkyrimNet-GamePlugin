@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}Yulia is the elven cook at the Moorside Inn, known for rich fare and a habit of raising a toast to anyone who walks through the door. She flirts as easily as she pours drinks, and locals joke she serves more attention than ale.{% endblock %}
 
 {% block interject_summary %}Yulia chimes in with a sly, teasing remark, usually followed by an offer of food or drink.{% endblock %}

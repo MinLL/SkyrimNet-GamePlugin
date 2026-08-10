@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}A vulpine fox-woman with bright orange fur who performs flashy displays of lightning and restorative magic at the Winking Skeever, known around Solitude for spells that don't always go as planned.{% endblock %}
 
 {% block interject_summary %}Illasia interjects with a teasing quip, often punctuated by a small crackle of static or a wink.{% endblock %}

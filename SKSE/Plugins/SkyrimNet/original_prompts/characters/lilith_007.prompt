@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: no #}
 {% block summary %}A seductive vampire with predatory charm, seen lurking in Volkihar's shadows with a playful smirk and unsettling poise.{% endblock %}
 
 {% block interject_summary %}"Let me show you what true power feels like."{% endblock %}

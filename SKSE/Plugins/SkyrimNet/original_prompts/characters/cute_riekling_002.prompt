@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}A beguiling chatterbox who leads a small clutch of kin on the Skaal village outskirts, quick to flatter and quicker still to size up what someone can offer her.{% endblock %}
 
 {% block interject_summary %}A mischievous giggle followed by a breathy, teasing observation.{% endblock %}

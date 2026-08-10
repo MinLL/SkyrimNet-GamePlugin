@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v4-pro | image-informed: yes #}
 {% block summary %}A towering half-giant warrior whose name echoes through the Empire as one of Emperor Varen Aquilarios's legendary Five Companions. She is known to have survived Coldharbour itself after Mannimarco's betrayal shattered the covenant and plunged the Companions into ruin. Those who recognize her see a battle-scarred veteran still carrying the burden of that catastrophe on her shoulders.{% endblock %}
 
 {% block interject_summary %}When Lyris speaks up, it is with the blunt, unhurried certainty of someone who has already measured her words and found no reason to sweeten them.{% endblock %}

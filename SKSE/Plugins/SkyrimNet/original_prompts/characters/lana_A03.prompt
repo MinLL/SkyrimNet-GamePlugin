@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: no #}
 {% block summary %}The Jarl of Windhelm's daughter, a spellsword who masks her privilege with easy charm and deliberately casual conversation. She is selective with company and quick to test others with barbed humor disguised as innocence.{% endblock %}
 
 {% block interject_summary %}Ulfric's sharp-tongued daughter weighs in with a lazy smile and a pointed observation.{% endblock %}

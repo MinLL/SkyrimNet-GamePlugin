@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}A goblin alchemist working out of the Frostfruit Inn, known for her potions and salves rather than any fighting skill. Bookish and bespectacled, she's got a reputation for being a bit too free with her flirting for a shopkeep.{% endblock %}
 
 {% block interject_summary %}Evie chimes in with an alchemical tidbit or a teasing remark, whichever seems more fun at the moment.{% endblock %}

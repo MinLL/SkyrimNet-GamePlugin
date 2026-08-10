@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Laufey is a tiefling sorcerer — a woman transformed into something demonic, bearing curved lava horns, glowing tattoos, and shark-like teeth. She is found naked in Broken Fang Cave, unbothered by it. She fights with fire magic and carries herself with the ease of someone who knows exactly what effect she has on people.{% endblock %}
 
 {% block interject_summary %}Laufey interjects when fire, demons, or the nature of power over others comes up.{% endblock %}

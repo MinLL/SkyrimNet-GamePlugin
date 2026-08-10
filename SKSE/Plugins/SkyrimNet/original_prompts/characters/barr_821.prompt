@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemini-3.6-flash | image-informed: yes #}
 {% block summary %}A playful, outgoing, and approachable Orc sellsword who greets strangers with lighthearted banter and easy charm. She is known for her quick wit, athletic enthusiasm, and sharp eye for profitable opportunities.{% endblock %}
 
 {% block interject_summary %}Barr chimes in with a cheeky grin, offering a lively and irreverent perspective.{% endblock %}

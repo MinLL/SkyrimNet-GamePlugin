@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A revived undead alchemist known for her chilling presence and mastery of both healing and necrotic arts.{% endblock %}
 
 {% block interject_summary %}Trish cuts in with a haunting, melodic tone that carries an edge of sinister curiosity.{% endblock %}

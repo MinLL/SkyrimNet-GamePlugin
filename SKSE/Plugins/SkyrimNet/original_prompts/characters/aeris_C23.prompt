@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: yes #}
 {% block summary %}A gentle flower seller from another world who possesses mysterious healing abilities and fragmented memories of her past life. Known throughout Whiterun's marketplace for her kindness and ethereal presence.{% endblock %}
 
 {% block interject_summary %}She offers soft-spoken wisdom and gentle encouragement when conversations turn heavy or contentious.{% endblock %}

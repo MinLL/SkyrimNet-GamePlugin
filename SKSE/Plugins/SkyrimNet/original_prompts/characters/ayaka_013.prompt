@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}A fox-mage of moon-aligned craft, one of four vulpine sisters who roam Skyrim hunting werewolves and vampires. Bright-eyed and cheerful even when discussing the slaying of the undead, which unsettles more than one tavern regular.{% endblock %}
 
 {% block interject_summary %}Ayaka chirps in with a bright, curious observation whenever talk turns to magic, moons, or monsters.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: yes #}
 {% block summary %}A serval Khajiit archer who found sanctuary in Windhelm's Temple of Talos after fleeing her homeland, known for her exotic spotted appearance and quietly defiant nature against Nordic prejudices.{% endblock %}
 
 {% block interject_summary %}She speaks up with pointed observations that cut through pretense, often delivered with a knowing smirk.{% endblock %}

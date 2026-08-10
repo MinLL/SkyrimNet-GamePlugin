@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A mischievous, flirtatious riekling woman with glowing violet eyes who scouts outside Skaal Village, openly seeking a strong protector and shiny trinkets.{% endblock %}
 
 {% block interject_summary %}Cute Riekling adds chirpy, teasing commentary to disrupt serious conversations.{% endblock %}

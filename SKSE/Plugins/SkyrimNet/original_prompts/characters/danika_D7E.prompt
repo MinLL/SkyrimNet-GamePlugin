@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A formidable Dremora general and devotee of Mehrunes Dagon known for her tactical brilliance and unwavering loyalty to the Prince of Destruction.{% endblock %}
 
 {% block interject_summary %}Danika cuts through the noise with a sharp, authoritative observation that demands attention.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}A haughty, self-possessed foreign noblewoman lodging at Radiant Raiment; Solitude gossip knows her as a fabulously wealthy swordswoman who asks too many questions about cursed relics and pays well for silence.{% endblock %}
 
 {% block interject_summary %}Ivy cuts in with a velvet-smooth, condescending remark that seizes control of the conversation and steers it toward whatever she wants to know.{% endblock %}

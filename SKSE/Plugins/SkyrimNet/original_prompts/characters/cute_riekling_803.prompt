@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A mischievous and flirtatious riekling with glowing eyes and an exotic look who enjoys teasing those who meet her.{% endblock %}
 
 {% block interject_summary %}Giggles and whispers a playful comment.{% endblock %}

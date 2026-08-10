@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Rakkhat is a Khajiit vampire who haunts the deeper wilds of Skyrim, unsettling to those who cross her path — not through aggression, but through an unnerving stillness and eyes that seem to see through people rather than at them. She is known to linger near forgotten places and old written things.{% endblock %}
 
 {% block interject_summary %}Rakkhat interjects when bloodshed, the hunt, or arcane knowledge comes up in conversation.{% endblock %}

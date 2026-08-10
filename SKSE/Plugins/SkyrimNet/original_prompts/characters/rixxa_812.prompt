@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A sultry, confident goblin known for her alluring presence and sharp wit.{% endblock %}
 
 {% block interject_summary %}Rixxa adds a playful, suggestive comment to the conversation.{% endblock %}

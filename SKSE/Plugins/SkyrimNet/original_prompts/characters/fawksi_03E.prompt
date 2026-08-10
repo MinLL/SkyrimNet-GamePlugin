@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}A cheerful foxmage with vibrant orange fur who serves as the Foxmages' dedicated healer, her easy smile and deft remedies making her a welcome sight even if her relentless tallying of favors raises the occasional eyebrow.{% endblock %}
 
 {% block interject_summary %}The orange-furred vulpine flashes a sharp grin, braids bouncing as she leans in with an opinion nobody asked for.{% endblock %}

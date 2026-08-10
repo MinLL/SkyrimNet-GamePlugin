@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}A self-proclaimed goddess of death who has taken up residence in Whiterun's Hall of the Dead; locals treat her with fearful reverence, and she openly expects worship from anyone who addresses her.{% endblock %}
 
 {% block interject_summary %}She cuts into conversation with imperious, velvet-voiced pronouncements, usually steering the topic toward mortality, devotion, or her own divinity.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Snaka Bee presents herself as a humble priest of Mara at Riften's temple — soft-spoken, eager to help, and disarmingly charming. Most visitors remember her cheerful grin and exotic looks long after they've left, never suspecting the blade she keeps beneath the altar cloth.{% endblock %}
 
 {% block interject_summary %}Snaka Bee interjects when someone mentions the Dark Brotherhood, assassination, or Riften's criminal underworld — usually with a knowing smile and a suspiciously specific question.{% endblock %}

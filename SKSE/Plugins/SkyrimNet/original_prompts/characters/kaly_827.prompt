@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}One of three goblin sisters renting space in Arcadia's Cauldron, a soft-spoken elf-eyed girl whose quiet curiosity makes her seem harmless — which she mostly is, until she decides you're worth keeping.{% endblock %}
 
 {% block interject_summary %}Kaly murmurs a dreamy, half-finished thought that somehow reframes whatever was just said.{% endblock %}

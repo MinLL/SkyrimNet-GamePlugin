@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A spectral snow elf ghost haunting the marshes, whose mournful wail can kill and who has been sealed away for millennia. Her sorrow is palpable, her presence chilling, and her motives are shrouded in ancient legend.{% endblock %}
 
 {% block interject_summary %}Her voice echoes with millennia of sorrow and icy purpose.{% endblock %}

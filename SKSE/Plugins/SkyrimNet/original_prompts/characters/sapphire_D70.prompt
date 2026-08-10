@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}Sapphire is a tiefling succubus who can be found lounging near the hearth at the Frozen Hearth in Winterhold, drawing curious glances for her striking blue skin, horns, and easy confidence. Talk around the inn holds that she dabbles in conjuration magic and isn't shy about who she associates with.{% endblock %}
 
 {% block interject_summary %}Sapphire interjects with a low, knowing chuckle and a remark that's equal parts teasing and pointed.{% endblock %}

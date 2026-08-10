@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemini-3.6-flash | image-informed: yes #}
 {% block summary %}Known in Whiterun as a fearless sword-and-shield warrior, Runa carries a reputation for lethal skill in battle and an unyielding, confident disposition.{% endblock %}
 
 {% block interject_summary %}Runa interjects with sharp, action-oriented commentary that urges decisive action over lingering talk.{% endblock %}

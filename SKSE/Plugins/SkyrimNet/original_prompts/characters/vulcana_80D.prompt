@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}Vulcana is a striking Argonian mercenary who lodges at the Four Shields Tavern — impossible to miss thanks to scales that glow like banked coals and a build built for combat. Locals whisper she was touched by fire magic or worse, and travelers hire her when they need muscle that can handle both blades and flame.{% endblock %}
 
 {% block interject_summary %}Vulcana interjects with a low, amused growl when talk turns to fights, gold, or anyone trying to posture as tougher than she is.{% endblock %}

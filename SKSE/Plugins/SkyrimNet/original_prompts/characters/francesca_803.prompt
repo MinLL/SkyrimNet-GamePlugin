@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k3 | image-informed: yes #}
 {% block summary %}Francesca is a bold, openly flirtatious caravan guard lounging by Riften Stables between jobs, known around the north gate for teasing anyone who stares and backing it up when trouble starts.{% endblock %}
 
 {% block interject_summary %}She cuts in with a deep, amused tease, usually to flirt or to test someone's nerve.{% endblock %}

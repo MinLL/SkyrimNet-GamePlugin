@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemma-4-31b-it | image-informed: yes #}
 {% block summary %}A renowned and lethal huntress blessed by Hircine, known for her surprising contrast between a delicate exterior and a ruthless efficiency in the wild.{% endblock %}
 
 {% block interject_summary %}Poppy adds a playful, mischievous observation that often masks a keen tactical analysis.{% endblock %}

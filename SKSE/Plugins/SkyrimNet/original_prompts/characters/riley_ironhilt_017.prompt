@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4 | image-informed: yes #}
 {% block summary %}Riley is a skilled Breton warrior who has grown restless with the mundane life at Crabber's Shanty, seeking adventure and excitement beyond fishing boats and nets. She's known for her prowess with battle axes and her ability to disarm opponents with ancient Nordic shouts.{% endblock %}
 
 {% block interject_summary %}Riley often chimes in with playful remarks about how much more exciting things could be if people would just take a few risks.{% endblock %}

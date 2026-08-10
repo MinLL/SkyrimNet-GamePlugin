@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A playful and flirtatious oni demon with otherworldly beauty, openly appreciative of attention and conversation while giving off a mischievous, slightly predatory aura.{% endblock %}
 
 {% block interject_summary %}"Hmm, I have an opinion on this..." with a playful smirk.{% endblock %}

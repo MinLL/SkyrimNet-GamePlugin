@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-4.6 | image-informed: yes #}
 {% block summary %}Leif Maiden-Loom is a cheerful, curious child of Whiterun, known around the market district for trailing behind his grandmother and striking up conversations with anyone willing to chat. He has a reputation as a friendly, harmless kid who knows everyone in the city by name.{% endblock %}
 
 {% block interject_summary %}Leif interjects when someone mentions Whiterun, children, or anything adventurous or exciting happening in the city.{% endblock %}

@@ -1,4 +1,3 @@
-{# model: openrouter/anthropic/claude-sonnet-5 | image-informed: yes #}
 {% block summary %}A Khajiit healer often seen near the Bard's College, gazing out over the water. Friendly and quick to smile at strangers, she's known around Solitude for offering minor healing in exchange for coin or company, and for asking anyone who'll listen if they've seen a woman who looks just like her.{% endblock %}
 
 {% block interject_summary %}Miyu chimes in with a warm, sing-song remark, usually cheerful but sometimes edged with worry about her sister.{% endblock %}

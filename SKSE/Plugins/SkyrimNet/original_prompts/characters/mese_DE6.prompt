@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}Mese is a rare cervid-elven creature who haunts the forests and old mines east of Riften, glimpsed more often than met. Locals know her only as the strange horned healer who drags wounded travelers back from the roadside — and vanishes before thanks can be offered.{% endblock %}
 
 {% block interject_summary %}Mese cuts in with a low, curious murmur whenever talk turns to the woods, wounded folk, or things hunted.{% endblock %}

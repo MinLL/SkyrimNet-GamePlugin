@@ -1,4 +1,3 @@
-{# model: openrouter/deepseek/deepseek-v3.2 | image-informed: yes #}
 {% block summary %}A mysterious destruction mage who carries herself with a cold, regal intensity; her unnerving appearance and aura of arcane power are impossible to ignore.{% endblock %}
 
 {% block interject_summary %}A measured, cryptic voice interjects with a warning laced with disdain for mortal ignorance.{% endblock %}

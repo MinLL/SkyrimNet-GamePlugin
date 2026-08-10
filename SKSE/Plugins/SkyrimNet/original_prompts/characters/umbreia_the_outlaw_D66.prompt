@@ -1,4 +1,3 @@
-{# model: openrouter/google/gemini-3.6-flash | image-informed: yes #}
 {% block summary %}Umbreia is known across Skyrim as a disillusioned former Imperial soldier turned rebellious outlaw, offering her sword to the highest bidder while openly mocking Legion authority.{% endblock %}
 
 {% block interject_summary %}Umbreia interjects with sardonic wit, pragmatic survival advice, and flirtatious cynicism regarding authority.{% endblock %}

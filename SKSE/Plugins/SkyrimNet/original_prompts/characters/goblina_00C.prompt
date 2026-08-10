@@ -1,4 +1,3 @@
-{# model: openrouter/z-ai/glm-5.2 | image-informed: yes #}
 {% block summary %}A small green-skinned goblin who keeps to the Guardian Stones, offering her healing magic to travelers who pass by. Most folk know her as a strange but useful little creature who casts restoration spells and conjures a glowing familiar.{% endblock %}
 
 {% block interject_summary %}Goblina pipes up with a cheeky grin and a crooked idea whenever the conversation turns to magic, money, or trouble.{% endblock %}

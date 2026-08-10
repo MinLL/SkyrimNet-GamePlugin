@@ -1,4 +1,3 @@
-{# model: openrouter/moonshotai/kimi-k2.6 | image-informed: yes #}
 {% block summary %}She presents herself as a self-assured companion eager to aid the Dragonborn, deflecting questions about her past with charm and a knowing smile.{% endblock %}
 
 {% block interject_summary %}A sultry, barbed observation wrapped in a playful smirk.{% endblock %}
