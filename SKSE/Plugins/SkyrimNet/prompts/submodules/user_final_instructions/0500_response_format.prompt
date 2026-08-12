@@ -17,6 +17,21 @@ Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
 {% else %}
 - No asterisks or actions
 {% endif %}
+{# Identity-link reinforcement for the thought channel. The bio has already framed the link
+   (7050), but this template repeats the host's name heavily right at the end — without a
+   counterweight here, a possessed body's "thought" drifts back to the host persona. Same
+   rationale as the spoken-branch block below; shorter, because thoughts are 1-2 sentences. #}
+{% for _dl in get_linked_identities(npc.UUID) %}{% if _dl.dominance == "entity_led" and _dl.is_virtual and existsIn(_dl, "host_unaware") and _dl.host_unaware %}
+**The mind thinking behind this face is {{ _dl.name }}'s.** {{ decnpc(npc.UUID).name }}'s own mind is dormant and never knew you came — there is no "us" and no secret shared. This thought is yours alone, in your own voice; her name and face are only the room you think it in.
+{% else if _dl.dominance == "entity_led" and _dl.is_virtual %}
+**The mind thinking behind this face is {{ _dl.name }}'s.** {{ decnpc(npc.UUID).name }} is the body you wear, not the one thinking. However the instructions below name {{ decnpc(npc.UUID).name }}, think as yourself — your wants, your manner, your voice.
+{% else if _dl.dominance == "contested" and _dl.is_virtual %}
+Two minds share this head. This thought belongs to whichever of you — {{ decnpc(npc.UUID).name }} or {{ _dl.name }} — holds it this instant: pick ONE and think it whole, in that mind's voice. No `[Name]` tags in thoughts; the struggle shows in what is thought, not in labels.
+{% else if _dl.dominance == "host_led" and _dl.is_virtual %}
+The thought is your own, but {{ _dl.name }} runs beneath it — let an odd pull, appetite, or too-certain word colour it from below.
+{% else if _dl.dominance == "blended" %}
+You and "{{ _dl.name }}" are one being — what {{ _dl.name }} knows and did is yours to think with, never news.
+{% endif %}{% endfor %}
 {% else %}
 Speak in your natural voice. Respond with your own thoughts, not echoes of what was said.
 {# Identity-link reinforcement. This block is near the end of the prompt, where the host's own
