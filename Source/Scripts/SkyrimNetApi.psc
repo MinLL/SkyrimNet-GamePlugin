@@ -457,6 +457,23 @@ int function EnableVirtualNPC(String name) Global Native
 ; Returns 0 on success, 1 on failure
 int function DisableVirtualNPC(String name) Global Native
 
+; Get the SkyrimNet entity UUID of a registered virtual NPC (uppercase hex, no "0x" prefix)
+; Virtual NPCs have no Actor, so GetEntityUUID cannot resolve them - use this instead.
+; - name: The registration name passed to RegisterVirtualNPC, or the display name. Case-insensitive.
+; Returns: The hex UUID, or an empty string if no enabled virtual NPC matches that name
+; Only enabled virtual NPCs resolve - call EnableVirtualNPC first.
+; Pair with DirectNarrationByUUID / RegisterDialogueByUUID / ExecuteActionByUUID / etc.
+; The UUID is derived from the registration name, so it is stable across sessions and safe to cache.
+String function GetVirtualNPCUUID(String name) Global Native
+
+; List every currently registered (enabled) virtual NPC
+; Returns: A JSON array string of {"name","displayName","uuid","voiceId","conversationMode"}
+;          objects, or "[]" if there are none
+; The built-in GetJson* helpers only read top-level object keys, so parsing this needs an
+; external JSON library (e.g. JContainers). For the common "I know the name" case use
+; GetVirtualNPCUUID instead - this is for discovery and diagnostics.
+String function GetVirtualNPCList() Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- Web Interface ---
 ; -----------------------------------------------------------------------------
