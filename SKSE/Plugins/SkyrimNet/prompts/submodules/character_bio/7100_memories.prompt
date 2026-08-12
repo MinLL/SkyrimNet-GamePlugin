@@ -3,7 +3,7 @@
     {% if length(memories) > 0 %}
         ### {{ decnpc(actorUUID).name }}'s Potentially Relevant Memories
         {% for memory in memories %}
-            {{ loop.index }}. {% if not memory.is_own %}[experienced as {{ memory.origin_name }}] {% endif %}**{{ memory.memory.content }}** ({{ memory.memory.emotion }}, Importance: {{ memory.memory.importance_score }})
+            {{ loop.index }}. {% if not memory.isOwn %}[experienced as {{ memory.originName }}] {% endif %}**{{ memory.memory.content }}** ({{ memory.memory.emotion }}, Importance: {{ memory.memory.importance_score }})
             {% if memory.memory.tags %}{{ memory.memory.tags }}{% endif %}
         {% endfor %}
     {% endif %}
