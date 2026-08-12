@@ -1,4 +1,6 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_aspirations"%}
+{# Suppressed for a body fully worn by a linked entity (entity_led); the "bio_aspirations"
+   pull that lends the ENTITY's goals in 7050_identity_links always renders. #}
+{% if render_mode == "bio_aspirations" or ((render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not suppress_host_persona) %}
     {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
         ## Goals & Aspirations
     {% endif %}

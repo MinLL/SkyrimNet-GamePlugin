@@ -21,6 +21,26 @@
     - Current Location: {{ get_location(actor.UUID) }}
     - Current Time: {{ currentGameTime }}
 
+    {% for _bl in get_linked_identities(actor.UUID) %}
+    ## CRITICAL — {{ actor.displayName }} and "{{ _bl.name }}" are the same being
+    {{ actor.displayName }} is secretly also {{ _bl.name }}. Events in the history below may have been
+    lived as {{ _bl.name }} rather than under this name — they are still the SAME person's experiences.
+    {% if _bl.dominance == "entity_led" %}
+    {{ _bl.name }} has fully taken this body. Anything the history shows this body saying or doing is
+    {{ _bl.name }} acting, NOT {{ actor.displayName }} being acted upon.
+    - Do NOT rewrite this biography as though {{ actor.displayName }} were a victim, coerced, blackmailed,
+      or "under duress" by an outside force. There is no outside force — the will driving this body IS
+      {{ _bl.name }}'s. Framing it as coercion is a factual error about who this character now is.
+    - Keep this bio describing the BODY's public life, trade and reputation. Do not invent an inner
+      struggle to explain the change in behaviour; the explanation is the possession itself, and it is
+      carried in {{ _bl.name }}'s own biography, not here.
+    {% else %}
+    - Treat things done as {{ _bl.name }} as this character's own deeds when deciding what changed.
+    - Do NOT write this character as a separate person reacting to, or victimised by, {{ _bl.name }}.
+    {% endif %}
+    - Never expose the secret link as public knowledge unless the history clearly shows it was revealed.
+    {% endfor %}
+
     {% if factions and length(factions) > 0 %}
     ## Factions
     {% for faction in factions %}

@@ -1,6 +1,13 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_occupation"%}
+{# At entity_led the body's trade is still useful (the entity has to keep up appearances in
+   her shop), but it is framed as the vessel's role rather than the speaker's vocation. #}
+{% if render_mode == "bio_occupation" or render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
     {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+        {% if suppress_host_persona %}
+        ## What this body is expected to be doing
+        (This is the vessel's trade — useful for keeping up appearances, not your calling.)
+        {% else %}
         ## Occupation
+        {% endif %}
     {% endif %}
     {% block occupation %}{% endblock %}
 {% endif %}
