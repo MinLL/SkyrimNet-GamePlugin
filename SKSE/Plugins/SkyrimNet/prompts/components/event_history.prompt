@@ -13,7 +13,6 @@
 {% for event in events %}{% if event.type == "gamemaster_dialogue" %}{% set latestGMDialogueTime = event.gameTime %}{% endif %}{% endfor %}
 {% set hasShownGMDialogue = false %}
 {% for event in events %}
-{% if isValidActor(event.originatingActor) or event.type == "dialogue_background" %}
     {% if event.type != "spell" and event.type != "hit" and event.type != "combat" %}
         {% set locationChanged = (lastLocation != "" and event.location != lastLocation) %}
         {% set timeDiff = gameTimeNumeric - event.gameTime %}
@@ -85,7 +84,6 @@
         {% set lastEventLocation = event.location %}
         {% if showTimeGap or lastSignificantTime == 0 %}{% if existsIn(event, "gameTimeEnd") and event.gameTimeEnd %}{% set lastSignificantTime = event.gameTimeEnd %}{% else %}{% set lastSignificantTime = event.gameTime %}{% endif %}{% endif %}
     {% endif %}
-{% endif %}
 {% endfor %}
 {% if lastEventTime > 0 %}
     {% if exists("npc") and existsIn(npc, "UUID") %}{% set currentActorLocation = get_location(npc.UUID) %}{% else %}{% set currentActorLocation = location %}{% endif %}
