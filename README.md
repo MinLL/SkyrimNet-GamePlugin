@@ -208,6 +208,9 @@ SkyrimNet's modder API has a growing ecosystem of plugins built on top of it. A 
 
 ## 📋 **System Requirements**
 
+### 💻 **Hardware Requirements**
+- **CPU**: AVX2-capable processor required (almost any consumer CPU from the last 10 years, e.g. Intel Haswell or AMD Zen and newer)
+
 ### 🔧 **Essential Dependencies**
 - [Skyrim Script Extender (SKSE)](https://skse.silverlock.org/)
 - [Address Library for SKSE Plugins](https://www.nexusmods.com/skyrimspecialedition/mods/32444)
