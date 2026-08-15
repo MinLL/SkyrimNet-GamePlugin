@@ -1,6 +1,18 @@
+{% if suppress_host_persona and (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") %}
+{# Keep the render_mode guard on line 1: SkyrimNet validates that every character_bio submodule
+   checks render_mode within its first 5 lines and warns in the UI otherwise.
+   When a linked entity fully wears this body (entity_led), the host's character summary is
+   replaced by a factual note about the vessel: the entity must know whose face and reputation
+   it is moving behind, without inheriting her characterisation. Only the SELF-bio modes are
+   affected — "dialogue_target", "short_inline" and "bio_summary" still describe the body
+   normally, since that is how everyone else (and the lending in 7050) sees her. #}
+    ## The body you are wearing — {{ decnpc(actorUUID).name }}
+    To everyone here you are {{ decnpc(actorUUID).name }}, a {{ decnpc(actorUUID).race }}. Her name, face and standing are the costume you move in; her inner character is not yours and does not answer for you.
+{% else %}
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
     ## {{ decnpc(actorUUID).name }} - Character Summary
 {% endif %}
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" or render_mode == "short_inline" or render_mode == "bio_summary"%}
     {% block summary %}{% endblock %}
+{% endif %}
 {% endif %}

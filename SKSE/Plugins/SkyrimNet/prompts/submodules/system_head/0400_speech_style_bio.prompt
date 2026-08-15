@@ -1,3 +1,13 @@
 {% if render_mode == "full" or render_mode == "transform" %}
+{# This is the LAST block of the system prompt, so whatever voice it describes is the model's
+   freshest instruction. Normally that is the NPC's own speech profile. When a linked virtual
+   entity has fully taken this body (entity_led), the host's profile is suppressed inside
+   render_character_profile — so render the ENTITY's voice here instead, otherwise the closing
+   slot is silent and the host's manner creeps back in by default. #}
 {{ render_character_profile("speech_style", npc.UUID) }}
+{% for _sl in get_linked_identities(npc.UUID) %}{% if _sl.dominance == "entity_led" and _sl.is_virtual %}
+{{ render_character_profile("speech_style", _sl.uuid) }}
+## You are speaking through {{ decnpc(npc.UUID).name }}'s mouth
+The voice profile directly above is YOURS — {{ _sl.name }}'s — and it is the one to speak in. {{ decnpc(npc.UUID).name }}'s own manner is not yours to fall back into; it surfaces only when you deliberately imitate her to pass unnoticed.
+{% endif %}{% endfor %}
 {% endif %}

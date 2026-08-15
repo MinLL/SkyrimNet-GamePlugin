@@ -17,8 +17,49 @@ Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
 {% else %}
 - No asterisks or actions
 {% endif %}
+{# Identity-link reinforcement for the thought channel. The bio has already framed the link
+   (7050), but this template repeats the host's name heavily right at the end — without a
+   counterweight here, a possessed body's "thought" drifts back to the host persona. Same
+   rationale as the spoken-branch block below; shorter, because thoughts are 1-2 sentences. #}
+{% for _dl in get_linked_identities(npc.UUID) %}{% if _dl.dominance == "entity_led" and _dl.is_virtual and existsIn(_dl, "host_unaware") and _dl.host_unaware %}
+**The mind thinking behind this face is {{ _dl.name }}'s.** {{ decnpc(npc.UUID).name }}'s own mind is dormant and never knew you came — there is no "us" and no secret shared. This thought is yours alone, in your own voice; her name and face are only the room you think it in.
+{% else if _dl.dominance == "entity_led" and _dl.is_virtual %}
+**The mind thinking behind this face is {{ _dl.name }}'s.** {{ decnpc(npc.UUID).name }} is the body you wear, not the one thinking. However the instructions below name {{ decnpc(npc.UUID).name }}, think as yourself — your wants, your manner, your voice.
+{% else if _dl.dominance == "contested" and _dl.is_virtual %}
+Two minds share this head. This thought belongs to whichever of you — {{ decnpc(npc.UUID).name }} or {{ _dl.name }} — holds it this instant: pick ONE and think it whole, in that mind's voice. No `[Name]` tags in thoughts; the struggle shows in what is thought, not in labels.
+{% else if _dl.dominance == "host_led" and _dl.is_virtual %}
+The thought is your own, but {{ _dl.name }} runs beneath it — let an odd pull, appetite, or too-certain word colour it from below.
+{% else if _dl.dominance == "blended" %}
+You and "{{ _dl.name }}" are one being — what {{ _dl.name }} knows and did is yours to think with, never news.
+{% endif %}{% endfor %}
 {% else %}
 Speak in your natural voice. Respond with your own thoughts, not echoes of what was said.
+{# Identity-link reinforcement. This block is near the end of the prompt, where the host's own
+   name has just been repeated many times; without a counterweight the model defaults back to
+   the host persona. One line per non-contested mode; contested gets the full tagging rules. #}
+{% for _dl in get_linked_identities(npc.UUID) %}{% if _dl.dominance == "entity_led" and _dl.is_virtual and existsIn(_dl, "host_unaware") and _dl.host_unaware %}
+**You are {{ _dl.name }}, wearing {{ decnpc(npc.UUID).name }}.** She does not know you are here and never did — there is no shared secret and no "us". Do not write her as aware of you, complicit with you, or struggling against you. Answer as yourself, behind her face.
+{% else if _dl.dominance == "entity_led" and _dl.is_virtual %}
+**You are {{ _dl.name }}.** {{ decnpc(npc.UUID).name }} is the body you are wearing, not the person answering. Every line below is yours — your wants, your manner, your history. Use {{ decnpc(npc.UUID).name }}'s face and name only as a disguise you are consciously holding up.
+{% else if _dl.dominance == "host_led" and _dl.is_virtual %}
+Remember {{ _dl.name }} is inside you as you answer — a pressure behind your own thoughts. You speak as yourself, but that presence colours the odd word, impulse, or certainty.
+{% else if _dl.dominance == "blended" %}
+Remember you and "{{ _dl.name }}" are one being. What {{ _dl.name }} knows, you know; what {{ _dl.name }} did, you did. Let that show in what you already know without being told.
+{% endif %}{% endfor %}
+{# Contested tagging belongs to the BODY's mouth only: when the speaker is the body
+   (_dl.is_virtual — the linked identity is the entity), both minds fight for each line and
+   every line gets tagged. When the speaker is the ENTITY on its own bodiless channel
+   (_dl is the physical body), that channel is the entity's alone — the host cannot reach
+   into it, so no tags and no host dialogue there, even though history shows tagged lines. #}
+{% for _dl in get_linked_identities(npc.UUID) %}{% if _dl.dominance == "contested" and _dl.is_virtual %}
+**Two voices share this mouth.** {{ decnpc(npc.UUID).name }} and {{ _dl.name }} are both present behind one face and struggle for every line. Begin EVERY line you output with a tag naming who speaks it — write `[{{ decnpc(npc.UUID).name }}]` or `[{{ _dl.name }}]` at the very start of the line, then the line itself. Switch the tag whenever control shifts; consecutive lines may carry different tags.
+- Example:
+  [{{ decnpc(npc.UUID).name }}] I don't know what you're talking about.
+  [{{ _dl.name }}] ...but you do. You simply won't say it.
+- The tag is mandatory at the start of every line, narration included. Never omit it and never put it mid-line.
+{% else if _dl.dominance == "contested" and not _dl.is_virtual %}
+**This channel is yours alone.** You are speaking as yourself here — your own voice, not through {{ _dl.name }}'s mouth. {{ _dl.name }} cannot speak on this channel, interrupt it, or bleed into it; the struggle between you exists only when {{ _dl.name }}'s body is the one talking. Do NOT prefix lines with `[Name]` tags here, and never write {{ _dl.name }}'s dialogue on this channel — even though lines in the history carry those tags, that is the mouth's record, not this voice's.
+{% endif %}{% endfor %}
 {% if is_narration_enabled() %}
 - **Dialogue alone is the norm.** Only add narration for high-impact moments—tension, intimacy, danger.
 - Narration should appear in roughly 1 in 4 responses, not every response.

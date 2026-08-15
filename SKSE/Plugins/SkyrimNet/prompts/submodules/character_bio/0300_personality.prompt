@@ -1,4 +1,8 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_personality" %}
+{# suppress_host_persona: when a linked virtual entity fully wears this body (entity_led),
+   the body's own personality is dropped so the entity comes through. The single-block
+   "bio_personality" pull (used by 7050_identity_links to lend the ENTITY's personality)
+   always renders — it is never the suppressed host. #}
+{% if render_mode == "bio_personality" or ((render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not suppress_host_persona) %}
     {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
         ## Personality & Psychology
     {% endif %}

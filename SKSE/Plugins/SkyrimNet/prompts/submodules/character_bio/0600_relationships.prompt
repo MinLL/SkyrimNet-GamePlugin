@@ -1,6 +1,12 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_relationships" %}
     {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+        {% if suppress_host_persona %}
+        ## Who this body is known to
+        (These are {{ decnpc(actorUUID).name }}'s ties, not yours. You inherited the knowledge of
+        them, not the feelings — use them to move unnoticed among her people.)
+        {% else %}
         ## Relationships
+        {% endif %}
     {% endif %}
     {% block relationships %}{% endblock %}
     {# Travel history is auto-generated context, not part of the authored bio block —

@@ -1,4 +1,7 @@
-{% if render_mode == "speech_style" %}
+{# Suppressed when a linked entity fully wears this body (entity_led): the host's manner of
+   speech is dropped so the entity's own voice (lent via 7050_identity_links) carries the line.
+   The entity's speech_style pull recomputes the flag to false, so it always renders. #}
+{% if render_mode == "speech_style" and not suppress_host_persona %}
     ## Speech Profile of {{ decnpc(actorUUID).name }}
     {% block speech_style %}{% endblock %}
     {% if decnpc(actorUUID).universalTranslatorSpeechPattern %}
