@@ -26,7 +26,7 @@ Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
 {% else if _dl.dominance == "entity_led" and _dl.is_virtual %}
 **The mind thinking behind this face is {{ _dl.name }}'s.** {{ decnpc(npc.UUID).name }} is the body you wear, not the one thinking. However the instructions below name {{ decnpc(npc.UUID).name }}, think as yourself — your wants, your manner, your voice.
 {% else if _dl.dominance == "contested" and _dl.is_virtual %}
-Two minds share this head. This thought belongs to whichever of you — {{ decnpc(npc.UUID).name }} or {{ _dl.name }} — holds it this instant: pick ONE and think it whole, in that mind's voice. No `[Name]` tags in thoughts; the struggle shows in what is thought, not in labels.
+Two minds share this head. This thought belongs to whichever of you — {{ decnpc(npc.UUID).name }} or {{ _dl.name }} — holds it this instant: pick ONE and think it whole, in that mind's voice. No speaker-name prefixes in thoughts; the struggle shows in what is thought, not in labels.
 {% else if _dl.dominance == "host_led" and _dl.is_virtual %}
 The thought is your own, but {{ _dl.name }} runs beneath it — let an odd pull, appetite, or too-certain word colour it from below.
 {% else if _dl.dominance == "blended" %}
@@ -48,17 +48,20 @@ Remember you and "{{ _dl.name }}" are one being. What {{ _dl.name }} knows, you 
 {% endif %}{% endfor %}
 {# Contested tagging belongs to the BODY's mouth only: when the speaker is the body
    (_dl.is_virtual — the linked identity is the entity), both minds fight for each line and
-   every line gets tagged. When the speaker is the ENTITY on its own bodiless channel
-   (_dl is the physical body), that channel is the entity's alone — the host cannot reach
-   into it, so no tags and no host dialogue there, even though history shows tagged lines. #}
+   every line opens with the speaking mind's name. Plain "Name:" prefixes, never bracket
+   tags — [square brackets] belong to the audio-tag system (0650 forbids inventing other
+   bracketed text, and the voice engine reads brackets as performance directions). When the
+   speaker is the ENTITY on its own bodiless channel (_dl is the physical body), that channel
+   is the entity's alone — no prefixes and no host dialogue there, even though history shows
+   the mouth's prefixed lines. #}
 {% for _dl in get_linked_identities(npc.UUID) %}{% if _dl.dominance == "contested" and _dl.is_virtual %}
-**Two voices share this mouth.** {{ decnpc(npc.UUID).name }} and {{ _dl.name }} are both present behind one face and struggle for every line. Begin EVERY line you output with a tag naming who speaks it — write `[{{ decnpc(npc.UUID).name }}]` or `[{{ _dl.name }}]` at the very start of the line, then the line itself. Switch the tag whenever control shifts; consecutive lines may carry different tags.
+**Two voices share this mouth.** {{ decnpc(npc.UUID).name }} and {{ _dl.name }} are both present behind one face and struggle for every line. Begin EVERY line you output with the speaking mind's name and a colon — write `{{ decnpc(npc.UUID).name }}:` or `{{ _dl.name }}:` at the very start of the line, then the line itself. Switch the name whenever control shifts; consecutive lines may carry different names.
 - Example:
-  [{{ decnpc(npc.UUID).name }}] I don't know what you're talking about.
-  [{{ _dl.name }}] ...but you do. You simply won't say it.
-- The tag is mandatory at the start of every line, narration included. Never omit it and never put it mid-line.
+  {{ decnpc(npc.UUID).name }}: I don't know what you're talking about.
+  {{ _dl.name }}: ...but you do. You simply won't say it.
+- The name prefix is mandatory at the start of every line, narration included. Never omit it, never put it mid-line, and never wrap it in brackets — [square brackets] are reserved for voice-performance tags.
 {% else if _dl.dominance == "contested" and not _dl.is_virtual %}
-**This channel is yours alone.** You are speaking as yourself here — your own voice, not through {{ _dl.name }}'s mouth. {{ _dl.name }} cannot speak on this channel, interrupt it, or bleed into it; the struggle between you exists only when {{ _dl.name }}'s body is the one talking. Do NOT prefix lines with `[Name]` tags here, and never write {{ _dl.name }}'s dialogue on this channel — even though lines in the history carry those tags, that is the mouth's record, not this voice's.
+**This channel is yours alone.** You are speaking as yourself here — your own voice, not through {{ _dl.name }}'s mouth. {{ _dl.name }} cannot speak on this channel, interrupt it, or bleed into it; the struggle between you exists only when {{ _dl.name }}'s body is the one talking. Do NOT open lines with a speaker name here, and never write {{ _dl.name }}'s dialogue on this channel — even though lines in the history carry name prefixes, that is the mouth's record, not this voice's.
 {% endif %}{% endfor %}
 {% if is_narration_enabled() %}
 - **Dialogue alone is the norm.** Only add narration for high-impact moments—tension, intimacy, danger.
