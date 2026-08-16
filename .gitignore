@@ -39,7 +39,7 @@ CLAUDE.local.md
 /SkyrimNet.esp
 
 PrismaUI/
-CppAPI/PublicAPI.h
+CppAPI/
 
 /external/SpriggitCLI-*
 Build_Config_Local.ps1

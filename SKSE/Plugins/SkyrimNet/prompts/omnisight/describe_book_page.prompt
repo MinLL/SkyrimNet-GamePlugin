@@ -1,0 +1,3 @@
+Analyze this screenshot of a {{ doc_type }} from the game Skyrim. The title is "{{ book_title }}" (editor ID: {{ book_editor_id }}).
+
+Describe what is visually shown: any maps, diagrams, illustrations, decorative elements, visual style. Be concise, 2-3 sentences max.
