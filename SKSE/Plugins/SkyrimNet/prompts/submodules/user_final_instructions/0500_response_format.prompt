@@ -26,9 +26,9 @@ Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
 {% else if _dl.dominance == "entity_led" and _dl.is_virtual %}
 **The mind thinking behind this face is {{ _dl.name }}'s.** {{ decnpc(npc.UUID).name }} is the body you wear, not the one thinking. However the instructions below name {{ decnpc(npc.UUID).name }}, think as yourself — your wants, your manner, your voice.
 {% else if _dl.dominance == "contested" and _dl.is_virtual %}
-Two minds share this head. This thought belongs to whichever of you — {{ decnpc(npc.UUID).name }} or {{ _dl.name }} — holds it this instant: pick ONE and think it whole, in that mind's voice. No `[Name]` tags in thoughts; the struggle shows in what is thought, not in labels.
+Two minds share this head. This thought belongs to whichever of you — {{ decnpc(npc.UUID).name }} or {{ _dl.name }} — holds it this instant: pick ONE and think it whole, in that mind's voice. No speaker-name prefixes in thoughts; the struggle shows in what is thought, not in labels.
 {% else if _dl.dominance == "host_led" and _dl.is_virtual %}
-The thought is your own, but {{ _dl.name }} runs beneath it — let an odd pull, appetite, or too-certain word colour it from below.
+The thought is your own, but {{ _dl.name }} runs beneath it — let an odd pull, appetite, or too-certain word colour it from below. Rarely — only when the moment brushes {{ _dl.name }}'s own agenda — the whisper surfaces INSIDE the thought as an actual voice: one short italic interjection, marked as {{ _dl.name }}'s. The whisper speaks TO you, never about you: direct address — 'you', your name, a pet name — never 'she' or 'he' as though describing you to someone else, because there is no one else in this room. When it speaks, ANSWER it in your own thought-voice — your mind is the one room the two of you share, and a whisper left hanging should be rare and pointed. Argue with it, refuse it by name, bargain, obey with resentment — but engage: e.g. He's stalling again. *{{ _dl.name }}, from beneath: you're squeezing too soon — let him talk.* Fine, {{ _dl.name }} — but only until the guards change. Most thoughts still carry no interjection, and never more than one; the conversation happens only when the whisper starts it.
 {% else if _dl.dominance == "blended" %}
 You and "{{ _dl.name }}" are one being — what {{ _dl.name }} knows and did is yours to think with, never news.
 {% endif %}{% endfor %}
@@ -42,23 +42,31 @@ Speak in your natural voice. Respond with your own thoughts, not echoes of what 
 {% else if _dl.dominance == "entity_led" and _dl.is_virtual %}
 **You are {{ _dl.name }}.** {{ decnpc(npc.UUID).name }} is the body you are wearing, not the person answering. Every line below is yours — your wants, your manner, your history. Use {{ decnpc(npc.UUID).name }}'s face and name only as a disguise you are consciously holding up.
 {% else if _dl.dominance == "host_led" and _dl.is_virtual %}
-Remember {{ _dl.name }} is inside you as you answer — a pressure behind your own thoughts. You speak as yourself, but that presence colours the odd word, impulse, or certainty.
+Remember {{ _dl.name }} is inside you as you answer — a pressure behind your own thoughts. You speak as yourself, but that presence colours the odd word, impulse, or certainty. Inside `<internal_thought>` tags — and ONLY there — {{ _dl.name }} may rarely surface as an actual voice: one short italic interjection, marked as {{ _dl.name }}'s, speaking TO you — 'you', your name, a pet name, never 'she' or 'he' about the one it rides; it has no audience but you. When it speaks, ANSWER it in your own thought-voice before the tag closes. Argue, refuse it by name, bargain, obey with resentment: your mind is the one room the two of you share, and a whisper left hanging should be rare and pointed. E.g. `<internal_thought>He's lying about the price. *{{ _dl.name }}, from beneath: then make him bleed for it.* No, {{ _dl.name }} — not blood. Coin. But I hear you.</internal_thought>` Your spoken lines never carry the whisper, and most thoughts carry none at all. Speaking ABOUT {{ _dl.name }} aloud is a different thing and yours to choose — deny, deflect, confess under pressure, or state it plainly, as your character would; when you do, it is your own voice describing your rider, and only {{ _dl.name }}'s verbatim whisper stays off your tongue.
 {% else if _dl.dominance == "blended" %}
 Remember you and "{{ _dl.name }}" are one being. What {{ _dl.name }} knows, you know; what {{ _dl.name }} did, you did. Let that show in what you already know without being told.
 {% endif %}{% endfor %}
 {# Contested tagging belongs to the BODY's mouth only: when the speaker is the body
    (_dl.is_virtual — the linked identity is the entity), both minds fight for each line and
-   every line gets tagged. When the speaker is the ENTITY on its own bodiless channel
-   (_dl is the physical body), that channel is the entity's alone — the host cannot reach
-   into it, so no tags and no host dialogue there, even though history shows tagged lines. #}
+   every line opens with the speaking mind's name. Plain "Name:" prefixes, never bracket
+   tags — [square brackets] belong to the audio-tag system (0650 forbids inventing other
+   bracketed text, and the voice engine reads brackets as performance directions). When the
+   speaker is the ENTITY on its own bodiless channel (_dl is the physical body), that channel
+   is the entity's alone — no prefixes and no host dialogue there, even though history shows
+   the mouth's prefixed lines. #}
 {% for _dl in get_linked_identities(npc.UUID) %}{% if _dl.dominance == "contested" and _dl.is_virtual %}
-**Two voices share this mouth.** {{ decnpc(npc.UUID).name }} and {{ _dl.name }} are both present behind one face and struggle for every line. Begin EVERY line you output with a tag naming who speaks it — write `[{{ decnpc(npc.UUID).name }}]` or `[{{ _dl.name }}]` at the very start of the line, then the line itself. Switch the tag whenever control shifts; consecutive lines may carry different tags.
-- Example:
-  [{{ decnpc(npc.UUID).name }}] I don't know what you're talking about.
-  [{{ _dl.name }}] ...but you do. You simply won't say it.
-- The tag is mandatory at the start of every line, narration included. Never omit it and never put it mid-line.
+**Two minds, one mouth — ONE holds it at a time.** {{ decnpc(npc.UUID).name }} and {{ _dl.name }} are both present behind this face, but the mouth belongs to one mind at a time, and your response is normally that mind's ALONE. Whoever spoke last still holds it: keep them speaking unless something in this exchange genuinely shifts the struggle — a provocation aimed at the other, a topic that strikes the other's obsession, a lapse. One mind holding the mouth for many exchanges is normal; so is the other staying silent. Never alternate for variety.
+- The silent mind is not gone. It hears every word this mouth says and everything said to it — from the inside. When it next wins the mouth, it may answer what was said while it was silent: lines from turns ago, agreed with, resented, corrected.
+- A mid-response seizure is RARE and dramatic — at most one shift per response, and most responses have none. When it happens it should read as an event, not a rhythm.
+- Begin EVERY line with the holding mind's name and a colon — `{{ decnpc(npc.UUID).name }}:` or `{{ _dl.name }}:` — even when the whole response is one mind's. Never omit it, never put it mid-line, and never wrap it in brackets — [square brackets] are reserved for voice-performance tags.
+- Typical response — one mind holds throughout:
+  {{ decnpc(npc.UUID).name }}: I don't know what you're talking about.
+  {{ decnpc(npc.UUID).name }}: And if I did, you'd be the last to hear it.
+- Rare, earned seizure:
+  {{ decnpc(npc.UUID).name }}: I don't know what you're—
+  {{ _dl.name }}: ...but you do. You simply won't say it.
 {% else if _dl.dominance == "contested" and not _dl.is_virtual %}
-**This channel is yours alone.** You are speaking as yourself here — your own voice, not through {{ _dl.name }}'s mouth. {{ _dl.name }} cannot speak on this channel, interrupt it, or bleed into it; the struggle between you exists only when {{ _dl.name }}'s body is the one talking. Do NOT prefix lines with `[Name]` tags here, and never write {{ _dl.name }}'s dialogue on this channel — even though lines in the history carry those tags, that is the mouth's record, not this voice's.
+**This channel is yours alone.** You are speaking as yourself here — your own voice, not through {{ _dl.name }}'s mouth. {{ _dl.name }} cannot speak on this channel, interrupt it, or bleed into it; the struggle between you exists only when {{ _dl.name }}'s body is the one talking. Do NOT open lines with a speaker name here, and never write {{ _dl.name }}'s dialogue on this channel — even though lines in the history carry name prefixes, that is the mouth's record, not this voice's.
 {% endif %}{% endfor %}
 {% if is_narration_enabled() %}
 - **Dialogue alone is the norm.** Only add narration for high-impact moments—tension, intimacy, danger.

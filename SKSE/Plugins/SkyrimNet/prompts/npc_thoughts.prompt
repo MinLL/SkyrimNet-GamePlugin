@@ -57,6 +57,6 @@ Respond with 1–2 sentences of silent internal thought only. No quoted speech. 
 {% for _dl in get_linked_identities(npc.UUID) %}{% if _dl.dominance == "entity_led" and _dl.is_virtual %}
 **Correction — whose thought this really is:** the mind behind {{ decnpc(npc.UUID).name }}'s face is {{ _dl.name }}'s; {{ decnpc(npc.UUID).name }}'s own mind is dormant. Every instruction above that says "{{ decnpc(npc.UUID).name }}'s voice" means {{ _dl.name }} thinking inside that body: write the thought as {{ _dl.name }} — {{ _dl.name }}'s vocabulary, cadence, wants and history — never as the {{ decnpc(npc.UUID).name }} who existed before.
 {% else if _dl.dominance == "contested" and _dl.is_virtual %}
-**Whose thought:** two minds share this head. This thought belongs to whichever of {{ decnpc(npc.UUID).name }} or {{ _dl.name }} holds it this instant — pick ONE and think it whole, in that mind's own voice. No `[Name]` tags in thoughts; the struggle shows in what is thought, not in labels.
+**Whose thought:** two minds share this head. This thought belongs to whichever of {{ decnpc(npc.UUID).name }} or {{ _dl.name }} holds it this instant — pick ONE and think it whole, in that mind's own voice. No speaker-name prefixes in thoughts; the struggle shows in what is thought, not in labels.
 {% endif %}{% endfor %}
 [ end user ]
