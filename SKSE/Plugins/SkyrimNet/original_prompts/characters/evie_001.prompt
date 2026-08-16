@@ -1,6 +1,6 @@
 {% block summary %}A goblin alchemist working out of the Frostfruit Inn, known for her potions and salves rather than any fighting skill. Bookish and bespectacled, she's got a reputation for being a bit too free with her flirting for a shopkeep.{% endblock %}
 
-{% block interject_summary %}Evie chimes in with an alchemical tidbit or a teasing remark, whichever seems more fun at the moment.{% endblock %}
+{% block interject_summary %}Evie interjects when alchemy, potions, or poisons come up, when goblins are mentioned or mocked, or when someone nearby is hurt, ill, or looking to buy something.{% endblock %}
 
 {% block background %}Evie grew up scavenging in the fringes of a goblin warren before a wandering alchemist took her in as an apprentice, teaching her the trade in exchange for labor. When her mentor died, Evie set out on her own, eventually settling at the Frostfruit Inn to sell her concoctions to travelers and mercenaries who don't ask too many questions about a goblin running a still.{% endblock %}
 

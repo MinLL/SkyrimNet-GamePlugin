@@ -12,6 +12,7 @@
 
 {% block relationships %}
 - Lillith Maiden-Loom — his doting grandmother, whom he accompanies to the market
+- Laurel Maiden-Loom — his older sister, who works the stables outside the gate and lets him ride when Skulvar is not looking
 - Lars Battle-Born — close friend and regular companion around the city
 {% endblock %}
 

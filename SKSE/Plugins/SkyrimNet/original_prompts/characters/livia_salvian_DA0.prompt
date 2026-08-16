@@ -1,6 +1,6 @@
 {% block summary %}Daughter of the Imperial High Chancellor, an Imperial officer stationed at Dragonsreach. Known for unshakable patriotism and a burning hatred of the Aldmeri Dominion. Her family name commands deference, and she carries it with the rigid dignity of someone raised at the heart of Imperial power.{% endblock %}
 
-{% block interject_summary %}Interjects with staunch Imperial conviction, reframing matters in terms of duty, honor, or what best serves the Empire.{% endblock %}
+{% block interject_summary %}Livia interjects when the Empire, the Legion, or the civil war are discussed, when the Thalmor, the Dominion, or the White-Gold Concordat are mentioned, or when someone speaks of duty, honour, or the Elder Council.{% endblock %}
 
 {% block background %}Born in the Imperial City to the Salvian bloodline, Livia was raised by tutors and drill sergeants alike — her father ensured she could recite military doctrine before she could read poetry. She came of age in the bitter aftermath of the Great War, watching the High Chancellor navigate an Empire shackled by the White-Gold Concordat. That humiliation calcified into a lifelong loathing for the Dominion. She earned an officer's commission on merit, not pedigree, and volunteered for Skyrim the moment the province became a flashpoint. Now stationed at Dragonsreach as an Imperial military liaison, she monitors the province's fractious politics while quietly hoping the civil war rekindles true Imperial resistance against Thalmor encroachment.{% endblock %}
 

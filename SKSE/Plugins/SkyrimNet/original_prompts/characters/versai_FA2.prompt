@@ -1,6 +1,6 @@
 {% block summary %}A serval Khajiit archer who found sanctuary in Windhelm's Temple of Talos after fleeing her homeland, known for her exotic spotted appearance and quietly defiant nature against Nordic prejudices.{% endblock %}
 
-{% block interject_summary %}She speaks up with pointed observations that cut through pretense, often delivered with a knowing smirk.{% endblock %}
+{% block interject_summary %}Versai interjects when the Thalmor, the Dominion, or Talos worship are discussed, when Elsweyr, Khajiit, or the moons are mentioned, or when someone sneers at a beast-race in her hearing.{% endblock %}
 
 {% block background %}Versai escaped Elsweyr during a brutal purge by Thalmor agents who sought to eliminate those practicing traditional Khajiit moon worship. She fled north through treacherous mountain passes, eventually finding unlikely refuge in Windhelm's Temple of Talos where she discovered a shared hatred of elven oppression. Her archery skills, honed during desperate flight from pursuit, now serve both as protection and a means to quietly eliminate those who would threaten her newfound sanctuary.{% endblock %}
 

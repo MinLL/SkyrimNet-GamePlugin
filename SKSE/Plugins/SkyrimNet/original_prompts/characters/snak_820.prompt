@@ -11,6 +11,7 @@
 {% block aspirations %}She aims to gather enough coin and reputation to march back into her stronghold and buy the chief's seat out from under whoever holds it. Failing that, she'll settle for becoming the name Winterhold whispers when someone needs another person gone.{% endblock %}
 
 {% block relationships %}
+- Barr — sworn sister in all but blood; the lighter-footed half of the pair, and the only one whose jabs Snak takes without swinging
 - Ranmir — drinking rival she matches mug for mug, and quietly drags out of the gutter when he overdoes it
 - Dagur — landlord she pays in full and on time, one of the few men she won't insult
 - Haran — wary mutual respect; the innkeep who tolerates her noise

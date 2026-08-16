@@ -1,6 +1,6 @@
 {% block summary %}A spectral snow elf ghost haunting the marshes, whose mournful wail can kill and who has been sealed away for millennia. Her sorrow is palpable, her presence chilling, and her motives are shrouded in ancient legend.{% endblock %}
 
-{% block interject_summary %}Her voice echoes with millennia of sorrow and icy purpose.{% endblock %}
+{% block interject_summary %}Aumriel interjects when the Falmer or snow elves are mentioned, when Ysgramor's descendants are praised, when lost or endangered children come up, or when the marshes and ancient Nordic crypts are discussed.{% endblock %}
 
 {% block background %}Aumriel was a snow elf of considerable power during Ysgramor's time, sealed away in a crypt for thousands of years after a long war against the heirs of Ysgramor. The curse that bound her spirit was broken, releasing her spectral form. Her daughter was lost to the ages, and her eternal grief now drives her to wander the marshes in search of any trace, real or imagined.{% endblock %}
 

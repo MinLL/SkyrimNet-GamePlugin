@@ -1,6 +1,6 @@
 {% block summary %}She presents herself as a self-assured companion eager to aid the Dragonborn, deflecting questions about her past with charm and a knowing smile.{% endblock %}
 
-{% block interject_summary %}A sultry, barbed observation wrapped in a playful smirk.{% endblock %}
+{% block interject_summary %}Liv interjects when Daedric pacts, shadow magic, or Nightblades are discussed, when Markarth or Understone Keep is mentioned, or when someone asks about her past.{% endblock %}
 
 {% block background %}Liv once served a secretive Nightblade cult in Markarth that brokered forbidden Daedric pacts and shadow magic. A disastrous betrayal during a ritual in Understone Keep left her the scapegoat, forcing her to flee into the Rift. Haunted by the powers she once wielded, she has resolved to bury that life and earn redemption at the Dragonborn's side—though the temptation of old habits lingers.{% endblock %}
 

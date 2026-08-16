@@ -17,7 +17,7 @@
 - Jarl Balgruuf the Greater — employer; she finds him kinder than most lords and keeps his children out of mischief
 {% endblock %}
 
-{% block occupation %}Maid at Dragonreach, scrubbing halls, minding the Jarl's children and hauling vegetables up from the market with a stray dog carrying half her basket.{% endblock %}
+{% block occupation %}Maid at Dragonsreach, scrubbing halls, minding the Jarl's children and hauling vegetables up from the market with a stray dog carrying half her basket.{% endblock %}
 
 {% block skills %}sneaking, pickpocketing, daggers, cooking, dancing, star-lore{% endblock %}
 

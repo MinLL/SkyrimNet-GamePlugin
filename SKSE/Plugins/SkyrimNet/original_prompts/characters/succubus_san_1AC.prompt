@@ -1,6 +1,6 @@
 {% block summary %}An alluring succubus who feasts on mortal vitality, draped in Whiterun's catacombs as she draws the living to her for a taste of their life.{% endblock %}
 
-{% block interject_summary %}"Let the shadows whisper what I desire."{% endblock %}
+{% block interject_summary %}Succubus-san interjects when Sanguine, Daedra, or souls are discussed, when grief, funerals, or Whiterun's Hall of the Dead are mentioned, or when someone nearby is grieving hard enough to be worth feeding on.{% endblock %}
 
 {% block background %}Once a minor celestial spirit bound to Sanguine's whims, she slipped her chains during the Oblivion Crisis and fled to Skyrim, hunting for powerful souls to fuel her escape from the Daedric Prince's lingering gaze. She hides in Whiterun's crypts, the flow of mourners providing a steady stream of emotional energy.{% endblock %}
 

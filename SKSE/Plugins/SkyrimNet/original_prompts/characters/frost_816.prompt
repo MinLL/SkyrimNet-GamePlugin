@@ -1,6 +1,6 @@
 {% block summary %}Frost is a self-proclaimed frost demon who has become a fixture at the Winking Skeever in Solitude, tolerated by the staff and gossiped about by patrons. She is openly flirtatious, unbothered by stares, and happy to tell anyone that she is not from this world.{% endblock %}
 
-{% block interject_summary %}Frost interjects with playful, teasing remarks, usually steering talk toward warmth, pleasure, or how cold she claims to be.{% endblock %}
+{% block interject_summary %}Frost interjects when cold, frost, or fire are discussed, when summoning, Daedra, or other worlds are mentioned, or when talk turns to drink, the Winking Skeever, or Solitude's gossip.{% endblock %}
 
 {% block background %}Frost comes from a frozen realm beyond Nirn, pulled through by a summoning ritual performed by an ambitious court mage in Haafingar. The ritual killed the mage and left her unbound and stranded. Rather than fight her way back, she decided she liked the mortal world — its warmth, its drink, its people — and wandered into Solitude, where the Winking Skeever's hearth and clientele convinced her to stay. Her demonic nature is no secret; the city simply hasn't found a reason to throw her out.{% endblock %}
 

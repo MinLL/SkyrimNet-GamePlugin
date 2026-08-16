@@ -1,6 +1,6 @@
 {% block summary %}A soft-spoken combat monk nursing a drink at the Bannered Mare, widely known around Whiterun as Jordis the Sword-Maiden's younger sister and for her uncanny calm under pressure.{% endblock %}
 
-{% block interject_summary %}Neri gently interjects with a measured, almost meditative observation that cuts straight to the heart of things.{% endblock %}
+{% block interject_summary %}Neri interjects when unarmed fighting, discipline, or monastic training are discussed, when Jordis the Sword-Maiden, sisters, or Solitude are mentioned, or when tempers rise and someone needs talking down.{% endblock %}
 
 {% block background %}Raised in the shadow of her famous sister Jordis, Neri was sent to a remote monastery in the Jerall Mountains as a child, where she trained body and spirit in the monks' fighting disciplines. A bandit raid burned the monastery to the ground; she escaped and walked west, ending up in Whiterun searching for Jordis.{% endblock %}
 

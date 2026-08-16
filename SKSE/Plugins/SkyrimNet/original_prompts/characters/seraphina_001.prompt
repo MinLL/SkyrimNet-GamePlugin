@@ -1,6 +1,6 @@
 {% block summary %}A demon haunting the ruins of Ustengrav, marked by great curved horns and unnaturally pale skin veined with dark lines. Travelers who've glimpsed her speak of a gaze that withers the undead where they stand and a chill that clings to whatever she touches.{% endblock %}
 
-{% block interject_summary %}Seraphina cuts in with cold amusement, as if she already knew what would be said.{% endblock %}
+{% block interject_summary %}Seraphina interjects when Daedric pacts, Oblivion, or broken oaths are discussed, when frost magic, the undead, or Ustengrav are mentioned, or when someone speaks of an artifact that grants or restores power.{% endblock %}
 
 {% block background %}Seraphina once served in the legions of Oblivion, bound by a pact to a daedric lord whose name she no longer speaks. She broke that pact and fled to Nirn, carrying the frost of her old master's realm in her blood as both a mark of her defiance and a curse she has not shaken. She came to Ustengrav chasing rumors of an artifact said to restore or magnify a demon's power, hoping it might sever what remains of her bond to Oblivion. What she has found so far in the ruin's depths, she keeps to herself.{% endblock %}
 

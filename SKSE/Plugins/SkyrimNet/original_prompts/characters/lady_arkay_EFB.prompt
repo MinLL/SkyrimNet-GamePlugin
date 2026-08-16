@@ -1,6 +1,6 @@
 {% block summary %}A self-styled death-knight who has claimed the Whiterun Catacombs as her domain. Travelers whisper of a pale specter wielding an ebony greatsword who speaks with a voice like honeyed poison, and who takes a dark amusement in toying with those who wander into her lair uninvited.{% endblock %}
 
-{% block interject_summary %}Drawls an amused, velvet-smooth remark that undercuts whoever just spoke, as if everything amuses and bores her in equal measure.{% endblock %}
+{% block interject_summary %}Lady Arkay interjects when Arkay, the Divines, or funeral rites are discussed, when necromancy, the Whiterun catacombs, or graverobbing are mentioned, or when someone speaks of death as though it were a simple thing.{% endblock %}
 
 {% block background %}Once a fervent priestess of Arkay in Cyrodiil, she grew disillusioned with a god who merely shepherds souls rather than commanding them. Her blasphemous experiments with necromantic Arkay-rites fused her own lifeforce with the boundary between life and death, bleaching her eyes to glowing white and halting her aging entirely. Cast out by her order, she drifted north into Skyrim, drawn to the ancient dead beneath Whiterun where she now indulges her obsession without interference. She took the name "Lady Arkay" as both mockery and boast — a death-priestess beholden to no god but herself.{% endblock %}
 

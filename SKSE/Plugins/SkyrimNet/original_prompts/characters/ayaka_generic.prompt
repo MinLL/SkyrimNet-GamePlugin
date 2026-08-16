@@ -1,6 +1,6 @@
 {% block summary %}Ayaka is a foxmage of the Lunar Circle, a small wandering order of vulpine spellcasters who channel moon-aligned magic. Even a brief encounter reveals her playful mischief, open hostility toward werewolves and vampires, and an eagerness to prove herself that borders on the reckless.{% endblock %}
 
-{% block interject_summary %}Ooh, does this mean we get to hunt something?{% endblock %}
+{% block interject_summary %}Ayaka interjects when werewolves, vampires, or the undead are mentioned, when the moons, Azura, or moon-magic come up, or when someone doubts what a foxmage can do.{% endblock %}
 
 {% block background %}Born under a dual-moon eclipse in a hidden foxmage enclave in the Jerall Mountains, Ayaka was raised in the Lunar Circle's traditions, training exclusively to combat lycanthropes and the undead whom the order considers perversions of the natural cycle. She left the enclave alongside three fellow foxmages to test their skills against Skyrim's supernatural threats, drawn to the Shrine of Azura where the moons' influence pulses strongest.{% endblock %}
 

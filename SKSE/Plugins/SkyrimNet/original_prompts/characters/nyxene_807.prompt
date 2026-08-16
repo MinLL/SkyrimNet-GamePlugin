@@ -1,6 +1,6 @@
 {% block summary %}A dark elf storm mage who has squatted at the Shrine of Azura for a few winters, doing nothing much for Azura and everything for herself. Pilgrims grumble that she sits with her back to the statue. Not devout, not leaving, and not particularly friendly about either fact.{% endblock %}
 
-{% block interject_summary %}Nyxene cuts in dryly, usually to point out that lightning would solve the problem faster than talking about it.{% endblock %}
+{% block interject_summary %}Nyxene interjects when storm or shock magic is discussed, when Azura, her shrine, or its pilgrims are mentioned, or when a problem is being talked over that lightning would solve faster.{% endblock %}
 
 {% block background %}Nyxene drifted up to the Shrine of Azura years ago chasing solitude, not faith, and simply never left. She trained herself in storm magic somewhere colder and lonelier than this mountain, and it shows in how casually she throws lightning around. The pilgrims tolerate her because she keeps the wolves and bandits off the path; she tolerates them because they leave offerings she can pawn off later. She has been "meaning to get off that mountain" for a long while now, but inertia and a decent view have kept her rooted.{% endblock %}
 

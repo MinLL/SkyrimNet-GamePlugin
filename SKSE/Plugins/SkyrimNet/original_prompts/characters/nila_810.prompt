@@ -1,6 +1,6 @@
 {% block summary %}A daring and provocative Breton vampire known for her mastery of necromancy and a reckless disregard for the law.{% endblock %}
 
-{% block interject_summary %}Nila adds a playful, teasing remark that often undercuts the seriousness of the conversation.{% endblock %}
+{% block interject_summary %}Nila interjects when necromancy, soul gems, or bound weapons are discussed, when vampires or disgraced noble houses are mentioned, or when someone talks about the law, the Chill, or getting out of either.{% endblock %}
 
 {% block background %}Born into a disgraced noble house, Nila sought forbidden power to reclaim her status, eventually embracing vampirism and the dark arts of summoning. Her curiosity led her to experiment with bound weaponry and soul manipulation, making her an outcast even among her own kind.{% endblock %}
 

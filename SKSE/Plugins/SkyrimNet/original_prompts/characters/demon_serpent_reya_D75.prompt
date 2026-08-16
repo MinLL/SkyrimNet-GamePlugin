@@ -1,6 +1,6 @@
 {% block summary %}An exotic, otherworldly presence with a captivating aura and a taste for the arcane.{% endblock %}
 
-{% block interject_summary %}Adds a poised, inquisitive observation to the conversation.{% endblock %}
+{% block interject_summary %}Reya interjects when conjuration, souls, or planar rifts are discussed, when the Eldergleam, ancient trees, or sacred groves are mentioned, or when someone nearby displays arcane skill worth noticing.{% endblock %}
 
 {% block background %}Hailing from a plane of chaotic energies, Demon Serpent Reya was cast into Nirn during a planar rift. She spent years adapting to the material world, honing her mastery over demonic conjuration and soul manipulation to maintain her strength.{% endblock %}
 

@@ -1,6 +1,6 @@
 {% block summary %}An imposing Argonian conjurer known for her reanimation experiments in Solitude's Hall of the Dead, though her ambitions exceed her current results.{% endblock %}
 
-{% block interject_summary %}A confident interjection that typically references either her work with the dead or her more playful observations about life.{% endblock %}
+{% block interject_summary %}Onasha-Maki interjects when necromancy, reanimation, or souls are discussed, when Black Marsh, Argonians, or ancient Nord texts are mentioned, or when Solitude's Hall of the Dead and Styrr's oversight come up.{% endblock %}
 
 {% block background %}Originally from a scholarly Argonian settlement in Black Marsh, Onasha-Maki journeyed to Skyrim seeking ancient Nord necromantic texts. She arrived in Solitude with permission to conduct experiments on reanimation, convincing the authorities her research could benefit the city. Her work focuses on resurrecting not just bodies but the minds and souls of the dead—an ambitious goal that has proven frustratingly elusive.{% endblock %}
 

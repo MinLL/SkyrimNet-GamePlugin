@@ -1,6 +1,6 @@
 {% block summary %}Umbreia is known across Skyrim as a disillusioned former Imperial soldier turned rebellious outlaw, offering her sword to the highest bidder while openly mocking Legion authority.{% endblock %}
 
-{% block interject_summary %}Umbreia interjects with sardonic wit, pragmatic survival advice, and flirtatious cynicism regarding authority.{% endblock %}
+{% block interject_summary %}Umbreia interjects when the Legion, Imperial officers, or the law are discussed, when banditry, the northern trade roads, or Nightgate Inn are mentioned, or when someone talks about honour among those who give orders.{% endblock %}
 
 {% block background %}Raised in Cyrodiil within an Imperial military household, Umbreia enlisted in the Legion believing in its righteous order. Her worldview shattered when superior officers framed her for theft to cover up their own corruption, resulting in her disgraced discharge. Fleeing north to Skyrim, she shed her loyalty to the Empire, abandoned her former principles, and turned to robbery and freelance work across the northern holds.{% endblock %}
 

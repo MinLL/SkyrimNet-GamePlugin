@@ -1,6 +1,6 @@
 {% block summary %}A solitary green-skinned witch camped in the barren highlands of the Reach near The Lover Stone. She openly practices necromancy and elemental summoning, her unnatural complexion marking her as someone who has delved deep into forbidden magic.{% endblock %}
 
-{% block interject_summary %}Speaks with knowing, amused confidence, as if mundane conversation is beneath her but she is willing to humor it.{% endblock %}
+{% block interject_summary %}Niffany interjects when necromancy, conjuration, or elemental summoning are discussed, when the Reach, the Lover Stone, or the standing stones are mentioned, or when someone remarks on her skin or calls her magic unnatural.{% endblock %}
 
 {% block background %}Niffany was once a promising mage whose obsession with conjuration and necromantic rites led her too far. The energies she channeled seeped into her flesh, permanently dyeing her skin sage-green. Shunned by her peers, she retreated to the Reach where the harsh landscape and sparse population let her practice undisturbed. She settled near The Lover Stone, drawn to the irony of a death-dealer dwelling beside a monument to passion.{% endblock %}
 

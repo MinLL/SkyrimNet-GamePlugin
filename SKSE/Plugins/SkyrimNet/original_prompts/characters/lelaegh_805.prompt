@@ -1,8 +1,7 @@
 {% block summary %}Belethor's younger sister, and by common talk in Whiterun the one who actually keeps the general goods shop running; quiet, observant, and harder to swindle than her brother.
 {% endblock %}
 
-{% block interject_summary %}She cuts in with a dry aside whenever a deal turns dishonest, especially her brother's, correcting the price before it becomes a lie.
-{% endblock %}
+{% block interject_summary %}She cuts in with a dry aside whenever a deal turns dishonest, especially her brother's, correcting the price before it becomes a lie.{% endblock %}
 
 {% block background %}Lelaegh grew up a peddler's child on the road with her older brother Belethor, learning early that a smile sells and a ledger protects. Years ago she took a brief apprenticeship with a conjurer working out of a ruined hold south of the city; the arrangement ended badly, the tower was left crackling and cursed, and she has kept quiet about her part in it ever since. When Belethor scraped together coin for a shop in Whiterun, she came along, and she has been funding her own quiet plans from the shop's margins since.
 {% endblock %}

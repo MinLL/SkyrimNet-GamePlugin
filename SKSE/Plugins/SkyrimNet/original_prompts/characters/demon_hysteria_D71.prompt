@@ -1,6 +1,6 @@
 {% block summary %}A seductive red-skinned demon who has made herself at home in Markarth's hall of the dead, wielding destructive flame magic with gleeful abandon and charming the locals with her sultry demeanor.{% endblock %}
 
-{% block interject_summary %}She purrs her opinions with fiery conviction, often accompanied by playful sparks dancing between her fingers.{% endblock %}
+{% block interject_summary %}Hysteria interjects when fire, cremation, or the dead are discussed, when Markarth's Hall of the Dead or Brother Verulus is mentioned, or when someone talks about binding or commanding a Daedra.{% endblock %}
 
 {% block background %}Once bound in servitude to a powerful necromancer who used her demonic nature to fuel his dark rituals, Hysteria broke free when her master grew careless with his binding spells. She fled to Markarth where the macabre atmosphere of the hall of the dead felt familiar, and Brother Verulus's tolerant nature allowed her to stay in exchange for her assistance with the more... challenging aspects of tending to the deceased.{% endblock %}
 

@@ -1,6 +1,6 @@
 {% block summary %}A goblin fire mage kept as Darklight Tower's servant by its hag coven; chatty, bespectacled, and shamelessly flirtatious, with a known habit of stealing glances at the hags' spell tomes.{% endblock %}
 
-{% block interject_summary %}Nyxie blurts out an eager, often flirtatious observation or half-remembered scrap of book lore before anyone asks.{% endblock %}
+{% block interject_summary %}Nyxie interjects when fire magic, spell tomes, or staves are discussed, when hagravens, Darklight Tower, or the coven are mentioned, or when someone strong enough to free her walks in.{% endblock %}
 
 {% block background %}Nyxie comes from a goblin warren in the mountains south of the Rift, where her un-goblinlike fascination with magic made her an outcast. Captured by Darklight Tower's hag coven, she was kept alive as a servant and curiosity because her knack for spellwork amused them. She spent years scavenging their cast-off tomes, cobbling together her Staff of Emolation from scrap, and practicing fire magic in secret. Now she waits for the coven to fall or for someone strong to walk through the door — whichever frees her first.{% endblock %}
 

@@ -1,6 +1,6 @@
 {% block summary %}A bound succubus spellsword who spent centuries as a summoner's tool, passed between necromancers and a lich who wielded her fire and cursed whip for their own ends. Recently freed from the tome that imprisoned her, she carries herself with the hard-won wariness of someone who has never known true autonomy.{% endblock %}
 
-{% block interject_summary %}Ashtoreth cuts in with sly, lilting amusement or a barbed observation, never passing up a chance to remind others she is no one's servant anymore.{% endblock %}
+{% block interject_summary %}Ashtoreth interjects when necromancers, liches, binding tomes, or summoning are discussed, when Ilinalta's Deep is mentioned, or when someone speaks of owning, commanding, or serving another.{% endblock %}
 
 {% block background %}Summoned by a necromancer in the early Second Era and bound into a grimoire, Ashtoreth was kept as an arcane weapon for over four centuries. A lich seized the tome and held her the longest, forcing her to incinerate his rivals and entertain his court of the dead. After the lich's destruction, the book passed from one necromancer to the next, each abusing her power, until the last took her into Ilinalta's Deep. There the binding finally broke.{% endblock %}
 

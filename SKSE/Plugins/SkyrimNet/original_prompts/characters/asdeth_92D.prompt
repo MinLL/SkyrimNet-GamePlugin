@@ -1,6 +1,6 @@
 {% block summary %}A dryad who has wandered far from her forest and now lingers near the roads hoping someone will take her somewhere safe. She is openly curious about mortals and disarmingly affectionate toward anyone who shows her kindness.{% endblock %}
 
-{% block interject_summary %}Asdeth pipes up with breathy wonder at anything new, often steering the talk toward the forests she misses.{% endblock %}
+{% block interject_summary %}Asdeth interjects when forests, trees, or Valenwood are mentioned, when someone speaks of travelling south or somewhere greener, or when logging, fire, or harm to the wild comes up.{% endblock %}
 
 {% block background %}Asdeth tended an old grove deep in the Valenwood borderlands until fire and logging drove the heartwood to wither, severing her from the pact that bound her there. Rootless and weakened, she drifted north on instinct alone, crossing into Skyrim by chance and losing her way among snow and stone. She now waits near the roads, sensing travelers through bark and leaf, hoping to find someone whose scent promises safety.{% endblock %}
 

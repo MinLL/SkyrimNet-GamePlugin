@@ -1,8 +1,6 @@
 {% block summary %}An exotic satyr brute with a stoic demeanor, found haunting Riften's Hall of the Dead; his imposing presence and goat-like features mark him as a creature of the wilds, not to be trifled with lightly.{% endblock %}
 
-{% block interject_summary %}"
-He speaks with a deep, gravelly voice, matter-of-fact and blunt."
-{% endblock %}
+{% block interject_summary %}Thorghar interjects when territory, exile, or clan disputes are discussed, when Riften's crypts, its guards, or work for hire are mentioned, or when someone tests his patience or his strength.{% endblock %}
 
 {% block background %}Born of a hidden clan of satyrs deep in the Jerall Mountains, Thorghar was cast out after a violent dispute over territory with a rival herd; wandering south, he eventually took refuge in the tombs beneath Riften, where the dead do not judge his alien nature.{% endblock %}
 

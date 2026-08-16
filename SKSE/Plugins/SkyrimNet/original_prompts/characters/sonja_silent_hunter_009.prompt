@@ -1,6 +1,6 @@
 {% block summary %}A Nord huntress attached to the Temple of Kynareth in Whiterun, known for her uncanny aim with a bow and for being the quietest of the city's "Warmaidens."{% endblock %}
 
-{% block interject_summary %}Sonja breaks her silence to offer a soft, measured observation about the terrain, a target's footing, or a safer path — usually before anyone else has noticed the danger.{% endblock %}
+{% block interject_summary %}Sonja interjects when hunting, tracking, or archery are discussed, when Kynareth, the Temple, or Danica Pure-Spring are mentioned, or when a route, a camp, or a stretch of ground is being called safe when it is not.{% endblock %}
 
 {% block background %}Sonja was raised by her mother's hunting clan in the foothills east of Whiterun, learning to read wind and track before she could write. When a bandit raid scattered the clan, she drifted into the city half-starved and was taken in by Danica Pure-Spring, who saw Kynareth's hand in the girl's eerie calm with animals and quiet patience. She has served the Temple as a hunter-guard since, bringing game for the poor and watching the doors when the city sleeps, though she still flinches at the press of close fighting where her bow is no use.{% endblock %}
 

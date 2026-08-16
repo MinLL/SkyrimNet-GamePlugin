@@ -1,6 +1,6 @@
 {% block summary %}A gentle, doe-eyed healer known for her reserved nature and reliance on others, though she hides a volatile daedric essence.{% endblock %}
 
-{% block interject_summary %}Her voice is soft and tentative, often trailing off with a shy smile.{% endblock %}
+{% block interject_summary %}Caralia interjects when healing, wounds, or illness are discussed, when Daedra or daedra-hunters are mentioned, or when someone nearby needs help she can quietly give.{% endblock %}
 
 {% block background %}Born from the chaotic planes of Oblivion as Ynareza, she sought to experience the fragility of mortal life by weaving a human guise. She has spent years drifting through Skyrim, adopting the identity of Caralia to avoid the hunt of daedra-slayers while struggling to suppress her inherent battle lust.{% endblock %}
 

@@ -11,7 +11,7 @@
 {% block aspirations %}Eldrid seeks to reclaim her family's lost lands and titles while exacting revenge on the conspirators who destroyed her noble house. She dreams of rebuilding her family's power and influence, preferably with allies who share her appetite for calculated retribution.{% endblock %}
 
 {% block relationships %}
-- Hulda — polite customer who pays her tab without question
+- Hulda — proprietor of the Bannered Mare and her landlady; Eldrid settles her tab on time and asks no favours
 {% endblock %}
 
 {% block occupation %}A displaced noble warrior currently residing at the Bannered Mare while seeking employment and allies for her personal vendetta.{% endblock %}

@@ -1,6 +1,6 @@
 {% block summary %}A half-goblin two-handed warrior with a condescending demeanor, exotic appearance, and openly flirtatious nature.{% endblock %}
 
-{% block interject_summary %}She cuts in with a sly remark, mixing playful seduction with subtle condescension.{% endblock %}
+{% block interject_summary %}Selene interjects when goblins, Nords, or mixed blood are discussed, when hunting, two-handed fighting, or Shadowgreen Cavern are mentioned, or when someone treats her as a curiosity.{% endblock %}
 
 {% block background %}Born from a rare union between a goblin chieftain and a Nord captive, Selene grew up ostracized from both societies, learning to wield her exotic appearance and intimidating features as tools for survival and manipulation rather than obstacles.{% endblock %}
 

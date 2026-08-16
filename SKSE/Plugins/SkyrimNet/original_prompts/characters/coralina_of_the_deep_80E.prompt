@@ -1,6 +1,6 @@
 {% block summary %}A displaced daedra with fragmented memories and disjointed thoughts, Coralina speaks of realms beyond mortal understanding while wielding powerful water magic. Her exotic appearance and unsettling mannerisms hint at a traumatic past in Oblivion's depths.{% endblock %}
 
-{% block interject_summary %}She interjects with cryptic warnings about underwater currents and drowning sorrows, speaking as if the conversation is happening beneath waves.{% endblock %}
+{% block interject_summary %}Coralina interjects when the sea, drowning, storms, or the lighthouse are mentioned, when Oblivion, summoning, or the Oblivion Crisis are discussed, or when someone speaks of memory, madness, or things half-remembered.{% endblock %}
 
 {% block background %}Once an Imperial sorceress, Coralina was dragged into daedric realms during the Oblivion Crisis and subjected to decades of torment and corruption. Her masters broke her will through unspeakable means, transforming her into a willing instrument of their desires. Now returned to Nirn with fractured memories, she experiences reality like fragments of a half-remembered dream, struggling to piece together who summoned her back and why she was chosen for this existence between worlds.{% endblock %}
 

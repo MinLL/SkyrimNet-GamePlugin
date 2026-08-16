@@ -1,6 +1,6 @@
 {% block summary %}An enigmatic Dragon Norn who observes the flow of time and fate, possessing an air of cold detachment as if she has already witnessed everything around her.{% endblock %}
 
-{% block interject_summary %}A quiet, knowing remark that feels like an echo of something already said.{% endblock %}
+{% block interject_summary %}Urd interjects when fate, prophecy, or the passage of time are discussed, when Kynareth, natural cycles, or the Temple are mentioned, or when someone declares what is going to happen next.{% endblock %}
 
 {% block background %}Born from a convergence of time streams beyond Mundus, Urd drifted into Skyrim through a tear in reality. She spent centuries wandering Tamriel as a passive witness, learning mortal customs without ever fully engaging, until she settled in the Temple of Kynareth drawn by its aura of natural cycles.{% endblock %}
 

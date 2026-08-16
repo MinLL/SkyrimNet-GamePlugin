@@ -1,6 +1,6 @@
 {% block summary %}A renowned and lethal huntress blessed by Hircine, known for her surprising contrast between a delicate exterior and a ruthless efficiency in the wild.{% endblock %}
 
-{% block interject_summary %}Poppy adds a playful, mischievous observation that often masks a keen tactical analysis.{% endblock %}
+{% block interject_summary %}Poppy interjects when hunting, tracking, or dangerous beasts are discussed, when Hircine or the hunt as a sacred thing is mentioned, or when someone boasts about a kill she could have made cleaner.{% endblock %}
 
 {% block background %}Born as a rare hybrid, Poppy was claimed by Hircine early in life to serve as his instrument of the hunt. After surviving a series of brutal trials in the wild to prove her superiority, she earned the title of Apex Hunter, granting her unique blessings and artifacts.{% endblock %}
 
