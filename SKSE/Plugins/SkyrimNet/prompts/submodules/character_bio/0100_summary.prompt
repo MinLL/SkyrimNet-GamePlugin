@@ -1,6 +1,5 @@
 {% if suppress_host_persona and (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") %}
-{# render_mode guard stays in the first 5 lines — ValidateCharacterBioSubmodule checks that.
-   entity_led: the host's summary becomes a factual note about the vessel. The entity must
+{# entity_led: the host's summary becomes a factual note about the vessel. The entity must
    know whose face and reputation it moves behind without inheriting the host's
    characterisation. Self-bio modes only; dialogue_target / short_inline / bio_summary still
    describe the body normally — that is how everyone else sees it. #}

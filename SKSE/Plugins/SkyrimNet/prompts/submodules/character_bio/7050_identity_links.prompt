@@ -1,6 +1,5 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
-{# render_mode guard stays in the first 5 lines — ValidateCharacterBioSubmodule checks that.
-   SYNC: the dashboard's "Prompt wording" modal previews an abridged mirror of the framing
+{# SYNC: the dashboard's "Prompt wording" modal previews an abridged mirror of the framing
    and conduct text below. Selection: web/shared/utils/identityLinkBuiltins.js. Text:
    settings.identity_links.builtin.* in web/shared/i18n/locales/en/settings.json. Change
    the wording here, update those keys too. #}
