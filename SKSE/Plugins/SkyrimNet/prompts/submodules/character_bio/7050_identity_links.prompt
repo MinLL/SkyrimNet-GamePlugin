@@ -1,8 +1,4 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
-{# SYNC: the dashboard's "Prompt wording" modal previews an abridged mirror of the framing
-   and conduct text below. Selection: web/shared/utils/identityLinkBuiltins.js. Text:
-   settings.identity_links.builtin.* in web/shared/i18n/locales/en/settings.json. Change
-   the wording here, update those keys too. #}
     {% set identity_links = get_linked_identities(actorUUID) %}
     {% if length(identity_links) > 0 %}
         {% set selfIsVirtual = decnpc(actorUUID).isVirtual %}
