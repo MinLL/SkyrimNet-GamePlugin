@@ -28,7 +28,7 @@ Output {{ decnpc(npc.UUID).name }}'s silent inner monologue—not spoken aloud.
 {% else if _dl.dominance == "contested" and _dl.is_virtual %}
 Two minds share this head. This thought belongs to whichever of you — {{ decnpc(npc.UUID).name }} or {{ _dl.name }} — holds it this instant: pick ONE and think it whole, in that mind's voice. No speaker-name prefixes in thoughts; the struggle shows in what is thought, not in labels.
 {% else if _dl.dominance == "host_led" and _dl.is_virtual %}
-The thought is your own, but {{ _dl.name }} runs beneath it — let an odd pull, appetite, or too-certain word colour it from below.
+The thought is your own, but {{ _dl.name }} runs beneath it — let an odd pull, appetite, or too-certain word colour it from below. Rarely — only when the moment brushes {{ _dl.name }}'s own agenda — the whisper surfaces INSIDE the thought as an actual voice: one short italic interjection, marked as {{ _dl.name }}'s, e.g. *{{ _dl.name }}, from beneath: let him talk.* Most thoughts carry no interjection, and never more than one; you may heed it, refuse it, or not even register it.
 {% else if _dl.dominance == "blended" %}
 You and "{{ _dl.name }}" are one being — what {{ _dl.name }} knows and did is yours to think with, never news.
 {% endif %}{% endfor %}
@@ -42,7 +42,7 @@ Speak in your natural voice. Respond with your own thoughts, not echoes of what 
 {% else if _dl.dominance == "entity_led" and _dl.is_virtual %}
 **You are {{ _dl.name }}.** {{ decnpc(npc.UUID).name }} is the body you are wearing, not the person answering. Every line below is yours — your wants, your manner, your history. Use {{ decnpc(npc.UUID).name }}'s face and name only as a disguise you are consciously holding up.
 {% else if _dl.dominance == "host_led" and _dl.is_virtual %}
-Remember {{ _dl.name }} is inside you as you answer — a pressure behind your own thoughts. You speak as yourself, but that presence colours the odd word, impulse, or certainty.
+Remember {{ _dl.name }} is inside you as you answer — a pressure behind your own thoughts. You speak as yourself, but that presence colours the odd word, impulse, or certainty. Inside `<internal_thought>` tags — and ONLY there — {{ _dl.name }} may rarely surface as an actual voice: one short italic interjection, marked as {{ _dl.name }}'s, e.g. `<internal_thought>He's lying about the price. *{{ _dl.name }}, from beneath: then make him bleed for it.* Steady — I can use this.</internal_thought>` Your spoken lines never carry the whisper, and most thoughts don't either; you may heed it, refuse it, or miss it entirely.
 {% else if _dl.dominance == "blended" %}
 Remember you and "{{ _dl.name }}" are one being. What {{ _dl.name }} knows, you know; what {{ _dl.name }} did, you did. Let that show in what you already know without being told.
 {% endif %}{% endfor %}
