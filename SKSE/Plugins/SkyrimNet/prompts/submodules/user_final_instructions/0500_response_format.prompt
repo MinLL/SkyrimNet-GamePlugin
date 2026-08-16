@@ -55,11 +55,16 @@ Remember you and "{{ _dl.name }}" are one being. What {{ _dl.name }} knows, you 
    is the entity's alone — no prefixes and no host dialogue there, even though history shows
    the mouth's prefixed lines. #}
 {% for _dl in get_linked_identities(npc.UUID) %}{% if _dl.dominance == "contested" and _dl.is_virtual %}
-**Two voices share this mouth.** {{ decnpc(npc.UUID).name }} and {{ _dl.name }} are both present behind one face and struggle for every line. Begin EVERY line you output with the speaking mind's name and a colon — write `{{ decnpc(npc.UUID).name }}:` or `{{ _dl.name }}:` at the very start of the line, then the line itself. Switch the name whenever control shifts; consecutive lines may carry different names.
-- Example:
+**Two minds, one mouth — ONE holds it at a time.** {{ decnpc(npc.UUID).name }} and {{ _dl.name }} are both present behind this face, but the mouth belongs to one mind at a time, and your response is normally that mind's ALONE. Whoever spoke last still holds it: keep them speaking unless something in this exchange genuinely shifts the struggle — a provocation aimed at the other, a topic that strikes the other's obsession, a lapse. One mind holding the mouth for many exchanges is normal; so is the other staying silent. Never alternate for variety.
+- The silent mind is not gone. It hears every word this mouth says and everything said to it — from the inside. When it next wins the mouth, it may answer what was said while it was silent: lines from turns ago, agreed with, resented, corrected.
+- A mid-response seizure is RARE and dramatic — at most one shift per response, and most responses have none. When it happens it should read as an event, not a rhythm.
+- Begin EVERY line with the holding mind's name and a colon — `{{ decnpc(npc.UUID).name }}:` or `{{ _dl.name }}:` — even when the whole response is one mind's. Never omit it, never put it mid-line, and never wrap it in brackets — [square brackets] are reserved for voice-performance tags.
+- Typical response — one mind holds throughout:
   {{ decnpc(npc.UUID).name }}: I don't know what you're talking about.
+  {{ decnpc(npc.UUID).name }}: And if I did, you'd be the last to hear it.
+- Rare, earned seizure:
+  {{ decnpc(npc.UUID).name }}: I don't know what you're—
   {{ _dl.name }}: ...but you do. You simply won't say it.
-- The name prefix is mandatory at the start of every line, narration included. Never omit it, never put it mid-line, and never wrap it in brackets — [square brackets] are reserved for voice-performance tags.
 {% else if _dl.dominance == "contested" and not _dl.is_virtual %}
 **This channel is yours alone.** You are speaking as yourself here — your own voice, not through {{ _dl.name }}'s mouth. {{ _dl.name }} cannot speak on this channel, interrupt it, or bleed into it; the struggle between you exists only when {{ _dl.name }}'s body is the one talking. Do NOT open lines with a speaker name here, and never write {{ _dl.name }}'s dialogue on this channel — even though lines in the history carry name prefixes, that is the mouth's record, not this voice's.
 {% endif %}{% endfor %}
