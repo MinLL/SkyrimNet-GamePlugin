@@ -191,18 +191,31 @@ Events involving Player: {{ length(playerEvents) }}
 
 ### Test 7: Movement State Decorators
 
+{% set actorMountName = is_mounted(actorUUID) %}
+{% set actorMountRace = get_mount_race(actorUUID) %}
+{% set actorFurniture = get_furniture(actorUUID) %}
+{% set playerMountName = is_mounted(player.UUID) %}
+{% set playerMountRace = get_mount_race(player.UUID) %}
+{% set playerFurniture = get_furniture(player.UUID) %}
+
 **Actor Movement States:**
-- {{ actorName }} is_sneaking: {% if is_sneaking(actorUUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
-- {{ actorName }} is_sprinting: {% if is_sprinting(actorUUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
+- {{ actorName }} is_sneaking: {% if actorMountName %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sneaking(actorUUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
+- {{ actorName }} is_sprinting: {% if actorMountName %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sprinting(actorUUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
 - {{ actorName }} is_walking: {% if is_walking(actorUUID) %}🚶 WALKING{% else %}✗ Not walking{% endif %}
 - {{ actorName }} is_swimming: {% if is_swimming(actorUUID) %}🏊 SWIMMING{% else %}✗ Not swimming{% endif %}
 - {{ actorName }} is_unconscious: {% if is_unconscious(actorUUID) %}💤 UNCONSCIOUS{% else %}✗ Conscious{% endif %}
+- {{ actorName }} is_mounted: {% if actorMountName %}✓ TRUE - Mounted on {{ actorMountName }}{% else %}✗ FALSE - Not mounted{% endif %}
+- {{ actorName }} mount race: {% if actorMountName and actorMountRace %}{{ actorMountRace }}{% else %}N/A{% endif %}
+- {{ actorName }} furniture: {% if actorFurniture %}{{ actorFurniture }}{% else %}None{% endif %}
 
 **Player Movement States:**
-- Player is_sneaking: {% if is_sneaking(player.UUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
-- Player is_sprinting: {% if is_sprinting(player.UUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
+- Player is_sneaking: {% if playerMountName %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sneaking(player.UUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
+- Player is_sprinting: {% if playerMountName %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sprinting(player.UUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
 - Player is_walking: {% if is_walking(player.UUID) %}🚶 WALKING{% else %}✗ Not walking{% endif %}
 - Player is_swimming: {% if is_swimming(player.UUID) %}🏊 SWIMMING{% else %}✗ Not swimming{% endif %}
+- Player is_mounted: {% if playerMountName %}✓ TRUE - Mounted on {{ playerMountName }}{% else %}✗ FALSE - Not mounted{% endif %}
+- Player mount race: {% if playerMountName and playerMountRace %}{{ playerMountRace }}{% else %}N/A{% endif %}
+- Player furniture: {% if playerFurniture %}{{ playerFurniture }}{% else %}None{% endif %}
 
 ---
 

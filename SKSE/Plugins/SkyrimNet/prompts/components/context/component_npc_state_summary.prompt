@@ -2,12 +2,16 @@
 {% set nearby_npcs = get_nearby_npc_list(player.UUID) %}
 
 {% for npc in nearby_npcs %}
+    {% set mountName = is_mounted(npc.UUID) %}
+    {% set mountRace = get_mount_race(npc.UUID) %}
     {% if npc.isFollowing %}
         - {{ npc.name }} is following {{ player.name }}
     {% endif %}
     {% if is_unconscious(npc.UUID) %}
     - {{ npc.name }} is unconscious & unresponsive
-    {% elif npc.furniture != "None" %}
+    {% elif mountName %}
+    - {{ npc.name }} is mounted on {{ mountName }}{% if mountRace %}, {{ mountRace }}{% endif %}
+    {% elif npc.furniture and npc.furniture != "None" %}
         {# Convert furniture name to lowercase for matching #}
         {% set furniture_lower = lower(npc.furniture) %}
         {% if length(npc.furniture) > 0 %}
