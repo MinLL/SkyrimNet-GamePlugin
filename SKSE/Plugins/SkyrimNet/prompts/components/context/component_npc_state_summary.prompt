@@ -9,9 +9,9 @@
     {% endif %}
     {% if is_unconscious(npc.UUID) %}
     - {{ npc.name }} is unconscious & unresponsive
-    {% elif mountName %}
-    - {{ npc.name }} is mounted on {{ mountName }}{% if mountRace %}, {{ mountRace }}{% endif %}
-    {% elif npc.furniture and npc.furniture != "None" %}
+    {% elif isString(mountName) and length(mountName) > 0 %}
+    - {{ npc.name }} is mounted on {{ mountName }}{% if isString(mountRace) and length(mountRace) > 0 %}, {{ mountRace }}{% endif %}
+    {% elif isString(npc.furniture) and length(npc.furniture) > 0 and npc.furniture != "None" %}
         {# Convert furniture name to lowercase for matching #}
         {% set furniture_lower = lower(npc.furniture) %}
         {% if length(npc.furniture) > 0 %}

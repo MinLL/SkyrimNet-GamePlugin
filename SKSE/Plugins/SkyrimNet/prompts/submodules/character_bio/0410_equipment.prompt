@@ -19,14 +19,14 @@
             {% endif %}
             {% set quality = "" %}
             {% for t in tempered_items %}
-                {% if t.formID == item.formID and t.quality and length(t.quality) > 0 %}
+                {% if t.formID == item.formID and isString(t.quality) and length(t.quality) > 0 %}
                     {% set quality = t.quality %}
                 {% endif %}
             {% endfor %}
             {% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
-                - {% if length(item_desc) > 0 %}{{ item_name }}{% if length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.equipment_slot }}**: {{ item_name }}{% if length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %} {% if has_weapon_drawn(actorUUID) %}(drawn){% else %}(sheathed){% endif %}
+                - {% if length(item_desc) > 0 %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.equipment_slot }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %} {% if has_weapon_drawn(actorUUID) %}(drawn){% else %}(sheathed){% endif %}
             {% else %}
-                - {% if length(item_desc) > 0 %}{{ item_name }}{% if length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
+                - {% if length(item_desc) > 0 %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
             {% endif %} {# end left hand / right hand check #}
         {% endif %}{# end is item enabled #}
     {% endfor %}
@@ -54,14 +54,14 @@
                 {% endif %}
                 {% set quality = "" %}
                 {% for t in tempered_items %}
-                    {% if t.formID == item.formID and t.quality and length(t.quality) > 0 %}
+                    {% if t.formID == item.formID and isString(t.quality) and length(t.quality) > 0 %}
                         {% set quality = t.quality %}
                     {% endif %}
                 {% endfor %}
                 {% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
-                    - {% if length(item_desc) > 0 %}{{ item_name }}{% if length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.equipment_slot }}**: {{ item_name }}{% if length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %} {% if has_weapon_drawn(responseTarget.UUID) %}(drawn){% else %}(sheathed){% endif %}
+                    - {% if length(item_desc) > 0 %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.equipment_slot }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %} {% if has_weapon_drawn(responseTarget.UUID) %}(drawn){% else %}(sheathed){% endif %}
                 {% else %}
-                    - {% if length(item_desc) > 0 %}{{ item_name }}{% if length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
+                    - {% if length(item_desc) > 0 %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
                 {% endif %} {# end left hand / right hand check #}
             {% endif %}{# end is item enabled #}
         {% endfor %}

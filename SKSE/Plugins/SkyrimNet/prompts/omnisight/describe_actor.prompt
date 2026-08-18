@@ -4,7 +4,7 @@
     **Character:** {{race}} {{gender}}
     {% if not omnisight_captures_equipment %}{% set actor_equipment = get_worn_equipment(actorUUID) %}{% set tempered_items = get_tempered_items(actorUUID) %}{% if actor_equipment and length(actor_equipment) > 0 %}
     **Equipment (reference only - describe only what's visible):**
-    {% for slot, item in actor_equipment %}{% if is_item_enabled(item.formID) %}{% set quality = "" %}{% for t in tempered_items %}{% if t.formID == item.formID and t.quality and length(t.quality) > 0 %}{% set quality = t.quality %}{% endif %}{% endfor %}    - {{ item.slot_body_area }}: {{ get_item_name(item.formID) }}{% if length(quality) > 0 %} [{{ quality }}]{% endif %}
+    {% for slot, item in actor_equipment %}{% if is_item_enabled(item.formID) %}{% set quality = "" %}{% for t in tempered_items %}{% if t.formID == item.formID and isString(t.quality) and length(t.quality) > 0 %}{% set quality = t.quality %}{% endif %}{% endfor %}    - {{ item.slot_body_area }}: {{ get_item_name(item.formID) }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}
     {% endif %}{% endfor %}{% endif %}{% endif %}
 
     ---

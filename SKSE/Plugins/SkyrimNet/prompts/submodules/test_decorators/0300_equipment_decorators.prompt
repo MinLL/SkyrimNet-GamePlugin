@@ -100,7 +100,7 @@
 **Tempered Items:**
 {% if temperedItems and length(temperedItems) > 0 %}
 {% for data in temperedItems %}
-- FormID: {{ data.formID }} | Quality: {% if data.quality %}{{ data.quality }}{% else %}No quality{% endif %} | Health: {{ data.healthPercent }}%
+- FormID: {{ data.formID }} | Quality: {% if isString(data.quality) and length(data.quality) > 0 %}{{ data.quality }}{% else %}No quality{% endif %} | Health: {{ data.healthPercent }}%
 {% endfor %}
 {% else %}
 No tempered weapons or armor found.
@@ -112,11 +112,11 @@ No tempered weapons or armor found.
 {% if item %}
 {% set itemQuality = "" %}
 {% for data in temperedItems %}
-{% if data.formID == item.formID and data.quality %}
+{% if data.formID == item.formID and isString(data.quality) and length(data.quality) > 0 %}
 {% set itemQuality = data.quality %}
 {% endif %}
 {% endfor %}
-- {{ slot }}: {{ item.name }}{% if itemQuality %} [{{ itemQuality }}]{% endif %}
+- {{ slot }}: {{ item.name }}{% if isString(itemQuality) and length(itemQuality) > 0 %} [{{ itemQuality }}]{% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}

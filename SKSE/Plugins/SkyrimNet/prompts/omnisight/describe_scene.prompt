@@ -14,7 +14,7 @@
         {% set pos = get_actor_position_relative_to_camera(npc.UUID) %}
         {% set mountName = is_mounted(npc.UUID) %}
         {% set mountRace = get_mount_race(npc.UUID) %}
-        - {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) — {{pos.meters}}m, {{pos.cardinalDirection}} {% if is_unconscious(npc.UUID) %}[UNCONSCIOUS] {% else %}{% if is_in_combat(npc.UUID) %}[COMBAT] {% endif %}{% if has_weapon_drawn(npc.UUID) %}[Armed] {% endif %}{% if mountName %}[Mounted: {{mountName}}{% if mountRace %}, {{mountRace}}{% endif %}]{% else if is_swimming(npc.UUID) %}[Swimming]{% else if is_sprinting(npc.UUID) %}[Running]{% else if is_sneaking(npc.UUID) %}[Sneaking]{% endif %}{% endif %}
+        - {{npc.name}} ({{decnpc(npc.UUID).race}}, {{decnpc(npc.UUID).gender}}) — {{pos.meters}}m, {{pos.cardinalDirection}} {% if is_unconscious(npc.UUID) %}[UNCONSCIOUS] {% else %}{% if is_in_combat(npc.UUID) %}[COMBAT] {% endif %}{% if has_weapon_drawn(npc.UUID) %}[Armed] {% endif %}{% if isString(mountName) and length(mountName) > 0 %}[Mounted: {{mountName}}{% if isString(mountRace) and length(mountRace) > 0 %}, {{mountRace}}{% endif %}]{% else if is_swimming(npc.UUID) %}[Swimming]{% else if is_sprinting(npc.UUID) %}[Running]{% else if is_sneaking(npc.UUID) %}[Sneaking]{% endif %}{% endif %}
     {% endfor %}
     {% else %}
     ## Visible People: (none detected)

@@ -199,23 +199,27 @@ Events involving Player: {{ length(playerEvents) }}
 {% set playerFurniture = get_furniture(player.UUID) %}
 
 **Actor Movement States:**
-- {{ actorName }} is_sneaking: {% if actorMountName %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sneaking(actorUUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
-- {{ actorName }} is_sprinting: {% if actorMountName %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sprinting(actorUUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
+- Actor cached mount name: isString={{ isString(actorMountName) }}, length={% if isString(actorMountName) %}{{ length(actorMountName) }}{% else %}N/A{% endif %}, value={{ actorMountName }}
+- Actor cached mount race: isString={{ isString(actorMountRace) }}, length={% if isString(actorMountRace) %}{{ length(actorMountRace) }}{% else %}N/A{% endif %}, value={{ actorMountRace }}
+- {{ actorName }} is_sneaking: {% if isString(actorMountName) and length(actorMountName) > 0 %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sneaking(actorUUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
+- {{ actorName }} is_sprinting: {% if isString(actorMountName) and length(actorMountName) > 0 %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sprinting(actorUUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
 - {{ actorName }} is_walking: {% if is_walking(actorUUID) %}🚶 WALKING{% else %}✗ Not walking{% endif %}
 - {{ actorName }} is_swimming: {% if is_swimming(actorUUID) %}🏊 SWIMMING{% else %}✗ Not swimming{% endif %}
 - {{ actorName }} is_unconscious: {% if is_unconscious(actorUUID) %}💤 UNCONSCIOUS{% else %}✗ Conscious{% endif %}
-- {{ actorName }} is_mounted: {% if actorMountName %}✓ TRUE - Mounted on {{ actorMountName }}{% else %}✗ FALSE - Not mounted{% endif %}
-- {{ actorName }} mount race: {% if actorMountName and actorMountRace %}{{ actorMountRace }}{% else %}N/A{% endif %}
-- {{ actorName }} furniture: {% if actorFurniture %}{{ actorFurniture }}{% else %}None{% endif %}
+- {{ actorName }} is_mounted: {% if isString(actorMountName) and length(actorMountName) > 0 %}✓ TRUE - Mounted on {{ actorMountName }}{% else %}✗ FALSE - Not mounted{% endif %}
+- {{ actorName }} mount race: {% if isString(actorMountName) and length(actorMountName) > 0 and isString(actorMountRace) and length(actorMountRace) > 0 %}{{ actorMountRace }}{% else %}N/A{% endif %}
+- {{ actorName }} furniture: {% if isString(actorFurniture) and length(actorFurniture) > 0 %}{{ actorFurniture }}{% else %}None{% endif %}
 
 **Player Movement States:**
-- Player is_sneaking: {% if playerMountName %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sneaking(player.UUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
-- Player is_sprinting: {% if playerMountName %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sprinting(player.UUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
+- Player cached mount name: isString={{ isString(playerMountName) }}, length={% if isString(playerMountName) %}{{ length(playerMountName) }}{% else %}N/A{% endif %}, value={{ playerMountName }}
+- Player cached mount race: isString={{ isString(playerMountRace) }}, length={% if isString(playerMountRace) %}{{ length(playerMountRace) }}{% else %}N/A{% endif %}, value={{ playerMountRace }}
+- Player is_sneaking: {% if isString(playerMountName) and length(playerMountName) > 0 %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sneaking(player.UUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
+- Player is_sprinting: {% if isString(playerMountName) and length(playerMountName) > 0 %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sprinting(player.UUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
 - Player is_walking: {% if is_walking(player.UUID) %}🚶 WALKING{% else %}✗ Not walking{% endif %}
 - Player is_swimming: {% if is_swimming(player.UUID) %}🏊 SWIMMING{% else %}✗ Not swimming{% endif %}
-- Player is_mounted: {% if playerMountName %}✓ TRUE - Mounted on {{ playerMountName }}{% else %}✗ FALSE - Not mounted{% endif %}
-- Player mount race: {% if playerMountName and playerMountRace %}{{ playerMountRace }}{% else %}N/A{% endif %}
-- Player furniture: {% if playerFurniture %}{{ playerFurniture }}{% else %}None{% endif %}
+- Player is_mounted: {% if isString(playerMountName) and length(playerMountName) > 0 %}✓ TRUE - Mounted on {{ playerMountName }}{% else %}✗ FALSE - Not mounted{% endif %}
+- Player mount race: {% if isString(playerMountName) and length(playerMountName) > 0 and isString(playerMountRace) and length(playerMountRace) > 0 %}{{ playerMountRace }}{% else %}N/A{% endif %}
+- Player furniture: {% if isString(playerFurniture) and length(playerFurniture) > 0 %}{{ playerFurniture }}{% else %}None{% endif %}
 
 ---
 

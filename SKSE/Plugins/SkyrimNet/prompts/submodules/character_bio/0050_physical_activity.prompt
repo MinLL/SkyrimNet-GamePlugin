@@ -12,13 +12,13 @@
     ## Physical Activity
     {% if unconscious %}
         - {{ actor.name }} is currently unconscious and unable to move or act.
-    {% elif mountName %}
-        - {{ actor.name }} is currently mounted on {{ mountName }}{% if mountRace %}, {{ mountRace }}{% endif %}{% if sprinting %}, galloping at full speed{% endif %}.
+    {% elif isString(mountName) and length(mountName) > 0 %}
+        - {{ actor.name }} is currently mounted on {{ mountName }}{% if isString(mountRace) and length(mountRace) > 0 %}, {{ mountRace }}{% endif %}{% if sprinting %}, galloping at full speed{% endif %}.
     {% elif swimming %}
         - {{ actor.name }} is currently swimming.
     {% elif sprinting %}
         - {{ actor.name }} is currently sprinting at full speed.
-    {% elif furniture %}
+    {% elif isString(furniture) and length(furniture) > 0 %}
         - {{ actor.name }} is currently using a {{ furniture }}.
     {% elif knockedDown %}
         - {{ actor.name }} is currently badly wounded, and is kneeling on the ground.
