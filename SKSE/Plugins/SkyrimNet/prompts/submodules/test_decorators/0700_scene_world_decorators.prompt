@@ -199,8 +199,6 @@ Events involving Player: {{ length(playerEvents) }}
 {% set playerFurniture = get_furniture(player.UUID) %}
 
 **Actor Movement States:**
-- Actor cached mount name: isString={{ isString(actorMountName) }}, length={% if isString(actorMountName) %}{{ length(actorMountName) }}{% else %}N/A{% endif %}, value={{ actorMountName }}
-- Actor cached mount race: isString={{ isString(actorMountRace) }}, length={% if isString(actorMountRace) %}{{ length(actorMountRace) }}{% else %}N/A{% endif %}, value={{ actorMountRace }}
 - {{ actorName }} is_sneaking: {% if isString(actorMountName) and length(actorMountName) > 0 %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sneaking(actorUUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
 - {{ actorName }} is_sprinting: {% if isString(actorMountName) and length(actorMountName) > 0 %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sprinting(actorUUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
 - {{ actorName }} is_walking: {% if is_walking(actorUUID) %}🚶 WALKING{% else %}✗ Not walking{% endif %}
@@ -211,8 +209,6 @@ Events involving Player: {{ length(playerEvents) }}
 - {{ actorName }} furniture: {% if isString(actorFurniture) and length(actorFurniture) > 0 %}{{ actorFurniture }}{% else %}None{% endif %}
 
 **Player Movement States:**
-- Player cached mount name: isString={{ isString(playerMountName) }}, length={% if isString(playerMountName) %}{{ length(playerMountName) }}{% else %}N/A{% endif %}, value={{ playerMountName }}
-- Player cached mount race: isString={{ isString(playerMountRace) }}, length={% if isString(playerMountRace) %}{{ length(playerMountRace) }}{% else %}N/A{% endif %}, value={{ playerMountRace }}
 - Player is_sneaking: {% if isString(playerMountName) and length(playerMountName) > 0 %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sneaking(player.UUID) %}🤫 SNEAKING{% else %}✗ Not sneaking{% endif %}
 - Player is_sprinting: {% if isString(playerMountName) and length(playerMountName) > 0 %}⏸ SUPPRESSED WHILE MOUNTED{% elif is_sprinting(player.UUID) %}🏃 SPRINTING{% else %}✗ Not sprinting{% endif %}
 - Player is_walking: {% if is_walking(player.UUID) %}🚶 WALKING{% else %}✗ Not walking{% endif %}
