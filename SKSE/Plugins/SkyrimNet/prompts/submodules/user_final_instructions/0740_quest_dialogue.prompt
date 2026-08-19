@@ -1,0 +1,13 @@
+{% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(npc.UUID) %}
+{% set quests = available_dialogue(npc.UUID, "quest") %}
+{% if quests.hasContent %}
+## Quests You Could Raise
+The following are outstanding quests/tasks you are currently seeking help with. They are formatted as full dialogue branches and separated by quest name.
+- Bring them up when speaking with {{player.name}}
+- Respond in your own words
+- Follow the flow of the conversation
+
+Quest topics are formatted as a full example dialogue chain, separated by a header:
+{{ quests.text }}
+{% endif %}
+{% endif %}
