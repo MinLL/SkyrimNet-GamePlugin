@@ -13,7 +13,7 @@
     {% if unconscious %}
         - {{ actor.name }} is currently unconscious and unable to move or act.
     {% elif isString(mountName) and length(mountName) > 0 %}
-        - {{ actor.name }} is currently mounted on {{ mountName }}{% if isString(mountRace) and length(mountRace) > 0 %}, {{ mountRace }}{% endif %}{% if sprinting %}, galloping at full speed{% endif %}.
+        - {{ actor.name }} is currently mounted on {{ mountName }}{% if isString(mountRace) and length(mountRace) > 0 %}, {{ mountRace }}{% endif %}{% if sprinting %}, galloping at full speed{% elif walking %}, riding at a walking pace{% endif %}.
     {% elif swimming %}
         - {{ actor.name }} is currently swimming.
     {% elif sprinting %}
@@ -27,6 +27,6 @@
     {% elif walking %}
         - {{ actor.name }} is currently walking at a steady pace.
     {% else %}
-        - {{ actor.name }} is currently able to move normally.
+        - {{ actor.name }} is currently standing, able to move normally.
     {% endif %}
 {% endif %}
