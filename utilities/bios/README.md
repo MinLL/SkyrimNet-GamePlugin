@@ -1,5 +1,11 @@
 # Bio partition tool
 
+> **Historical**: this tool performed the one-time split at the pre-restructure
+> layout (`SKSE/Plugins/SkyrimNet/{original_prompts,prompts}/`). Those paths no
+> longer exist — run it against a checkout of commit `3700301` or earlier. The
+> split's audit trail lives in `report/`; `overrides.csv` remains the record of
+> hand attributions.
+
 Splits `original_prompts/characters/` (3,098 bios) into the bios that stay in
 `skyrimnet.base` and the per-source-mod `skyrimnet.bios-{mod}` hub packs
 (Core `ai_docs/CONTENT_STORE_DESIGN.md`, ruling 26).
