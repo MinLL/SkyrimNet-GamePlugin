@@ -1,6 +1,6 @@
 # Prompts in Skyrimnet
 
-In SkyrimNet, all prompts are defined in their respective prompt files in `SKSE/plugins/SkyrimNet/prompts`. This does not only apply to the prompt for getting the npc to speak, but also things like Generating Memories, Prompts for choosing the appropriate action to call as well as prompts added through mods.
+In SkyrimNet, all prompts are defined in their respective prompt files in the content store (shipped defaults under `store/skyrimnet.base/prompts`, your edits under `overlay/prompts`). This does not only apply to the prompt for getting the npc to speak, but also things like Generating Memories, Prompts for choosing the appropriate action to call as well as prompts added through mods.
 
 Likely, the most relevant prompt sub-folders for you to add your files in are `prompts/submodules/character_bio/` and `prompts/submodules/system_head/`
 
