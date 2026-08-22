@@ -1,5 +1,5 @@
 {# Gated by the beta25 feature set: quest dialogue integration only exists in
-   builds that ship it (SkyrimNet-Core docs/plans/beta25-featureset-killswitch.md).
+   builds that ship it (SkyrimNet-Core ai_docs/CODE_PATTERNS.md, "Feature flags").
    feature_enabled() is registered unconditionally by Core and returns false for
    unknown flag names. It requires a Core build that has the decorator — an
    unregistered Inja function is a render error, so Core lands first. #}
