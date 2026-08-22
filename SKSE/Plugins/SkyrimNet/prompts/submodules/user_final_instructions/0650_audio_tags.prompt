@@ -6,7 +6,7 @@
 
 {% if has_audio_tags and (dialogue_mode or thought_mode) %}
   {% set tts_engine = get_actor_tts(npc.UUID) %}
-  {% set useHiggsV3Tags = (tts_engine == "higgs" or tts_engine == "higgs_v3") and actor_tags_enabled %}
+  {% set useHiggsV3Tags = uses_higgs_native_tags(npc.UUID) %}
   {% set useChatterboxTags = tts_engine == "chatterbox" and actor_tags_enabled %}
 
   {% set chatterboxEmotionTags = ["[angry]", "[fear]", "[surprised]", "[whispering]", "[advertisement]", "[dramatic]", "[narration]","[happy]", "[sarcastic]"] %}
