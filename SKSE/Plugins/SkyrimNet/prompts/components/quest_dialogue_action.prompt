@@ -1,6 +1,3 @@
-{# Belt-and-braces gate: this body is only reached through the SpeakQuestLine
-   action description, and that action is not registered when the beta25
-   feature set is off. #}
 {% if feature_enabled("beta25_featureset") %}
 {# Body for the SpeakQuestLine action #}
 {% set quest_lines = available_dialogue(npc.UUID, "quest ids") %}

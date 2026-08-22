@@ -1,8 +1,3 @@
-{# Gated by the beta25 feature set: quest dialogue integration only exists in
-   builds that ship it (SkyrimNet-Core ai_docs/CODE_PATTERNS.md, "Feature flags").
-   feature_enabled() is registered unconditionally by Core and returns false for
-   unknown flag names. It requires a Core build that has the decorator — an
-   unregistered Inja function is a render error, so Core lands first. #}
 {% if feature_enabled("beta25_featureset") %}
 {% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(npc.UUID) %}
 {% set quests = available_dialogue(npc.UUID, "quest") %}
