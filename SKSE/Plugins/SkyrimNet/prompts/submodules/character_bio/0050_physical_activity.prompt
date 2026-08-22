@@ -5,27 +5,28 @@
     {% set sprinting = is_sprinting(actorUUID) %}
     {% set swimming = is_swimming(actorUUID) %}
     {% set knockedDown = is_knocked_down(actorUUID) %}
-    {% if unconscious or sneaking or walking or sprinting or swimming or knockedDown %}
-        {% set actor = decnpc(actorUUID) %}
-        ## Physical Activity
-        {% if unconscious %}
-            - {{ actor.name }} is currently unconscious and unable to move or act.
-        {% else %}
-            {% if sneaking %}
-                - {{ actor.name }} is currently trying to move silently, and avoid being seen or heard.
-            {% endif %}
-            {% if walking %}
-                - {{ actor.name }} is currently walking at a steady pace.
-            {% endif %}
-            {% if sprinting %}
-                - {{ actor.name }} is currently sprinting at full speed.
-            {% endif %}
-            {% if swimming %}
-                - {{ actor.name }} is currently swimming.
-            {% endif %}
-            {% if knockedDown %}
-                - {{ actor.name }} is currently badly wounded, and is kneeling on the ground.
-            {% endif %}
-        {% endif %}
+    {% set mountName = is_mounted(actorUUID) %}
+    {% set mountRace = get_mount_race(actorUUID) %}
+    {% set furniture = get_furniture(actorUUID) %}
+    {% set actor = decnpc(actorUUID) %}
+    ## Physical Activity
+    {% if unconscious %}
+        - {{ actor.name }} is currently unconscious and unable to move or act.
+    {% elif isString(mountName) and length(mountName) > 0 %}
+        - {{ actor.name }} is currently mounted on {{ mountName }}{% if isString(mountRace) and length(mountRace) > 0 %}, {{ mountRace }}{% endif %}{% if sprinting %}, galloping at full speed{% elif walking %}, riding at a walking pace{% endif %}.
+    {% elif swimming %}
+        - {{ actor.name }} is currently swimming.
+    {% elif sprinting %}
+        - {{ actor.name }} is currently sprinting at full speed.
+    {% elif isString(furniture) and length(furniture) > 0 %}
+        - {{ actor.name }} is currently using a {{ furniture }}.
+    {% elif knockedDown %}
+        - {{ actor.name }} is currently badly wounded, and is kneeling on the ground.
+    {% elif sneaking %}
+        - {{ actor.name }} is currently trying to move silently, and avoid being seen or heard.
+    {% elif walking %}
+        - {{ actor.name }} is currently walking at a steady pace.
+    {% else %}
+        - {{ actor.name }} is currently standing, able to move normally.
     {% endif %}
 {% endif %}

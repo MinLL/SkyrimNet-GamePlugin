@@ -93,7 +93,37 @@
 
 ---
 
-### Test 2: worn_has_keyword() - Equipment Keyword Checks
+### Test 2: get_tempered_items() - Tempered Equipment
+
+{% set temperedItems = get_tempered_items(actorUUID) %}
+
+**Tempered Items:**
+{% if temperedItems and length(temperedItems) > 0 %}
+{% for data in temperedItems %}
+- FormID: {{ data.formID }} | Quality: {% if isString(data.quality) and length(data.quality) > 0 %}{{ data.quality }}{% else %}No quality{% endif %} | Health: {{ data.healthPercent }}%
+{% endfor %}
+{% else %}
+No tempered weapons or armor found.
+{% endif %}
+
+**Tempered Quality on Worn Equipment:**
+{% if not has_key(equipment, "error") %}
+{% for slot, item in equipment %}
+{% if item %}
+{% set itemQuality = "" %}
+{% for data in temperedItems %}
+{% if data.formID == item.formID and isString(data.quality) and length(data.quality) > 0 %}
+{% set itemQuality = data.quality %}
+{% endif %}
+{% endfor %}
+- {{ slot }}: {{ item.name }}{% if isString(itemQuality) and length(itemQuality) > 0 %} [{{ itemQuality }}]{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+---
+
+### Test 3: worn_has_keyword() - Equipment Keyword Checks
 
 **Armor Type Keywords:**
 - ArmorHeavy: {% if worn_has_keyword(actorUUID, "ArmorHeavy") %}✓ YES{% else %}✗ NO{% endif %}
@@ -126,7 +156,7 @@
 
 ---
 
-### Test 3: get_inventory() - Full Inventory
+### Test 4: get_inventory() - Full Inventory
 
 {% set inventory = get_inventory(actorUUID) %}
 
@@ -154,7 +184,7 @@
 
 ---
 
-### Test 4: Player Equipment Comparison
+### Test 5: Player Equipment Comparison
 
 {% set playerEquip = get_worn_equipment(player.UUID) %}
 
@@ -179,7 +209,7 @@ Player armor type unknown
 
 ---
 
-### Test 5: get_merchant_inventory() - Merchant Shop Items
+### Test 6: get_merchant_inventory() - Merchant Shop Items
 
 {# Gets items for sale from a merchant's faction container (separate from personal inventory) #}
 
