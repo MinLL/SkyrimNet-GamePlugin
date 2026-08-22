@@ -1,3 +1,7 @@
+{# Belt-and-braces gate: this body is only reached through the SpeakQuestLine
+   action description, and that action is not registered when the beta25
+   feature set is off. #}
+{% if feature_enabled("beta25_featureset") %}
 {# Body for the SpeakQuestLine action #}
 {% set quest_lines = available_dialogue(npc.UUID, "quest ids") %}
 {% if quest_lines.hasContent %}
@@ -12,4 +16,5 @@ Choosing a line:
 
 Exchanges {{ npc_name }} can trigger now (match one to the conversation, then use its [code]; ### lines are quest headings):
 {{ quest_lines.text }}
+{% endif %}
 {% endif %}
