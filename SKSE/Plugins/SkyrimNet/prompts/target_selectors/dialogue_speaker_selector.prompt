@@ -23,6 +23,7 @@ Evaluate candidates using these factors (highest priority first):
 6. **Witnessed event**: Did they clearly witness something noteworthy that they'd realistically react to?
 7. **Interjection profile**: Does their Interjection guidance indicate they'd speak here?
 
+{% if random < zerochance %}
 ## When to Choose Silence (0)
 Silence is preferred when uncertain. Not every line needs a reply — conversations should end naturally.{% if tagCompanion %} But don't default to silence when a companion would realistically have something to say. Traveling companions talk; err toward letting them speak when there's even a mild reason to.{% endif %}
 
@@ -44,6 +45,7 @@ Do NOT choose silence when:
 - The party just arrived somewhere new or interesting
 - A companion's personality or background makes them likely to comment on the current situation
 {% endif %}- Two NPCs are mid-conversation — let it reach a natural conclusion before going silent
+{% endif %}
 
 **Restrictions:**
 - Never select a non-companion NPC just because they're listed — proximity alone is not a reason for bystanders to speak
