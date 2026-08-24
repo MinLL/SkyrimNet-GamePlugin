@@ -1,4 +1,4 @@
-{% if feature_enabled("beta25_featureset") %}
+{% if feature_enabled("quest_actions") %}
 {# Body for the SpeakQuestLine action #}
 {% set quest_lines = available_dialogue(npc.UUID, "quest ids") %}
 {% if quest_lines.hasContent %}

@@ -1,4 +1,4 @@
-{% if feature_enabled("beta25_featureset") %}
+{% if feature_enabled("quest_actions") %}
 {% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(npc.UUID) %}
 {% set quests = available_dialogue(npc.UUID, "quest") %}
 {% if quests.hasContent %}
