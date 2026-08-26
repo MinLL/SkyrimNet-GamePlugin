@@ -20,7 +20,9 @@
             {% set furniture_name = "something" %}
         {% endif %}
         {# Determine appropriate action based on furniture type #}
-        {% if "bed" in furniture_lower or "bedroll" in furniture_lower or "cot" in furniture_lower or "hay pile" in furniture_lower or "fur" in furniture_lower or "animal hide" in furniture_lower or "pelts" in furniture_lower or "sleeping bag" in furniture_lower %}
+        {% if npc.furniture == "Carriage" %}
+            - {{ npc.name }} is seated in a carriage
+        {% else if "bed" in furniture_lower or "bedroll" in furniture_lower or "cot" in furniture_lower or "hay pile" in furniture_lower or "fur" in furniture_lower or "animal hide" in furniture_lower or "pelts" in furniture_lower or "sleeping bag" in furniture_lower %}
             - {{ npc.name }} is lying down in {{ furniture_name }}
         {% else if  "table" in furniture_lower or "desk" in furniture_lower %}
             - {{ npc.name }} is sitting at {{ furniture_name }}
