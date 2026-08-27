@@ -1,7 +1,28 @@
 {# Body for the SpeakQuestLine action #}
+{% set npc_name = decnpc(npc.UUID).name %}
+{% if embed_actions_in_dialogue %}
+{# Embedded in the dialogue prompt: the full tree is already shown under "Quests You Could Raise",
+   so list only the fireable beats + codes to keep this a lean pick-list. Gated on a player target
+   to match 0740 -- NPC-to-NPC talk shows neither the tree nor this list. #}
+{% if exists("responseTarget") and is_player(responseTarget.UUID) %}
+{% set quest_lines = available_dialogue(npc.UUID, "fires") %}
+{% if quest_lines.hasContent %}
+Make a quest actually happen. The beats below are the ones {{ npc_name }} can trigger right now, each carrying a bracketed 8-character code (0-9, A-F); their full conversational context is in "Quests You Could Raise" above. When the conversation reaches one, set form_id to its code and the game runs it for real -- starting or advancing the quest. For ordinary conversation, leave form_id unset.
+
+Choosing a line:
+- Fire an exchange's code when it fits the context of the conversation as a whole -- when the beat it represents is where you and {{ player.name }} have actually arrived, in your own words.
+- Fire only when that beat has genuinely arrived. These are turning points -- a task accepted, a deal closed, a fight settled, a favor granted. While the talk is still building toward it, keep going and hold the code for a later turn.
+- When one branch offers several endings (talk it out, pay them off, come to blows), let the tone you and {{ player.name }} set choose it.
+- Fire one code per turn. When unsure, keep speaking and save it for a clearer moment.
+
+Beats {{ npc_name }} can trigger now (match one to the conversation, then use its [code]; ### lines are quest headings):
+{{ quest_lines.text }}
+{% endif %}
+{% endif %}
+{% else %}
+{# Standalone action call: no dialogue context here, so show the full tree with codes. #}
 {% set quest_lines = available_dialogue(npc.UUID, "quest ids") %}
 {% if quest_lines.hasContent %}
-{% set npc_name = decnpc(npc.UUID).name %}
 Make a quest actually happen. Below are the real quest exchanges {{ npc_name }} can trigger right now, each carrying a bracketed 8-character code (0-9, A-F). When the conversation reaches that beat, set form_id to its code and the game runs it for real -- starting or advancing the quest. For ordinary conversation, leave form_id unset.
 
 Choosing a line:
@@ -12,4 +33,5 @@ Choosing a line:
 
 Exchanges {{ npc_name }} can trigger now (match one to the conversation, then use its [code]; ### lines are quest headings):
 {{ quest_lines.text }}
+{% endif %}
 {% endif %}
