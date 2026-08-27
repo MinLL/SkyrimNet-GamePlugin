@@ -1,3 +1,4 @@
+{% if feature_enabled("quest_actions") %}
 {# Body for the SpeakQuestLine action #}
 {% set npc_name = decnpc(npc.UUID).name %}
 {% if embed_actions_in_dialogue %}

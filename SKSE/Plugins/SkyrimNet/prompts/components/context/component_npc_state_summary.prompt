@@ -2,12 +2,16 @@
 {% set nearby_npcs = get_nearby_npc_list(player.UUID) %}
 
 {% for npc in nearby_npcs %}
+    {% set mountName = is_mounted(npc.UUID) %}
+    {% set mountRace = get_mount_race(npc.UUID) %}
     {% if npc.isFollowing %}
         - {{ npc.name }} is following {{ player.name }}
     {% endif %}
     {% if is_unconscious(npc.UUID) %}
     - {{ npc.name }} is unconscious & unresponsive
-    {% elif npc.furniture != "None" %}
+    {% elif isString(mountName) and length(mountName) > 0 %}
+    - {{ npc.name }} is mounted on {{ mountName }}{% if isString(mountRace) and length(mountRace) > 0 %}, {{ mountRace }}{% endif %}
+    {% elif isString(npc.furniture) and length(npc.furniture) > 0 and npc.furniture != "None" %}
         {# Convert furniture name to lowercase for matching #}
         {% set furniture_lower = lower(npc.furniture) %}
         {% if length(npc.furniture) > 0 %}
@@ -16,7 +20,9 @@
             {% set furniture_name = "something" %}
         {% endif %}
         {# Determine appropriate action based on furniture type #}
-        {% if "bed" in furniture_lower or "bedroll" in furniture_lower or "cot" in furniture_lower or "hay pile" in furniture_lower or "fur" in furniture_lower or "animal hide" in furniture_lower or "pelts" in furniture_lower or "sleeping bag" in furniture_lower %}
+        {% if npc.furniture == "Carriage" %}
+            - {{ npc.name }} is seated in a carriage
+        {% else if "bed" in furniture_lower or "bedroll" in furniture_lower or "cot" in furniture_lower or "hay pile" in furniture_lower or "fur" in furniture_lower or "animal hide" in furniture_lower or "pelts" in furniture_lower or "sleeping bag" in furniture_lower %}
             - {{ npc.name }} is lying down in {{ furniture_name }}
         {% else if  "table" in furniture_lower or "desk" in furniture_lower %}
             - {{ npc.name }} is sitting at {{ furniture_name }}
