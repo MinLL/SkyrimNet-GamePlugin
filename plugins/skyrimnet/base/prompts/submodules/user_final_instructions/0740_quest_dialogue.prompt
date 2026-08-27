@@ -1,5 +1,5 @@
 {% if feature_enabled("quest_actions") %}
-{% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(npc.UUID) %}
+{% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(npc.UUID) and is_action_enabled("SpeakQuestLine") and exists("responseTarget") and is_player(responseTarget.UUID) %}
 {% set quests = available_dialogue(npc.UUID, "quest") %}
 {% if quests.hasContent %}
 ## Quests You Could Raise
