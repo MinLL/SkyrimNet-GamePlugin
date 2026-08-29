@@ -11,4 +11,3 @@ Quest topics are formatted as a full example dialogue chain, separated by a head
 {{ quests.text }}
 {% endif %}
 {% endif %}
-{% endif %}
