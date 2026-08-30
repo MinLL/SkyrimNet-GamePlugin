@@ -22,7 +22,7 @@ Function DisplayWheel() global
     wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 4, "Utilities", "Utilities Menu")
     wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 5, "", "", false)
     wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 6, "Open Dashboard", "Open Dashboard")
-    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 7, "", "", false)
+    wheelMenu = skynet_WheelMenu.SetWheelEntry(wheelMenu, 7, "Voice Modes", "Voice Modes")
 
     int result = wheelMenu.OpenMenu()
 
@@ -46,6 +46,9 @@ Function DisplayWheel() global
         ; render in VR, so the bindable "Open Dashboard" Papyrus hotkey is the
         ; real VR path — this wheel entry is the convenience path for flatrim.
         SkyrimNetApi.TriggerToggleDashboard()
+    elseif result == 7
+        ; Voice input modes submenu
+        skynet_WheelMenu.DisplayVoiceModes()
     endif
 
 EndFunction
@@ -88,6 +91,46 @@ Function DisplayUtilities() global
         ; White/Blacklist management submenu
         ; This option only appears if there's a target under the crosshair
         skynet_WheelMenu.DisplayFactionManagement(akTarget)
+    endif
+EndFunction
+
+Function DisplayVoiceModes() global
+
+    string labels = "Go Back,Speak,Think,Transform,Direct"
+    string options = "Go Back,Speak,Think,Transform,Direct"
+
+    int result = skynet_WheelMenu.MenuWheel(StringUtil.Split(options, ","), StringUtil.Split(labels, ","))
+
+    if result == 0
+        skynet_WheelMenu.DisplayWheel()
+    elseif result == 1
+        ; Speak
+        if SkyrimNetApi.IsRecordingInput()
+            SkyrimNetApi.TriggerRecordSpeechReleased(10.0)
+        else
+            SkyrimNetApi.TriggerRecordSpeechPressed()
+        endif
+    elseif result == 2
+        ; Think
+        if SkyrimNetApi.IsRecordingInput()
+            SkyrimNetApi.TriggerVoiceThoughtReleased(10.0)
+        else
+            SkyrimNetApi.TriggerVoiceThoughtPressed()
+        endif
+    elseif result == 3
+        ; Transform
+        if SkyrimNetApi.IsRecordingInput()
+            SkyrimNetApi.TriggerVoiceDialogueTransformReleased(10.0)
+        else
+            SkyrimNetApi.TriggerVoiceDialogueTransformPressed()
+        endif
+    elseif result == 4
+        ; Direct
+        if SkyrimNetApi.IsRecordingInput()
+            SkyrimNetApi.TriggerVoiceDirectInputReleased(10.0)
+        else
+            SkyrimNetApi.TriggerVoiceDirectInputPressed()
+        endif
     endif
 EndFunction
 
