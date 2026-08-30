@@ -3,7 +3,22 @@
     {% if length(memories) > 0 %}
         ### {{ decnpc(actorUUID).name }}'s Potentially Relevant Memories
         {% for memory in memories %}
-            {{ loop.index }}. {% if not memory.isOwn %}[experienced as {{ memory.originName }}] {% endif %}**{{ memory.memory.content }}** ({{ memory.memory.emotion }}, Importance: {{ memory.memory.importance_score }})
+            {% set timeDiff = gameTimeNumeric - memory.memory.game_time %}
+            {% set timeIndicator = "" %}
+            {% if timeDiff > 31536000 %}{% set timeIndicator = "[Over a year ago] " %}
+            {% else if timeDiff > 5184000 %}{% set timeIndicator = "[Several months ago] " %}
+            {% else if timeDiff > 2592000 %}{% set timeIndicator = "[Last month] " %}
+            {% else if timeDiff > 1209600 %}{% set timeIndicator = "[Several weeks ago] " %}
+            {% else if timeDiff > 604800 %}{% set timeIndicator = "[Last week] " %}
+            {% else if timeDiff > 172800 %}{% set timeIndicator = "[Several days ago] " %}
+            {% else if timeDiff > 86400 %}{% set timeIndicator = "[Yesterday] " %}
+            {% else if timeDiff > 28800 %}{% set timeIndicator = "[Many hours ago] " %}
+            {% else if timeDiff > 14400 %}{% set timeIndicator = "[Earlier today] " %}
+            {% else if timeDiff > 7200 %}{% set timeIndicator = "[A few hours ago] " %}
+            {% else if timeDiff > 3600 %}{% set timeIndicator = "[About an hour ago] " %}
+            {% else if timeDiff > 1800 %}{% set timeIndicator = "[A while ago] " %}
+            {% endif %}
+            {{ loop.index }}. {% if not memory.isOwn %}[experienced as {{ memory.originName }}] {% endif %}{{ timeIndicator }}{% if memory.memory.season != season and memory.memory.season != "unknown" %}[in {{ memory.memory.season }}] {% endif %}**{{ memory.memory.content }}** ({{ memory.memory.emotion }}, Importance: {{ memory.memory.importance_score }})
             {% if memory.memory.tags %}{{ memory.memory.tags }}{% endif %}
         {% endfor %}
     {% endif %}
