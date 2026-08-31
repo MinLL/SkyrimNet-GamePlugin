@@ -1,5 +1,5 @@
 # Budget preset — Gemma-3 27B for the cheap bulk variants, Qwen 235B
-# for jobs that need more reasoning, and DeepSeek Flash / Qwen-VL for meta
+# for jobs that need more reasoning, and DeepSeek Flash / Gemma-4 for meta
 # and vision. Mod-registered variants inherit the default rotation.
 variants:
   default:
@@ -68,7 +68,7 @@ variants:
     default_params: { temperature: 0.7, max_tokens: 100 }
 
   vision:
-    model_name: qwen/qwen3-vl-8b-instruct
+    model_name: google/gemma-4-26b-a4b-it
     model_params:
-      - { name: qwen/qwen3-vl-8b-instruct, provider_id: openrouter, temperature: 0.7 }
+      - { name: google/gemma-4-26b-a4b-it, provider_id: openrouter, temperature: 0.7 }
     default_params: { temperature: 0.7, max_tokens: 4000 }
