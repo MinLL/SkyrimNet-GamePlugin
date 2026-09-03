@@ -1,0 +1,43 @@
+{
+  "FormKey": "0012E8:SkyrimNet.esp",
+  "IsCompressed": false,
+  "MajorRecordFlagsRaw": 0,
+  "EditorID": "SkyrimNet_TestNpcAlpha",
+  "SkyrimMajorRecordFlags": [],
+  "Configuration": {
+    "Flags": [
+      "Essential",
+      "AutoCalcStats",
+      "Unique"
+    ],
+    "Level": {
+      "MutagenObjectType": "NpcLevel",
+      "Level": 4
+    },
+    "SpeedMultiplier": 100,
+    "DispositionBase": 35,
+    "TemplateFlags": []
+  },
+  "Factions": [],
+  "Race": "013746:Skyrim.esm",
+  "AIData": {
+    "Confidence": "Average",
+    "EnergyLevel": 50,
+    "Responsibility": "NoCrime",
+    "Assistance": "HelpsNobody",
+    "Warn": 0,
+    "WarnOrAttack": 0,
+    "Attack": 0
+  },
+  "Class": "013176:Skyrim.esm",
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "Alrik Test-Alpha"
+  },
+  "NAM5": 255,
+  "Height": 1.0,
+  "Weight": 50.0,
+  "SoundLevel": "Normal",
+  "Voice": "013AD2:Skyrim.esm",
+  "MajorFlags": []
+}
