@@ -1,0 +1,178 @@
+{
+  "FormKey": "0012E7:SkyrimNet.esp",
+  "IsCompressed": true,
+  "MajorRecordFlagsRaw": 262144,
+  "EditorID": "SkyrimNetTestCell",
+  "SkyrimMajorRecordFlags": [
+    "Compressed"
+  ],
+  "Name": {
+    "TargetLanguage": "English",
+    "Value": "SkyrimNet Test Cell"
+  },
+  "Flags": [
+    "IsInteriorCell",
+    "PublicArea"
+  ],
+  "Lighting": {
+    "AmbientColor": "#00000000",
+    "DirectionalColor": "#00000000",
+    "FogNearColor": "#00000000",
+    "FogPower": 1.0,
+    "AmbientColors": {
+      "DirectionalXPlus": "#00FFFFFF",
+      "DirectionalXMinus": "#00FFFFFF",
+      "DirectionalYPlus": "#00FFFFFF",
+      "DirectionalYMinus": "#00FFFFFF",
+      "DirectionalZPlus": "#00FFFFFF",
+      "DirectionalZMinus": "#00FFFFFF",
+      "Specular": "#00000000",
+      "Scale": 1.0
+    },
+    "FogFarColor": "#00000000",
+    "FogMax": 1.0,
+    "Inherits": [
+      "AmbientColor",
+      "DirectionalColor",
+      "FogColor",
+      "FogNear",
+      "FogFar",
+      "ClipDistance",
+      "FogPower",
+      "FogMax",
+      "LightFadeDistances"
+    ]
+  },
+  "WaterHeight": 0.0,
+  "Persistent": [
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012EC:SkyrimNet.esp",
+      "MajorRecordFlagsRaw": 1024,
+      "SkyrimMajorRecordFlags": [
+        "0x400"
+      ],
+      "Base": "00003B:Skyrim.esm",
+      "Placement": {
+        "Position": "2105.9375, 1958.1146, 191.99994"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedNpc",
+      "FormKey": "0012EA:SkyrimNet.esp",
+      "MajorRecordFlagsRaw": 1024,
+      "SkyrimMajorRecordFlags": [
+        "0x400"
+      ],
+      "Base": "0012E8:SkyrimNet.esp",
+      "Placement": {
+        "Position": "2040, 2040, 192",
+        "Rotation": "0, -0, 2.35619"
+      },
+      "MajorFlags": [
+        "Persistent"
+      ]
+    },
+    {
+      "MutagenObjectType": "PlacedNpc",
+      "FormKey": "0012EB:SkyrimNet.esp",
+      "MajorRecordFlagsRaw": 1024,
+      "SkyrimMajorRecordFlags": [
+        "0x400"
+      ],
+      "Base": "0012E9:SkyrimNet.esp",
+      "Placement": {
+        "Position": "2170, 2040, 192",
+        "Rotation": "0, -0, 3.92699"
+      },
+      "MajorFlags": [
+        "Persistent"
+      ]
+    }
+  ],
+  "Temporary": [
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012ED:SkyrimNet.esp",
+      "Base": "01305B:Skyrim.esm",
+      "Placement": {
+        "Position": "2176, 1792, 192",
+        "Rotation": "0, -0, 3.1415927"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012EE:SkyrimNet.esp",
+      "Base": "088238:Skyrim.esm",
+      "Radius": 90.26355,
+      "Placement": {
+        "Position": "2027.3096, 2243.6418, 320"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012EF:SkyrimNet.esp",
+      "Base": "01305B:Skyrim.esm",
+      "Placement": {
+        "Position": "1920, 1792, 192",
+        "Rotation": "0, -0, 4.712389"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012F0:SkyrimNet.esp",
+      "Base": "088238:Skyrim.esm",
+      "Radius": 59.340973,
+      "Placement": {
+        "Position": "1946.9751, 1853.3597, 320"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012F1:SkyrimNet.esp",
+      "Base": "013060:Skyrim.esm",
+      "Placement": {
+        "Position": "1920, 2048, 192",
+        "Rotation": "0, -0, 4.712389"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012F2:SkyrimNet.esp",
+      "Base": "013060:Skyrim.esm",
+      "Placement": {
+        "Position": "2176, 2048, 192",
+        "Rotation": "0, -0, 1.5707964"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012F3:SkyrimNet.esp",
+      "Base": "01305B:Skyrim.esm",
+      "Placement": {
+        "Position": "1920, 2304, 192"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012F4:SkyrimNet.esp",
+      "Base": "01305B:Skyrim.esm",
+      "Placement": {
+        "Position": "2176, 2304, 192",
+        "Rotation": "0, -0, 1.5707964"
+      }
+    },
+    {
+      "MutagenObjectType": "PlacedObject",
+      "FormKey": "0012F5:SkyrimNet.esp",
+      "Base": "000032:Skyrim.esm",
+      "Placement": {
+        "Position": "1952.7931, 2204.0317, 192",
+        "Rotation": "0, -0, 2.483187"
+      }
+    }
+  ],
+  "MajorFlags": [
+    "0x40000"
+  ]
+}
