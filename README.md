@@ -263,7 +263,8 @@ A major focus right now is making SkyrimNet feel approachable for non-technical 
 ## 🛠️ **For Developers**
 
 This repository contains the game plugin assets for SkyrimNet:
-- **Spriggit serialized ESP plugin** (`plugins/SkyrimNet/`) - Text format for version control
+- **Spriggit serialized ESP plugin** (`spriggit/SkyrimNet/`) - Text format for version control
+- **Base content store plugin** (`plugins/skyrimnet/base/`) - the `skyrimnet.base` prompt tree SkyrimNet ships (templates, translation CSVs, vanilla/DLC/CC character bios); third-party-mod bios live as `skyrimnet.bios-{mod}` packs on the plugin hub
 - **Papyrus script sources** (`Source/Scripts/`) - Script source files
 - **Papyrus headers** (`headers/`) - Vanilla Skyrim script headers for compilation
 - **UI templates** (`interface/`) - MCM and UI configuration
@@ -277,7 +278,7 @@ Compiled files (`.esp` and `.pex`) are NOT stored in this repository. They are g
 
 **ESP Plugin:**
 - Download [SpriggitCLI](https://github.com/Mutagen-Modding/Spriggit/releases/tag/0.40.0)
-- Run: `Spriggit.CLI.exe convert-to-plugin -i plugins/SkyrimNet -o SkyrimNet.esp`
+- Run: `Spriggit.CLI.exe convert-to-plugin -i spriggit/SkyrimNet -o SkyrimNet.esp`
 
 **Papyrus Scripts:**
 - Download [papyrus-compiler](https://github.com/russo-2025/papyrus-compiler/releases/tag/2025.03.18)
@@ -286,11 +287,12 @@ Compiled files (`.esp` and `.pex`) are NOT stored in this repository. They are g
 ### Repository Structure
 
 ```
-├── plugins/SkyrimNet/     # Spriggit serialized ESP (version controlled)
+├── spriggit/SkyrimNet/    # Spriggit serialized ESP (version controlled)
+├── plugins/skyrimnet/base/# skyrimnet.base content store plugin (manifest + prompts)
 ├── Source/Scripts/        # Papyrus source files (.psc)
 ├── Scripts/               # Compiled scripts output (not tracked)
 ├── headers/               # Vanilla Skyrim Papyrus headers
 ├── interface/             # MCM and UI templates
-├── SKSE/Plugins/SkyrimNet/# Prompts, assets, documentation
+├── SKSE/Plugins/SkyrimNet/# Runtime assets, docs, voice models
 └── docs/                  # In-game documentation
 ```

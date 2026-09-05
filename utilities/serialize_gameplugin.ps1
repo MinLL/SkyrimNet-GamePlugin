@@ -24,7 +24,7 @@ if (-not (Test-Path $spriggitExe)) {
     Write-Error "Spriggit CLI not found at $spriggitExe"
     exit 1
 }
-& $spriggitExe convert-from-plugin --InputPath "$gameDataPath\$pluginName.$plugintype" --OutputPath "plugins\$pluginName" --GameRelease SkyrimSE -p Spriggit.Json -v $spriggitVersion
+& $spriggitExe convert-from-plugin --InputPath "$gameDataPath\$pluginName.$plugintype" --OutputPath "spriggit\$pluginName" --GameRelease SkyrimSE -p Spriggit.Json -v $spriggitVersion
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Spriggit CLI failed with exit code $LASTEXITCODE"
     exit $LASTEXITCODE

@@ -48,7 +48,7 @@ jobs:
         shell: pwsh
         run: |
           $spriggit = "tools/SpriggitCLI-0.40.0/Spriggit.CLI.exe"
-          $source = "plugins/SkyrimNet"
+          $source = "spriggit/SkyrimNet"
           $output = "build/SkyrimNet.esp"
           
           New-Item -ItemType Directory -Path "build" -Force | Out-Null

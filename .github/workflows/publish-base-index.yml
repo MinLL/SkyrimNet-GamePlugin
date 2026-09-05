@@ -1,0 +1,94 @@
+name: Publish base-index
+
+# Maintains base-index.json — the out-of-band base update channel SkyrimNet's
+# engine polls (Core: ai_docs/CONTENT_COMPATIBILITY.md §2). The document lists
+# published versions of the `skyrimnet.base` content tree; the engine fetches
+# the newest entry compatible with the running build, straight from this repo
+# at the pinned commit, exactly the way it fetches a hub plugin.
+#
+# Publishing model: bumping `version` in plugins/skyrimnet/base/manifest.json
+# IS the publish action. When a push to main changes the base tree and the
+# manifest carries a version the index does not know yet, a new entry
+# {version, commit, min_skyrimnet_version} is appended and base-index.json is
+# committed back. Pushes that leave the version unchanged (WIP content edits)
+# change nothing — the engine only ever sees versions that were deliberately
+# stamped.
+#
+# The committed entry pins GITHUB_SHA, so the fetch is immutable even if the
+# tree changes later. The workflow's own commit touches only base-index.json,
+# which is outside the path filter — no retrigger loop.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'plugins/skyrimnet/base/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-base-index
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Append entry if the manifest version is new
+        id: update
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const manifest = JSON.parse(fs.readFileSync('plugins/skyrimnet/base/manifest.json', 'utf8'));
+            const { version, min_skyrimnet_version } = manifest;
+            const semver = /^\d+\.\d+\.\d+$/;
+            if (!semver.test(version) || !semver.test(min_skyrimnet_version)) {
+              core.setFailed(`manifest version '${version}' / min_skyrimnet_version '${min_skyrimnet_version}' must be strict semver`);
+              return;
+            }
+
+            let index = {
+              schema_version: 1,
+              generated_at: '',
+              tree_path: 'plugins/skyrimnet/base',
+              entries: [],
+            };
+            if (fs.existsSync('base-index.json')) {
+              index = JSON.parse(fs.readFileSync('base-index.json', 'utf8'));
+            }
+            if (index.entries.some((e) => e.version === version)) {
+              core.info(`base-index.json already lists ${version}; nothing to publish.`);
+              core.setOutput('changed', 'false');
+              return;
+            }
+
+            index.generated_at = new Date().toISOString();
+            index.entries.push({
+              version,
+              commit: context.sha,
+              min_skyrimnet_version,
+              date: index.generated_at,
+            });
+            fs.writeFileSync('base-index.json', JSON.stringify(index, null, 2) + '\n');
+            core.info(`Published base ${version} at ${context.sha}`);
+            core.setOutput('changed', 'true');
+
+      - name: Commit base-index.json
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add base-index.json
+          git commit -m "publish base-index: $(node -e "console.log(JSON.parse(require('fs').readFileSync('plugins/skyrimnet/base/manifest.json','utf8')).version)") [skip ci]"
+          git push

@@ -1,0 +1,10 @@
+{
+  "id": "skyrimnet.base",
+  "type": "bundle",
+  "title": "SkyrimNet Base",
+  "tagline": "The default prompts SkyrimNet ships with.",
+  "description": "Shipped default content for SkyrimNet. This plugin is always enabled and always sits at the bottom of the priority order, so every other layer resolves above it.",
+  "author": "skyrimnet",
+  "version": "0.24.0",
+  "min_skyrimnet_version": "0.24.0"
+}
