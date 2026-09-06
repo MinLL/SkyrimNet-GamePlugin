@@ -104,16 +104,19 @@ file at the same path as a shipped one replaces it.
 
 ### Trigger and action filenames
 
-The filename must equal the in-file `name`, and the name must be lowercase letters, digits,
-`_` and `-` only. The part before the first dot is what is compared.
+The filename must equal the in-file `name`, compared case-insensitively: letters, digits, `_`
+and `-` only, and the part before the first dot is what is compared. Casing is yours to keep, and
+it is what the LLM sees — `givegold.yaml` carrying `name: GiveGold` is a valid file.
 
 ```yaml
-# triggers/combat_banter.yaml
-name: combat_banter
+# actions/givegold.yaml
+name: GiveGold
 ```
 
-`Banter2.yaml` with `name: Combat Banter` becomes `combat_banter.yaml` with
-`name: combat_banter`.
+The import assistant names the file by the lowercased name and rewrites the `name` field only when
+it carries characters a filename cannot: `Banter2.yaml` with `name: Combat Banter` becomes
+`combat_banter.yaml` with `name: Combat_Banter`, while `cat_economy.yaml` with `name: Economy`
+becomes `economy.yaml` with the `name` untouched.
 
 Per-action `enabled` and `cooldown` settings are keyed by action name. Renaming an action resets
 those settings for players who changed them. The dashboard lists the affected actions for them.
@@ -245,7 +248,7 @@ Worth putting in your mod description:
 ## Checklist
 
 - [ ] Files moved into the plugin layout; `config/` prefix dropped
-- [ ] Trigger and action filenames equal their in-file `name`
+- [ ] Trigger and action filenames equal their in-file `name` (case-insensitively; keep your casing)
 - [ ] Extensions exactly `.prompt`, `.yaml`, `.sknpack`
 - [ ] Knowledge packs re-exported from Beta 25
 - [ ] No per-playthrough or generated bios
