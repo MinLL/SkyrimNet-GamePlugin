@@ -39,6 +39,11 @@
     (Below are the most recent {{ maxRecentEvents }} events that have occurred)
     {{ render_template("components\\event_history_verbose") }}
 
+    {% if has_user_input %}
+    ## Additional Input
+    {{ user_input }}
+
+    {% endif %}
     ## Instructions
 
     Write a personal diary entry that feels authentic and natural:
