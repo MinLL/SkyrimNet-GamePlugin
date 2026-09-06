@@ -105,7 +105,8 @@ body:
       label: Game Version
       options:
         - SE (1.5.97)
-        - AE (1.6.1170+)
+        - AE (1.6.x, up to 1.6.1170)
+        - AE (1.7.99 / 1.7.104)
         - VR
         - GOG
         - Other
