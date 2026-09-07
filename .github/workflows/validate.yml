@@ -44,6 +44,17 @@ jobs:
           Expand-Archive -Path $zipPath -DestinationPath $extractPath -Force
           Remove-Item $zipPath
 
+      - name: Guard against records outside the Spriggit tree
+        shell: pwsh
+        run: |
+          # plugins/SkyrimNet holds only the content-store base tree. Spriggit records belong in
+          # spriggit/SkyrimNet, the only tree the ESP build converts; anything else here is silently dropped.
+          $stray = Get-ChildItem -Path "plugins/SkyrimNet" -Force | Where-Object { $_.Name -ne "base" }
+          if ($stray) {
+            $stray | ForEach-Object { Write-Host "::error::plugins/SkyrimNet/$($_.Name) is not part of the ESP build - Spriggit records go in spriggit/SkyrimNet" }
+            exit 1
+          }
+          Write-Host "OK: plugins/SkyrimNet contains only base/"
       - name: Validate ESP Plugin (Spriggit)
         shell: pwsh
         run: |
