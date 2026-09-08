@@ -237,6 +237,7 @@ mcp_skyrimnet-mcp_validate_custom_trigger:
 | `crime` | Criminal activity | `criminal`, `crime_type`, `victim`, `bounty` |
 | `dragon_soul` | Dragon soul absorbed | `absorber`, `dragon_name` |
 | `dialogue` | AI-generated dialogue | `speaker`, `dialogue`, `listener` |
+| `notification` | Corner notification shown to the player | `message` |
 | `*` | Wildcard - ALL events | (varies) |
 
 ---
@@ -272,6 +273,34 @@ probability: 0.3
 cooldownSeconds: 300
 priority: 1
 ```
+
+### Example: Notification Trigger
+
+```yaml
+name: "shrine_blessing_thought"
+description: "Player reflects on a blessing announced by a corner notification"
+
+eventCriteria:
+  eventType: "notification"
+  schemaConditions:
+    - fieldPath: "message"
+      operator: "regex"
+      value: "Blessing of .*"
+
+response:
+  type: "player_thought"
+  content: "The shrine's words linger: {{ event_json.message }}"
+
+audience: "player"
+enabled: true
+probability: 1.0
+cooldownSeconds: 60
+priority: 1
+```
+
+The whole notification text arrives as `message`; gate on a pattern with a `contains` or `regex`
+condition and render the text with `{{ event_json.message }}`. SkyrimNet's own notifications are
+excluded, so a trigger never fires on the plugin's own output.
 
 ### Example: Spell Cast with Narration
 
