@@ -217,7 +217,7 @@ SkyrimNet's modder API has a growing ecosystem of plugins built on top of it. A 
 - [PowerOfThree's Papyrus Extender](https://www.nexusmods.com/skyrimspecialedition/mods/22854)
 - [PapyrusUtil SE](https://www.nexusmods.com/skyrimspecialedition/mods/13048)
 - [Latest Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
-- [Native EditorID Fix](https://www.nexusmods.com/skyrimspecialedition/mods/85260) (or [VR version](https://github.com/naitro2010/NativeEditorIDFixNG/releases/))
+- [powerofthree's Tweaks](https://www.nexusmods.com/skyrimspecialedition/mods/51073) (or [VR version](https://www.nexusmods.com/skyrimspecialedition/mods/59510)) - keep its `Load EditorIDs` fix enabled (the default); SkyrimNet reads runtime editor IDs through it
 - [Prisma UI](https://www.nexusmods.com/skyrimspecialedition/mods/148718)
 - [Media Keys Fix SKSE](https://www.nexusmods.com/skyrimspecialedition/mods/92948) - Requirement of Prisma UI
 
