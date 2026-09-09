@@ -112,6 +112,7 @@ mcp_skyrimnet-mcp_get_monitored_events:
 | `persistent_generic` | Register event without NPC dialogue | Background event logging |
 | `diary_entry` | Create diary entry for actor(s) | Reflection on significant events |
 | `dynamic_bio_update` | Update character biography | Long-term character development |
+| `fire_action` | Run a registered action on the target actor(s) | Call a Papyrus script from a trigger |
 
 ### Step 3.2: Choose Audience
 
@@ -139,6 +140,44 @@ mcp_skyrimnet-mcp_get_monitored_events:
 **For `diary_entry` / `dynamic_bio_update`, also set:**
 - `targetScope`: `triggering_actor`, `player`, `all_pinned_actors`, `all_nearby_actors`
 - `nearbyRadius`: Radius in game units (default 2000)
+
+**For `fire_action`, set instead of `content`:**
+- `actionName`: The registered action to run (as it appears in the Action Library)
+- `params`: A map of argument names to values; each value is templated with the same
+  variables as `response.content`
+- `targetScope` / `nearbyRadius`: Which actor(s) the action runs on
+
+The action is dispatched through the normal action system, so its eligibility checks and
+cooldowns apply. A Papyrus-backed action's function receives `(actor, contextJson, paramsJson)`;
+`paramsJson` is the rendered `params` map, and `contextJson` is `null` because a trigger has no
+perceived-event context.
+
+```yaml
+name: "shout_alarms_the_guard"
+description: "Ring the guard alarm when the player Shouts near town"
+
+eventCriteria:
+  eventType: "spell_cast"
+  schemaConditions:
+    - fieldPath: "spell"
+      operator: "contains"
+      value: "Unrelenting Force"
+
+response:
+  type: "fire_action"
+  actionName: "SoundGuardAlarm"
+  targetScope: "all_nearby_actors"
+  nearbyRadius: 3000
+  params:
+    caster: "{{ actor.name }}"
+    spell: "{{ event_json.spell }}"
+    reason: "shouting in town"
+
+audience: "player"
+
+enabled: true
+cooldownSeconds: 60
+```
 
 ---
 
