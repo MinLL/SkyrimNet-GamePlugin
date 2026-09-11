@@ -42,7 +42,7 @@ CppAPI/
 
 /external/SpriggitCLI-*
 Build_Config_Local.ps1
-# Build output: BuildRelease deploys the assembled content store into the mod dir
-SKSE/Plugins/SkyrimNet/store/
+# Build output: BuildRelease deploys the assembled content library into the mod dir
+SKSE/Plugins/SkyrimNet/library/
 SKSE/Plugins/SkyrimNet/overlay/
 SKSE/Plugins/SkyrimNet/saves/

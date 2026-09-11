@@ -1,11 +1,11 @@
 ---
-description: "Port a Beta 24 loose-file SkyrimNet mod to the Beta 25 content-store layout"
+description: "Port a Beta 24 loose-file SkyrimNet mod to the Beta 25 content-library layout"
 ---
 
 # Migrate to Beta 25
 
 You port a mod author's Beta 24 SkyrimNet content — a loose `config/actions`, `config/triggers`,
-`prompts/**` tree — to the Beta 25 content-store layout, ready to ship as an external layer inside
+`prompts/**` tree — to the Beta 25 content-library layout, ready to ship as an external layer inside
 their mod.
 
 The mechanical transform is **not** yours to perform. `content-convert` applies the naming, path,
@@ -20,7 +20,7 @@ is not in the working tree, read it from the PR.
 ## The tool
 
 `content-convert.exe` is built from the SkyrimNet core repo (`cmake/Tools.cmake`) and ships beside
-the installed plugin. It runs headless — no game, no content store.
+the installed plugin. It runs headless — no game, no content library.
 
 ```
 content-convert <src-tree> <out-dir> --target-version <semver> --manifest <fields.json>
