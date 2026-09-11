@@ -11,9 +11,9 @@ dashboard:
 
 1. Install Beta 25 with your old files still in the old folders.
 2. **Plugins > Import Old Content**, tick your files, import.
-3. **Plugins > Package Plugin**, name it, tick the files, **Package**.
-4. Either **Sign In** and **Publish Plugin** to put it on the Hub, or copy
-   `store/{author}.{slug}/` (manifest plus content folders) into your mod archive at
+3. **Plugins > My Plugins > New Plugin**, name it, tick the files, **Package**.
+4. Either **Sign In** and **Publish** to put it on the Hub, or copy
+   `library/{author}.{slug}/` (manifest plus content folders) into your mod archive at
    `Data/SKSE/Plugins/SkyrimNet/external/{author}.{slug}/`.
 
 Import renames trigger and action files to match their `name` field. Knowledge packs need a
@@ -32,7 +32,9 @@ config/actions/
 Beta 25 does not read those folders. Files left there are ignored, not deleted.
 
 Content is now delivered as a **plugin**: a folder with a `manifest.json` and the content files
-inside it. A plugin reaches a player one of two ways:
+inside it. On the player's machine every plugin is one layer of what SkyrimNet calls the
+**content library**; the highest-priority layer that has a file provides it. A plugin reaches a
+player one of two ways:
 
 | Route | How it gets to the player |
 |---|---|
@@ -67,15 +69,16 @@ Under `Data/SKSE/Plugins/SkyrimNet/`:
 
 | Folder | Contents |
 |---|---|
-| `store/` | Plugins installed from the Hub, and plugins the player packaged locally. Written only by SkyrimNet. |
+| `library/` | Plugins installed from the Hub, and plugins the player packaged locally. Written only by SkyrimNet. |
 | `external/` | Plugins shipped inside other mods. |
 | `overlay/` | The player's own dashboard edits. |
 | `saves/` | Per-playthrough character bios. |
 
-Priority, highest first: per-playthrough files, the player's edits, installed plugins in the
-player's chosen order, SkyrimNet's shipped defaults.
+Priority, highest first: per-playthrough files, the player's edits, installed and external
+plugins in the player's chosen order (a newly found external layer starts at the top), SkyrimNet's
+shipped defaults.
 
-Do not ship files into `store/`. A folder there that SkyrimNet did not install is ignored.
+Do not ship files into `library/`. A folder there that SkyrimNet did not install is ignored.
 `external/` is the folder for content delivered by hand.
 
 ## Migrating the files
@@ -128,21 +131,22 @@ are rejected.
 
 World knowledge now has two kinds of entries:
 
-- **Content store packs** are `.sknpack` files delivered by plugins (or sitting in the player's
-  overlay). They apply to every playthrough. SkyrimNet projects each installed pack into a save's
+- **Persistent packs** are `.sknpack` files delivered by plugins (or sitting in the player's
+  overlay). They apply to every playthrough and carry a **Persistent** badge on the World
+  Knowledge page. SkyrimNet projects each installed pack into a save's
   database when that save loads and again whenever content changes, and it owns those rows: an
   update to the pack changes the entries in place, and uninstalling or disabling the plugin
   removes or deactivates them. Players cannot edit these rows directly. They can turn individual
   entries off per playthrough, edit an entry for the current playthrough only (which makes a
   personal copy and deactivates yours), or edit it for all playthroughs (which writes a copy of
   the pack into their overlay that shadows yours until they revert).
-- **Playthrough entries** are rows the player creates on the World Knowledge page, or that the
+- **Save-specific entries** are rows the player creates on the World Knowledge page, or that the
   game generates. They belong to one save and are never shipped in a plugin.
 
 Beta 25 packs carry a stable key per entry, which is what lets an update change an entry in
 place without resetting the player's per-entry toggles. Packs exported before Beta 25 cannot be
 shipped in a plugin. To convert one: import it on the World Knowledge page in Beta 25, then
-press **Add to content store**. The pack lands in your overlay ready to package. Group names
+press **Export to Overlay**. The pack lands in your overlay ready to package. Group names
 ship with the pack; membership stays per playthrough.
 
 ### Manifest
@@ -190,17 +194,19 @@ Requires Beta 25 with Skyrim running.
    Import Old Content**, tick them, import. Triggers and actions are renamed to the new rule
    automatically. Files identical to shipped content are skipped. Nothing is moved or deleted.
    Alternatively, create the files in the dashboard editors.
-2. **Package.** **Plugins > Package Plugin**: title, author, version, tick the files, **Package**.
-   The files move from the overlay into a local plugin at the top of your priority order.
-   Local plugins are editable in place.
-3. **Publish.** Sign in, then **Plugins > Publish Plugin**, pick the local plugin, fill in the
+2. **Package.** **Plugins > My Plugins > New Plugin** opens the Package Plugin page: title,
+   author, version, tick the files, **Package**. The files move from the overlay into a local
+   plugin at the top of your priority order. Local plugins are editable in place (**Manage** on
+   the plugin's row).
+3. **Publish.** Sign in, then **Publish** on the plugin's row under My Plugins, fill in the
    metadata, **Publish**. Every file is validated first. Action plugins additionally ask which
    mod each action calls into and for an in-game test attestation.
-4. **Review.** The submission shows as pending on the **Published** tab. Automatic review takes
-   minutes for non-action plugins. Rejections say why.
+4. **Review.** The submission shows on the **Submissions** tab of My Plugins while it is in
+   review. Automatic review takes minutes for non-action plugins. Rejections say why, on the row.
 
-**Updates:** edit the local plugin, then **Edit** on the Published tab. A version bump is
-required when any file changed.
+**Updates:** **Manage** the local plugin (files and version), then **Publish** again. A version
+bump is required when any file changed. **Edit** on a published plugin changes only its Hub
+listing (title, description, tags), not its files.
 
 ## Route B: external layer
 
@@ -214,7 +220,7 @@ SkyrimNet registers it at start-up, enabled, at the top of the priority order, a
 the Installed Plugins page with an **External** badge. Removing the mod removes it from play.
 
 To build the folder, package it in the dashboard (Route A, steps 1 and 2) and copy
-`manifest.json` plus the content folders out of `store/{author}.{slug}/`, or write the manifest
+`manifest.json` plus the content folders out of `library/{author}.{slug}/`, or write the manifest
 by hand.
 
 - Folder name must equal the manifest `id`, or the whole folder is rejected with a visible error.
@@ -228,8 +234,8 @@ rejected folder shows there with the reason. Skipped files are warnings in `Skyr
 
 ## Doing both
 
-One active copy per plugin id. Higher version wins; on a tie the external copy wins over the
-Hub copy. Keep the id identical on both routes. A common setup is the plugin inside the mod,
+One active copy per plugin id. Higher version wins; on a tie a local copy wins, then the
+external copy over the Hub copy. Keep the id identical on both routes. A common setup is the plugin inside the mod,
 the same plugin on the Hub, and a listing pointing at the mod page.
 
 ## For your players
@@ -242,7 +248,7 @@ Worth putting in your mod description:
   their personal tweaks and per-playthrough bios, not for your content: an imported copy hides
   every later update of yours.
 - Renamed actions need their enabled and cooldown settings set again, once.
-- Modpacks must not include `store/`, `overlay/`, `saves/` or `content-registry.json`. Those are
+- Modpacks must not include `library/`, `overlay/`, `saves/` or `content-registry.json`. Those are
   per-player state. Ship curated content as an external layer.
 
 ## Checklist
