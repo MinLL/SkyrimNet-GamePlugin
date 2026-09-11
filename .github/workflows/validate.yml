@@ -47,7 +47,7 @@ jobs:
       - name: Guard against records outside the Spriggit tree
         shell: pwsh
         run: |
-          # plugins/SkyrimNet holds only the content-store base tree. Spriggit records belong in
+          # plugins/SkyrimNet holds only the content-library base tree. Spriggit records belong in
           # spriggit/SkyrimNet, the only tree the ESP build converts; anything else here is silently dropped.
           $stray = Get-ChildItem -Path "plugins/SkyrimNet" -Force | Where-Object { $_.Name -ne "base" }
           if ($stray) {

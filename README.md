@@ -264,7 +264,7 @@ A major focus right now is making SkyrimNet feel approachable for non-technical 
 
 This repository contains the game plugin assets for SkyrimNet:
 - **Spriggit serialized ESP plugin** (`spriggit/SkyrimNet/`) - Text format for version control
-- **Base content store plugin** (`plugins/skyrimnet/base/`) - the `skyrimnet.base` prompt tree SkyrimNet ships (templates, translation CSVs, vanilla/DLC/CC character bios); third-party-mod bios live as `skyrimnet.bios-{mod}` packs on the plugin hub
+- **Base content library plugin** (`plugins/skyrimnet/base/`) - the `skyrimnet.base` prompt tree SkyrimNet ships (templates, translation CSVs, vanilla/DLC/CC character bios); third-party-mod bios live as `skyrimnet.bios-{mod}` packs on the plugin hub
 - **Papyrus script sources** (`Source/Scripts/`) - Script source files
 - **Papyrus headers** (`headers/`) - Vanilla Skyrim script headers for compilation
 - **UI templates** (`interface/`) - MCM and UI configuration
@@ -288,7 +288,7 @@ Compiled files (`.esp` and `.pex`) are NOT stored in this repository. They are g
 
 ```
 ├── spriggit/SkyrimNet/    # Spriggit serialized ESP (version controlled)
-├── plugins/skyrimnet/base/# skyrimnet.base content store plugin (manifest + prompts)
+├── plugins/skyrimnet/base/# skyrimnet.base content library plugin (manifest + prompts)
 ├── Source/Scripts/        # Papyrus source files (.psc)
 ├── Scripts/               # Compiled scripts output (not tracked)
 ├── headers/               # Vanilla Skyrim Papyrus headers
