@@ -1,0 +1,79 @@
+# IO Intelligence (io.net) preset — open-weight models through io.net's
+# OpenAI-compatible endpoint. Requires a Custom Provider named "ionet"
+# with API Endpoint https://api.intelligence.io.solutions/api/v1/chat/completions
+# and an IO Intelligence API key (https://cloud.io.net). Model ids are
+# org/name style (e.g. deepseek-ai/DeepSeek-V4.1-Flash) — fetch the
+# current list from GET https://api.intelligence.io.solutions/api/v1/models.
+# DeepSeek V4.1 Flash for the cheap bulk variants, GLM-5.3 for jobs that
+# need more reasoning. Mod-registered variants inherit the default rotation.
+variants:
+  default:
+    model_name: deepseek-ai/DeepSeek-V4.1-Flash
+    model_params:
+      - { name: deepseek-ai/DeepSeek-V4.1-Flash, provider_id: ionet, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 4096 }
+
+  AgentDefault:
+    model_name: zai-org/GLM-5.3
+    timeout: 120
+    model_params:
+      - { name: zai-org/GLM-5.3, provider_id: ionet, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 32000 }
+
+  CharacterProfileGeneration:
+    model_name: zai-org/GLM-5.3
+    timeout: 300
+    model_params:
+      - { name: zai-org/GLM-5.3, provider_id: ionet, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 10000 }
+
+  DiaryGeneration:
+    model_name: deepseek-ai/DeepSeek-V4.1-Flash
+    timeout: 120
+    model_params:
+      - { name: deepseek-ai/DeepSeek-V4.1-Flash, provider_id: ionet, temperature: 0.8 }
+    default_params: { temperature: 0.8, max_tokens: 12000 }
+
+  UniversalTranslator:
+    model_name: meta-llama/Llama-3.3-70B-Instruct
+    model_params:
+      - { name: meta-llama/Llama-3.3-70B-Instruct, provider_id: ionet, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 512 }
+
+  combat:
+    model_name: deepseek-ai/DeepSeek-V4.1-Flash
+    model_params:
+      - { name: deepseek-ai/DeepSeek-V4.1-Flash, provider_id: ionet, temperature: 0.8 }
+    default_params: { temperature: 0.8, max_tokens: 2000 }
+
+  action_evaluation:
+    model_name: meta-llama/Llama-3.3-70B-Instruct
+    model_params:
+      - { name: meta-llama/Llama-3.3-70B-Instruct, provider_id: ionet, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 500 }
+
+  gamemaster_evaluation:
+    model_name: meta-llama/Llama-3.3-70B-Instruct
+    timeout: 30
+    model_params:
+      - { name: meta-llama/Llama-3.3-70B-Instruct, provider_id: ionet, temperature: 0.8 }
+    default_params: { temperature: 0.8, max_tokens: 256 }
+
+  memory:
+    model_name: zai-org/GLM-5.3
+    timeout: 60
+    model_params:
+      - { name: zai-org/GLM-5.3, provider_id: ionet, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 4000 }
+
+  meta:
+    model_name: deepseek-ai/DeepSeek-V4.1-Flash
+    model_params:
+      - { name: deepseek-ai/DeepSeek-V4.1-Flash, provider_id: ionet, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 100 }
+
+  vision:
+    model_name: moonshotai/Kimi-K3
+    model_params:
+      - { name: moonshotai/Kimi-K3, provider_id: ionet, temperature: 0.7 }
+    default_params: { temperature: 0.7, max_tokens: 4000 }
