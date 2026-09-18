@@ -13,14 +13,14 @@ extension, and manifest rules; a hand-migration will disagree with the installer
 Your job is the judgment the tool cannot make: finding the tree, authoring the manifest fields, and
 reading the tool's report back to the author.
 
-The rule reference is the migration guide, `docs/modding/MIGRATING_TO_BETA25.md`
-(MinLL/SkyrimNet-GamePlugin#563). This skill automates its Route B (external layer). If the guide
-is not in the working tree, read it from the PR.
+The rule reference is the migration guide, `docs/modding/MIGRATING_TO_BETA25.md`. This skill
+automates its Route B (external layer).
 
 ## The tool
 
-`content-convert.exe` is built from the SkyrimNet core repo (`cmake/Tools.cmake`) and ships beside
-the installed plugin. It runs headless — no game, no content library.
+This command ships in the SkyrimNet developer kit and is run from the unpacked kit, so everything
+it needs is beside it: `tools/content-convert.exe` and the guide above are relative to the working
+directory. It runs headless — no game, no content library.
 
 ```
 content-convert <src-tree> <out-dir> --target-version <semver> --manifest <fields.json>
@@ -92,9 +92,10 @@ On exit 0, tell the author:
 
 - Where the converted layer is, and that it goes into their mod as
   `SKSE/Plugins/SkyrimNet/external/{id}/` — the layer directory name is the plugin id.
-- Which files were renamed (the tool prints them), because their own documentation and any external
-  references to those action names need the same update.
-- Any orphaned action settings to re-apply after installing.
+- Which files were renamed — every one is a `renamed: <source> -> <destination>` line in the
+  output. Their own documentation and any external references to those action names need the same
+  update.
+- Any orphaned action settings to re-apply after installing (the `orphaned action setting:` lines).
 
 Then point them at the Hub. Shipping inside a mod works and is fully supported, but the SkyrimNet
 Plugin Hub is the preferred distribution path: users install and update from the dashboard, get
