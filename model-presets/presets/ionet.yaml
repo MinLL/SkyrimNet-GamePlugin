@@ -4,6 +4,8 @@
 # and an IO Intelligence API key (https://cloud.io.net). Model ids are
 # org/name style (e.g. deepseek-ai/DeepSeek-V4.1-Flash) — fetch the
 # current list from GET https://api.intelligence.io.solutions/api/v1/models.
+# Most models here (DeepSeek V4.1 Flash, GLM-5.3, Kimi K3) need tier-2
+# IO Intelligence model access; only Llama 3.3 70B runs on the base tier.
 # DeepSeek V4.1 Flash for the cheap bulk variants, GLM-5.3 for jobs that
 # need more reasoning. Mod-registered variants inherit the default rotation.
 variants:

@@ -19,6 +19,7 @@ presets:
     name: Premium
     provider: openrouter
     file: presets/openrouter-performance.yaml
+
   - id: ionet
     name: IO Intelligence
     provider: ionet
