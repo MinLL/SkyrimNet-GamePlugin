@@ -84,15 +84,19 @@ mcp_skyrimnet-mcp_get_decorators:
 
 | Category | Examples | Use For |
 |----------|----------|---------|
-| `Actor` | `decnpc()`, `is_in_combat()`, `get_actor_value()` | NPC/player info |
-| `Player` | `get_player_name()`, `player_is_vampire()` | Player-specific data |
-| `Quest` | `get_quest_name()`, `is_quest_active()` | Quest state |
-| `Combat` | `is_in_combat()`, `get_combat_target()` | Combat info |
-| `Environment` | `get_current_location()`, `get_weather_description()` | World state |
-| `Time` | `get_time_of_day()`, `get_current_date()` | Time info |
-| `Faction` | `is_in_faction()`, `get_faction_rank()` | Faction checks |
-| `Relationship` | `get_relationship_rank()` | NPC relationships |
-| `Global` | `get_global_value()` | Mod global variables |
+| `Actor` | `decnpc(uuid)`, `actor_has_keyword(uuid, editorId)`, `distance_between(uuid1, uuid2)` | NPC/player info |
+| `Player` | `player` (JSON: `player.name`, `player.UUID`), `is_player(uuid)`, `is_follower(uuid)` | Player-specific data |
+| `Quest` | `is_quest_active(questId)`, `get_quest_stage(questId, onlyWhileActive)`, `get_quest_journal(...)` | Quest state |
+| `Combat` | `is_in_combat(uuid)`, `get_combat_targets(uuid)`, `get_actor_value(uuid, "Health")`, `has_weapon_drawn(uuid)` | Combat info |
+| `World` / `Environment` | `location`, `get_location(uuid)`, `is_indoors`, `currentWeather`, `season` | World state |
+| `World` (time) | `gameTime`, `currentTime`, `short_time(timeString)` | Time info |
+| `Faction` | `is_in_faction(uuid, factionId)`, `get_faction_rank(uuid, factionId)` | Faction checks |
+| `Relationship` | `get_relationship_rank(uuid, targetUuid)` | NPC relationships |
+| `Game System` | `get_global_value(editorId)`, `is_plugin_loaded(name)`, `formid_to_uuid(formId)` | Mod global variables, load order |
+| `Magic` | `has_magic_effect(uuid, effectId)`, `has_spell(uuid, spellId)` | Spell/effect state |
+| `Movement` | `is_sneaking(uuid)`, `is_mounted(uuid)`, `is_unconscious(uuid)` | Movement state |
+
+Names are exact and case-sensitive; the full list with signatures is `get_decorators` (or the Decorators page of the dashboard). A name that is not registered fails the render with `function not found`.
 
 ### Step 2.3: The Core `decnpc()` Decorator
 
@@ -212,15 +216,17 @@ Normal content
 
 | Function | Description |
 |----------|-------------|
-| `upper(str)` / `lower(str)` | Convert case |
+| `upper(str)` / `lower(str)` / `capitalize(str)` | Convert case (also usable as filters: `{{ name | capitalize }}`) |
 | `length(arr)` | Count elements |
 | `first(arr)` / `last(arr)` | First/last element |
 | `join(arr, sep)` | Join with separator |
 | `round(num, digits)` | Round number |
 | `default(val, fallback)` | Use fallback if undefined |
-| `exists("key")` | Check if key exists |
-| `contains(str, substr)` | Check substring |
+| `exists("key")` / `existsIn(obj, "key")` | Check if key exists |
+| `contains(container, value)` | Substring or element check (SkyrimNet string utility) |
 | `replace(str, old, new)` | Replace text |
+
+See `prompt-file-syntax.md` for the full Inja built-in list.
 
 ### Step 3.6: Whitespace Control
 
@@ -777,11 +783,14 @@ As a senior member, {{ actor.subjectivePronoun }} carries the weight of leadersh
 | `npc.UUID` | All NPC prompts | Speaking NPC's UUID |
 | `npc.name` | All NPC prompts | Speaking NPC's name |
 | `player.UUID` | All prompts | Player's UUID |
-| `player.name` | All prompts | Player's name |
+| `player.name` / `player_name` | All prompts | Player's name |
+| `player_subjective_pronoun` etc. | All prompts | Player pronouns (`subjective`, `objective`, `possessive`, `reflexive`) |
 | `actorUUID` | Character bio submodules | Actor being described |
 | `render_mode` | Submodules | Current render mode |
-| `location` | Scene prompts | Current location |
-| `time_of_day` | Scene prompts | Time description |
+| `location` | All prompts | Player's current location name |
+| `is_indoors` | All prompts | Whether the player is in an interior |
+| `gameTime` / `currentTime` | All prompts | In-game date/time string / real clock time |
+| `currentWeather` | All prompts | Current weather |
 | `triggeringEvent` | Event-triggered prompts | Event that triggered |
 
 ---
