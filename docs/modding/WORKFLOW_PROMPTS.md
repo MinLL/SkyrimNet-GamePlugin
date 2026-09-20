@@ -528,7 +528,6 @@ Content written for third-person context...
 | `render_template("path\\to\\template")` | Include another template file |
 | `render_subcomponent("componentName", "mode")` | Render a subcomponent with render mode |
 | `render_character_profile("mode", uuid)` | Render character biography |
-| `render_bio(characterName)` | Render character biography by name |
 
 ---
 
