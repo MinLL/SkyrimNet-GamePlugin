@@ -166,15 +166,19 @@ mcp_skyrimnet-mcp_get_decorators:
 | Decorator | Arguments | Returns | Use For |
 |-----------|-----------|---------|---------|
 | `is_in_faction` | `actor`, `factionEditorID` | boolean | Faction membership |
+| `get_faction_rank` | `actor`, `factionEditorID` | integer | Faction rank |
 | `get_actor_value` | `actor`, `avName` | number | Skills, stats |
-| `is_following_player` | `actor` | boolean | Follower check |
+| `is_follower` | `actor` | boolean | Follower check |
 | `is_in_combat` | `actor` | boolean | Combat state |
-| `get_distance_to_player` | `actor` | number | Proximity |
-| `has_keyword` | `actor`, `keywordEditorID` | boolean | Keyword check |
-| `is_dead` | `actor` | boolean | Living check |
-| `is_essential` | `actor` | boolean | Essential NPC |
+| `is_hostile_to_actor` | `actor`, `otherActor` | boolean | Hostility |
+| `distance_between` | `actor`, `otherActor` | number | Proximity (game units) |
+| `actor_has_keyword` | `actor`, `keywordEditorID` | boolean | Keyword check |
+| `is_unconscious` / `is_knocked_down` | `actor` | boolean | Incapacitated |
+| `has_magic_effect` | `actor`, `effectEditorID` | boolean | Active effect |
 | `get_relationship_rank` | `actor1`, `actor2` | number | Relationship |
 | `get_global_value` | `globalEditorID` | number | Global variable |
+
+Names are exact; `decoratorName` is looked up in the same decorator registry prompts use, so confirm each one with `get_decorators` (there is no `is_following_player`, `has_keyword`, `is_dead` or `is_essential`).
 
 ### Step 3.3: Find Faction/Global IDs (if needed)
 
@@ -253,7 +257,7 @@ eligibilityRules:
   - conditions:
       - decoratorName: "decorator_name"
         arguments: ["currentActor", "OtherArg"]  # Use currentActor or player
-        comparisonOperator: "=="
+        comparisonOperator: "=="                 # ==, !=, >, <, >=, <=, contains, not_contains, is_null, is_not_null, is_empty, is_not_empty
         expectedValue: true
     logicalOperator: "AND"
     required: true
@@ -423,7 +427,7 @@ parameterMapping: []
 
 eligibilityRules:
   - conditions:
-      - decoratorName: "is_following_player"
+      - decoratorName: "is_follower"
         arguments: ["currentActor"]
         comparisonOperator: "=="
         expectedValue: false
@@ -500,7 +504,7 @@ parameterMapping:
 
 eligibilityRules:
   - conditions:
-      - decoratorName: "is_following_player"
+      - decoratorName: "is_follower"
         arguments: ["currentActor"]
         comparisonOperator: "=="
         expectedValue: true
