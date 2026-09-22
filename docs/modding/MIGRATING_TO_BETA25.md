@@ -176,6 +176,11 @@ ship with the pack; membership stays per playthrough.
   but disabled, with a message. For an external layer it is informational.
 - `mods` (optional): `[{ "name": "My Follower", "file": "MyFollower.esp", "required": true }]`.
   Missing mods produce a warning at install, never a block.
+- `image` (optional, Hub only): the filename of one PNG or JPEG cover beside `manifest.json`
+  (`cover.png`, at most 1 MB and 2048 px a side), shown on the hub site, in the in-game browse
+  view and on the plugin's Discord thread. The publish form adds it for you; it is reviewed
+  with the rest of the submission and is never installed with the plugin, so an external layer
+  has no use for it.
 
 Packaging and publishing from the dashboard writes this file for you.
 
