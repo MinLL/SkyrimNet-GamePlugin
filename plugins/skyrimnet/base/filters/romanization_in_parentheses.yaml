@@ -1,0 +1,6 @@
+kind: tts_rule
+id: romanization_in_parentheses
+pattern: \s*\([\p{Latin}\p{M}\p{Nd}\s'’-]+\)
+replacement: ""
+priority: 0
+enabled: false
