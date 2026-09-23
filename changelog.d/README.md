@@ -33,7 +33,10 @@ Prompts describe a carriage passenger as seated rather than standing.
 | `kind` | `feature` — own section. `change` — one bullet under its area. `fix` — one bullet under Bug Fixes. `breaking` — under Breaking Changes. |
 | `credit` | GitHub logins or literal `@handles`. Defaults to the author of the commit that added the file. |
 
-Write plain declaratives for a tester about to load the build: what changed, where it is, what is
-different from before, what is not done yet. Nothing else. A `fix` is one line; a `feature` is a
-lead of at most two sentences and at most six bullets. `> Note for <=rcN testers:` right after the
-lead when a returning tester would otherwise report the change as a bug.
+Write plain declaratives for a tester about to load the build: what you can now do in the situation
+you would do it, where it is, what is different from before, what is not done yet. Nothing else.
+Lead with the reader's situation, never the mechanism: "Press the Capture Crosshair hotkey while
+the Book Menu is open and your character reads the book" rather than how the capture works. A
+`fix` is one line and its title is the symptom as the player saw it; a `feature` is a lead of at
+most two sentences and at most six bullets. `> Note for <=rcN testers:` right after the lead when
+a returning tester would otherwise report the change as a bug.
