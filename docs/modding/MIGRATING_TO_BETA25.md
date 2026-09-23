@@ -105,6 +105,8 @@ Prompts resolve as before. `prompts/characters/Lydia.prompt` is still Lydia's bi
 `prompts/submodules/character_bio/0301_mymod.prompt` is still picked up as a submodule, and a
 file at the same path as a shipped one replaces it.
 
+> **Reference:** See `CONTENT_ROOTS.md` for every content root, the field its filename must equal and the release that reads it.
+
 ### Trigger and action filenames
 
 The filename must equal the in-file `name`, compared case-insensitively: letters, digits, `_`
