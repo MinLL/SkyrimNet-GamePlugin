@@ -66,8 +66,9 @@ it.
   bytes; the hub refuses one that is missing, empty, over-long or does not compile.
 - **`priority` on a filter rule or translator rule is an integer**: lower runs first, 100 when
   omitted, ties broken by path.
-- **Dialogue-action instructions** name a `category`: `quest`, `follower`, `merchant`,
-  `trainer`, `carriage`, `innkeeper`, `bard`, `marriage`, `crime` or `other`.
+- **Dialogue-action instructions** may name a `category`, which overrides the line's own
+  classification: `quest`, `follower`, `merchant`, `trainer`, `carriage`, `innkeeper`, `bard`,
+  `marriage`, `crime` or `other`.
 - **Contributions union.** A `filters/` `kind: actor` or `kind: memory` file (any of
   `FactionWhitelist`, `FactionBlacklist`, `RaceWhitelist`, `RaceBlacklist`, `GenderWhitelist`,
   `GenderBlacklist`, each a list of strings), and a `dialogue_actions/` `kind: lists` file
