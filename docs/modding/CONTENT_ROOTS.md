@@ -15,24 +15,22 @@ pre-Beta 25 folders is in `MIGRATING_TO_BETA25.md`.
 | `actions/` | `.yaml` action | `name` | Beta 25 (0.25.0) | no |
 | `knowledge/` | `.sknpack` knowledge pack | the path (entries by `key`) | Beta 25 (0.25.0) | no |
 | `entities/` | `.entity.yaml` virtual entity | the path (records by `entityName`) | Beta 25 (0.25.0) | no |
-| `voice_effects/` | `.yaml` voice effect recipe | `id` | not yet released | yes |
-| `items/` | `.yaml` item customization | form stem of `form` | not yet released | yes |
-| `spells/` | `.yaml` spell customization | form stem of `form` | not yet released | yes |
-| `furniture/` | `.yaml` furniture name | form stem of `form` | not yet released | yes |
-| `identity/` | `.yaml` identity link (`kind: link`, the default) or `kind: succession` | slug of `name` | not yet released | yes |
-| `filters/` | `.yaml` `kind: actor` / `memory` list contribution, or `kind: dialogue_rule` / `tts_rule` | contributions: anything; rules: `id` | not yet released | yes |
-| `translator/` | `.yaml` `kind: npc` / `faction` / `race` / `global` speech rule | npc: form stem of `form`; faction, race: `entityEditorId`; global: `global.yaml` | not yet released | yes |
-| `dialogue_actions/` | `.yaml` `kind: lists` contribution or `kind: instruction` | lists: anything; instructions: `key` | not yet released | yes |
+| `voice_effects/` | `.yaml` voice effect recipe | `id` | Beta 25 (0.25.0) | yes |
+| `items/` | `.yaml` item customization | form stem of `form` | Beta 25 (0.25.0) | yes |
+| `spells/` | `.yaml` spell customization | form stem of `form` | Beta 25 (0.25.0) | yes |
+| `furniture/` | `.yaml` furniture name | form stem of `form` | Beta 25 (0.25.0) | yes |
+| `identity/` | `.yaml` identity link (`kind: link`, the default) or `kind: succession` | slug of `name` | Beta 25 (0.25.0) | yes |
+| `filters/` | `.yaml` `kind: actor` / `memory` list contribution, or `kind: dialogue_rule` / `tts_rule` | contributions: anything; rules: `id` | Beta 25 (0.25.0) | yes |
+| `translator/` | `.yaml` `kind: npc` / `faction` / `race` / `global` speech rule | npc: form stem of `form`; faction, race: `entityEditorId`; global: `global.yaml` | Beta 25 (0.25.0) | yes |
+| `dialogue_actions/` | `.yaml` `kind: lists` contribution or `kind: instruction` | lists: anything; instructions: `key` | Beta 25 (0.25.0) | yes |
 
 The eight roots from `voice_effects/` down are the config-system roots: the customizations a
 user otherwise keeps in their own `config/`, shipped as content, one record per file, with the
-same install, disable, reorder, pin and override tools as a prompt. A root marked **not yet
-released** is reserved: no SkyrimNet release reads it, and the hub refuses a plugin that ships
-one whatever its `min_skyrimnet_version` says. Each root opens when the SkyrimNet release that
-reads it ships and the hub's `ROOT_TABLE` row is set to that version; from then on a plugin
-shipping the root must declare a `min_skyrimnet_version` of at least that version, because an
-engine older than the release does not know the root — the hub installer refuses the whole
-plugin, and a third-party `external/` layer logs a warning naming the directory and skips it.
+same install, disable, reorder, pin and override tools as a prompt. Beta 25 (0.25.0) reads all
+eight, and a plugin shipping one must declare a `min_skyrimnet_version` of at least 0.25.0,
+because an engine older than the release does not know the root — the hub installer refuses the
+whole plugin, and a third-party `external/` layer logs a warning naming the directory and skips
+it.
 
 ## Rules that apply to every record root
 
@@ -60,9 +58,12 @@ plugin, and a third-party `external/` layer logs a warning naming the directory 
   by `:`. The runtime form id spelling, `npc:0A012345`, depends on load order; the hub refuses
   it.
 - **`enabled:` in a record is the user's on/off toggle** wherever a record carries it. Spell and
-  item records say whether NPCs may use the form with `npc_usable: true|false`; `enabled` on
-  those two roots is refused by the hub.
+  item records say whether the form appears in NPC equipment and spell lists in prompts with
+  `show_in_prompts: true|false` (true when omitted); `enabled` on those two roots, and the
+  field's old name `npc_usable`, are refused by the hub.
 - **`kind:` picks the record type within a root** where a root holds more than one.
+- **A dialogue or TTS rule needs a `pattern`**: a non-empty regular expression of at most 1024
+  bytes; the hub refuses one that is missing, empty, over-long or does not compile.
 - **`priority` on a filter rule or translator rule is an integer**: lower runs first, 100 when
   omitted, ties broken by path.
 - **Dialogue-action instructions** name a `category`: `quest`, `follower`, `merchant`,
