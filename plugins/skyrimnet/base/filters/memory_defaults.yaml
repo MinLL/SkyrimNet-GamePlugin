@@ -1,0 +1,6 @@
+kind: memory
+RaceBlacklist:
+  - ACLRaceCat
+  - DogRace
+  - ManakinRace
+  - WolfRace

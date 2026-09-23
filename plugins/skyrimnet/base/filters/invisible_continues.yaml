@@ -1,0 +1,5 @@
+kind: dialogue_rule
+id: invisible_continues
+pattern: ^\(Invisible Continues Linked to Self\)$
+replacement: ""
+priority: 20
