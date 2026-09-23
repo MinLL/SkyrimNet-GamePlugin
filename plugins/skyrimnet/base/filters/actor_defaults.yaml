@@ -1,0 +1,11 @@
+kind: actor
+FactionWhitelist:
+  - PaarthurnaxFaction
+  - SkyrimNet_ActorWhitelistFaction
+FactionBlacklist:
+  - SkyrimNet_ActorBlacklistFaction
+RaceBlacklist:
+  - ACLRaceCat
+  - DogRace
+  - ManakinRace
+  - WolfRace
