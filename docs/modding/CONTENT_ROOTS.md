@@ -73,5 +73,7 @@ it.
   `FactionWhitelist`, `FactionBlacklist`, `RaceWhitelist`, `RaceBlacklist`, `GenderWhitelist`,
   `GenderBlacklist`, each a list of strings), and a `dialogue_actions/` `kind: lists` file
   (`whitelist`, `blacklist`), add their entries to the user's lists; the user's remedy is the
-  file's toggle. A whitelist contribution widens what may speak or fire.
+  file's toggle. A whitelist contribution widens what may speak or fire. Give each file an
+  optional `name` and `description`: the dashboard lists every contribution by them. Keep one
+  purpose per file, as base does, so a user can switch off exactly what they don't want.
 - **Size.** 64 KB per voice-effect recipe, 32 KB per record elsewhere, 1 MB per knowledge pack.

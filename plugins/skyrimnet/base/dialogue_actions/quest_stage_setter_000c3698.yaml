@@ -1,0 +1,5 @@
+kind: lists
+name: Quest stage setter TIF__000C3698
+description: Keeps the LLM from firing a line whose script sets a quest stage.
+blacklist:
+  - TIF__000C3698

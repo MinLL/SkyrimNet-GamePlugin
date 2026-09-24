@@ -1,4 +1,0 @@
-kind: lists
-blacklist:
-  - TIF__000C3698
-  - nwsFollowerController

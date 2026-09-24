@@ -1,11 +1,7 @@
 kind: actor
+name: SkyrimNet filter factions
+description: NPCs in these SkyrimNet factions are always allowed or always blocked.
 FactionWhitelist:
-  - PaarthurnaxFaction
   - SkyrimNet_ActorWhitelistFaction
 FactionBlacklist:
   - SkyrimNet_ActorBlacklistFaction
-RaceBlacklist:
-  - ACLRaceCat
-  - DogRace
-  - ManakinRace
-  - WolfRace
