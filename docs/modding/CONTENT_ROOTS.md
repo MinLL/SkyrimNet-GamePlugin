@@ -59,8 +59,8 @@ it.
   it.
 - **`enabled:` in a record is the user's on/off toggle** wherever a record carries it. Spell and
   item records say whether the form appears in NPC equipment and spell lists in prompts with
-  `show_in_prompts: true|false` (true when omitted); `enabled` on those two roots, and the
-  field's old name `npc_usable`, are refused by the hub.
+  `show_in_prompts: true|false` (true when omitted); `enabled` on those two roots is refused by
+  the hub. `npc_usable`, the field's old name, is an unknown field there — not read, not refused.
 - **`kind:` picks the record type within a root** where a root holds more than one.
 - **A dialogue or TTS rule needs a `pattern`**: a non-empty regular expression of at most 1024
   bytes; the hub refuses one that is missing, empty, over-long or does not compile.
