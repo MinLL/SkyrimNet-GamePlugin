@@ -7,16 +7,19 @@ name: Publish base-index
 # at the pinned commit, exactly the way it fetches a hub plugin.
 #
 # Publishing model: bumping `version` in plugins/skyrimnet/base/manifest.json
-# IS the publish action. When a push to main changes the base tree and the
-# manifest carries a version the index does not know yet, a new entry
-# {version, commit, min_skyrimnet_version} is appended and base-index.json is
-# committed back. Pushes that leave the version unchanged (WIP content edits)
-# change nothing — the engine only ever sees versions that were deliberately
-# stamped.
+# proposes a publish. When a push to main changes the base tree and the
+# manifest carries a version the index does not know yet, this opens a PR
+# appending {version, commit, min_skyrimnet_version} to base-index.json.
+# Merging that PR is the publish: every build meeting min_skyrimnet_version
+# with auto-update on downloads the base at its next boot. Pushes that leave
+# the version unchanged change nothing.
 #
-# The committed entry pins GITHUB_SHA, so the fetch is immutable even if the
-# tree changes later. The workflow's own commit touches only base-index.json,
-# which is outside the path filter — no retrigger loop.
+# The entry pins the push's commit, which is already on main, so the fetch is
+# immutable whenever the PR is merged. The PR touches only base-index.json,
+# outside the path filter, so merging it does not retrigger this workflow.
+#
+# Needs "Allow GitHub Actions to create and approve pull requests" on
+# (Settings → Actions → General).
 
 on:
   push:
@@ -27,6 +30,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: publish-base-index
@@ -42,6 +46,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 0
 
       - name: Append entry if the manifest version is new
         id: update
@@ -73,6 +78,7 @@ jobs:
               return;
             }
 
+            const previous = index.entries.length ? index.entries[index.entries.length - 1] : null;
             index.generated_at = new Date().toISOString();
             index.entries.push({
               version,
@@ -81,14 +87,59 @@ jobs:
               date: index.generated_at,
             });
             fs.writeFileSync('base-index.json', JSON.stringify(index, null, 2) + '\n');
-            core.info(`Published base ${version} at ${context.sha}`);
+            core.info(`Proposing base ${version} at ${context.sha}`);
             core.setOutput('changed', 'true');
+            core.setOutput('version', version);
+            core.setOutput('min', min_skyrimnet_version);
+            core.setOutput('previous_version', previous ? previous.version : '');
+            core.setOutput('previous_commit', previous ? previous.commit : '');
 
-      - name: Commit base-index.json
+      - name: Open a PR adding the entry
         if: steps.update.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.update.outputs.version }}
+          MIN: ${{ steps.update.outputs.min }}
+          PREVIOUS_VERSION: ${{ steps.update.outputs.previous_version }}
+          PREVIOUS_COMMIT: ${{ steps.update.outputs.previous_commit }}
         run: |
+          # One open publish PR per version: a later push without a version bump leaves it alone.
+          open=$(gh pr list --state open --json number,headRefName \
+            -q ".[] | select(.headRefName | startswith(\"publish/base-${VERSION}-\")) | .number" | head -1)
+          if [ -n "$open" ]; then
+            echo "::notice::PR #${open} already proposes base ${VERSION}; close it and push again to re-pin."
+            exit 0
+          fi
+
+          branch="publish/base-${VERSION}-${GITHUB_SHA::7}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
           git add base-index.json
-          git commit -m "publish base-index: $(node -e "console.log(JSON.parse(require('fs').readFileSync('plugins/skyrimnet/base/manifest.json','utf8')).version)") [skip ci]"
-          git push
+          git commit -m "publish base ${VERSION}"
+          git push origin "$branch"
+
+          if [ -n "$PREVIOUS_COMMIT" ]; then
+            heading="Changed in \`plugins/skyrimnet/base\` since the previous published base (${PREVIOUS_VERSION}):"
+            changes=$(git diff --stat=100 "${PREVIOUS_COMMIT}..${GITHUB_SHA}" -- plugins/skyrimnet/base | tail -40)
+          else
+            heading="First publish: files per folder in \`plugins/skyrimnet/base\`:"
+            changes=$(git ls-tree -r --name-only "$GITHUB_SHA" -- plugins/skyrimnet/base | cut -d/ -f4 | sort | uniq -c)
+          fi
+          {
+            echo "Publishes base ${VERSION} to the out-of-band channel. On merge, every SkyrimNet build >= ${MIN} with auto-update on downloads this base at its next boot."
+            echo
+            echo "- Version: ${VERSION} (previous: ${PREVIOUS_VERSION:-none})"
+            echo "- Pinned commit: ${GITHUB_SHA} ($(git log -1 --format=%s "$GITHUB_SHA"))"
+            echo "- min_skyrimnet_version: ${MIN}"
+            echo
+            echo "$heading"
+            echo
+            echo '```'
+            echo "$changes"
+            echo '```'
+            echo
+            echo "Before merging: is ${MIN} the first release whose engine understands this content? If not, close this PR, raise min_skyrimnet_version in the base manifest, and push again."
+          } > pr-body.md
+
+          gh pr create --base main --head "$branch" --title "publish base ${VERSION}" --body-file pr-body.md
