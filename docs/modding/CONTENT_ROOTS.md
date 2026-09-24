@@ -59,18 +59,21 @@ it.
   it.
 - **`enabled:` in a record is the user's on/off toggle** wherever a record carries it. Spell and
   item records say whether the form appears in NPC equipment and spell lists in prompts with
-  `show_in_prompts: true|false` (true when omitted); `enabled` on those two roots, and the
-  field's old name `npc_usable`, are refused by the hub.
+  `show_in_prompts: true|false` (true when omitted); `enabled` on those two roots is refused by
+  the hub. `npc_usable`, the field's old name, is an unknown field there — not read, not refused.
 - **`kind:` picks the record type within a root** where a root holds more than one.
 - **A dialogue or TTS rule needs a `pattern`**: a non-empty regular expression of at most 1024
   bytes; the hub refuses one that is missing, empty, over-long or does not compile.
 - **`priority` on a filter rule or translator rule is an integer**: lower runs first, 100 when
   omitted, ties broken by path.
-- **Dialogue-action instructions** name a `category`: `quest`, `follower`, `merchant`,
-  `trainer`, `carriage`, `innkeeper`, `bard`, `marriage`, `crime` or `other`.
+- **Dialogue-action instructions** may name a `category`, which overrides the line's own
+  classification: `quest`, `follower`, `merchant`, `trainer`, `carriage`, `innkeeper`, `bard`,
+  `marriage`, `crime` or `other`.
 - **Contributions union.** A `filters/` `kind: actor` or `kind: memory` file (any of
   `FactionWhitelist`, `FactionBlacklist`, `RaceWhitelist`, `RaceBlacklist`, `GenderWhitelist`,
   `GenderBlacklist`, each a list of strings), and a `dialogue_actions/` `kind: lists` file
   (`whitelist`, `blacklist`), add their entries to the user's lists; the user's remedy is the
-  file's toggle. A whitelist contribution widens what may speak or fire.
+  file's toggle. A whitelist contribution widens what may speak or fire. Give each file an
+  optional `name` and `description`: the dashboard lists every contribution by them. Keep one
+  purpose per file, as base does, so a user can switch off exactly what they don't want.
 - **Size.** 64 KB per voice-effect recipe, 32 KB per record elsewhere, 1 MB per knowledge pack.
