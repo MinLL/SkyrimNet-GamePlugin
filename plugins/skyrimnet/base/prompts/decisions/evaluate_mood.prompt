@@ -16,9 +16,11 @@
 [ end state ]
 
 [ state speaker_last_line ]
+{# The game passes the line it just generated; the event for it may not be registered yet. #}
 {% set _last = "" %}
+{% if exists("speaker_last_line") and speaker_last_line != "" %}{% set _last = speaker_last_line %}{% endif %}
 {% for event in get_recent_events(maxRecentEvents, speaker) %}
-{% if event.originatingActor == speaker and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_background") %}
+{% if _last == "" and event.originatingActor == speaker and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_background") %}
 {% set _last = format_event(event, "compact") %}
 {% endif %}
 {% endfor %}
