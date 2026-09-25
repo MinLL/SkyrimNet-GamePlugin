@@ -1,0 +1,39 @@
+{# Decision template: the speaker's mood as one choice over the mood list. Rendered into a
+   decisions request (state fields + a typed question), never into chat messages. Sent when
+   dialogue.decisions.useForMood is on; the chat prompt helpers/evaluate_mood is the fallback. #}
+{% set _spk = decnpc(speaker) %}
+[ state speaker ]
+{{ _spk.name }}, {{ _spk.gender }} {{ _spk.race }}. Current mood: {{ get_actor_mood(speaker) }}.
+{{ render_character_profile("short_inline", speaker) }}
+[ end state ]
+
+[ state location ]
+{{ get_location(speaker) }}
+[ end state ]
+
+[ state recent_dialogue ]
+{{ render_template("components\\event_history_compact") }}
+[ end state ]
+
+[ state speaker_last_line ]
+{% set _last = "" %}
+{% for event in get_recent_events(maxRecentEvents, speaker) %}
+{% if event.originatingActor == speaker and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_background") %}
+{% set _last = format_event(event, "compact") %}
+{% endif %}
+{% endfor %}
+{% if _last != "" %}{{ _last }}{% else %}{{ _spk.name }} has not spoken recently.{% endif %}
+[ end state ]
+
+[ question mood choice ]
+Decide the emotional state {{ _spk.name }} is in right now.
+`speaker_last_line` is the line {{ _spk.name }} just delivered; it carries the most weight.
+`recent_dialogue` is what {{ _spk.name }} heard and said before that, oldest first.
+`speaker` describes who {{ _spk.name }} is; their usual temperament shapes how strongly events move them.
+Pick the single mood that best fits the tone of the last line in the context of the exchange. If nothing in the exchange pushes the speaker away from calm, choose NEUTRAL.
+[ criteria ]
+{% for mood in moodsList %}
+{{ mood }}: {{ mood_description(mood) }}
+{% endfor %}
+[ end criteria ]
+[ end question ]

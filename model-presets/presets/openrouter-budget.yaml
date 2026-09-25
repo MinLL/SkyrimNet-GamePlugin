@@ -67,6 +67,12 @@ variants:
       - { name: deepseek/deepseek-v4-flash, provider_id: openrouter, temperature: 0.7 }
     default_params: { temperature: 0.7, max_tokens: 100 }
 
+  decisions:
+    model_name: typesafe/jev-1.13
+    timeout: 10
+    model_params:
+      - { name: typesafe/jev-1.13, provider_id: openrouter, max_retries: 0 }
+
   vision:
     model_name: google/gemma-4-26b-a4b-it
     model_params:
