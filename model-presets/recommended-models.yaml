@@ -27,17 +27,25 @@ openrouter:
     - id: qwen/qwen3-235b-a22b-2507
     - id: z-ai/glm-4.7
     - id: google/gemma-4-31b-it
+    - id: google/gemma-4-26b-a4b-it
 
   meta:
+    - id: deepseek/deepseek-v4.1-flash
     - id: deepseek/deepseek-v4-flash
     - id: google/gemini-2.5-flash
 
   combat:
+    - id: google/gemma-4-26b-a4b-it
+    - id: google/gemma-4-31b-it
+    - id: deepseek/deepseek-v4.1-flash
     - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
     - id: qwen/qwen3-235b-a22b-2507
 
   action_evaluation:
+    - id: google/gemma-4-31b-it
+    - id: google/gemma-4-26b-a4b-it
+    - id: anthropic/claude-sonnet-4.6
     - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
 
@@ -94,17 +102,25 @@ nanogpt:
     - id: Qwen/Qwen3-235B-A22B-Instruct-2507
     - id: zai-org/glm-4.7
     - id: google/gemma-4-31b-it
+    - id: google/gemma-4-26b-a4b-it
 
   meta:
+    - id: deepseek/deepseek-v4.1-flash
     - id: deepseek/deepseek-v4-flash
     - id: gemini-2.5-flash
 
   combat:
+    - id: google/gemma-4-26b-a4b-it
+    - id: google/gemma-4-31b-it
+    - id: deepseek/deepseek-v4.1-flash
     - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
     - id: Qwen/Qwen3-235B-A22B-Instruct-2507
 
   action_evaluation:
+    - id: google/gemma-4-31b-it
+    - id: google/gemma-4-26b-a4b-it
+    - id: anthropic/claude-sonnet-4.6
     - id: deepseek/deepseek-v4-flash
     - id: deepseek/deepseek-v3.2
 
