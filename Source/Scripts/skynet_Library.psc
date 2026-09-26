@@ -6,17 +6,7 @@ skynet_MinAIBridge Property minAIBridge Auto Hidden
 ; -----------------------------------------------------------------------------
 ; --- The Library Part of the Library ---
 ; -----------------------------------------------------------------------------
-Faction Property factionMerchants Auto
-Faction Property factionInnkeepers Auto
-Faction Property factionStewards Auto
 Faction Property factionPlayerFollowers Auto
-
-Faction Property factionRentRoom Auto
-
-Quest Property questDialogueGeneric Auto
-Quest Property questBountyBandits Auto
-
-GlobalVariable Property globalRentRoomPrice Auto
 
 Keyword Property keywordDialogueTarget Auto
 Keyword Property keywordFollowTarget Auto
@@ -24,8 +14,6 @@ Keyword Property keywordFollowTarget Auto
 Package Property packageDialoguePlayer Auto
 Package Property packageDialogueNPC Auto
 Package Property packageFollowPlayer Auto
-
-MiscObject Property miscGold Auto
 
 Message Property msgClearHistory Auto
 Message Property msgDiaryScope Auto
@@ -82,16 +70,6 @@ Function RegisterActions()
         return
     endif
 
-    if !RegisterCompanionActions()
-        skynet.Fatal("Companion actions failed to register.")
-        return
-    endif
-
-    if !RegisterTavernActions()
-        skynet.Fatal("Tavern actions failed to register.")
-        return
-    endif
-
     ; DEBUG ONLY
     ; debug.notification("Actions registered.")
 EndFunction
@@ -101,12 +79,6 @@ EndFunction
 ; -----------------------------------------------------------------------------
 
 Bool Function RegisterBasicActions()
-    SkyrimNetApi.RegisterAction("OpenTrade", "Use ONLY if {{ player.name }} asks to trade and you agree to trade. Otherwise, you MUST NOT use this action.", \
-                                "SkyrimNetInternal", "OpenTrade_IsEligible", \
-                                "SkyrimNetInternal", "OpenTrade_Execute", \
-                                "", "PAPYRUS", \
-                                1, "")
-
     SkyrimNetApi.RegisterAction("AccompanyTarget", "Start accompanying {{ player.name }}. Only use this when you are sure that you want to stop what you're doing and follow {{ player.name }} to another location, and {{ player.name }} has specifically requested it.", \
                                 "SkyrimNetInternal", "StartFollow_IsEligible", \
                                 "SkyrimNetInternal", "StartFollow_Execute", \
@@ -124,102 +96,6 @@ Bool Function RegisterBasicActions()
                                 "SkyrimNetInternal", "PauseFollow_Execute", \
                                 "", "PAPYRUS", \
                                 1, "")
-    return true
-EndFunction
-
-; we reoute stuff here if it has properties we can use so we're not in the global anymore
-Bool Function OpenTrade_IsEligible(Actor akActor, string contextJson, string paramsJson)
-    if akActor.GetFactionRank(factionMerchants) == -2
-        return false
-    endif
-    return true
-EndFunction
-
-Bool Function RegisterTavernActions()
-    SkyrimNetApi.RegisterAction("RentRoom", "Rent a room out to {{ player.name }} for an amount of gold, but only if they agreed to the price beforehand", \
-                                "SkyrimNetInternal", "RentRoom_IsEligible", \
-                                "SkyrimNetInternal", "RentRoom_Execute", \
-                                "", "PAPYRUS", \
-                                1, "{\"price\": \"Int\"}")
-
-    ; SkyrimNetApi.RegisterAction("GiveBanditBounty", "Hand {{ player.name }} a bounty poster for a bounty on a bandit leader by the local jarl", \
-    ;                             "SkyrimNetInternal", "GiveBanditBounty_IsEligible", \
-    ;                             "SkyrimNetInternal", "GiveBanditBounty_Execute", \
-    ;                             "", "PAPYRUS", \
-    ;                             1, "")
-
-    return True
-EndFunction
-
-Bool Function RentRoom_IsEligible(Actor akActor)
-    if !akActor.IsInFaction(factionRentRoom) || akActor.GetActorValue("Variable09") > 0
-        return false
-    EndIf
-
-    if !(akActor as RentRoomScript)
-        return false
-    endif
-
-    return true
-EndFunction
-
-Function RentRoom_Execute(Actor akActor, string paramsJson)
-    DialogueGenericScript _dqs = (questDialogueGeneric as DialogueGenericScript)
-
-    if (!(akActor as RentRoomScript)) || (!_dqs)
-        return
-    endif
-
-    Int price = SkyrimNetApi.GetJsonInt(paramsJson, "price", Math.Floor(globalRentRoomPrice.GetValue()))
-    if skynet.playerRef.GetItemCount(miscGold) < price
-        SkyrimNetApi.DirectNarration("*" + akActor.GetDisplayName() + " complains to " + Game.GetPlayer().GetDisplayName() + " about not having enough gold for the room*", akActor, Game.GetPlayer())
-        return
-    EndIf
-
-    skynet.playerRef.RemoveItem(miscGold, price)
-    (akActor as RentRoomScript).RentRoom(_dqs)
-    return
-EndFunction
-
-; Bool Function GiveBanditBounty_IsEligible(Actor akActor)
-;     if (!akActor.IsInFaction(factionInnkeepers) && !akActor.IsInFaction(factionStewards)) || questBountyBandits.GetStageDone(10)
-;         return false
-;     EndIf
-
-;     return true
-; EndFunction
-
-; Function GiveBanditBounty_Execute(Actor akActor)
-;     questBountyBandits.SetStage(10)
-;     return
-; EndFunction
-
-
-Bool Function RegisterCompanionActions()
-    SkyrimNetApi.RegisterAction("CompanionFollow", "Start following {{ player.name }}.", \
-                                "SkyrimNetInternal", "CompanionFollow_IsEligible", \
-                                "SkyrimNetInternal", "CompanionFollow", \
-                                "", "PAPYRUS", \
-                                1, "", "", "follower")
-
-    SkyrimNetApi.RegisterAction("CompanionWait", "Wait at this location", \
-                                "SkyrimNetInternal", "CompanionWait_IsEligible", \
-                                "SkyrimNetInternal", "CompanionWait", \
-                                "", "PAPYRUS", \
-                                1, "", "", "follower")
-
-    SkyrimNetApi.RegisterAction("CompanionInventory", "Give {{ player.name }} access to your inventory", \
-                                "SkyrimNetInternal", "Companion_IsEligible", \
-                                "SkyrimNetInternal", "CompanionInventory", \
-                                "", "PAPYRUS", \
-                                1, "", "", "follower")
-
-    SkyrimNetApi.RegisterAction("CompanionGiveTask", "Let {{ player.name }} designate a task for you", \
-                                "SkyrimNetInternal", "CompanionGiveTask_IsEligible", \
-                                "SkyrimNetInternal", "CompanionGiveTask", \
-                                "", "PAPYRUS", \
-                                1, "", "", "follower")
-
     return true
 EndFunction
 

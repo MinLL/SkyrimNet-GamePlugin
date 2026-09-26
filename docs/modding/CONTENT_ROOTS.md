@@ -23,6 +23,7 @@ pre-Beta 25 folders is in `MIGRATING_TO_BETA25.md`.
 | `filters/` | `.yaml` `kind: actor` / `memory` list contribution, or `kind: dialogue_rule` / `tts_rule` | contributions: anything; rules: `id` | Beta 25 (0.25.0) | yes |
 | `translator/` | `.yaml` `kind: npc` / `faction` / `race` / `global` speech rule | npc: form stem of `form`; faction, race: `entityEditorId`; global: `global.yaml` | Beta 25 (0.25.0) | yes |
 | `dialogue_actions/` | `.yaml` `kind: lists` contribution or `kind: instruction` | lists: anything; instructions: `key` | Beta 25 (0.25.0) | yes |
+| `settings/` | `.yaml` plugin settings schema (the plugin's Settings page) | the whole name before `.yaml` is the config name, `Plugin_{Name}` | after Beta 25 rc11 (reserved on the Hub until released) | yes |
 
 The eight roots from `voice_effects/` down are the config-system roots: the customizations a
 user otherwise keeps in their own `config/`, shipped as content, one record per file, with the
@@ -31,6 +32,12 @@ eight, and a plugin shipping one must declare a `min_skyrimnet_version` of at le
 because an engine older than the release does not know the root — the hub installer refuses the
 whole plugin, and a third-party `external/` layer logs a warning naming the directory and skips
 it.
+
+`settings/` holds a plugin's own Settings page schema: `settings/{Name}.yaml`, directly under the
+root, `{Name}` in letters, digits, `_` and `-`. It replaces the legacy
+`config/plugins/{Name}/manifest.yaml` (which still works; the `settings/` file wins when both
+exist). Players' values stay in `config/plugins/{Name}/settings.yaml`. It is mod-internal: the
+Hub never counts or shows it. See "Plugin settings" in `MIGRATING_TO_BETA25.md`.
 
 ## Rules that apply to every record root
 

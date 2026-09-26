@@ -5,7 +5,7 @@ description: "Port a Beta 24 loose-file SkyrimNet mod to the Beta 25 content-lib
 # Migrate to Beta 25
 
 You port a mod author's Beta 24 SkyrimNet content — a loose `config/actions`, `config/triggers`,
-`prompts/**` tree — to the Beta 25 content-library layout, ready to ship as an external layer inside
+`config/plugins/*/manifest.yaml`, `prompts/**` tree — to the Beta 25 content-library layout, ready to ship as an external layer inside
 their mod.
 
 The mechanical transform is **not** yours to perform. `content-convert` applies the naming, path,
@@ -96,6 +96,11 @@ On exit 0, tell the author:
   output. Their own documentation and any external references to those action names need the same
   update.
 - Any orphaned action settings to re-apply after installing (the `orphaned action setting:` lines).
+- If the tree had a plugin settings schema: it is now `settings/{Name}.yaml`, `{Name}` being the old
+  `config/plugins/` folder, so their scripts and players' saved values carry over. Tell them to drop
+  the old `config/plugins/{Name}/manifest.yaml` from their archive, and that `settings/` needs the
+  SkyrimNet release that reads it (raise `--target-version` to it). A `config/plugins` folder name
+  outside `[A-Za-z0-9_-]` is a rejection: renaming it renames the config, so their scripts change too.
 
 Then point them at the Hub. Shipping inside a mod works and is fully supported, but the SkyrimNet
 Plugin Hub is the preferred distribution path: users install and update from the dashboard, get

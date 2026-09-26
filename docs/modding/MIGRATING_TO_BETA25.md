@@ -92,6 +92,7 @@ Do not ship files into `library/`. A folder there that SkyrimNet did not install
     triggers/
     actions/
     knowledge/
+    settings/      your plugin's Settings page, if it has one
 ```
 
 | Before | After |
@@ -100,6 +101,7 @@ Do not ship files into `library/`. A folder there that SkyrimNet did not install
 | `config/triggers/*.yaml` | `triggers/*.yaml` |
 | `config/actions/*.yaml` | `actions/*.yaml` |
 | `.sknpack` files | `knowledge/*.sknpack`, re-exported from Beta 25 |
+| `config/plugins/{Name}/manifest.yaml` | `settings/{Name}.yaml`, unchanged |
 
 Prompts resolve as before. `prompts/characters/Lydia.prompt` is still Lydia's bio,
 `prompts/submodules/character_bio/0301_mymod.prompt` is still picked up as a submodule, and a
@@ -128,6 +130,25 @@ those settings for players who changed them. The dashboard lists the affected ac
 
 Extensions are exact and case-sensitive: `.yaml`, `.prompt`, `.sknpack`. `.yml` and `.YAML`
 are rejected.
+
+### Plugin settings
+
+A plugin with its own page under **Settings > Plugins** used to ship its schema as
+`config/plugins/{Name}/manifest.yaml`. Ship it inside the plugin instead, as
+`settings/{Name}.yaml`. The file format does not change.
+
+- **Keep the folder name.** `{Name}` is the config's name: `Plugin_{Name}` on the settings page,
+  `PublicGetPluginConfig("{Name}")` and the `SkyrimNet_OnPluginConfigSaved` event all use it.
+  Name the file after your old folder and your scripts keep working. Letters, digits, `_` and
+  `-` only; a folder name with anything else has to be renamed, and your scripts with it.
+- **Players keep their values.** They stay in `config/plugins/{Name}/settings.yaml`, which the
+  plugin never ships or replaces.
+- **The old path still works.** If both files exist, `settings/` wins and `SkyrimNet.log` warns
+  that the old one is ignored. Remove the old file from your archive once you ship the new one.
+- **It updates with the plugin.** A changed schema applies on the next content reload, no restart.
+- `settings/` needs the SkyrimNet release that reads it; set `min_skyrimnet_version` to it. The
+  `content-convert` tool moves the file for you. The in-game **Import Old Content** does not:
+  a copy in a player's own layer would hide your updates.
 
 ### Knowledge packs
 
@@ -264,6 +285,7 @@ Worth putting in your mod description:
 - [ ] Trigger and action filenames equal their in-file `name` (case-insensitively; keep your casing)
 - [ ] Extensions exactly `.prompt`, `.yaml`, `.sknpack`
 - [ ] Knowledge packs re-exported from Beta 25
+- [ ] Plugin settings schema moved to `settings/{Name}.yaml`, `{Name}` equal to the old `config/plugins/` folder
 - [ ] No per-playthrough or generated bios
 - [ ] `manifest.json` with valid `id`, semver `version`, `min_skyrimnet_version`
 - [ ] Folder name equals `id` (external layers)
