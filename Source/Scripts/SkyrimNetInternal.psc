@@ -96,114 +96,6 @@ EndFunction
 ; --- Papyrus Actions ---
 ; -----------------------------------------------------------------------------
 
-; Eligibility function for a "OpenTrade" action
-bool Function OpenTrade_IsEligible(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] OpenTrade_IsEligible called for " + akActor.GetDisplayName())
-    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
-    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
-    
-    ; we first check stuff that we can check from global scope for optimization
-    if akActor.IsInCombat()
-        return false
-    endif
-
-    ; we then reroute the request to only load from file one thing instead of potentially dozens
-    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
-    if !skynet
-        Debug.MessageBox("Fatal Error: OpenTrade_IsEligible failed to retrieve controller.")
-        return false
-    endif
-
-    return skynet.libs.OpenTrade_IsEligible(akActor, contextJson, paramsJson)
-EndFunction
-
-; Execution function for a "OpenTrade" action
-Function OpenTrade_Execute(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] OpenTrade_Execute called for " + akActor.GetDisplayName())
-    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
-    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
-
-    akActor.ShowBarterMenu()
-EndFunction
-
-
-; Companion stuff
-bool Function Companion_IsEligible(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] Companion_IsEligible called for " + akActor.GetDisplayName())
-    Debug.Trace("[SkyrimNetInternal] Companion_IsEligible: " + akActor.GetDisplayName() + " is eligible (faction check handled by follower tag).")
-    return true
-EndFunction
-
-Function CompanionInventory(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] CompanionInventory called for " + akActor.GetDisplayName())
-    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
-    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
-
-    akActor.OpenInventory()
-EndFunction
-
-bool Function CompanionFollow_IsEligible(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible called for " + akActor.GetDisplayName())
-
-    if akActor.GetActorValue("WaitingForPlayer") == 0
-        Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: " + akActor.GetDisplayName() + " is already following.")
-        return false
-    endif
-
-    Debug.Trace("[SkyrimNetInternal] CompanionFollow_IsEligible: " + akActor.GetDisplayName() + " is eligible (faction check handled by follower tag).")
-    return true
-EndFunction
-
-Function CompanionFollow(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] CompanionFollow called for " + akActor.GetDisplayName())
-    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
-    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
-
-    akActor.SetActorValue("WaitingForPlayer", 0)
-    akActor.EvaluatePackage()
-EndFunction
-
-bool Function CompanionWait_IsEligible(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible called for " + akActor.GetDisplayName())
-
-    if akActor.GetActorValue("WaitingForPlayer") == 1
-        Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: " + akActor.GetDisplayName() + " is already waiting.")
-        return false
-    endif
-
-    Debug.Trace("[SkyrimNetInternal] CompanionWait_IsEligible: " + akActor.GetDisplayName() + " is eligible (faction check handled by follower tag).")
-    return true
-EndFunction
-
-Function CompanionWait(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] CompanionWait called for " + akActor.GetDisplayName())
-    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
-    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
-
-    akActor.SetActorValue("WaitingForPlayer", 1)
-    akActor.EvaluatePackage()
-EndFunction
-
-bool Function CompanionGiveTask_IsEligible(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible called for " + akActor.GetDisplayName())
-
-    if akActor.IsDoingFavor()
-        Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: " + akActor.GetDisplayName() + " is already doing a favor.")
-        return false
-    endif
-
-    Debug.Trace("[SkyrimNetInternal] CompanionGiveTask_IsEligible: " + akActor.GetDisplayName() + " is eligible (faction check handled by follower tag).")
-    return true
-EndFunction
-
-Function CompanionGiveTask(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] CompanionGiveTask called for " + akActor.GetDisplayName())
-    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
-    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
-
-    akActor.SetDoingFavor(true)
-EndFunction
-
 ; Basic Follow
 
 bool Function StartFollow_IsEligible(Actor akActor, string contextJson, string paramsJson) global
@@ -287,34 +179,6 @@ Function PauseFollow_Execute(Actor akActor, string contextJson, string paramsJso
     skynet.libs.PauseFollow_Execute(akActor)
 EndFunction
 
-; Tavern actions
-bool Function RentRoom_IsEligible(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] RentRoom_IsEligible called for " + akActor.GetDisplayName())
-
-    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
-    if !skynet
-        Debug.MessageBox("Fatal Error: RentRoom_IsEligible failed to retrieve controller.")
-        return false
-    endif
-
-    return skynet.libs.RentRoom_IsEligible(akActor)
-EndFunction
-
-Function RentRoom_Execute(Actor akActor, string contextJson, string paramsJson) global
-    Debug.Trace("[SkyrimNetInternal] RentRoom_Execute called for " + akActor.GetDisplayName())
-    Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
-    Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
-
-    skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
-    if !skynet
-        Debug.MessageBox("Fatal Error: RentRoom_Execute failed to retrieve controller.")
-        return
-    endif
-
-    Debug.Trace("[SkyrimNetInternal] RentRoom_Execute: Starting follow on " + akActor.GetDisplayName())
-    skynet.libs.RentRoom_Execute(akActor, paramsJson)
-EndFunction
-
 Function ResetFacialAnimations(Actor akActor) global
     if (akActor.IsOnMount())
         akActor.RegenerateHead()
@@ -322,33 +186,6 @@ Function ResetFacialAnimations(Actor akActor) global
         akActor.QueueNiNodeUpdate()
     endif
 EndFunction
-
-; bool Function GiveBanditBounty_IsEligible(Actor akActor, string contextJson, string paramsJson) global
-;     Debug.Trace("[SkyrimNetInternal] GiveBanditBounty_IsEligible called for " + akActor.GetDisplayName())
-
-;     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
-;     if !skynet
-;         Debug.MessageBox("Fatal Error: GiveBanditBounty_IsEligible failed to retrieve controller.")
-;         return false
-;     endif
-
-;     return skynet.libs.GiveBanditBounty_IsEligible(akActor)
-; EndFunction
-
-; Function GiveBanditBounty_Execute(Actor akActor, string contextJson, string paramsJson) global
-;     Debug.Trace("[SkyrimNetInternal] GiveBanditBounty_Execute called for " + akActor.GetDisplayName())
-;     Debug.Trace("[SkyrimNetInternal] ContextJSON: " + contextJson)
-;     Debug.Trace("[SkyrimNetInternal] ParamsJSON: " + paramsJson)
-
-;     skynet_MainController skynet = ((Game.GetFormFromFile(0x0802, "SkyrimNet.esp") as Quest) As skynet_MainController)
-;     if !skynet
-;         Debug.MessageBox("Fatal Error: GiveBanditBounty_Execute failed to retrieve controller.")
-;         return
-;     endif
-
-;     Debug.Trace("[SkyrimNetInternal] GiveBanditBounty_Execute: Starting follow on " + akActor.GetDisplayName())
-;     skynet.libs.GiveBanditBounty_Execute(akActor)
-; EndFunction
 
 ; -----------------------------------------------------------------------------
 ; --- General Eligibility Functions ---
