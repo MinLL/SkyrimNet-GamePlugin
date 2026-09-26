@@ -1,0 +1,69 @@
+{# Decision template: who speaks next and to whom, as one choice over the legal (speaker, target)
+   pairs the game enumerated. Rendered into a decisions request, never into chat messages. Sent when
+   dialogue.decisions.useForSpeakerSelection is on; target_selectors/dialogue_speaker_selector is
+   the chat fallback.
+
+   Context set by the game: decision_pairs (key, speakerUUID, speakerName, targetKind, targetUUID,
+   targetName), decision_speakers (UUID, name, distance, isVirtual, isPrivateVirtual), allow_silence,
+   plus lastSpeaker, lastDialogueTarget, playerState, location, triggeringEvent, maxRecentEvents.
+   Restrictions (no last speaker, no self-target, virtual-NPC rules) are already applied to the pairs.
+
+   A criterion is one line; profiles and other multi-line decorators belong in the state blocks. #}
+{% set ss = get_speaker_selector_settings() %}
+{% set tagCompanion = ss.tagCompanion %}
+{% set tagEngaged = ss.tagEngaged %}
+{% set tagInScene = ss.tagInScene %}
+
+[ state location ]
+{{ location }}
+[ end state ]
+
+[ state player ]
+{{ player.name }}. {{ playerState.description }}
+[ end state ]
+
+[ state recent_dialogue ]
+{{ render_template("components\\event_history_compact") }}
+[ end state ]
+
+[ state last_exchange ]
+{% if existsIn(lastSpeaker, "name") and existsIn(lastDialogueTarget, "name") %}
+{{ lastSpeaker.name }} was speaking to {% if lastDialogueTarget.UUID == player.UUID %}the player{% else %}{{ lastDialogueTarget.name }}{% endif %}.
+{% else if existsIn(lastSpeaker, "name") %}
+{{ lastSpeaker.name }} made a general comment with no specific target.
+{% else %}
+No one has spoken yet.
+{% endif %}
+[ end state ]
+
+[ state candidates ]
+{% for c in decision_speakers %}
+{% set cinfo = decnpc(c.UUID) %}
+{{ cinfo.name }}{% if cinfo.isVirtual %} (virtual NPC){% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_package(c.UUID, "SkyrimNet_PlayerFollowPackage") %} [ENGAGED]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
+- {{ render_character_profile("short_inline", c.UUID) }}
+- Interjection: {{ render_character_profile("interject_inline", c.UUID) }}
+{% endfor %}
+{% if tagCompanion or tagEngaged or tagInScene %}
+Tags: {% if tagCompanion %}[COMPANION] is the player's active follower and reacts to what happens around the player. {% endif %}{% if tagEngaged %}[ENGAGED] has a lower threshold to speak; several ENGAGED NPCs must not crowd out everyone else. {% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene and speaks only if addressed by name. {% endif %}
+{% endif %}
+[ end state ]
+
+[ question speaker choice ]
+Decide who speaks next and to whom. Each option names a speaker and the person they address.
+`recent_dialogue` is the conversation so far, oldest first; the last entry is what just happened.
+`last_exchange` says who was talking to whom a moment ago. Someone who was addressed and has not answered is the natural next speaker, and they answer the person who addressed them.
+`candidates` describes each possible speaker and their Interjection guidance; follow that guidance.
+A speaker who was directly addressed, asked a question, given a request, or whose duty the situation calls for is the one to choose. A companion who witnessed something involving the player has a reason to speak; a bystander listed only because they are nearby does not.
+Choose a player target only when the line is genuinely for {{ player.name }}. After two or three exchanges between the same two NPCs the topic is usually spent; the next line pivots to the player or the scene goes quiet.
+{% if allow_silence %}
+Choose `none` when the last line closed the exchange (a farewell, thanks, an answered question, an agreement), when {{ player.name }} was asked a direct question and should answer, when the same two NPCs are looping, or when no one has a concrete reason to speak. Do not choose `none` when someone was asked a question they have not answered, or when something dramatic, dangerous, funny or unexpected just happened.
+{% endif %}
+[ criteria ]
+{% for p in decision_pairs %}
+{{ p.key }}: {{ p.speakerName }}{% if tagCompanion and is_follower(p.speakerUUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_package(p.speakerUUID, "SkyrimNet_PlayerFollowPackage") %} [ENGAGED]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(p.speakerUUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(p.speakerUUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %} speaks to {% if p.targetKind == "player" %}the player, {{ p.targetName }}{% else %}{{ p.targetName }}{% endif %}
+{% endfor %}
+{% if allow_silence %}
+none: No one speaks. The conversation pauses or ends here.
+{% endif %}
+[ end criteria ]
+[ end question ]
