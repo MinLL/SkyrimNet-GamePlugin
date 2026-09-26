@@ -393,8 +393,9 @@ mcp_skyrimnet-mcp_execute_quest_function:
 name: "OpenTrade"
 description: "Use ONLY if {{ player.name }} asks to trade and you agree. Otherwise, do NOT use this action."
 
-questEditorId: "SkyrimNetQuest"
-scriptName: "SkyrimNetInternal"
+# Your mod's quest and script; OpenTrade_Execute calls akActor.ShowBarterMenu()
+questEditorId: "MyMod_Quest"
+scriptName: "MyMod_Actions"
 executionFunctionName: "OpenTrade_Execute"
 
 parameterMapping: []
