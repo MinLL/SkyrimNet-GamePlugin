@@ -1,0 +1,73 @@
+{# Decision template: who the player is addressing, as one choice over the legal (speaker, target)
+   pairs the game enumerated, or no one. Rendered into a decisions request, never into chat messages.
+   Sent when dialogue.decisions.useForPlayerTarget is on; target_selectors/player_dialogue_target_selector
+   is the chat fallback.
+
+   Context set by the game: decision_pairs (key, speakerUUID, speakerName, targetKind, targetUUID,
+   targetName), decision_speakers (UUID, name, distance, isVirtual, isPrivateVirtual), triggeringEvent
+   (the player's line), crosshairTarget, lastSpeaker, lastDialogueTarget, events, maxRecentEvents.
+   The speaker of a pair is the NPC who answers; the virtual-NPC rules and no self-target are already
+   applied to the pairs. Keys are short and numbered per request (s2_tplayer, s2_t5); use p.key as given.
+   When the answer is none, nobody replies to the player.
+
+   A criterion is one line; profiles and other multi-line decorators belong in the state blocks. #}
+{% set ss = get_speaker_selector_settings() %}
+{% set tagCompanion = ss.tagCompanion %}
+{% set tagEngaged = ss.tagEngaged %}
+{% set tagInScene = ss.tagInScene %}
+
+[ state player_line ]
+{{ player.name }}: {{ format_event(triggeringEvent, "verbose") }}
+[ end state ]
+
+[ state looking_at ]
+{% if crosshairTarget and crosshairTarget.UUID and crosshairTarget.UUID != 0 %}
+{{ player.name }} is looking directly at {{ crosshairTarget.name }} ({{ units_to_meters(crosshairTarget.distance) }}m away).{% if is_unconscious(crosshairTarget.UUID) %} {{ crosshairTarget.name }} is unconscious and cannot reply.{% endif %}
+{% else %}
+{{ player.name }} is not looking at anyone in particular.
+{% endif %}
+[ end state ]
+
+[ state location ]
+{{ location }}
+[ end state ]
+
+[ state recent_dialogue ]
+{{ render_template("components\\event_history_compact") }}
+[ end state ]
+
+[ state last_exchange ]
+{% if existsIn(lastSpeaker, "name") and existsIn(lastDialogueTarget, "name") %}
+{{ lastSpeaker.name }} was speaking to {% if lastDialogueTarget.UUID == player.UUID %}{{ player.name }}{% else %}{{ lastDialogueTarget.name }}{% endif %}.
+{% else if existsIn(lastSpeaker, "name") %}
+{{ lastSpeaker.name }} made a general comment with no specific target.
+{% else %}
+No one has spoken yet.
+{% endif %}
+[ end state ]
+
+[ state nearby ]
+{% for c in decision_speakers %}
+{% set cinfo = decnpc(c.UUID) %}
+{{ cinfo.name }}{% if cinfo.isVirtual %} (virtual NPC){% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_package(c.UUID, "SkyrimNet_PlayerFollowPackage") %} [ENGAGED]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
+- {{ render_character_profile("short_inline", c.UUID) }}
+{% endfor %}
+{% if tagCompanion or tagEngaged or tagInScene %}
+Tags: {% if tagCompanion %}[COMPANION] is the player's active follower, the usual audience for a general comment or a request for an opinion. {% endif %}{% if tagEngaged %}[ENGAGED] is already in conversation with the player. {% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene. {% endif %}
+{% endif %}
+[ end state ]
+
+[ question target choice ]
+Decide who {{ player.name }} is speaking to in `player_line`, and so who answers. Each option names the person addressed and who they then speak to.
+`recent_dialogue` is the conversation so far, oldest first. `last_exchange` says who was talking to whom a moment ago: a line that continues that exchange (a reply, thanks, an answer to a question, a follow-up) is for the person {{ player.name }} was just dealing with.
+`looking_at` is who {{ player.name }} is facing; someone faced directly is very likely the one addressed, unless the line names somebody else.
+`nearby` describes everyone in earshot and how far away they are. A name or clear reference in the line decides it. Otherwise prefer the person in the ongoing exchange, then the person whose role the line fits, then someone close by over someone far away.
+Choose an option where the person addressed speaks to another NPC only when {{ player.name }} asks them to talk to, ask or tell that NPC something.
+Choose `none` only when the line is plainly for no one: thinking aloud, or a remark no one present could be expected to answer. A line with no name in it that follows an exchange is for the person in that exchange, not for no one.
+[ criteria ]
+{% for p in decision_pairs %}
+{{ p.key }}: {% if p.targetKind == "player" %}{{ player.name }} is speaking to {{ p.speakerName }}, who answers {{ player.name }}{% else %}{{ player.name }} is asking {{ p.speakerName }} to speak to {{ p.targetName }}{% endif %}
+{% endfor %}
+none: {{ player.name }} is speaking to no one in particular.
+[ end criteria ]
+[ end question ]

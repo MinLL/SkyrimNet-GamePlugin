@@ -345,7 +345,7 @@ key: description of this option (one option per line; the description may be emp
 [ end question ]
 ```
 
-Question types are `choice` (pick one key; the criteria are `key: description` lines), `score` (one ordered level per criteria line, lowest first, 2 to 10 levels) and `noul` (a yes/no; optional `true:` / `false:` criteria lines). A criterion is exactly one line, so multi-line decorators such as `render_character_profile` belong in a `[ state ]` block, not inside `[ criteria ]`. The game reads answers by question id and option key (for example the `mood` question's keys are the mood names, and the speaker selector's keys are provided in `decision_pairs`), so keep those as shipped and edit the wording around them.
+Question types are `choice` (pick one key; the criteria are `key: description` lines), `score` (one ordered level per criteria line, lowest first, 2 to 10 levels) and `noul` (a yes/no; optional `true:` / `false:` criteria lines). A criterion is exactly one line, so multi-line decorators such as `render_character_profile` belong in a `[ state ]` block, not inside `[ criteria ]`. The game reads answers by question id and option key (for example the `mood` question's keys are the mood names, and the keys of the speaker selector and the player target selector are provided in `decision_pairs`), so keep those as shipped and edit the wording around them.
 
 ### Step 4.5: Indentation and Whitespace
 
