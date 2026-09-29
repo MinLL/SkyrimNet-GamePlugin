@@ -78,6 +78,9 @@ openrouter:
     - id: google/gemini-2.5-flash
     - id: deepseek/deepseek-v4-flash
 
+  decisions:
+    - id: typesafe/jev-1.13
+
 nvidia:
   default:
     - id: z-ai/glm4.7
@@ -94,6 +97,7 @@ nvidia:
   memory: []
   vision: []
   UniversalTranslator: []
+  decisions: []
 
 nanogpt:
   default:
@@ -152,6 +156,7 @@ nanogpt:
   UniversalTranslator:
     - id: gemini-2.5-flash
     - id: deepseek/deepseek-v4-flash
+  decisions: []
 
 chutes:
   default:
@@ -186,3 +191,4 @@ chutes:
   vision: []
 
   UniversalTranslator: []
+  decisions: []
