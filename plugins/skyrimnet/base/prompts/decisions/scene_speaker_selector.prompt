@@ -45,13 +45,16 @@ The suggestion is a hint, not a rule.
 {{ cinfo.name }}{% if c.UUID in conversationParticipants %} [IN CONVERSATION]{% endif %}{% if existsIn(lastSpeaker, "UUID") and lastSpeaker.UUID == c.UUID %} [SPOKE LAST]{% endif %}{% if cinfo.isVirtual %} (virtual NPC){% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
 - {{ render_character_profile("short_inline", c.UUID) }}
 {% endfor %}
+{% if tagCompanion or tagInScene %}
+Tags: {% if tagCompanion %}[COMPANION] is one of {{ player.name }}'s companions or followers. {% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene. {% endif %}
+{% endif %}
 [ end state ]
 
 [ question next choice ]
 Decide who speaks next in this scene, and to whom. `recent_dialogue` is the conversation so far, oldest first; `last_exchange` says who spoke last and to whom.
 Keep the conversation among the people marked [IN CONVERSATION]. Usually the person the last speaker addressed replies; otherwise the last speaker follows up, or another participant answers what was said.
 Choose someone outside the conversation only when they were named or spoken to, when what was said directly concerns them, or when the scene director wants a new exchange started and the suggested speaker has a clear reason to speak. Someone merely standing nearby is not a reason.
-When no conversation is under way, follow the scene director's suggestion if it fits; otherwise prefer a companion, then whoever is closest.
+When no conversation is under way, follow the scene director's suggestion if it fits{% if tagCompanion %}; otherwise prefer a companion or follower (marked [COMPANION]){% endif %}.
 [ criteria ]
 {% for p in decision_pairs %}
 {{ p.key }}: {{ p.speakerName }} speaks next, to {% if p.targetKind == "player" %}{{ player.name }}{% else %}{{ p.targetName }}{% endif %}
