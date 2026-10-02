@@ -1,0 +1,11 @@
+kind: carry_audio_tags
+name: Pace
+description: "Slow, quick or deliberate speech."
+tags:
+  - slowly
+  - quickly
+  - rushed
+  - hurried
+  - hurriedly
+  - deliberate
+  - deliberately
