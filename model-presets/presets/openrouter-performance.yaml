@@ -81,7 +81,7 @@ variants:
     model_name: typesafe/jev-1.13
     timeout: 10
     model_params:
-      - { name: typesafe/jev-1.13, provider_id: openrouter, max_retries: 0 }
+      - { name: typesafe/jev-1.13, provider_id: openrouter_decisions, max_retries: 0 }
 
   vision:
     model_name: qwen/qwen3-vl-235b-a22b-instruct

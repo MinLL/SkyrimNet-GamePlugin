@@ -1,0 +1,3 @@
+{% if triggeringEvent and triggeringEvent.type == "continue_narration" %}
+Nothing new was said: the scene simply continues and it is your turn to speak. Carry on naturally from the recent conversation: finish your thought, follow up, press your point, or move things forward. Do not reply to a request to continue, and do not mention narration or that anyone asked you to speak.
+{% endif %}
