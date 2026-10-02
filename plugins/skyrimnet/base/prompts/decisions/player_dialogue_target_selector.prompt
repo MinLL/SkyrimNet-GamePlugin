@@ -64,7 +64,7 @@ Decide who {{ player.name }} is speaking to in `player_line`, and so who answers
 `looking_at` is who {{ player.name }} is facing; someone faced directly is very likely the one addressed, unless the line names somebody else.
 `nearby` describes everyone in earshot and how far away they are. A name or clear reference in the line decides it. Otherwise prefer the person in the ongoing exchange, then the person whose role the line fits, then someone close by over someone far away.
 Choose an option where the person addressed speaks to another NPC only when {{ player.name }} asks them to talk to, ask or tell that NPC something.
-A line with no name in it that follows an exchange is for the person in that exchange. A remark to the room is for whoever {{ player.name }} is facing, else the nearest person.
+A line with no name in it that follows an exchange is for the person in that exchange. When the line could be for several people, choose whoever it most likely addresses.
 [ criteria ]
 {% for p in decision_pairs %}
 {{ p.key }}: {% if p.targetKind == "player" %}{{ player.name }} is speaking to {{ p.speakerName }}, who answers {{ player.name }}{% else %}{{ player.name }} is asking {{ p.speakerName }} to speak to {{ p.targetName }}{% endif %}

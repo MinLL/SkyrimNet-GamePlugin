@@ -48,7 +48,7 @@ Virtual NPC rules:
 - Regular NPCs cannot hear Virtual NPCs. Do not route dialogue from a Virtual NPC to a regular NPC.
 - Virtual NPCs may speak but may NOT be targeted unless the speaker is also Virtual.
 
-Always name someone: the player said this to someone present. If no one is clearly addressed, choose the person the player is looking at, else the nearest NPC.
+Always name someone: the player said this to someone present. If no one is clearly addressed, choose whoever the line most likely addresses.
 
 Output format:
 - `Lydia>player` = Lydia speaks to the player
