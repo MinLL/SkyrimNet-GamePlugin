@@ -1,0 +1,60 @@
+{# Decision template: in continuous mode, who speaks next and to whom, as one choice over the legal (speaker,
+   target) pairs among the NPCs near the player. The GameMaster has already decided that someone speaks; it
+   suggests who, and this choice decides. Rendered into a decisions request, never into chat messages. Sent when
+   dialogue.decisions.useForSpeakerSelection is on; otherwise, or without a usable answer, the GameMaster's own
+   pick stands.
+
+   Context set by the game: decision_pairs (key, speakerUUID, speakerName, targetKind, targetUUID, targetName),
+   decision_speakers (UUID, name, distance, isVirtual, isPrivateVirtual), conversationParticipants (the UUIDs who
+   said or were told one of the newest lines of dialogue), sceneDirection (speaker, target, topic,
+   newConversation: the GameMaster's suggestion), crosshairTarget, lastSpeaker, lastDialogueTarget, events,
+   maxRecentEvents. The virtual-NPC rules and no self-target are already applied to the pairs. Keys are short and
+   numbered per request (s2_tplayer, s2_t5); use p.key as given. There is no none option.
+
+   A criterion is one line; profiles and other multi-line decorators belong in the state blocks. #}
+{% set ss = get_speaker_selector_settings() %}
+{% set tagCompanion = ss.tagCompanion %}
+{% set tagInScene = ss.tagInScene %}
+
+[ state last_exchange ]
+{% if existsIn(lastSpeaker, "name") and existsIn(lastDialogueTarget, "name") %}
+{{ lastSpeaker.name }} spoke last, to {% if lastDialogueTarget.UUID == player.UUID %}{{ player.name }}{% else %}{{ lastDialogueTarget.name }}{% endif %}.
+{% else if existsIn(lastSpeaker, "name") %}
+{{ lastSpeaker.name }} spoke last, to no one in particular.
+{% else %}
+No one has spoken yet.
+{% endif %}
+[ end state ]
+
+[ state recent_dialogue ]
+{{ render_template("components\\event_history_compact") }}
+[ end state ]
+
+[ state direction ]
+{% if sceneDirection.newConversation %}
+The scene director wants a new exchange started{% if sceneDirection.speaker %}, and suggests {{ sceneDirection.speaker }}{% if sceneDirection.target %} speaking to {{ sceneDirection.target }}{% endif %}{% endif %}.
+{% else %}
+The scene director wants the conversation to continue{% if sceneDirection.speaker %}, and suggests {{ sceneDirection.speaker }}{% if sceneDirection.target %} speaking to {{ sceneDirection.target }}{% endif %}{% endif %}{% if sceneDirection.topic %}, about: {{ sceneDirection.topic }}{% endif %}.
+{% endif %}
+The suggestion is a hint, not a rule.
+[ end state ]
+
+[ state nearby ]
+{% for c in decision_speakers %}
+{% set cinfo = decnpc(c.UUID) %}
+{{ cinfo.name }}{% if c.UUID in conversationParticipants %} [IN CONVERSATION]{% endif %}{% if existsIn(lastSpeaker, "UUID") and lastSpeaker.UUID == c.UUID %} [SPOKE LAST]{% endif %}{% if cinfo.isVirtual %} (virtual NPC){% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
+- {{ render_character_profile("short_inline", c.UUID) }}
+{% endfor %}
+[ end state ]
+
+[ question next choice ]
+Decide who speaks next in this scene, and to whom. `recent_dialogue` is the conversation so far, oldest first; `last_exchange` says who spoke last and to whom.
+Keep the conversation among the people marked [IN CONVERSATION]. Usually the person the last speaker addressed replies; otherwise the last speaker follows up, or another participant answers what was said.
+Choose someone outside the conversation only when they were named or spoken to, when what was said directly concerns them, or when the scene director wants a new exchange started and the suggested speaker has a clear reason to speak. Someone merely standing nearby is not a reason.
+When no conversation is under way, follow the scene director's suggestion if it fits; otherwise prefer a companion, then whoever is closest.
+[ criteria ]
+{% for p in decision_pairs %}
+{{ p.key }}: {{ p.speakerName }} speaks next, to {% if p.targetKind == "player" %}{{ player.name }}{% else %}{{ p.targetName }}{% endif %}
+{% endfor %}
+[ end criteria ]
+[ end question ]
