@@ -1,5 +1,5 @@
 {# Decision template: who the player is addressing, as one choice over the legal (speaker, target)
-   pairs the game enumerated, or no one. Rendered into a decisions request, never into chat messages.
+   pairs the game enumerated. Rendered into a decisions request, never into chat messages.
    Sent when dialogue.decisions.useForPlayerTarget is on; target_selectors/player_dialogue_target_selector
    is the chat fallback.
 
@@ -8,7 +8,8 @@
    (the player's line), crosshairTarget, lastSpeaker, lastDialogueTarget, events, maxRecentEvents.
    The speaker of a pair is the NPC who answers; the virtual-NPC rules and no self-target are already
    applied to the pairs. Keys are short and numbered per request (s2_tplayer, s2_t5); use p.key as given.
-   When the answer is none, nobody replies to the player.
+   There is no none option: someone always answers the player. When the game gets no usable answer, the
+   NPC in the crosshair answers, else the nearest one.
 
    A criterion is one line; profiles and other multi-line decorators belong in the state blocks. #}
 {% set ss = get_speaker_selector_settings() %}
@@ -63,11 +64,10 @@ Decide who {{ player.name }} is speaking to in `player_line`, and so who answers
 `looking_at` is who {{ player.name }} is facing; someone faced directly is very likely the one addressed, unless the line names somebody else.
 `nearby` describes everyone in earshot and how far away they are. A name or clear reference in the line decides it. Otherwise prefer the person in the ongoing exchange, then the person whose role the line fits, then someone close by over someone far away.
 Choose an option where the person addressed speaks to another NPC only when {{ player.name }} asks them to talk to, ask or tell that NPC something.
-Choose `none` only when the line is plainly for no one: thinking aloud, or a remark no one present could be expected to answer. A line with no name in it that follows an exchange is for the person in that exchange, not for no one.
+A line with no name in it that follows an exchange is for the person in that exchange. A remark to the room is for whoever {{ player.name }} is facing, else the nearest person.
 [ criteria ]
 {% for p in decision_pairs %}
 {{ p.key }}: {% if p.targetKind == "player" %}{{ player.name }} is speaking to {{ p.speakerName }}, who answers {{ player.name }}{% else %}{{ player.name }} is asking {{ p.speakerName }} to speak to {{ p.targetName }}{% endif %}
 {% endfor %}
-none: {{ player.name }} is speaking to no one in particular.
 [ end criteria ]
 [ end question ]
