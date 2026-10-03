@@ -201,7 +201,10 @@ int function SendCustomPromptToLLM(String promptName, String variant, String con
 ;   -3 if LLM configuration failed
 ;
 ; The callback function signature should be:
-;   Function OnDecision(String resultJson, int success)
+;   Function OnDecision(String answer, String resultJson, int success)
+;   - answer: the answer to the FIRST question in your template, ready to compare:
+;       the chosen option key (choice), "true" or "false" (noul), or the score (score). "" on failure.
+;     For a one-question template this is all you need.
 ;   - success 1: resultJson holds, per question id in your template:
 ;       "<id>"            - the chosen option key (choice), the score (score), or the probability of yes (noul)
 ;       "<id>.confidence" - the model's confidence, when it sent one
@@ -216,9 +219,9 @@ int function SendCustomPromptToLLM(String promptName, String variant, String con
 ; [ question hostile choice ] with criteria keys yes / no:
 ;   SkyrimNetApi.SendCustomDecisionToLLM("my_mod/is_hostile", "{\"npcName\":\"Lydia\"}", GetOwningQuest(), "MyQuestScript", "OnHostileDecision")
 ;
-;   Function OnHostileDecision(String resultJson, int success)
-;       If success == 1 && SkyrimNetApi.GetJsonString(resultJson, "hostile", "") == "yes"
-;           float p = SkyrimNetApi.GetJsonFloat(resultJson, "hostile.p.yes", 0.0)
+;   Function OnHostileDecision(String answer, String resultJson, int success)
+;       If answer == "yes"
+;           float p = SkyrimNetApi.GetJsonFloat(resultJson, "hostile.p.yes", 0.0) ; optional: how sure
 ;       EndIf
 ;   EndFunction
 int function SendCustomDecisionToLLM(String templateName, String contextJson, \
