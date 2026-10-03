@@ -180,6 +180,50 @@ int function ReinforcePackages(Actor akActor) Global Native
 int function SendCustomPromptToLLM(String promptName, String variant, String contextJson, \
                                   Quest callbackQuest, String callbackScriptName, String callbackFunctionName) Global Native
 
+; Ask the decision model a typed question and receive a callback with the answer
+;
+; Use this instead of SendCustomPromptToLLM when the answer is a pick from fixed options, a yes/no, or
+; a score: you get the option key and its probability, with no reply text to parse. The template is a
+; decision template ([ state ] / [ question <id> choice|score|noul ] / [ criteria ] blocks, see
+; docs/modding/WORKFLOW_PROMPTS.md) that your mod ships under prompts/decisions/.
+;
+; Parameters:
+;   templateName        - Path under prompts/decisions/ without .prompt (e.g., "my_mod/is_hostile")
+;   contextJson         - JSON object string with template variables, or "" for none
+;   callbackQuest       - The quest containing the callback script (typically GetOwningQuest())
+;   callbackScriptName  - Name of the script attached to the quest
+;   callbackFunctionName - Name of the callback function to invoke
+;
+; Returns:
+;   1 on success (task queued)
+;   -1 if templateName is empty
+;   -2 if callback parameters are empty/null
+;   -3 if LLM configuration failed
+;
+; The callback function signature should be:
+;   Function OnDecision(String resultJson, int success)
+;   - success 1: resultJson holds, per question id in your template:
+;       "<id>"            - the chosen option key (choice), the score (score), or the probability of yes (noul)
+;       "<id>.confidence" - the model's confidence, when it sent one
+;       "<id>.p.<option>" - the probability of each of the three likeliest options, when it sent them
+;     plus "model" (the model build that answered). Don't name a question "model", "error" or "message".
+;   - success 0: resultJson is {"error": code, "message": text}. Codes:
+;       no_decisions_route - the user has no decision provider set up; nothing was sent. Fall back to
+;                            SendCustomPromptToLLM if you need an answer anyway.
+;       ai_disabled, template_failed, interface_failed, request_failed, cancelled, exception
+;
+; Example usage, with a template prompts/decisions/my_mod/is_hostile.prompt that declares
+; [ question hostile choice ] with criteria keys yes / no:
+;   SkyrimNetApi.SendCustomDecisionToLLM("my_mod/is_hostile", "{\"npcName\":\"Lydia\"}", GetOwningQuest(), "MyQuestScript", "OnHostileDecision")
+;
+;   Function OnHostileDecision(String resultJson, int success)
+;       If success == 1 && SkyrimNetApi.GetJsonString(resultJson, "hostile", "") == "yes"
+;           float p = SkyrimNetApi.GetJsonFloat(resultJson, "hostile.p.yes", 0.0)
+;       EndIf
+;   EndFunction
+int function SendCustomDecisionToLLM(String templateName, String contextJson, \
+                                     Quest callbackQuest, String callbackScriptName, String callbackFunctionName) Global Native
+
 ; Register a direct narration event that forces the LLM to respond to a factual event
 ; This function creates an event that NPCs will respond to as established fact, such as:
 ; - "A tree fell over in the forest"

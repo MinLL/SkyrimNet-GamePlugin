@@ -347,6 +347,8 @@ key: description of this option (one option per line; the description may be emp
 
 Question types are `choice` (pick one key; the criteria are `key: description` lines), `score` (one ordered level per criteria line, lowest first, 2 to 10 levels) and `noul` (a yes/no; optional `true:` / `false:` criteria lines). A criterion is exactly one line, so multi-line decorators such as `render_character_profile` belong in a `[ state ]` block, not inside `[ criteria ]`. The game reads answers by question id and option key (for example the `mood` question's keys are the mood names, and the keys of the speaker selector and the player target selector are provided in `decision_pairs`), so keep those as shipped and edit the wording around them.
 
+Your mod can ship **its own decision templates** and ask them from Papyrus with `SkyrimNetApi.SendCustomDecisionToLLM("my_mod/is_hostile", contextJson, quest, script, function)` (or from C++ with `PublicSendCustomDecisionToLLM`, public API v12). Put the file under `prompts/decisions/my_mod/is_hostile.prompt` in your plugin, use the question ids and option keys your script reads, and read the answer from the callback's JSON (`"<id>"` is the chosen key; `"<id>.p.<key>"` its probability). There is no chat fallback: when the user has no decision provider set up the callback gets `success = 0` with error `no_decisions_route`, and you can fall back to `SendCustomPromptToLLM` yourself. The full contract is in `SkyrimNetApi.psc` and `CppAPI/PublicAPI.h`.
+
 ### Step 4.5: Indentation and Whitespace
 
 **Consistent indentation is critical for readable prompts.**
