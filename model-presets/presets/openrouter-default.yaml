@@ -3,6 +3,10 @@
 # Flash for combat; v4.1 Flash leads meta with v4 Flash as its alternate.
 # Mod-registered variants inherit `default` by default (intentionally
 # not listed here so they fall through to the default rotation).
+# Never route to a provider declared below fp8 (undeclared stays eligible).
+routing:
+  quantization_floor: fp8
+
 variants:
   default:
     model_name: google/gemma-4-31b-it, deepseek/deepseek-v3.2

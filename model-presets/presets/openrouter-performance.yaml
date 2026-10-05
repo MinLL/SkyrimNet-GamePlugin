@@ -6,6 +6,10 @@
 # cost — expect a noticeable bill on heavy sessions. Sonnet and the
 # Gemmas run at temp 1.0 for more variety in dialogue.
 # Mod-registered variants inherit the default rotation.
+# Never route to a provider declared below fp8 (undeclared stays eligible).
+routing:
+  quantization_floor: fp8
+
 variants:
   default:
     model_name: anthropic/claude-sonnet-4.6, google/gemma-4-31b-it

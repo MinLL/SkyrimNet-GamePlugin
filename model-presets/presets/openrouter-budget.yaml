@@ -2,6 +2,10 @@
 # action selection (temp 1.0); Qwen 235B for jobs that need more
 # reasoning; DeepSeek v4 Flash for meta and translation; Gemma-4 26B for
 # vision. Mod-registered variants inherit the default rotation.
+# Never route to a provider declared below fp8 (undeclared stays eligible).
+routing:
+  quantization_floor: fp8
+
 variants:
   default:
     model_name: google/gemma-4-31b-it, google/gemma-4-26b-a4b-it
