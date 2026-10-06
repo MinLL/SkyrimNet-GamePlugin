@@ -24,9 +24,9 @@ int optionRemoveTelepathyEavesdropSpell
 int optionAddTelepathyListenInSpell
 int optionRemoveTelepathyListenInSpell
 
-; Track current MCM page locally — workaround for save-data instances where
-; SKI_ConfigBase's `CurrentPage` auto-property backing variable
-; (`::CurrentPage_var`) fails to resolve and spams the Papyrus log.
+; Track current MCM page locally. Reading SKI_ConfigBase's `CurrentPage` used to fail
+; ("::CurrentPage_var" not found) because headers/SKI_ConfigBase.psc declared it as an
+; auto property; the header now matches SkyUI.
 string currentMcmPage = ""
 
 ; Hotkey options
@@ -759,9 +759,7 @@ event OnOptionSelect(int option)
 
     ; === Developer Page Options ===
     ; Check current page to ensure we're on the Developer page before handling
-    ; developer options. Use the script-local tracker; reading SKI_ConfigBase's
-    ; `CurrentPage` directly throws "::CurrentPage_var was not successfully looked up"
-    ; on some save-data instances.
+    ; developer options.
     elseif currentMcmPage == "Developer"
         HandleDeveloperOptionSelect(option)
     endif
