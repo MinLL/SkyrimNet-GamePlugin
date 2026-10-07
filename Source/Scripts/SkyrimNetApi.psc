@@ -569,6 +569,15 @@ int function TriggerToggleOpenMic() Global Native
 ; Functions identically to pressing the configured text input key
 int function TriggerTextInput() Global Native
 
+; --- Master Switch ---
+
+; Simulates pressing the SkyrimNet master toggle hotkey
+; - Turns all of SkyrimNet's AI on or off
+; - Shows a notification (SkyrimNet Enabled/Disabled)
+; - Starts or stops the GameMaster agent to match
+; Functions identically to pressing the configured master toggle key
+int function TriggerToggleGlobalAI() Global Native
+
 ; --- GameMaster Control Functions ---
 
 ; Simulates pressing the GameMaster toggle hotkey
