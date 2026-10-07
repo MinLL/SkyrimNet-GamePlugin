@@ -54,9 +54,7 @@ Tags: {% if tagCompanion %}[COMPANION] is one of {{ player.name }}'s companions 
 [ end state ]
 
 [ question next choice ]
-{{ player.name }} has asked the scene to continue without saying anything. Decide who speaks next and to whom.
-`last_exchange` says who spoke last and to whom; `recent_dialogue` is the conversation so far, oldest first.
-By default the person marked [SPOKE LAST] carries on, to the same person: they finish a thought, follow up, press a point or react to the silence. Choose someone else only when the scene clearly calls for them: they were just asked something and have not answered, they were just addressed by name, or the last line was plainly their cue.
+The scene continues. Read `recent_dialogue` (oldest first) and decide who speaks next and to whom, considering everyone present. Pick the speaker and line that best moves the scene forward. Don't pick an option whose line would only repeat what was just said.
 {% if tagCompanion %}
 When no one has spoken yet, prefer a companion or follower (marked [COMPANION]).
 {% endif %}
