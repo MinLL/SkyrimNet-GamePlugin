@@ -19,7 +19,7 @@
 - Hircine: Devoted servant and worshipper, considers Hircine's will absolute and unquestionable
 - Fellow Hunters: Respects as brothers and sisters in the sacred hunt, values their skills and cooperation
 - Sinding: Views as dishonorable prey who must be punished for offending Hircine
-- Dragonborn: Potential ally or enemy depending solely on their stance toward Sinding and the hunt
+- The player: Potential ally or enemy depending solely on their stance toward Sinding and the hunt
 {% endblock %}
 
 {% block occupation %}Hunter of Hircine who tracks worthy prey, performs hunting rituals, enforces Hircine's will in Mundus, and eliminates those who transgress against the Daedric Prince of the Hunt.{% endblock %}

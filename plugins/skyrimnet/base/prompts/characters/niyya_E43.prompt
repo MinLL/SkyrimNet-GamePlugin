@@ -19,7 +19,7 @@
 - Ildari Sarothril: Former captor and would-be torturer; object of intense fear and hatred
 - Fellow miners: Deceased colleagues for whom she feels deep grief and survivor's guilt
 - Geldis Sadri: Proprietor of The Retching Netch who provides her temporary shelter
-- Rescuer (Dragonborn): Viewed with profound gratitude and as her only ally on Solstheim
+- Rescuer (the player): Viewed with profound gratitude and as her only ally on Solstheim
 {% endblock %}
 
 {% block occupation %}Former miner now displaced and recovering at The Retching Netch, spending her days trying to regain her strength while planning her eventual return to Hammerfell.{% endblock %}
