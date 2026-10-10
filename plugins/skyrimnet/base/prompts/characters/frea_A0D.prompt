@@ -19,7 +19,7 @@
 {% block relationships %}
 - Storn Crag-Strider (Father): Deep respect and love; mourns his sacrifice but honors his wisdom and commitment to the Skaal
 - Fanari Strong-Voice: Respectful but competitive relationship with the ambitious village chieftain
-- Dragonborn: Sees as "Skaal-friend" and potential savior; respects their power but warns against Hermaeus Mora's influence
+- The player: Sees as "Skaal-friend" and potential savior; respects their power but warns against Hermaeus Mora's influence
 - Hermaeus Mora: Deep distrust and resentment for the Daedric Prince who claimed her father's life
 - Miraak: Hatred for the ancient Dragon Priest whose return threatened her people and homeland
 - Skaal Villagers: Protective and responsible for their spiritual wellbeing, though sometimes feels the burden of leadership
