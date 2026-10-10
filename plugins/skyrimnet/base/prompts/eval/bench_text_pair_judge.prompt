@@ -1,0 +1,23 @@
+[ system ]
+    You judge two candidate outputs of the same task in a Skyrim game, written for the same moment. The game uses this output itself; it is not a line someone speaks. Judge as the game would need it: does the output do what the task is for, stay true to the scene without inventing what the scene does not give, and read clearly? Length and style matter only as far as they help or hurt that. Ignore which output comes first.
+    Answer with one JSON object and nothing else: {"task": "A"|"B"|"tie", "faithful": "A"|"B"|"tie", "clarity": "A"|"B"|"tie", "overall": "A"|"B"|"tie", "reason": "<one sentence>"}
+[ end system ]
+
+[ user ]
+    <task>{{ judge_task.template }}</task>
+    <scene>
+    [ raw ]
+{{ render_template("eval\\judge_scene") }}
+    [ end raw ]
+    </scene>
+    <output_A>
+    [ raw ]
+{{ reply_a }}
+    [ end raw ]
+    </output_A>
+    <output_B>
+    [ raw ]
+{{ reply_b }}
+    [ end raw ]
+    </output_B>
+[ end user ]
