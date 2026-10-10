@@ -50,11 +50,11 @@ No one has spoken yet.
 [ state nearby ]
 {% for c in decision_speakers %}
 {% set cinfo = decnpc(c.UUID) %}
-{{ cinfo.name }}{% if cinfo.isVirtual %} (virtual NPC){% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_package(c.UUID, "SkyrimNet_PlayerFollowPackage") %} [ENGAGED]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
+{{ cinfo.name }}{% if cinfo.isVirtual %}{% if c.isPrivateVirtual %} (virtual: a voice only {{ player.name }} hears){% else %} (virtual: heard by everyone here, but not physically present){% endif %}{% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_package(c.UUID, "SkyrimNet_PlayerFollowPackage") %} [ENGAGED]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
 - {{ render_character_profile("short_inline", c.UUID) }}
 {% endfor %}
 {% if tagCompanion or tagEngaged or tagInScene %}
-Tags: {% if tagCompanion %}[COMPANION] is the player's active follower, the usual audience for a general comment or a request for an opinion. {% endif %}{% if tagEngaged %}[ENGAGED] is already in conversation with the player. {% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene. {% endif %}
+Tags: {% if tagCompanion %}[COMPANION] travels with {{ player.name }}. {% endif %}{% if tagEngaged %}[ENGAGED] is already in conversation with the player. {% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene. {% endif %}
 {% endif %}
 [ end state ]
 
@@ -62,12 +62,14 @@ Tags: {% if tagCompanion %}[COMPANION] is the player's active follower, the usua
 Decide who {{ player.name }} is speaking to in `player_line`, and so who answers. Each option names the person addressed and who they then speak to.
 `recent_dialogue` is the conversation so far, oldest first. `last_exchange` says who was talking to whom a moment ago: a line that continues that exchange (a reply, thanks, an answer to a question, a follow-up) is for the person {{ player.name }} was just dealing with.
 `looking_at` is who {{ player.name }} is facing; someone faced directly is very likely the one addressed, unless the line names somebody else.
-`nearby` describes everyone in earshot and how far away they are. A name or clear reference in the line decides it. Otherwise prefer the person in the ongoing exchange, then the person whose role the line fits, then someone close by over someone far away.
+`nearby` describes everyone in earshot and how far away they are. A name or clear reference in the line decides it. Otherwise prefer the person in the ongoing exchange, then the person whose role the line fits, then someone close by over someone far away. A remark plainly meant for the people traveling with {{ player.name }} goes to a companion.
+A virtual NPC has no body: choose one only when the line names it or plainly answers what it just said. Having spoken last does not make {{ player.name }}'s next line for it.
 Choose an option where the person addressed speaks to another NPC only when {{ player.name }} asks them to talk to, ask or tell that NPC something.
 A line with no name in it that follows an exchange is for the person in that exchange. When the line could be for several people, choose whoever it most likely addresses.
 [ criteria ]
 {% for p in decision_pairs %}
-{{ p.key }}: {% if p.targetKind == "player" %}{{ player.name }} is speaking to {{ p.speakerName }}, who answers {{ player.name }}{% else %}{{ player.name }} is asking {{ p.speakerName }} to speak to {{ p.targetName }}{% endif %}
+{% set pv = false %}{% for s in decision_speakers %}{% if s.UUID == p.speakerUUID and s.isVirtual %}{% set pv = true %}{% endif %}{% endfor %}
+{{ p.key }}: {% if p.targetKind == "player" %}{{ player.name }} is speaking to {{ p.speakerName }}, who answers {{ player.name }}{% else %}{{ player.name }} is asking {{ p.speakerName }} to speak to {{ p.targetName }}{% endif %}{% if pv %} (right only if the line names {{ p.speakerName }} or plainly answers what {{ p.speakerName }} just said){% endif %}
 {% endfor %}
 [ end criteria ]
 [ end question ]
