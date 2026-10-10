@@ -9,7 +9,8 @@
    said or were told one of the newest lines of dialogue), sceneDirection (speaker, target, topic,
    newConversation: the GameMaster's suggestion), crosshairTarget, lastSpeaker, lastDialogueTarget, events,
    maxRecentEvents. The virtual-NPC rules and no self-target are already applied to the pairs. Keys are short and
-   numbered per request (s2_tplayer, s2_t5); use p.key as given. There is no none option.
+   numbered per request (s2_tplayer, s2_t5); use p.key as given. There is no none option. Outsiders join only
+   when their interjection guidance (the bio's interject_summary) matches; being a companion is not a reason.
 
    A criterion is one line; profiles and other multi-line decorators belong in the state blocks. #}
 {% set ss = get_speaker_selector_settings() %}
@@ -42,22 +43,22 @@ The suggestion is a hint, not a rule.
 [ state nearby ]
 {% for c in decision_speakers %}
 {% set cinfo = decnpc(c.UUID) %}
-{{ cinfo.name }}{% if c.UUID in conversationParticipants %} [IN CONVERSATION]{% endif %}{% if existsIn(lastSpeaker, "UUID") and lastSpeaker.UUID == c.UUID %} [SPOKE LAST]{% endif %}{% if cinfo.isVirtual %} (virtual NPC){% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
+{{ cinfo.name }}{% if c.UUID in conversationParticipants %} [IN CONVERSATION]{% endif %}{% if cinfo.isVirtual %}{% if c.isPrivateVirtual %} (virtual: a voice only {{ player.name }} hears){% else %} (virtual: heard by everyone here, but not physically present){% endif %}{% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
 - {{ render_character_profile("short_inline", c.UUID) }}
+- Interjection: {{ render_character_profile("interject_inline", c.UUID) }}
 {% endfor %}
-{% if tagCompanion or tagInScene %}
-Tags: {% if tagCompanion %}[COMPANION] is one of {{ player.name }}'s companions or followers. {% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene. {% endif %}
-{% endif %}
+Tags: [IN CONVERSATION] said or was told one of the latest lines. {% if tagCompanion %}[COMPANION] travels with {{ player.name }}; that alone is no reason to speak. {% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene and speaks only if addressed by name. {% endif %}
 [ end state ]
 
 [ question next choice ]
 Decide who speaks next in this scene, and to whom. `recent_dialogue` is the conversation so far, oldest first; `last_exchange` says who spoke last and to whom.
-Keep the conversation among the people marked [IN CONVERSATION]. Usually the person the last speaker addressed replies; otherwise the last speaker follows up, or another participant answers what was said.
-Choose someone outside the conversation only when they were named or spoken to, when what was said directly concerns them, or when the scene director wants a new exchange started and the suggested speaker has a clear reason to speak. Someone merely standing nearby is not a reason.
-When no conversation is under way, follow the scene director's suggestion if it fits{% if tagCompanion %}; otherwise prefer a companion or follower (marked [COMPANION]){% endif %}.
+Keep the conversation among the people marked [IN CONVERSATION]. Usually the person the last speaker addressed replies; otherwise another participant answers or reacts to what was said. The last speaker goes again only when no one else has a reason to speak.
+Anyone outside the conversation, companions and virtual NPCs included, joins only when they were named, spoken to or directly involved in what just happened, when their Interjection guidance in `nearby` matches what was just said or what just happened, or when the scene director wants a new exchange started and their guidance fits it. A match is specific: the general subject of the scene, being nearby, being a companion or having an opinion is not one. Someone whose guidance is missing or still a placeholder joins only when addressed. A virtual NPC has no body and needs a clear match.
+When no conversation is under way, follow the scene director's suggestion if it fits; otherwise choose whoever's Interjection guidance best fits what is happening.
 [ criteria ]
 {% for p in decision_pairs %}
-{{ p.key }}: {{ p.speakerName }} speaks next, to {% if p.targetKind == "player" %}{{ player.name }}{% else %}{{ p.targetName }}{% endif %}
+{% set pv = false %}{% for s in decision_speakers %}{% if s.UUID == p.speakerUUID and s.isVirtual %}{% set pv = true %}{% endif %}{% endfor %}
+{{ p.key }}: {{ p.speakerName }} speaks next, to {% if p.targetKind == "player" %}{{ player.name }}{% else %}{{ p.targetName }}{% endif %}{% if pv %} (right only if {{ p.speakerName }} was addressed or {{ p.speakerName }}'s Interjection guidance clearly matches what just happened){% endif %}
 {% endfor %}
 [ end criteria ]
 [ end question ]

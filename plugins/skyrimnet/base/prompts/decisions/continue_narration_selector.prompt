@@ -1,20 +1,27 @@
 {# Decision template: who carries the scene on when the player presses Continue Narration, as one choice over the
-   legal (speaker, target) pairs the game enumerated. The player says nothing new; someone present simply speaks
-   next. Rendered into a decisions request, never into chat messages. Sent when
-   dialogue.decisions.useForSpeakerSelection is on; otherwise, or without a usable answer, the game picks the last
-   speaker, else the NPC in the crosshair, else the nearest.
+   legal (speaker, target) pairs the game enumerated. The player says nothing new and lets the scene play out:
+   the person they are looking at speaks, otherwise the NPCs carry the conversation among themselves, and an
+   outsider joins only when their interjection guidance matches. Rendered into a decisions request, never into
+   chat messages. Sent when dialogue.decisions.useForSpeakerSelection is on; otherwise, or without a usable
+   answer, the game falls back on the crosshair target, else whoever the last line was said to, else another
+   participant, else the nearest NPC who did not just speak.
 
    Context set by the game: decision_pairs (key, speakerUUID, speakerName, targetKind, targetUUID, targetName),
-   decision_speakers (UUID, name, distance, isVirtual, isPrivateVirtual), triggeringEvent (the continue request),
-   crosshairTarget, lastSpeaker, lastDialogueTarget, events, maxRecentEvents. The virtual-NPC rules and no
-   self-target are already applied to the pairs. Keys are short and numbered per request (s2_tplayer, s2_t5); use
-   p.key as given. There is no none option: someone always speaks.
+   decision_speakers (UUID, name, distance, isVirtual, isPrivateVirtual), conversationParticipants (the UUIDs who
+   said or were told one of the newest lines of dialogue), triggeringEvent (the continue request), crosshairTarget,
+   lastSpeaker, lastDialogueTarget, events, maxRecentEvents. The virtual-NPC rules and no self-target are already
+   applied to the pairs. Keys are short and numbered per request (s2_tplayer, s2_t5); use p.key as given. There is
+   no none option: someone always speaks.
 
    A criterion is one line; profiles and other multi-line decorators belong in the state blocks. #}
 {% set ss = get_speaker_selector_settings() %}
 {% set tagCompanion = ss.tagCompanion %}
 {% set tagEngaged = ss.tagEngaged %}
 {% set tagInScene = ss.tagInScene %}
+{% set lookedAtUUID = 0 %}
+{% if crosshairTarget and crosshairTarget.UUID %}
+{% set lookedAtUUID = crosshairTarget.UUID %}
+{% endif %}
 
 [ state last_exchange ]
 {% if existsIn(lastSpeaker, "name") and existsIn(lastDialogueTarget, "name") %}
@@ -30,14 +37,6 @@ No one has spoken yet.
 {{ render_template("components\\event_history_compact") }}
 [ end state ]
 
-[ state looking_at ]
-{% if crosshairTarget and crosshairTarget.UUID and crosshairTarget.UUID != 0 %}
-{{ player.name }} is looking at {{ crosshairTarget.name }} ({{ units_to_meters(crosshairTarget.distance) }}m away).
-{% else %}
-{{ player.name }} is not looking at anyone in particular.
-{% endif %}
-[ end state ]
-
 [ state location ]
 {{ location }}
 [ end state ]
@@ -45,25 +44,25 @@ No one has spoken yet.
 [ state nearby ]
 {% for c in decision_speakers %}
 {% set cinfo = decnpc(c.UUID) %}
-{{ cinfo.name }}{% if existsIn(lastSpeaker, "UUID") and lastSpeaker.UUID == c.UUID %} [SPOKE LAST]{% endif %}{% if cinfo.isVirtual %} (virtual NPC){% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_package(c.UUID, "SkyrimNet_PlayerFollowPackage") %} [ENGAGED]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
+{{ cinfo.name }}{% if lookedAtUUID != 0 and c.UUID == lookedAtUUID %} [LOOKED AT]{% endif %}{% if exists("conversationParticipants") and c.UUID in conversationParticipants %} [IN CONVERSATION]{% endif %}{% if cinfo.isVirtual %}{% if c.isPrivateVirtual %} (virtual: a voice only {{ player.name }} hears){% else %} (virtual: heard by everyone here, but not physically present){% endif %}{% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_package(c.UUID, "SkyrimNet_PlayerFollowPackage") %} [ENGAGED]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
 - {{ render_character_profile("short_inline", c.UUID) }}
+- Interjection: {{ render_character_profile("interject_inline", c.UUID) }}
 {% endfor %}
-{% if tagCompanion or tagEngaged or tagInScene %}
-Tags: {% if tagCompanion %}[COMPANION] is one of {{ player.name }}'s companions or followers. {% endif %}{% if tagEngaged %}[ENGAGED] is already in conversation with the player. {% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene. {% endif %}
-{% endif %}
+Tags: [LOOKED AT] is the person {{ player.name }} is looking at. [IN CONVERSATION] said or was told one of the latest lines. {% if tagCompanion %}[COMPANION] travels with {{ player.name }}; that alone is no reason to speak. {% endif %}{% if tagEngaged %}[ENGAGED] is already in conversation with {{ player.name }}. {% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene and speaks only if addressed by name. {% endif %}
 [ end state ]
 
 [ question next choice ]
-{{ player.name }} has asked the scene to continue without saying anything. Decide who speaks next and to whom.
-`last_exchange` says who spoke last and to whom; `recent_dialogue` is the conversation so far, oldest first.
-By default the person marked [SPOKE LAST] carries on, to the same person: they finish a thought, follow up, press a point or react to the silence. Choose someone else only when the scene clearly calls for them: they were just asked something and have not answered, they were just addressed by name, or the last line was plainly their cue.
-{% if tagCompanion %}
-When no one has spoken yet, prefer a companion or follower (marked [COMPANION]).
-{% endif %}
-Choose an option where the speaker addresses another NPC only when the recent dialogue is between them, or the speaker clearly has something to say to that NPC.
+Nothing new was said: {{ player.name }} is quietly letting the scene play out. Decide who speaks next and to whom. `recent_dialogue` is the conversation so far, oldest first; `last_exchange` says who spoke last and to whom.
+When someone is marked [LOOKED AT], {{ player.name }} is looking at them: they speak next, to whoever the moment calls for.
+Otherwise the people in the scene carry it among themselves. Someone the last line was said to, who has not answered, answers whoever said it. Failing that, another person marked [IN CONVERSATION] picks it up: they reply, react, disagree or take the topic somewhere new.
+Anyone else, companions and virtual NPCs included, joins only when their Interjection guidance in `nearby` matches what was just said or what just happened. A match is specific: the general subject of the scene, being nearby, being a companion or having an opinion is not one. Someone whose guidance is missing or still a placeholder joins only when addressed. A virtual NPC has no body and needs a clear match.
+The last speaker has just had their turn: choose them again only when no one else has a reason to speak.
+Speakers address each other. Choose {{ player.name }} as the target only when the line is genuinely for {{ player.name }}, such as a reaction to something {{ player.name }} did; {{ player.name }} has chosen to listen.
+When no conversation is under way, choose whoever has the clearest reason to speak in this situation.
 [ criteria ]
 {% for p in decision_pairs %}
-{{ p.key }}: {{ p.speakerName }} speaks next, to {% if p.targetKind == "player" %}{{ player.name }}{% else %}{{ p.targetName }}{% endif %}
+{% set pv = false %}{% for s in decision_speakers %}{% if s.UUID == p.speakerUUID and s.isVirtual %}{% set pv = true %}{% endif %}{% endfor %}
+{{ p.key }}: {{ p.speakerName }} speaks next, to {% if p.targetKind == "player" %}{{ player.name }}{% else %}{{ p.targetName }}{% endif %}{% if pv %} (right only if {{ p.speakerName }} was addressed or {{ p.speakerName }}'s Interjection guidance clearly matches what just happened){% endif %}
 {% endfor %}
 [ end criteria ]
 [ end question ]
