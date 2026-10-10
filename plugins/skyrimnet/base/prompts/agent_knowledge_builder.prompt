@@ -73,7 +73,7 @@
     Quest completion and the `is_quest_active` / `get_quest_stage` distinction:
     - `is_quest_active("QuestID")` returns true ONLY while the quest is running with incomplete objectives. Once the quest is completed, it returns **false**. Use this for knowledge that should only exist while the quest is in progress (e.g., "Bandits have stolen the Golden Claw from the shop" — this is no longer true after the player returns it).
     - `get_quest_stage("QuestID", false)` — **persistent**: returns the stage number even after the quest is completed. Use for knowledge about quest outcomes that NPCs should remember permanently (e.g., `get_quest_stage("MS13", false) >= 100` for "The Golden Claw was recovered and returned to Lucan").
-    - `get_quest_stage("QuestID", true)` — **ephemeral**: returns -1 if the quest is no longer active. Use for stage-specific knowledge that should disappear after quest completion (e.g., mid-quest progress like "I heard the Dragonborn is on their way to Bleak Falls Barrow").
+    - `get_quest_stage("QuestID", true)` — **ephemeral**: returns -1 if the quest is no longer active. Use for stage-specific knowledge that should disappear after quest completion (e.g., mid-quest progress like "I heard an adventurer is on their way to Bleak Falls Barrow").
     - **IMPORTANT**: Always explicitly pass `true` or `false` as the second argument to `get_quest_stage`. Never omit it. This forces you to decide upfront whether each piece of knowledge is persistent (false) or ephemeral (true).
     - **Rule of thumb**: Use `is_quest_active()` or `get_quest_stage(id, true)` for in-progress situational knowledge. Use `get_quest_stage(id, false) >= N` for permanent post-completion knowledge about outcomes and consequences.
     - Many quests deserve BOTH types of entries: one set that is ephemeral (current events, rumors, concerns during the quest) and another that is persistent (outcomes, consequences, lasting changes to the world).
@@ -150,7 +150,7 @@
     "I'll create entries for the key stages of The Golden Claw, scoped to relevant Riverwood NPCs — some for while it's active, and some for after completion."
     [calls propose_knowledge_entries with entries like:
       - display_name: "Golden Claw - Stolen (Active)", content: "The golden claw was stolen from the Riverwood Trader by bandits", condition: is_quest_active("MS13"), knowledge_key: "quest.ms13.claw_status", importance: 0.7 — disappears after quest completes
-      - display_name: "Golden Claw - Mid-Quest Progress", content about the Dragonborn heading to Bleak Falls Barrow, condition: get_quest_stage("MS13", true) >= 30, knowledge_key: "quest.ms13.claw_status", importance: 0.8 — same key, higher importance overrides the general "stolen" entry when this condition also matches
+      - display_name: "Golden Claw - Mid-Quest Progress", content about an adventurer heading to Bleak Falls Barrow, condition: get_quest_stage("MS13", true) >= 30, knowledge_key: "quest.ms13.claw_status", importance: 0.8 — same key, higher importance overrides the general "stolen" entry when this condition also matches
       - display_name: "Golden Claw - Recovered", content: "The golden claw was recovered and returned to Lucan at the Riverwood Trader", condition: get_quest_stage("MS13", false) >= 100, knowledge_key: "quest.ms13.claw_status", importance: 0.9 — persistent, highest importance, overrides all other entries with this key
     ]
 

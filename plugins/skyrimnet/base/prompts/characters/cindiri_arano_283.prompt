@@ -2,7 +2,7 @@
 
 {% block interject_summary %}Cindiri interjects when: her husband Adril is mentioned; Blacklight or Morrowind's mainland is discussed; Miraak or the Earth Stone is referenced; Councilor Morvayn's affairs arise; the topic of The Lusty Argonian Maid emerges; or when Raven Rock's recovery is noted.{% endblock %}
 
-{% block background %}Born in Blacklight, northwestern Morrowind's capital, Cindiri left her homeland fifty years ago to accompany her husband Adril to Solstheim. She previously lived in Vvardenfell before settling in Raven Rock, where she resides in Morvayn Manor as befits her station as wife to the Second Councilor. Like many Raven Rock residents, she was recently enslaved by Miraak's influence and forced to work on structures at the Earth Stone until freed by the Dragonborn. Despite her elevated social position, she maintains a private appreciation for The Lusty Argonian Maid, owning a rare folio edition that was lost in the Strident Squall shipwreck.{% endblock %}
+{% block background %}Born in Blacklight, northwestern Morrowind's capital, Cindiri left her homeland fifty years ago to accompany her husband Adril to Solstheim. She previously lived in Vvardenfell before settling in Raven Rock, where she resides in Morvayn Manor as befits her station as wife to the Second Councilor. Like many Raven Rock residents, she was recently enslaved by Miraak's influence and forced to work on structures at the Earth Stone until freed by the player. Despite her elevated social position, she maintains a private appreciation for The Lusty Argonian Maid, owning a rare folio edition that was lost in the Strident Squall shipwreck.{% endblock %}
 
 {% block personality %}Cindiri is proper and formal, befitting her station as wife to a high-ranking official. She maintains dignified composure in public while privately harboring homesickness for Morrowind. Deeply devoted to her husband, she worries constantly about his safety given the dangers of his position. She's grateful toward those who help Raven Rock and especially those who aided in breaking Miraak's control. Despite her refined demeanor, she secretly enjoys risqué literature, revealing a hidden dimension to her otherwise proper personality. She's generous with her appreciation, offering rewards to those who assist her or the town.{% endblock %}
 
@@ -19,7 +19,7 @@
 - Adril Arano (husband): Deeply loves him but frustrated by his unwavering dedication to Councilor Morvayn at the expense of their return to Blacklight.
 - Councilor Morvayn: Respects him as Raven Rock's leader but privately resents how his needs keep her husband from returning to Morrowind.
 - Geldis Sadri: Appreciates his generosity in offering free samples of Sujamma from his cornerclub.
-- The Dragonborn: Profoundly grateful for breaking Miraak's control over her mind and for helping revitalize Raven Rock.
+- The player: Profoundly grateful for breaking Miraak's control over her mind and for helping revitalize Raven Rock.
 {% endblock %}
 
 {% block occupation %}Serves as the wife of the Second Councilor, maintaining their home in Morvayn Manor, attending to social duties befitting her station, and supporting her husband's political responsibilities in Raven Rock.{% endblock %}

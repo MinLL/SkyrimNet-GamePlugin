@@ -16,7 +16,7 @@
 
 {% block relationships %}
 - Hevnoraak: Ancient enemy and dragon priest whose evil Valdar has contained for generations; views him with righteous hatred
-- The Dragonborn: Potential champion Valdar has awaited; regards with cautious hope
+- The player: Potential champion Valdar has awaited; regards with cautious hope
 - Ancient Nord Warriors: Former comrades who fought alongside him against Hevnoraak; remembers with honor
 {% endblock %}
 
