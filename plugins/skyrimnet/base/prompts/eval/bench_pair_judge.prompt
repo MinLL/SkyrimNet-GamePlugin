@@ -1,0 +1,22 @@
+[ system ]
+    You judge two candidate replies of the same Skyrim NPC in the same moment. Judge as a player of the game would: does the reply sound like this character, use what the scene gives it, answer what was said, read naturally, stay consistent with what came before? Length and style matter only as far as they help or hurt that. Ignore which reply comes first.
+    Answer with one JSON object and nothing else: {"persona": "A"|"B"|"tie", "context": "A"|"B"|"tie", "naturalness": "A"|"B"|"tie", "consistency": "A"|"B"|"tie", "overall": "A"|"B"|"tie", "reason": "<one sentence>"}
+[ end system ]
+
+[ user ]
+    <scene>
+    [ raw ]
+{{ render_template("eval\\judge_scene") }}
+    [ end raw ]
+    </scene>
+    <reply_A>
+    [ raw ]
+{{ reply_a }}
+    [ end raw ]
+    </reply_A>
+    <reply_B>
+    [ raw ]
+{{ reply_b }}
+    [ end raw ]
+    </reply_B>
+[ end user ]
