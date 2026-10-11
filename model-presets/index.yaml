@@ -2,6 +2,11 @@
 # (cached ~10 min) and uses it to enumerate built-in presets and the
 # recommended-models file. Drop a new YAML file into ./presets/ and
 # add an entry below — no code change needed.
+#
+# A preset tier (`variants.default`, a named variant, or a slot in
+# `model_params`) may carry `reasoning_effort` (off | default | minimal |
+# low | medium | high) beside its model settings; a tier that names none
+# leaves the user's level alone.
 version: 1
 recommended_models: recommended-models.yaml
 presets:
