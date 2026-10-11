@@ -1,0 +1,21 @@
+{#
+  STT name hints: the names the player is likely to say, sent to speech-to-text with each
+  push-to-talk and open-mic utterance (STT.yaml name_hints, on by default) so they come back
+  spelled right. Local Whisper reads this as text heard just before the speech; hosted services
+  take it as their prompt, and Fateless also gets each listed name that this text contains as a
+  keyword.
+
+  Keep it short and plain. The rendering is held to 500 characters (the lowest-ranked names are
+  dropped until it fits), line breaks become spaces, and Whisper copies the style of what it
+  reads. Render nothing to send no hints.
+
+  Variables, each a list of names with the most likely first:
+  - characters: nearby characters (followers first), the player, pinned characters
+  - places: where the player is (location, hold, interior, worldspace), then nearby map markers
+    and door destinations
+  - nearby_characters, pinned_characters, current_places, nearby_places: one kind each
+  - player_name: the player's name ("" when it was dropped)
+  - names: every name, in rank order
+#}
+{% if length(characters) > 0 %}{% for name in characters %}{{ name }}{% if not loop.is_last %}, {% endif %}{% endfor %}.{% endif %}
+{% if length(places) > 0 %}{% for place in places %}{{ place }}{% if not loop.is_last %}, {% endif %}{% endfor %}.{% endif %}
