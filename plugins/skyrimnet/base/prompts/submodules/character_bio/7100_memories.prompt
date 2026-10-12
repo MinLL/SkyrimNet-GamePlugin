@@ -1,7 +1,11 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
     {% set memories = get_relevant_memories(actorUUID) %}
     {% if length(memories) > 0 %}
+        {% if render_mode == "full" and default(stable_split, false) %}
+        ## {{ decnpc(actorUUID).name }}'s Potentially Relevant Memories
+        {% else %}
         ### {{ decnpc(actorUUID).name }}'s Potentially Relevant Memories
+        {% endif %}
         {% for memory in memories %}
             {% set timeDiff = gameTimeNumeric - memory.memory.game_time %}
             {% set timeIndicator = "" %}

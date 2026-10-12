@@ -458,6 +458,15 @@ Sometimes you WANT whitespace. Don't over-trim:
 | `transform`, `full`, `thoughts` | First person | Internal state, feelings |
 | `target` | Third person | Only observable information |
 | `short_inline`, `interject_inline` | Brief | Minimal relevant info |
+| `stable` | First person | Only what does not change during play (base bio blocks) |
+
+**Dialogue renders the speaker's profile twice.** `dialogue_response` puts the parts that do not
+change turn to turn in its system message, so the provider can cache them: first
+`render_character_profile("stable", npc.UUID)`, then, after the event history, the `system_head`
+subcomponent in `"full"` with `stable_split` set, which renders everything else. A part keyed on
+`render_mode == "full"` lands in the second pass, which is right for anything that changes during
+play (state, inventory, quests, the scene). Do not end a render-mode chain with a bare `{% else %}`:
+it also catches `"stable"`, and the part then appears in both passes.
 
 ### Step 4.7: Code Block Formatting in Output
 
@@ -545,7 +554,9 @@ Content written for third-person context...
 | Function | Purpose |
 |----------|---------|
 | `render_template("path\\to\\template")` | Include another template file |
+| `render_template("path\\to\\template", {"name": value})` | The same, with context variables set for that render only |
 | `render_subcomponent("componentName", "mode")` | Render a subcomponent with render mode |
+| `render_subcomponent("componentName", "mode", {"name": value})` | The same, with context variables set for its files |
 | `render_character_profile("mode", uuid)` | Render character biography |
 
 ---

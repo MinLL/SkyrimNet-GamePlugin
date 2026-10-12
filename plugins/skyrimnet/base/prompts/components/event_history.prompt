@@ -5,34 +5,40 @@
 {% set events = get_recent_events(_event_count, _event_filter) %}{% endif %}
 {% set _npc_is_private_virtual = false %}
 {% if exists("npc") and existsIn(npc, "UUID") %}{% set _npc_is_private_virtual = decnpc(npc.UUID).isVirtualPrivate %}{% endif %}
+{# The window slides as events arrive, which would change the opening of the history on every
+   reply and defeat prompt caching. It starts at an anchor instead: the first event whose id reaches
+   the next multiple of a step (the largest power of two within an eighth of the window's id span),
+   so the opening holds until the window moves past it and at most an eighth of it goes unshown. #}
+{% set _anchorId = 0 %}
+{% if length(events) > 0 and existsIn(first(events), "id") %}
+{% set _firstId = first(events).id %}
+{% set _span = last(events).id - _firstId %}
+{% set _step = 1 %}
+{% if _span >= 2048 %}{% set _step = 256 %}{% else if _span >= 1024 %}{% set _step = 128 %}{% else if _span >= 512 %}{% set _step = 64 %}{% else if _span >= 256 %}{% set _step = 32 %}{% else if _span >= 128 %}{% set _step = 16 %}{% else if _span >= 64 %}{% set _step = 8 %}{% endif %}
+{% set _anchorId = _firstId + (_step - _firstId % _step) % _step %}
+{% endif %}
 {% set lastLocation = "" %}
 {% set lastEventTime = 0 %}
 {% set lastEventLocation = "" %}
 {% set lastSignificantTime = 0 %}
 {% set latestGMDialogueTime = 0 %}
-{% for event in events %}{% if event.type == "gamemaster_dialogue" %}{% set latestGMDialogueTime = event.gameTime %}{% endif %}{% endfor %}
+{% for event in events %}{% if event.type == "gamemaster_dialogue" and default(event.id, 0) >= _anchorId %}{% set latestGMDialogueTime = event.gameTime %}{% endif %}{% endfor %}
+{# cache_history (passed by dialogue_response): the last event's message is a prompt-cache
+   breakpoint, so the system message and the history up to it are cached together. #}
+{% set _cacheId = -1 %}
+{% if default(cache_history, false) %}
+{% for event in events %}{% if default(event.id, 0) >= _anchorId and event.type != "spell" and event.type != "hit" and event.type != "combat" and (event.type != "gamemaster_dialogue" or event.gameTime == latestGMDialogueTime) %}{% set _cacheId = event.id %}{% endif %}{% endfor %}
+{% endif %}
 {% set hasShownGMDialogue = false %}
 {% for event in events %}
-    {% if event.type != "spell" and event.type != "hit" and event.type != "combat" %}
+    {% if default(event.id, 0) >= _anchorId and event.type != "spell" and event.type != "hit" and event.type != "combat" %}
         {% set locationChanged = (lastLocation != "" and event.location != lastLocation) %}
-        {% set timeDiff = gameTimeNumeric - event.gameTime %}
         {% if lastSignificantTime > 0 %}
             {% set timeSinceLastSignificant = event.gameTime - lastSignificantTime %}
         {% else %}
             {% set timeSinceLastSignificant = 0 %}
         {% endif %}
-        {% set timeIndicator = "" %}
         {% set showTimeGap = false %}
-
-        {% if timeDiff > 604800 %}{% set timeIndicator = "[Over a week ago] " %}
-        {% else if timeDiff > 172800 %}{% set timeIndicator = "[Several days ago] " %}
-        {% else if timeDiff > 86400 %}{% set timeIndicator = "[Yesterday] " %}
-        {% else if timeDiff > 28800 %}{% set timeIndicator = "[Many hours ago] " %}
-        {% else if timeDiff > 14400 %}{% set timeIndicator = "[Earlier today] " %}
-        {% else if timeDiff > 7200 %}{% set timeIndicator = "[A few hours ago] " %}
-        {% else if timeDiff > 3600 %}{% set timeIndicator = "[About an hour ago] " %}
-        {% else if timeDiff > 1800 %}{% set timeIndicator = "[A while ago] " %}
-        {% endif %}
 
         {% if timeSinceLastSignificant > 1800 %}{% set showTimeGap = true %}{% endif %}
 
@@ -57,26 +63,33 @@
 [ end user ]
         {% endif %}
 
+        {% set _cacheHere = default(event.id, 0) == _cacheId %}
         {% if event.type == "gamemaster_dialogue" %}
             {% if event.gameTime == latestGMDialogueTime and not hasShownGMDialogue %}
 [ user ]
+{% if _cacheHere %}[ cache ]{% endif %}
             {{ format_event(event, "verbose") }}
+{% if _cacheHere %}[ end cache ]{% endif %}
 [ end user ]
                 {% set hasShownGMDialogue = true %}
             {% endif %}
         {% else if event.originatingActor == npc.UUID and event.type != "player_thoughts" and event.type != "direct_narration" %}
 [ assistant ]
+{% if _cacheHere %}[ cache ]{% endif %}
             {{ format_event(event, "verbose") }}
+{% if _cacheHere %}[ end cache ]{% endif %}
 [ end assistant ]
         {% else %}
 [ user ]
-            {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}{{ timeIndicator }}*{{ format_event(event, "verbose") }}*
+{% if _cacheHere %}[ cache ]{% endif %}
+            {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}*{{ format_event(event, "verbose") }}*
             {% else %}
             {% if event.type == "player_thoughts" %}{{ format_event(event, "verbose") }}
             {% else if event.type == "npc_thoughts" %}{# Telepathy: an NPC's private thought rendered into a different actor's prompt context (canonical-telepath audience expansion). Mark it as telepathically observed so the LLM doesn't mistake it for spoken dialogue. Use "compact" (renders {{ thoughts }} via the schema), not "raw" — "raw" dumps the JSON data object. #}{{ get_name(event.originatingActor) }} *(thought, telepathically observed)*: {{ format_event(event, "compact") }}
             {% else %}{% if event.type == "dialogue_background" %}[Background] {% endif %}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %}{% if decnpc(event.targetActor).isVirtualPrivate and not _npc_is_private_virtual %}{% if decnpc(event.originatingActor).isFemale %} (talking to herself){% else %} (talking to himself){% endif %}{% else %} (to {{ get_name(event.targetActor) }}){% endif %}{% endif %}: {% else if event.type == "dialogue_background" and event.data and event.data.speaker != "" %}{{ event.data.speaker }}: {% endif %}{{ format_event(event, "verbose") }}
             {% endif %}
             {% endif %}
+{% if _cacheHere %}[ end cache ]{% endif %}
 [ end user ]
         {% endif %}
         {% set lastLocation = event.location %}

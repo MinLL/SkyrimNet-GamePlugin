@@ -1,8 +1,9 @@
+{% set _profile = render_mode == "stable" or render_mode == "thoughts" or render_mode == "transform" or (render_mode == "full" and not default(stable_split, false)) %}
 {# Suppressed in the self-bio when a linked entity fully wears this body (entity_led): the
    host's life story is hers, not the entity's. The entity is given her history as borrowed
    knowledge in 7050 instead. The "bio_background" pull (used by 7050) always renders. #}
-{% if render_mode == "bio_background" or ((render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not suppress_host_persona) %}
-    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+{% if render_mode == "bio_background" or (_profile and not suppress_host_persona) %}
+    {% if _profile %}
         ## Background
     {% endif %}
     {% block background %}{% endblock %}

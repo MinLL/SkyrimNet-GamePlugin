@@ -1,5 +1,10 @@
-{# Handle the header based on render mode #}
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+{# Handle the header based on render mode. "stable" is the part of the profile that does not change
+   turn to turn (dialogue_response's cached system message); stable_split marks the "full" render
+   that follows it with the rest. #}
+{% set _split = render_mode == "full" and default(stable_split, false) %}
+{% if _split %}
+    ## {{ decnpc(actorUUID).name }}'s Current State (THIS IS YOU)
+{% elif render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "stable" %}
     ## {{ decnpc(actorUUID).name }}'s Character Profile (THIS IS WHO YOU ARE ROLEPLAYING AS)
 {% elif render_mode == "dialogue_target" %}
     {# This prompt is used when the actor is the target in a dialogue. #}
@@ -13,10 +18,11 @@
         ## {{ decnpc(actorUUID).name }}'s Character Profile
     {% endif %}
 {% endif %}
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
-    {# Common stats logic for both render modes #}
+{% if (render_mode == "full" and not _split) or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" or render_mode == "stable" %}
     - Gender: {{ decnpc(actorUUID).gender }}
     - Race: {{ decnpc(actorUUID).race }}
+{% endif %}
+{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
     {% if is_summoned(actorUUID) %}
         {% if is_hostile_to_actor(actorUUID, player.UUID) %}
             - Status: Summoned creature (hostile to {{ decnpc(player.UUID).name }})
