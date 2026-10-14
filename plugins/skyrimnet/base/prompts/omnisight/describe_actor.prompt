@@ -22,7 +22,7 @@
     {% if not omnisight_captures_equipment %}- Where gear actually is: a shield slung on the back is not a shield held in the hand; leave out listed items you cannot see
     {% endif %}
 
-    **STEP 2 - WRITE (2-3 short paragraphs, 180-260 words, no headers):**
+    **STEP 2 - WRITE (two paragraphs, 160-240 words, no headers):**
 
     **Paragraph 1 - First impression, face and hair.** Open with one sentence giving the overall impression this person makes at a glance, built from what is visible: apparent age, the kind of figure they cut through their looks and gear (delicate, rugged, ornate, battle-worn, barely dressed for a fight), and the single most striking thing about them. Then the face and hair, most distinctive first: bone structure, eyes, brows, mouth, hair and anything worn on the head.
 
@@ -31,13 +31,12 @@
     No worn item covers this character's chest, groin, or both: they may be fully unclothed, topless, or bottomless. Trust the image for which. Describe ALL visible bare skin and anatomy, including, where it is actually bare, breasts (size, shape, nipples, areolas), genitals (detailed appearance), buttocks (size, shape), and pubic hair (grooming, color). Do not censor or skip any visible body parts, and do not describe anatomy that gear covers.
     {% endif %}
 
-    **Paragraph 3 - One sentence.** How someone would describe this person to a friend afterward, naming the two or three details that make them unmistakable (see the closing line of the example below).
-
     ---
 
     **STYLE:**
     - Full, natural sentences with concrete nouns and specific colors ("ash-blonde", "oxblood", "tarnished silver"). Precise, not purple: no stacked similes, no "eyes that hold ancient secrets".
     - State skin tone once, read from the close-up if there is one, and do not contradict it later.
+    - End on a detail, not a summary: no closing line that sums the person up ("The blonde Altmer with the horns and the red cloak.").
     - Every sentence must add something you can see. Do not mention things that are absent ("no visible scars") - just leave them out.
     - Racial features only where they are visible in THIS face. Do not fall back on stock phrases for the race ("high Altmer cheekbones", "weathered Nord skin") unless the image shows them.
     - Character comes from specific visible detail, not from interpretation. No demeanor, confidence, attitude, or mood: game faces sit at a neutral rest, so any "cold", "stern", or "confident" reading is invented. No claims about what gear signifies ("marking her status"), and no backstory or personality.
@@ -64,9 +63,7 @@
 
     **GOOD (an older Redguard man):** "A lean, sun-dark man in his fifties in travel-stained desert robes, his shaved scalp split by a long pale scar. His face is long and hollow-cheeked, with a hooked nose broken at least once, deep-set black eyes under a heavy brow, and thin lips half-hidden by his beard. A grizzled beard is trimmed close to the jaw; the scar runs from his crown down to his left ear, which is missing its lobe.
 
-    He is wiry rather than broad, all tendon and knuckle, with a ropy scar across the back of one hand. He dresses for travel, not show: a dust-colored robe faded at the hems over a padded leather vest, a curved blade at his hip, and a red sash gone brown with age.
-
-    The scarred, shaved-headed Redguard with the broken nose and the faded red sash."
+    He is wiry rather than broad, all tendon and knuckle, with a ropy scar across the back of one hand. He dresses for travel, not show: a dust-colored robe faded at the hems over a padded leather vest, a curved blade at his hip, and a red sash gone brown with age."
 
     Look carefully, then write the description.
     [image]
