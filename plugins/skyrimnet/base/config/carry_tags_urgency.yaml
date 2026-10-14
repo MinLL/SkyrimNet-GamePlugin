@@ -1,0 +1,9 @@
+kind: carry_audio_tags
+name: Urgency
+description: "Urgent, desperate or pleading speech."
+tags:
+  - urgent
+  - urgently
+  - desperate
+  - desperately
+  - pleading

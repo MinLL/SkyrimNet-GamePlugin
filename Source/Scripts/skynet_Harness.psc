@@ -21,7 +21,7 @@ String Function RoundTrip(Actor akActor) global
     If build == ""
         Return "fail|GetBuildVersion"
     EndIf
-    If !SkyrimNetApi.IsActionRegistered("OpenTrade")
+    If !SkyrimNetApi.IsActionRegistered("AccompanyTarget")
         Return "fail|IsActionRegistered"
     EndIf
     Int queue = SkyrimNetApi.GetSpeechQueueSize()

@@ -19,7 +19,7 @@
 - Synda Llanith (wife): Deeply protective of her, worries about her safety when traveling to Riften, insists she carry protection.
 - Riften Guards: Distrusts them for their indifference to the plight of outlying farmers.
 - Thieves Guild: Harbors strong resentment, believes they specifically targeted his farm and stole his bow.
-- Dragonborn (conditional): Considers them a trusted friend if they return his bow.
+- The player (conditional): Considers them a trusted friend if they return his bow.
 {% endblock %}
 
 {% block occupation %}Operates Merryfair Farm with his wife, growing wheat, cabbage, and gourds while tending to livestock; regularly mills wheat and brings produce to market in Riften.{% endblock %}

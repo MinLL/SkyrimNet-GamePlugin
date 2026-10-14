@@ -19,7 +19,7 @@
 {% block relationships %}
 - Unnamed Financier: Former employer who commissioned the search for Ahzidal's relics; relationship severed after the disastrous excavation
 - Geldis Sadri: Cautious acquaintance who allows Ralis to stay at The Retching Netch despite rumors about the Kolbjorn incident
-- Dragonborn: Savior and potential companion; deeply indebted for both financial backing and freeing him from Ahzidal's control
+- The player: Savior and potential companion; deeply indebted for both financial backing and freeing him from Ahzidal's control
 - Kolbjorn miners: Victims whose deaths haunt Ralis; he feels profound guilt despite his lack of control
 - House Redoran: Tenuous connection as a Dunmer living under their governance in Raven Rock; wary of their judgment regarding the Kolbjorn incident
 {% endblock %}

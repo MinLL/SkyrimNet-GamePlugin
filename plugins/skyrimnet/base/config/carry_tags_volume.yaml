@@ -1,0 +1,24 @@
+kind: carry_audio_tags
+name: Volume
+description: "Whispering, murmuring, shouting: how loud the speaker is for the rest of the reply."
+tags:
+  - whisper
+  - whispers
+  - whispering
+  - whispered
+  - hushed
+  - quietly
+  - softly
+  - murmurs
+  - murmuring
+  - mutters
+  - muttering
+  - mumbles
+  - mumbling
+  - shout
+  - shouts
+  - shouting
+  - yell
+  - yells
+  - yelling
+  - loudly

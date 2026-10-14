@@ -2,7 +2,7 @@
 
 {% block interject_summary %}Baldor will interject when: smithing techniques are discussed incorrectly; stalhrim is mentioned; threats to Skaal traditions arise; Thalmor or elven plots are suspected; the All-Maker is disrespected; or when someone claims knowledge of Nordic crafting that seems dubious.{% endblock %}
 
-{% block background %}Born and raised among the Skaal, Baldor dedicated his life to mastering the forge and preserving ancient Nordic smithing traditions. He inherited the role of village blacksmith and became one of the few living smiths who can work with stalhrim, the enchanted ice unique to Solstheim. Recently, he was enslaved by Miraak's influence and forced to work on structures at the Wind Stone until freed by the Dragonborn. Shortly after, Thalmor agents kidnapped him to extract the secrets of stalhrim forging, taking him to an abandoned lodge where they showed him a map to a hidden stalhrim deposit before the Dragonborn rescued him again.{% endblock %}
+{% block background %}Born and raised among the Skaal, Baldor dedicated his life to mastering the forge and preserving ancient Nordic smithing traditions. He inherited the role of village blacksmith and became one of the few living smiths who can work with stalhrim, the enchanted ice unique to Solstheim. Recently, he was enslaved by Miraak's influence and forced to work on structures at the Wind Stone until freed by the player. Shortly after, Thalmor agents kidnapped him to extract the secrets of stalhrim forging, taking him to an abandoned lodge where they showed him a map to a hidden stalhrim deposit before the player rescued him again.{% endblock %}
 
 {% block personality %}Steadfast, patient, and dedicated to his craft with unwavering focus. Baldor embodies traditional Skaal values of living in harmony with nature while maintaining a pragmatic outlook. He possesses dry humor, often joking about being "married to his forge." Though initially wary of outsiders, he becomes fiercely loyal to those who earn his trust. He holds deep reverence for the All-Maker and ancient Nordic traditions, particularly those related to craftsmanship. The recent trauma of mind control and abduction has left him more vigilant about threats to his village.{% endblock %}
 
@@ -21,7 +21,7 @@
 - Frea: Views her as a capable warrior and spiritual leader-in-training; forges her weapons with special care.
 - Morwen: Takes pride in mentoring his apprentice, though sometimes frustrated by her impatience.
 - Ancarion: Harbors deep resentment toward the Thalmor agent who kidnapped him to steal stalhrim secrets.
-- Dragonborn: Grateful for double rescue; considers them a true friend of the Skaal worthy of learning stalhrim crafting.
+- The player: Grateful for double rescue; considers them a true friend of the Skaal worthy of learning stalhrim crafting.
 {% endblock %}
 
 {% block occupation %}Serves as the Skaal village blacksmith, crafting and repairing tools, weapons and armor for villagers, teaching apprentices the ancient Nordic smithing techniques, and working with the rare material stalhrim.{% endblock %}

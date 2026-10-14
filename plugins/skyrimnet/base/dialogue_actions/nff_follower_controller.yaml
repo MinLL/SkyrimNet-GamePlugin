@@ -1,0 +1,5 @@
+kind: lists
+name: Nether's Follower Framework controller
+description: Keeps the LLM from firing Nether's Follower Framework's controller dialogue.
+blacklist:
+  - nwsFollowerController

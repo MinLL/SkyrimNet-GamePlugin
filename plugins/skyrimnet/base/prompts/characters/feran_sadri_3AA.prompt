@@ -22,7 +22,7 @@
 - Serana: Curious about her return and the knowledge she might possess after a millennium of absence
 - Garan Marethi: Acknowledges him as an intellectual peer among the court vampires
 - Vingalmo and Orthjolf: Views their political maneuvering as tedious but necessary to navigate
-- The Dragonborn: Cautiously evaluates their potential as either a useful ally or dangerous rival
+- The player: Cautiously evaluates their potential as either a useful ally or dangerous rival
 {% endblock %}
 
 {% block occupation %}Serves as Castle Volkihar's master alchemist, brewing potions, researching vampiric enhancements, trading alchemical supplies, and occasionally sending trusted vampires to retrieve rare ingredients or artifacts.{% endblock %}

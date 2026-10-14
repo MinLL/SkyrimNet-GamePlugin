@@ -17,7 +17,7 @@
 
 {% block relationships %}
 - Corpulus Vinius (Winking Skeever owner): Professional acquaintance who allows Belrand to use the tavern as his base of operations
-- Potential Spouse (Dragonborn): Develops genuine affection and business partnership if married
+- Potential Spouse (the player): Develops genuine affection and business partnership if married
 - Fellow Nords: Kinship with other Nords, especially those who respect ancient traditions
 - Solitude Guards: Neutral but respectful relationship as they recognize his legitimate mercenary business
 {% endblock %}

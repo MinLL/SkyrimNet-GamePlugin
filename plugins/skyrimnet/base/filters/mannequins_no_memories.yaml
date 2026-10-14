@@ -1,0 +1,5 @@
+kind: memory
+name: Mannequins form no memories
+description: Display mannequins don't form memories.
+RaceBlacklist:
+  - ManakinRace

@@ -1,0 +1,5 @@
+kind: actor
+name: Paarthurnax speaks
+description: Paarthurnax can talk even when only speech-capable races may.
+FactionWhitelist:
+  - PaarthurnaxFaction

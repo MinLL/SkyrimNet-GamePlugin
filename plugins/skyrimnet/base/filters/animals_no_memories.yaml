@@ -1,0 +1,7 @@
+kind: memory
+name: Animals form no memories
+description: Cats, dogs and wolves don't form memories.
+RaceBlacklist:
+  - ACLRaceCat
+  - DogRace
+  - WolfRace

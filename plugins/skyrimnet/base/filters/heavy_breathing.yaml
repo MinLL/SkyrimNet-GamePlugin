@@ -1,0 +1,5 @@
+kind: dialogue_rule
+id: heavy_breathing
+pattern: ^\(Heavy breathing - sprinting\)$
+replacement: ""
+priority: 0

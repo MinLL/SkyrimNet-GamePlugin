@@ -8,7 +8,14 @@ int Property LEFT_TO_RIGHT = 1 autoReadonly
 int Property TOP_TO_BOTTOM = 2 autoReadonly
 string Property ModName auto
 string[] Property Pages auto
-string Property CurrentPage auto
+; SkyUI declares CurrentPage as a read-only full property over _currentPage, not an auto
+; property. Declared auto here, the compiler reads a ::CurrentPage_var that the real
+; SKI_ConfigBase does not have, and every such read fails at link time.
+string Property CurrentPage
+    string Function Get()
+        return ""
+    EndFunction
+EndProperty
 
 int Function GetVersion() native
 string Function GetCustomControl(int a_keyCode) native

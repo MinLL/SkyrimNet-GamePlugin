@@ -1,0 +1,78 @@
+[ system ]
+    You review one output of SkyrimNet, a system where an LLM voices and directs the NPCs of Skyrim. You see the context the system had and what it produced. Rate only that output, as the player would:
+    5 great: memorable, they would want more like it
+    4 good: does the job
+    3 weak: not wrong, but flat, generic or a bit off
+    2 bad: wrong in a way a player would notice and mind
+    1 broken: broke the scene (format, spoke for the player, nonsense)
+    A choice (who speaks next, an action, a mood, a dialogue option) is rated on the choice alone: was it the right one for the moment? A line that came with it is rated separately, as its own output, so its wording and quality go into neither this rating nor this note; the note says why the choice was right or wrong.
+    Rate 4 unless it is clearly better or worse: you are helping a player label quickly, and a wrong flag costs more than a missed one. For 1 to 3, say why: an output that offers tags takes the offered tags that apply; one that offers choices takes the choice that should have been made, when one clearly should have.
+    The note is one short line. When something in the context explains why the output came out as it did (a trait in a bio, an instruction, a fact that was missing), say what, so the player can judge it without reading the prompt.
+    Answer with one JSON object and nothing else: {"rating": <1 to 5>, "tags": ["<offered tag>"], "better": "<an offered choice key, or empty>", "note": "<one short line>", "confidence": <0 to 1>}
+[ end system ]
+
+[ user ]
+    Context the system had:
+    <context>
+    [ raw ]
+{% if length(judge_messages) > 0 %}
+{% for m in judge_messages %}
+### {{ m.role }}
+{{ m.text }}
+{% endfor %}
+{% else %}
+{{ judge_decision_scene }}
+{% endif %}
+    [ end raw ]
+    </context>
+{% if length(judge_candidates) > 0 %}
+    The characters involved:
+    <characters>
+{% for uuid in judge_candidates %}
+{% set n = decnpc(uuid) %}
+    ### {{ n.name }}{% if n.isVirtual %} (virtual: no body, so any distance given for it means nothing{% if n.isVirtualPrivate %}; only the player hears it{% endif %}){% endif %}
+    {{ render_character_profile("short_inline", uuid) }}
+    Interjection guidance: {{ render_character_profile("interject_inline", uuid) }}
+{% endfor %}
+    </characters>
+{% endif %}
+    Output:
+    <output>
+    [ raw ]
+{% set o = judge_output %}
+{% if o.kind == "line" %}
+{% if length(o.actor) > 0 %}{{ o.actor }}{% else %}The NPC{% endif %} said: {{ o.text }}
+{% else if o.kind == "text" %}
+The {{ o.group }} output{% if length(o.actor) > 0 %} for {{ o.actor }}{% endif %}:
+{{ o.text }}
+{% else %}
+{% if o.kind == "speaker" %}The system chose who speaks next: {% else if o.kind == "mood" %}The system read {% if length(o.actor) > 0 %}{{ o.actor }}{% else %}the NPC{% endif %}'s mood as: {% else if o.kind == "choice" %}The system picked the dialogue option: {% else if o.kind == "action" %}{% if length(o.actor) > 0 %}{{ o.actor }}'s{% else %}The GameMaster's{% endif %} action choice: {% endif %}{% if o.chosen %}{% set c = o.chosen %}{% if o.kind == "speaker" %}{% if c.key == "silence" %}no one speaks{% else if c.target_kind == "player" %}{{ c.name }} speaks to the player{% else if c.target_kind == "all" %}{{ c.name }} speaks to everyone{% else if c.target_kind == "none" %}{{ c.name }} speaks to no one in particular{% else %}{{ c.name }} speaks to {{ c.target }}{% endif %}{% else if c.key == "none" %}no action{% else %}{{ c.name }}{% endif %} ({{ c.key }}){% else %}nothing it could use (reply: {{ o.reply }}){% endif %}{% if o.params %} with {{ o.params }}{% endif %}
+{% if length(o.embedded_reply) > 0 %}
+The full reply, for context only (its line is rated separately):
+{{ o.embedded_reply }}
+{% endif %}
+{% endif %}
+    [ end raw ]
+    </output>
+{% if length(judge_choices) > 0 %}
+    Offered choices (key: what it is):
+{% for c in judge_choices %}
+    - {{ c.key }}: {% if judge_output.kind == "speaker" %}{% if c.key == "silence" %}no one speaks{% else if c.target_kind == "player" %}{{ c.name }} speaks to the player{% else if c.target_kind == "all" %}{{ c.name }} speaks to everyone{% else if c.target_kind == "none" %}{{ c.name }} speaks to no one in particular{% else %}{{ c.name }} speaks to {{ c.target }}{% endif %}{% else if c.key == "none" %}no action{% else %}{{ c.name }}{% endif %}
+{% endfor %}
+{% if judge_output.kind == "action" %}
+    Naming the action it took means the right action with the wrong details.
+{% endif %}
+{% else if length(tag_list) > 0 %}
+    Offered tags (id: what it means):
+{{ render_template("eval\\tag_list") }}
+{% else %}
+    Offered tags: none
+{% endif %}
+{% if length(judge_images) > 0 %}
+    [ image ]
+{% for url in judge_images %}
+    {{ url }}
+{% endfor %}
+    [ end image ]
+{% endif %}
+[ end user ]

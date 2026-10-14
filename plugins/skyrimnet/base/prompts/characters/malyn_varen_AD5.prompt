@@ -20,7 +20,7 @@
 - College of Winterhold: Former institution that exiled him; he views them as shortsighted fools who feared true innovation
 - Necromancer followers: Loyal servants who provide him with souls; he values them only for their utility
 - Nelacar: Former apprentice who knows too much about his research; considers him a potential threat
-- Dragonborn: Immediate threat sent by Azura to purge him from the Star{% endblock %}
+- The player: Immediate threat sent by Azura to purge him from the Star{% endblock %}
 
 {% block occupation %}Soul-bound necromancer who directs his living followers to capture souls, conduct magical research on his behalf, and defend Ilinalta's Deep while he exists within Azura's Star.{% endblock %}
 

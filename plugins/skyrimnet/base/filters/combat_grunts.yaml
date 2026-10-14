@@ -1,0 +1,5 @@
+kind: dialogue_rule
+id: combat_grunts
+pattern: ^(Rrargh!|Hrargh!|Unnff!|Yeargh!|Rargh!|Hyargh!|Nyargh!|Yiiee!|Hunh!|Grrarrgh!|Aghh\.\.|Nuhn!|Aggh!|Oof!|Arrggh!|Gah!|Wagh!|Unh!|Yeeeaarrggh!|Hhyyaarrgghh!|Nnnyyaarrgghh!)$
+replacement: ""
+priority: 10

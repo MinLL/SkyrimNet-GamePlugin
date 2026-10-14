@@ -110,7 +110,7 @@ Pick the line and respond with **exactly one line of valid JSON, nothing else** 
 - `reasoning` is YOUR raw internal thought, written exactly as a normal player thought would be — first-person, in-character, no tags. Explain the *why*, not the *what*. Do not quote the chosen line.
 {% elif length(promptForThoughts) > 0 %}
 ## FINAL INSTRUCTION
-Express this as {{ decnpc(npc.UUID).name }}'s internal thought in her own voice, staying close to the meaning: {{ promptForThoughts }}
+Express this as {{ decnpc(npc.UUID).name }}'s internal thought in their own voice, staying close to the meaning: {{ promptForThoughts }}
 
 Respond with 1-2 sentences of first-person silent in-character internal thought only. No spoken words. The thought must read in {{ decnpc(npc.UUID).name }}'s voice — same vocabulary, same cadence, same register as {{ decnpc(npc.UUID).name }} would speak — not in a narrator's voice describing {{ decnpc(npc.UUID).name }}'s situation.
 {% else %}

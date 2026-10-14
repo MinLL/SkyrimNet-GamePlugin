@@ -1,0 +1,5 @@
+kind: actor
+name: Mannequins don't speak
+description: Display mannequins never talk.
+RaceBlacklist:
+  - ManakinRace

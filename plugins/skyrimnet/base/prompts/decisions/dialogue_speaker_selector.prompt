@@ -1,0 +1,93 @@
+{# Decision template: who speaks next and to whom, as one choice over the legal (speaker, target)
+   pairs the game enumerated. Rendered into a decisions request, never into chat messages. Sent when
+   dialogue.decisions.useForSpeakerSelection is on; target_selectors/dialogue_speaker_selector is
+   the chat fallback.
+
+   Context set by the game: decision_pairs (key, speakerUUID, speakerName, targetKind, targetUUID,
+   targetName), decision_speakers (UUID, name, distance, isVirtual, isPrivateVirtual),
+   plus lastSpeaker, lastDialogueTarget, playerState, location, triggeringEvent, maxRecentEvents.
+   Restrictions (no last speaker, no self-target, virtual-NPC rules) are already applied to the pairs.
+   Silence (none) is always offered; the silence chance setting applies to the chat selector only.
+   Keys are short and numbered per request (s2_tplayer, s2_t5); use p.key as given.
+   events is the recent history without the player's thoughts, which no candidate heard; the
+   compact history component renders it.
+   Unprompted speech is gated on each candidate's interjection guidance (the bio's interject_summary).
+   How tightly is dialogue.speakerSelector.strictness (ss.strictness): "chatty" follows the guidance
+   loosely and lets companions react to anything around the player; "balanced" (default) gates
+   companions on their guidance or on something happening to the player, everyone else on a topical
+   fit; "strict" wants a specific match for anyone not addressed and makes silence the default.
+   The addressed/involved/duty rule and the virtual-NPC lines do not vary with it.
+
+   A criterion is one line; profiles and other multi-line decorators belong in the state blocks. #}
+{% set ss = get_speaker_selector_settings() %}
+{% set tagCompanion = ss.tagCompanion %}
+{% set tagEngaged = ss.tagEngaged %}
+{% set tagInScene = ss.tagInScene %}
+{% set strictness = "balanced" %}
+{% if existsIn(ss, "strictness") %}{% set strictness = ss.strictness %}{% endif %}
+
+[ state location ]
+{{ location }}
+[ end state ]
+
+[ state player ]
+{{ player.name }}. {{ playerState.description }}
+[ end state ]
+
+[ state recent_dialogue ]
+{{ render_template("components\\event_history_compact") }}
+[ end state ]
+
+[ state last_exchange ]
+{% if existsIn(lastSpeaker, "name") and existsIn(lastDialogueTarget, "name") %}
+{{ lastSpeaker.name }} was speaking to {% if lastDialogueTarget.UUID == player.UUID %}the player{% else %}{{ lastDialogueTarget.name }}{% endif %}.
+{% else if existsIn(lastSpeaker, "name") %}
+{{ lastSpeaker.name }} made a general comment with no specific target.
+{% else %}
+No one has spoken yet.
+{% endif %}
+[ end state ]
+
+[ state candidates ]
+{% for c in decision_speakers %}
+{% set cinfo = decnpc(c.UUID) %}
+{{ cinfo.name }}{% if cinfo.isVirtual %}{% if c.isPrivateVirtual %} (virtual: a voice only {{ player.name }} hears){% else %} (virtual: heard by everyone here, but not physically present){% endif %}{% else %} ({{ cinfo.gender }} {{ cinfo.race }}, {{ units_to_meters(c.distance) }}m away){% endif %}{% if tagCompanion and is_follower(c.UUID) %} [COMPANION]{% endif %}{% if tagEngaged and is_in_package(c.UUID, "SkyrimNet_PlayerFollowPackage") %} [ENGAGED]{% endif %}{% if tagInScene and ((is_plugin_loaded("SexLab.esm") and is_in_faction(c.UUID, "SexLabAnimatingFaction")) or (is_plugin_loaded("OStim.esp") and is_in_faction(c.UUID, "OStimExcitementFaction"))) %} [IN SCENE]{% endif %}
+- {{ render_character_profile("short_inline", c.UUID) }}
+- Interjection: {{ render_character_profile("interject_inline", c.UUID) }}
+{% endfor %}
+{% if tagCompanion or tagEngaged or tagInScene %}
+Tags: {% if tagCompanion %}[COMPANION] {% if strictness == "chatty" %}is {{ player.name }}'s active follower and reacts to what happens around {{ player.name }}. {% else if strictness == "strict" %}travels with {{ player.name }}; that alone is no reason to speak. {% else %}travels with {{ player.name }} and reacts to what happens to {{ player.name }}; other people's talk is no reason by itself. {% endif %}{% endif %}{% if tagEngaged %}[ENGAGED] {% if strictness == "strict" %}is already in conversation with {{ player.name }}. {% else %}is already in conversation with {{ player.name }} and has a lower threshold to speak; several ENGAGED NPCs must not crowd out everyone else. {% endif %}{% endif %}{% if tagInScene %}[IN SCENE] is physically occupied in an intimate scene and speaks only if addressed by name. {% endif %}
+{% endif %}
+[ end state ]
+
+[ question speaker choice ]
+Decide who speaks next and to whom, or that no one does. Each option names a speaker and the person they address.
+`recent_dialogue` is the conversation so far, oldest first; the last entry is what just happened. `last_exchange` says who was talking to whom a moment ago.
+Someone who was just addressed, asked a question or given a request, and has not answered, is the one to choose; they answer whoever addressed them. So is someone directly involved in what just happened (attacked, robbed, handed something), or whose duty it plainly calls for, such as a guard who just saw a crime.
+{% if strictness == "chatty" %}
+`candidates` describes each possible speaker and their Interjection guidance; follow that guidance. A companion who witnessed something involving {{ player.name }} has a reason to speak; a bystander listed only because they are nearby does not. A virtual NPC has no body and needs a clear match with its guidance.
+{% else if strictness == "strict" %}
+Anyone else, companions and virtual NPCs included, speaks only when their Interjection guidance in `candidates` matches what was just said or what just happened. A match is specific: the general subject of the scene, being nearby, being a companion or having an opinion is not one. Someone whose guidance is missing or still a placeholder speaks only when addressed. A virtual NPC has no body and needs a clear match.
+{% else %}
+A companion speaks when their Interjection guidance in `candidates` fits what was just said or what just happened, or when something just happened to {{ player.name }}: a fight, a close call, a find, a choice {{ player.name }} just made. Other people's talk is no reason for a companion unless their guidance fits it. Anyone else speaks when their Interjection guidance fits what was just said or what just happened; a fit with the topic counts, but a bystander listed only because they are nearby, or who merely has an opinion, does not. Someone whose guidance is missing or still a placeholder speaks only when addressed. A virtual NPC has no body and needs a clear match.
+{% endif %}
+Choose a player target only when the line is genuinely for {{ player.name }}. After two or three exchanges between the same two NPCs the topic is usually spent; the next line pivots to the player or the scene goes quiet.
+{% if strictness == "strict" %}
+Choose `none` when no one was addressed and no one's guidance matches, when the last line closed the exchange (a farewell, thanks, an answered question, an agreement), when {{ player.name }} was asked a direct question and should answer, or when the same two NPCs are looping. Do not choose `none` when someone was asked a question they have not answered.
+{% else %}
+Choose `none` when the last line closed the exchange (a farewell, thanks, an answered question, an agreement), when {{ player.name }} was asked a direct question and should answer, when the same two NPCs are looping, or when no one has a concrete reason to speak. Do not choose `none` when someone was asked a question they have not answered, or when something dramatic, dangerous, funny or unexpected just happened.
+{% endif %}
+[ criteria ]
+{% for p in decision_pairs %}
+{% set pv = false %}{% for s in decision_speakers %}{% if s.UUID == p.speakerUUID and s.isVirtual %}{% set pv = true %}{% endif %}{% endfor %}
+{{ p.key }}: {{ p.speakerName }} speaks to {% if p.targetKind == "player" %}the player, {{ p.targetName }}{% else %}{{ p.targetName }}{% endif %}{% if pv %} (right only if {{ p.speakerName }} was addressed or {{ p.speakerName }}'s Interjection guidance clearly matches what just happened){% endif %}
+{% endfor %}
+{% if strictness == "chatty" %}
+none: No one speaks. The conversation pauses or ends here.
+{% else if strictness == "strict" %}
+none: No one speaks: nobody was addressed and no one's Interjection guidance clearly matches what just happened, or the exchange has run its course.
+{% else %}
+none: No one speaks: nobody has a concrete reason to, or the exchange has run its course.
+{% endif %}
+[ end criteria ]
+[ end question ]

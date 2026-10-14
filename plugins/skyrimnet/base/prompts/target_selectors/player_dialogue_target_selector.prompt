@@ -48,10 +48,9 @@ Virtual NPC rules:
 - Regular NPCs cannot hear Virtual NPCs. Do not route dialogue from a Virtual NPC to a regular NPC.
 - Virtual NPCs may speak but may NOT be targeted unless the speaker is also Virtual.
 
-If there is no clear target or the dialogue is general speech not directed at anyone, respond with `0`.
+Always name someone: the player said this to someone present. If no one is clearly addressed, choose whoever the line most likely addresses.
 
 Output format:
-- `0` = No clear target
 - `Lydia>player` = Lydia speaks to the player
 - `Ulfric Stormcloak>Galmar Stone-Fist` = Ulfric speaks to Galmar
 

@@ -1,0 +1,34 @@
+[ system ]
+    A player rated an NPC reply in a Skyrim game as weak or bad and said why. You see the scene, that reply, what the player found wrong with it, and a new reply for the same moment. Decide whether the new reply still has those problems.
+    Answer with one JSON object and nothing else: {"still_has_problem": true|false, "reason": "<one sentence>"}
+[ end system ]
+
+[ user ]
+    <scene>
+    [ raw ]
+{{ render_template("eval\\judge_scene") }}
+    [ end raw ]
+    </scene>
+    <flagged_reply>
+    [ raw ]
+{{ flagged_reply }}
+    [ end raw ]
+    </flagged_reply>
+    <problem>
+    The player rated it {{ flagged_rating }} of 5 ({% if flagged_rating <= 1 %}broken{% else if flagged_rating == 2 %}bad{% else %}weak{% endif %}).
+{% if length(tag_list) > 0 %}
+    What was wrong:
+{{ render_template("eval\\tag_list") }}
+{% else %}
+    The player did not say what was wrong.
+{% endif %}
+{% if length(flagged_note) > 0 %}
+    The player's words: {{ flagged_note }}
+{% endif %}
+    </problem>
+    <new_reply>
+    [ raw ]
+{{ new_reply }}
+    [ end raw ]
+    </new_reply>
+[ end user ]

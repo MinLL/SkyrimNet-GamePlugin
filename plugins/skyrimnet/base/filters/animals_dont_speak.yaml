@@ -1,0 +1,7 @@
+kind: actor
+name: Animals don't speak
+description: Cats, dogs and wolves never talk.
+RaceBlacklist:
+  - ACLRaceCat
+  - DogRace
+  - WolfRace

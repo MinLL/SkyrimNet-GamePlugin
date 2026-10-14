@@ -19,7 +19,7 @@
 - Bilgemuck (Prized Bristleback): Deep attachment to this special mount; anxious about its return
 - Tribe-kin: Protective leader who commands absolute loyalty through strength and cunning
 - Thirsk's former Nord inhabitants: Views as weak enemies rightfully displaced
-- Dragonborn: Potential powerful ally to be respected and utilized
+- The player: Potential powerful ally to be respected and utilized
 {% endblock %}
 
 {% block occupation %}Leads Riekling tribe in Thirsk Mead Hall, organizing raids, directing tribal activities, making decisions about territory, and judging disputes among tribe-kin.{% endblock %}

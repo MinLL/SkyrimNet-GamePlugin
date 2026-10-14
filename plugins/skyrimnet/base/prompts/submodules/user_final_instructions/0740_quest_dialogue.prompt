@@ -1,10 +1,12 @@
 {% if feature_enabled("quest_actions") %}
-{% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(npc.UUID) and is_action_enabled("SpeakQuestLine") and exists("responseTarget") and is_player(responseTarget.UUID) %}
+{% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(npc.UUID) and is_action_enabled("TriggerDialogueLine") and exists("responseTarget") and is_player(responseTarget.UUID) %}
 {% set quests = available_dialogue(npc.UUID, "quest") %}
 {% if quests.hasContent %}
 ## Quests You Could Raise
-The following are outstanding quests/tasks you are currently seeking help with. They are formatted as full dialogue branches and separated by quest name.
-- Bring them up when speaking with {{player.name}}
+The following are outstanding quests/tasks you are currently seeking help with. They are formatted as full dialogue branches and separated by quest name. Indentation shows how a conversation could unfold; where a branch splits, those are genuine alternative paths (fight it out, pay, talk them down, and so on). {{ player.name }} cannot see the details of these quests — what they involve or what choices they hold — and learns them only through the conversation.
+- Bring them up when speaking with {{ player.name }}
+- When moving one forward is more than a simple yes or a turn-in, make the way forward clear — guide {{ player.name }} toward what they can do, in your own words
+- Where a matter splits into different paths, voice them as real choices so {{ player.name }} knows there's a decision to make
 - Respond in your own words
 - Follow the flow of the conversation
 

@@ -112,6 +112,9 @@ mcp_skyrimnet-mcp_get_monitored_events:
 | `persistent_generic` | Register event without NPC dialogue | Background event logging |
 | `diary_entry` | Create diary entry for actor(s) | Reflection on significant events |
 | `dynamic_bio_update` | Update character biography | Long-term character development |
+| `npc_thought` | Unvoiced internal thought for the target NPC(s), private to the thinker | "That stranger smells of blood" |
+| `enable_virtual_npc` / `disable_virtual_npc` | Enable or disable a virtual NPC by name; set `targetName` instead of `content` | Wake a spirit companion |
+| `activate_voice_effect` / `deactivate_voice_effect` | Apply or clear a voice effect recipe on the target actor(s); set `effectId` (activate only) and `targetScope` | Werewolf voice during transformation |
 
 ### Step 3.2: Choose Audience
 
@@ -123,22 +126,36 @@ mcp_skyrimnet-mcp_get_monitored_events:
 | `originator_or_target` | Either one |
 | `everyone` | All nearby actors |
 | `nearby_npcs` | NPCs only (not player) |
+| `enabled_virtual_npcs` | All currently enabled virtual NPCs |
 
 ### Step 3.3: Design Content Template
 
-**Available variables in `response.content`:**
+**Available variables in `response.content`** (set per event by the trigger engine, on top of the prompt engine's default variables):
 
 | Variable | Description |
 |----------|-------------|
-| `{{ player_name }}` or `{{ player.name }}` | Player's name |
-| `{{ event_json.field }}` | Any field from event extraData |
-| `{{ time_desc }}` | Relative time description |
-| `{{ location }}` | Current location name |
-| `{{ gameTimeStr }}` | In-game date/time |
+| `{{ originator }}` | Display name of the event's originating actor (see below for which actor that is) |
+| `{{ originator_uuid }}` | That actor's UUID; usable in decorators, e.g. `{{ decnpc(originator_uuid).possessivePronoun }}` |
+| `{{ target }}` / `{{ target_uuid }}` | The event's target actor name / UUID, when the event has one |
+| `{{ actor.name }}` / `{{ actor.UUID }}` | The originating actor as a JSON object (same actor as `originator`) |
+| `{{ target_actor.name }}` / `{{ target_actor.UUID }}` | The target actor as a JSON object |
+| `{{ player_name }}` or `{{ player.name }}` | Player's name (`{{ player.UUID }}` for the UUID) |
+| `{{ event_json.field }}` | Any field from the event's `extraData`, e.g. `{{ event_json.spell }}` |
+| `{{ event_type }}` | The event type string |
+| `{{ event_location }}` | Location recorded on the event |
+| `{{ location }}` | Player's current location name |
+| `{{ gameTime }}` | In-game date/time string |
+| `{{ timestamp }}` | Unix timestamp (seconds) |
 
-**For `diary_entry` / `dynamic_bio_update`, also set:**
-- `targetScope`: `triggering_actor`, `player`, `all_pinned_actors`, `all_nearby_actors`
-- `nearbyRadius`: Radius in game units (default 2000)
+Which actor is `originator` depends on the event. For most events it is the actor the event is about (`actor`, `victim`, `aggressor`, ...). For `active_effect` it is the actor the effect was applied to (`event_json.target`) and `target` is the caster, so a self-cast effect names the caster either way.
+
+A variable the engine does not know is a render error, not empty text: the trigger logs the error and posts the template verbatim, braces included. Only use names from this table, `event_json` fields the event actually carries, or decorator calls.
+
+**For `diary_entry`, `dynamic_bio_update`, `npc_thought` and the voice-effect types, also set:**
+- `targetScope`: `triggering_actor`, `player`, `all_pinned_actors`, `all_nearby_actors`, `all_enabled_virtual_npcs`
+- `nearbyRadius`: Radius in game units for `all_nearby_actors` (default 2000)
+
+**For `enable_virtual_npc` / `disable_virtual_npc`:** set `targetName` (the virtual NPC's name; templates allowed). **For `activate_voice_effect`:** set `effectId` (a voice effect recipe id).
 
 ---
 
@@ -157,13 +174,18 @@ eventCriteria:
       operator: "equals"
       value: "expected_value"
       caseSensitive: false  # optional, default true
+  # logicalOperator: "OR"    # optional, default AND: how the conditions above combine
 
 response:
   type: "player_thought"
   content: "Template with {{ variables }}"
-  # For diary_entry / dynamic_bio_update:
+  # For diary_entry / dynamic_bio_update / npc_thought / voice effects:
   # targetScope: "triggering_actor"
   # nearbyRadius: 2000
+  # For enable_virtual_npc / disable_virtual_npc:
+  # targetName: "Spirit Guide"
+  # For activate_voice_effect:
+  # effectId: "werewolf"
 
 audience: "player"
 
@@ -171,18 +193,27 @@ enabled: true
 probability: 1.0
 cooldownSeconds: 30
 priority: 1
+interrupt: false   # optional: true purges queued dialogue/audio before responding
 ```
+
+`eventCriteria` may also be a list of rule objects (each with its own `eventType` and `schemaConditions`); the rules are OR-ed, so the trigger fires when any one of them matches.
 
 ### Step 4.2: Schema Condition Operators
 
-| Operator | Description |
-|----------|-------------|
-| `equals` / `not_equals` | Exact match |
-| `contains` / `not_contains` | Substring match |
-| `greater_than` / `less_than` | Numeric comparison |
-| `greater_than_or_equal` / `less_than_or_equal` | Numeric with equality |
-| `starts_with` / `ends_with` | String prefix/suffix |
-| `matches_regex` | Regular expression |
+Operator names are exact; an unknown operator never matches and only logs a warning.
+
+| Operator | Field type | Description |
+|----------|------------|-------------|
+| `equals` / `not_equals` | any | Exact match |
+| `contains` / `not_contains` | string, array | Substring match (string) or element match (array) |
+| `starts_with` / `ends_with` | string | String prefix/suffix |
+| `regex` | string | Regular expression (`std::regex_search`) |
+| `greater_than` / `less_than` | number | Numeric comparison |
+| `greater_equal` / `less_equal` | number | Numeric with equality |
+| `length_equals` / `length_greater` / `length_less` | array | Array length checks |
+| `has_field` / `not_has_field` | object | Object has / lacks a property |
+
+String comparisons honour `caseSensitive` (default `true`). There is no `matches_regex`, `greater_than_or_equal` or `less_than_or_equal`; use `regex`, `greater_equal` and `less_equal`.
 
 ---
 
@@ -238,7 +269,20 @@ mcp_skyrimnet-mcp_validate_custom_trigger:
 | `dragon_soul` | Dragon soul absorbed | `absorber`, `dragon_name` |
 | `dialogue` | AI-generated dialogue | `speaker`, `dialogue`, `listener` |
 | `notification` | Corner notification shown to the player | `message` |
+| `messagebox` | Message box shown to the player | `message`, `buttons`, `button_count`, `title`, `source_plugin`, `editor_id` |
+| `trade_start` / `trade_complete` | Barter menu opened / closed | `merchant`, `merchant_form_id`; complete adds `items_bought`, `items_sold`, `gold_spent`, `gold_received`, `net_gold` |
+| `lock_changed` | Lock picked or locked | `actor`, `object_name`, `action` (locked/unlocked), `lock_level` |
+| `quest_objective_state` | Quest objective state change | `quest`, `objective`, `old_state`, `new_state` |
+| `cell_attach_detach` | Cell attach/detach | `actor`, `from_cell`, `to_cell`, `action` (attach/detach) |
+| `scene` / `scene_action` / `scene_phase` | Engine scene lifecycle | `scene_name`, `action`, `participants` / `actor`, `action` / `phase`, `phase_number` |
+| `package_apply` / `package_remove` | SkyrimNet package override applied/removed | `actor`, `package_type` |
+| `diary_entry_created` | An NPC diary entry was written | `actor`, `emotion`, `importance_score`, `entry_id`, `entry_contents` |
+| `custom` | Custom event from Papyrus | `description`, `data` |
+| `direct_narration` / `persistent_generic` / `player_thoughts` / `npc_thoughts` | SkyrimNet's own outputs (narration, generic events, thoughts) | `narration` / `line` / `dialogue`, `speaker` |
+| `dialogue_npc` / `dialogue_player` / `dialogue_player_stt` / `dialogue_player_text` / `dialogue_background` / `dialogue_player_monologue` / `dialogue_player_telepathy` / `dialogue_npc_telepathy` | Vanilla and player dialogue variants | `speaker`, `dialogue`, `listener` |
 | `*` | Wildcard - ALL events | (varies) |
+
+Each event also sets the trigger's `originator` and `target` actors: for `active_effect` the originator is the affected actor and the target is the caster; for `hit` the originator is the aggressor and the target the victim; for `death` the originator is the victim and the target the killer; for `dialogue` the originator is the speaker. `get_monitored_events` shows the live shape, and `validate_custom_trigger` rejects an `eventType` the engine does not know.
 
 ---
 
@@ -359,6 +403,35 @@ probability: 0.7
 cooldownSeconds: 10
 priority: 1
 ```
+
+### Example: Emote Narration Naming the Actor
+
+```yaml
+name: "emote_bow_narration"
+description: "Narrate to nearby NPCs when someone performs the bow emote spell"
+
+eventCriteria:
+  eventType: "active_effect"
+  schemaConditions:
+    - fieldPath: "effect"
+      operator: "equals"
+      value: "IdlePlayBowME"
+      caseSensitive: false
+    - fieldPath: "action"
+      operator: "equals"
+      value: "applied"
+
+response:
+  type: "direct_narration"
+  content: "{{ originator }} bows deeply, {{ decnpc(originator_uuid).possessivePronoun }} eyes lowered."
+
+audience: "nearby_npcs"
+enabled: true
+cooldownSeconds: 5
+priority: 6
+```
+
+`originator` here is the actor the effect landed on; for a self-cast emote that is the caster.
 
 ---
 

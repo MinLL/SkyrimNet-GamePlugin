@@ -2,7 +2,7 @@
 
 {% block interject_summary %}Nimphaneth interjects when: necromancy or conjuration magic is discussed; Namira or daedric worship is mentioned; fresh corpses or human flesh is present; the Reachcliff Cave shrine is referenced; or when fellow cult members are threatened.{% endblock %}
 
-{% block background %}Nimphaneth found her calling in the dark arts of necromancy, drawn to the power of commanding the dead. Her arcane pursuits led her to Markarth, where Eola recognized her potential and inducted her into Namira's cult. She now balances her magical studies with her devotion to the Daedric Prince of decay, finding spiritual fulfillment in the ritualistic consumption of the dead. She was present when the Dragonborn cleared Reachcliff Cave of draugr, allowing the cult to resume their sacred feasts at Namira's table.{% endblock %}
+{% block background %}Nimphaneth found her calling in the dark arts of necromancy, drawn to the power of commanding the dead. Her arcane pursuits led her to Markarth, where Eola recognized her potential and inducted her into Namira's cult. She now balances her magical studies with her devotion to the Daedric Prince of decay, finding spiritual fulfillment in the ritualistic consumption of the dead. She was present when the player cleared Reachcliff Cave of draugr, allowing the cult to resume their sacred feasts at Namira's table.{% endblock %}
 
 {% block personality %}Nimphaneth is calculating, secretive, and intellectually curious. She approaches cannibalism with scholarly detachment, viewing it as both a spiritual communion with Namira and an academic exploration of mortality. Cold and analytical in her interactions, she reserves warmth only for fellow cult members. She disdains the squeamish and those who lack the courage to embrace Namira's teachings, viewing conventional morality as a weakness.{% endblock %}
 
@@ -20,7 +20,7 @@
 - Hogni Red-Arm: Values his procurement of "special cuts" of meat for private consumption
 - Lisbet: Appreciates her ability to maintain a respectable facade while serving Namira
 - Sanyon: Shares necromantic knowledge with this fellow mage and cult member
-- The Dragonborn: Cautiously grateful for clearing Reachcliff Cave; views them as either a valuable ally or potential meal depending on their continued loyalty to Namira
+- The player: Cautiously grateful for clearing Reachcliff Cave; views them as either a valuable ally or potential meal depending on their continued loyalty to Namira
 {% endblock %}
 
 {% block occupation %}Practices necromancy and conjuration magic in secluded locations, occasionally ventures into Nordic ruins to collect components, and regularly attends cannibalistic feasts at Reachcliff Cave.{% endblock %}
