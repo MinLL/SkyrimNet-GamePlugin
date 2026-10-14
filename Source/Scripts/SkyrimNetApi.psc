@@ -114,30 +114,95 @@ int function PurgeDialogue(bool abDeferToCurrentFinished = false) Global Native
 ; --- Package Management ---
 ; -----------------------------------------------------------------------------
 
+; packageName is a SkyrimNet friendly name (TalkToPlayer, TalkToNPC, FollowPlayer) or the EditorID of any
+; Package form in the load order. Names match case-insensitively. Rows are per actor: registering a name the
+; actor already has overwrites that row (last writer wins); a registration with no owner keeps the owner of a
+; row that is not listed, and any other change of owner sends the previous owner SkyrimNet_OnPackageRemoved
+; (reason "replaced") for its row.
+; A priority of -1 means the configured default (package.defaultPriority). The highest priority among an
+; actor's SkyrimNet packages and mirrored ActorUtil overrides wins (SkyrimNet saves its copy of the ActorUtil
+; overrides with the game; in a save from an older SkyrimNet it is empty until each mod adds its override
+; again).
+
 ; Register a package to be applied to an actor
-; This registers the package internally in SkyrimNet so that its lifecycle is tracked and managed, 
-; and then calls RegisterPackage on the SkyrimNetInternal script.
+; This registers the package internally in SkyrimNet so that its lifecycle is tracked and managed.
+; The row has no owner and ignores the package's conditions. Returns 0 even when the package could not be
+; applied (use RegisterPackageEx for the result); -1 for a None actor.
 int function RegisterPackage(Actor akActor, String packageName, int priority, int flags, bool isPersistent) Global Native
 
-; Remove a package from an actor
+; Register a package with an owner, a display name and, optionally, the package's own conditions.
+; - owner: your mod's name (max 64 bytes, '|' becomes '_'). If another owner already registered the same
+;   package on this actor, its row is overwritten (a warning is logged).
+; - displayName: shown on the SkyrimNet Package Manager page instead of the package name (max 96 bytes).
+; - checkConditions: true = the package only wins while its own conditions are true for the actor.
+; - flags are stored at the configured default.
+; While the actor is held (HoldPackages), the package is stored, not applied, and this returns 2; its form is
+; checked when the hold ends (an unknown package is then dropped with reason "missing").
+; Sends SkyrimNet_OnPackageAdded when a new row is created.
+; Returns 1 applied, 2 stored while the actor is held, 0 failed (unknown package, player or invalid actor),
+; -1 None actor.
+int function RegisterPackageEx(Actor akActor, String packageName, int priority, bool isPersistent, String owner, String displayName, bool checkConditions) Global Native
+
+; Remove a package from an actor (any owner; not a listed row whose owner set removable false).
+; Returns 0, or -1 for a None actor.
 int function UnregisterPackage(Actor akActor, String packageName) Global Native
+
+; Remove a package only if its row belongs to owner (case-insensitive; "" matches only a row without an owner).
+; Returns 1 removed, 0 not found or owned by someone else, -1 None actor.
+int function UnregisterPackageEx(Actor akActor, String packageName, String owner) Global Native
+
+; List a package your mod runs itself (a quest alias package, a scene) on the SkyrimNet Package Manager page.
+; SkyrimNet never applies or stops it; it only shows the row, saves it with the game and counts it in HasPackage.
+; packageName is an id you pick (it need not be a package form); owner is required (your mod's name).
+; - removable true: the page's Remove (and Remove all, ClearAllPackages, another mod's UnregisterPackage) drops
+;   the row and sends SkyrimNet_OnPackageRemoved; stop the package yourself when you hear it.
+; - removable false: only your own UnregisterPackageEx (same owner), the actor's death or a load drop removes it.
+; - isPersistent false: the row is dropped when a save loads (SkyrimNet_OnPackageRemoved, reason "load"); list
+;   it again after a load. True: it is saved with the game.
+; A hold (HoldPackages) never covers a listed row. Call it again to update the display name or flag. A
+; same-name registration by anyone replaces the row (last writer wins; see above).
+; Package API version 2. Returns 1 listed, 0 refused (no name or owner, invalid or player actor), -1 None actor.
+int function ListPackage(Actor akActor, String packageName, String owner, String displayName, bool removable, bool isPersistent) Global Native
+
+; The owner of the actor's row for packageName; "" when the row has no owner or there is no row.
+String function GetPackageOwner(Actor akActor, String packageName) Global Native
+
+; Hold an actor's SkyrimNet packages for owner (your mod's name, required), e.g. for the length of your own
+; scene: every row SkyrimNet tracks for the actor stops applying but stays registered, and every package
+; registered for the actor (SkyrimNet's own dialogue packages included) is stored instead of applied. Holds
+; are owned: the actor stays held while ANY holder remains, and each mod releases only its own hold, so two
+; mods holding the same actor never end each other's. PapyrusUtil ActorUtil overrides and listed rows are not
+; touched. A hold survives saves; death clears it, and the player can end every hold from the Package Manager
+; page (you then get SkyrimNet_OnPackagesReleased with reason "webui"). Holding again is harmless.
+; Sends SkyrimNet_OnPackagesHeld. Returns the number of rows held, or -1 (None actor, player, no owner).
+int function HoldPackages(Actor akActor, String owner) Global Native
+
+; End owner's hold. When no other mod holds the actor, every held package is re-applied. Sends
+; SkyrimNet_OnPackagesReleased when owner was a holder. Returns the number of packages re-applied (0 while
+; another holder remains, or when owner held nothing). A hold read from a save made before holds had owners
+; has no owner and ends with the first release.
+int function ReleaseHeldPackages(Actor akActor, String owner) Global Native
+
+; True while any mod holds the actor (owner ""), or while owner does.
+bool function IsHoldingPackages(Actor akActor, String owner = "") Global Native
 
 ; Schedule a delayed package removal
 int function ScheduleDelayedPackageRemoval(Actor akActor, String packageName, int delaySeconds) Global Native
 
-; Clear all packages applied to an actor
+; Clear all packages applied to an actor (any owner; not a listed row whose owner set removable false). A hold
+; stays in place.
 int function ClearAllPackages(Actor akActor) Global Native
 
-; Clear all packages that SkyrimNet is managing
+; Clear all packages that SkyrimNet is managing. Holds stay in place.
 int function ClearAllPackagesGlobally() Global Native
 
 ; Cancel any pending package removal tasks for an actor
 int function CancelPendingPackageTasks(Actor akActor) Global Native
 
-; Check if an actor currently has a specific skyrimnet package applied
+; Check if an actor currently has a specific skyrimnet package registered (1 / 0); held packages count
 int function HasPackage(Actor akActor, String packageName) Global Native
 
-; Re-apply all SkyrimNet packages to an actor
+; Re-apply all SkyrimNet packages to an actor, except held ones. Returns the number re-applied, -1 on error.
 int function ReinforcePackages(Actor akActor) Global Native
 
 ; -----------------------------------------------------------------------------
@@ -844,30 +909,49 @@ int function TriggerSilentNarration() Global Native
 ; -----------------------------------------------------------------------------
 
 
-; Package Added
-; -------------
+; Package events
+; --------------
 ;
-; Called when a package is added to an actor through SkyrimNet
+; SKSE ModEvents with the standard (String eventName, String strArg, Float numArg, Form sender) signature.
+; sender is the actor. They are sent whether or not SkyrimNet's outbound mod events setting is on.
+; One event per package row; never for a package SkyrimNet was not tracking.
+;
+; SkyrimNet_OnPackageAdded    strArg "<packageName>||<owner>", numArg 0.
+;     A row is newly created (RegisterPackage, RegisterPackageEx, ListPackage, SkyrimNet's own dialogue packages, also
+;     while the actor is held). Not sent when an existing row is registered again.
+;
+; SkyrimNet_OnPackageRemoved  strArg "<packageName>|<reason>|<owner>", numArg = reason code.
+;     A row leaves SkyrimNet's registry. owner is "" for a row without an owner.
+;     0 "api"       UnregisterPackage, UnregisterPackageEx, or SkyrimNet's C++ removing it by name
+;     1 "webui"     removed on the SkyrimNet Package Manager page
+;     2 "clearAll"  a mod's ClearAllPackages / ClearAllPackagesGlobally (one event per row)
+;     3 "death"     the actor died
+;     4 "delayed"   a ScheduleDelayedPackageRemoval fired
+;     5 "dialogue"  SkyrimNet ended a conversation (TalkToPlayer / TalkToNPC)
+;     6 "missing"   the package form no longer exists (its plugin was removed)
+;     7 "load"      a non-persistent package saved in the save was dropped when the save loaded
+;                   (delivered once the game runs again)
+;     8 "webuiAll"  Remove all on the SkyrimNet Package Manager page (one event per row): the player's
+;                   choice, where "clearAll" is another mod's
+;     9 "replaced"  a registration of the same name by another owner took the row over (owner = the
+;                   previous owner; the package may still run, under its new owner)
+;
+; SkyrimNet_OnPackagesHeld     strArg "<owner>", numArg = rows held (HoldPackages)
+; SkyrimNet_OnPackagesReleased strArg "<owner>|api" (ReleaseHeldPackages) or "<owner>|webui" (the player
+;                              released every hold on the page, one event per holder); numArg = rows
+;                              re-applied (0 while another holder remains)
+;
 ; Example:
 ;
-; RegisterForRegisterForModEvent("SkyrimNet_OnPackageAdded", "OnPackageAdded")
+; RegisterForModEvent("SkyrimNet_OnPackageRemoved", "OnSkyrimNetPackageRemoved")
 ;
-; Event OnPackageAdded(Actor akActor, Package akPackage) 
-;     ; Your code to handle the package added event
-; EndEvent
-;
-;
-;
-; Package Removed
-; -------------
-;
-; Called when a package is reemoved from an actor through SkyrimNet
-; Example:
-;
-; RegisterForRegisterForModEvent("SkyrimNet_OnPackageRemoved", "OnPackageRemoved")
-;
-; Event OnPackageRemoved(Actor akActor, Package akPackage) 
-;     ; Your code to handle the package removed event
+; Event OnSkyrimNetPackageRemoved(String eventName, String strArg, Float numArg, Form sender)
+;     Actor akActor = sender as Actor
+;     Int firstBar = StringUtil.Find(strArg, "|")
+;     String packageName = StringUtil.Substring(strArg, 0, firstBar)
+;     If numArg as Int == 3 ; death
+;         ; ...
+;     EndIf
 ; EndEvent
 ;
 
