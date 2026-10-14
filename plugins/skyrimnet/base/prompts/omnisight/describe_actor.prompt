@@ -2,8 +2,9 @@
     Write the appearance entry for the character in this image. Other characters in Skyrim will read it to picture this person, recognize them on sight, and remark on how they look, so it must be both accurate and vivid: the details someone would actually notice and remember, in the order they would notice them.
 
     **Character:** {{race}} {{gender}} (race as recorded in the game; read coloring, skin tone, and features from the image, not from the race)
-    {% if has_head_closeup %}
-    **Images:** the first shows the whole character; the second is a close-up of the head and shoulders, taken from the same frame. They are the same person. Use the close-up for the face, eyes, hair, and anything on the head (horns, circlets, gems, ornaments, makeup), and the first image for everything else.
+    {% set angles = default(angle_count, 1) %}
+    {% if angles > 1 or default(has_head_closeup, false) %}
+    **Images:** all of them show the same person. {% if angles > 1 %}The first {{ angles }} are different angles taken moments apart; the first is the main view. Use the other angles for what the main view cannot show (the back of the outfit, how a cloak hangs, the hair from behind, a bare back), and write one description, not one per image.{% else %}The first shows the whole character.{% endif %}{% if default(has_head_closeup, false) %} The last is a close-up of the head and shoulders, cut from the main view: use it for the face, eyes, hair, and anything on the head (horns, circlets, gems, ornaments, makeup).{% endif %}
     {% endif %}
     {% if not omnisight_captures_equipment %}{% set actor_equipment = get_worn_equipment(actorUUID) %}{% set tempered_items = get_tempered_items(actorUUID) %}{% if actor_equipment and length(actor_equipment) > 0 %}
     **Worn equipment (a hint for identifying what you see, NOT a list to copy; names are often mod names and can mislead, so describe the shape you see, not the name):**
@@ -69,7 +70,6 @@
 
     Look carefully, then write the description.
     [image]
-    {{imageDataUrl}}
-    {% if has_head_closeup %}{{headImageDataUrl}}{% endif %}
+    {{imageDataUrls}}
     [end image]
 [end user]

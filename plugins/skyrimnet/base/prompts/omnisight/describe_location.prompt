@@ -43,9 +43,12 @@
     EXAMPLE GOOD OUTPUT (generic wilderness):
     "A forested trail winds through dense evergreen woodland. The dirt path is flanked by tall pine and fir trees with thick undergrowth of ferns covering the forest floor. Rocky outcroppings dot the uneven terrain, while distant mountain peaks rise above the treeline. A stone watchtower is visible on a nearby hillside, suggesting proximity to a settlement or fortification."
 
+    {% if default(angle_count, 1) > 1 %}
+    VIEWS: the {{ angle_count }} images are views of this same place from different directions, taken moments apart. Describe the place as a whole from all of them; do not describe each view separately.
+    {% endif %}
 {{ render_subcomponent("omnisight_location", "full") }}
     FORMAT: Write 2-3 concise paragraphs describing what you observe and what makes this location distinctive. Do not include the location name itself in your output.
     [ image ]
-    {{imageDataUrl}}
+    {{imageDataUrls}}
     [ end image ]
 [ end user ]
