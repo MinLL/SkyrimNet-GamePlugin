@@ -118,7 +118,9 @@ int function PurgeDialogue(bool abDeferToCurrentFinished = false) Global Native
 ; Package form in the load order. Names match case-insensitively. Rows are per actor: registering a name the
 ; actor already has overwrites that row (last writer wins); a registration with no owner keeps the owner of a
 ; row that is not listed, and any other change of owner sends the previous owner SkyrimNet_OnPackageRemoved
-; (reason "replaced") for its row.
+; (reason "replaced") for its row. The one exception: a listed row whose owner set removable false (see
+; ListPackage) belongs to that owner, so a registration or listing of its name by anyone else, or with no
+; owner, is refused and changes nothing.
 ; A priority of -1 means the configured default (package.defaultPriority). The highest priority among an
 ; actor's SkyrimNet packages and mirrored ActorUtil overrides wins (SkyrimNet saves its copy of the ActorUtil
 ; overrides with the game; in a save from an older SkyrimNet it is empty until each mod adds its override
@@ -139,8 +141,8 @@ int function RegisterPackage(Actor akActor, String packageName, int priority, in
 ; While the actor is held (HoldPackages), the package is stored, not applied, and this returns 2; its form is
 ; checked when the hold ends (an unknown package is then dropped with reason "missing").
 ; Sends SkyrimNet_OnPackageAdded when a new row is created.
-; Returns 1 applied, 2 stored while the actor is held, 0 failed (unknown package, player or invalid actor),
-; -1 None actor.
+; Returns 1 applied, 2 stored while the actor is held, 0 failed (unknown package, player or invalid actor,
+; another owner's locked listed row), -1 None actor.
 int function RegisterPackageEx(Actor akActor, String packageName, int priority, bool isPersistent, String owner, String displayName, bool checkConditions) Global Native
 
 ; Remove a package from an actor (any owner; not a listed row whose owner set removable false).
@@ -160,8 +162,10 @@ int function UnregisterPackageEx(Actor akActor, String packageName, String owner
 ; - isPersistent false: the row is dropped when a save loads (SkyrimNet_OnPackageRemoved, reason "load"); list
 ;   it again after a load. True: it is saved with the game.
 ; A hold (HoldPackages) never covers a listed row. Call it again to update the display name or flag. A
-; same-name registration by anyone replaces the row (last writer wins; see above).
-; Package API version 2. Returns 1 listed, 0 refused (no name or owner, invalid or player actor), -1 None actor.
+; same-name registration by anyone replaces a removable row (last writer wins; see above); a row with
+; removable false only you can replace.
+; Returns 1 listed, 0 refused (no name or owner, invalid or player actor, another owner's row with removable
+; false), -1 None actor.
 int function ListPackage(Actor akActor, String packageName, String owner, String displayName, bool removable, bool isPersistent) Global Native
 
 ; The owner of the actor's row for packageName; "" when the row has no owner or there is no row.
@@ -172,15 +176,14 @@ String function GetPackageOwner(Actor akActor, String packageName) Global Native
 ; registered for the actor (SkyrimNet's own dialogue packages included) is stored instead of applied. Holds
 ; are owned: the actor stays held while ANY holder remains, and each mod releases only its own hold, so two
 ; mods holding the same actor never end each other's. PapyrusUtil ActorUtil overrides and listed rows are not
-; touched. A hold survives saves; death clears it, and the player can end every hold from the Package Manager
-; page (you then get SkyrimNet_OnPackagesReleased with reason "webui"). Holding again is harmless.
+; touched. A hold survives saves. Death clears it (you get SkyrimNet_OnPackagesReleased with reason "death"),
+; and the player can end every hold from the Package Manager page (reason "webui"). Holding again is harmless.
 ; Sends SkyrimNet_OnPackagesHeld. Returns the number of rows held, or -1 (None actor, player, no owner).
 int function HoldPackages(Actor akActor, String owner) Global Native
 
 ; End owner's hold. When no other mod holds the actor, every held package is re-applied. Sends
 ; SkyrimNet_OnPackagesReleased when owner was a holder. Returns the number of packages re-applied (0 while
-; another holder remains, or when owner held nothing). A hold read from a save made before holds had owners
-; has no owner and ends with the first release.
+; another holder remains, or when owner held nothing).
 int function ReleaseHeldPackages(Actor akActor, String owner) Global Native
 
 ; True while any mod holds the actor (owner ""), or while owner does.
@@ -937,9 +940,10 @@ int function TriggerSilentNarration() Global Native
 ;                   previous owner; the package may still run, under its new owner)
 ;
 ; SkyrimNet_OnPackagesHeld     strArg "<owner>", numArg = rows held (HoldPackages)
-; SkyrimNet_OnPackagesReleased strArg "<owner>|api" (ReleaseHeldPackages) or "<owner>|webui" (the player
-;                              released every hold on the page, one event per holder); numArg = rows
-;                              re-applied (0 while another holder remains)
+; SkyrimNet_OnPackagesReleased strArg "<owner>|api" (ReleaseHeldPackages), "<owner>|webui" (the player
+;                              released every hold on the page) or "<owner>|death" (the actor died), one
+;                              event per holder; numArg = rows re-applied (0 while another holder remains,
+;                              and on death)
 ;
 ; Example:
 ;
