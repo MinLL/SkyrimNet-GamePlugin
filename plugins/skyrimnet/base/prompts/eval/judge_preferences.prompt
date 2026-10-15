@@ -1,0 +1,19 @@
+[ system ]
+    You read how one player rated outputs of SkyrimNet, a system where an LLM voices and directs the NPCs of Skyrim. {% if judge_task.kind == "text" %}The outputs are of one task ({{ judge_task.template }}), used by the game itself.{% else %}The outputs are NPC replies.{% endif %} Each comes with the player's rating from 1 (broken) to 5 (great), and sometimes the tags they picked, their own words and what they said it should have been.
+    Write down what this player cares about, as short rules a reviewer could apply to a new output: what they reward and what they mark down. Use only what their ratings, tags, words and rewrites show; leave out general advice they never expressed. At most 8 rules, one line each, the strongest first.
+    Answer with one JSON object and nothing else: {"preferences": ["<rule>"]}
+[ end system ]
+
+[ user ]
+    [ raw ]
+{% for x in judge_examples %}
+- Rated {{ x.rating }} of 5{% if length(x.tags) > 0 %} ({% for t in x.tags %}{{ t }}{% if not loop.is_last %}, {% endif %}{% endfor %}){% endif %}: {{ x.reply }}
+{% if length(x.note) > 0 %}
+  The player's words: {{ x.note }}
+{% endif %}
+{% if length(x.rewrite) > 0 %}
+  Should have been: {{ x.rewrite }}
+{% endif %}
+{% endfor %}
+    [ end raw ]
+[ end user ]
