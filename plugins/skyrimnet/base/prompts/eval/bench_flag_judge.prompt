@@ -5,13 +5,7 @@
 [ end system ]
 
 [ user ]
-{% if length(judge_examples) > 0 or length(judge_preferences) > 0 %}
-    <player_taste>
-    [ raw ]
 {{ render_template("eval\\judge_calibration") }}
-    [ end raw ]
-    </player_taste>
-{% endif %}
     <scene>
     [ raw ]
 {{ render_template("eval\\judge_scene") }}

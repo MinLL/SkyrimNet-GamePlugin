@@ -14,13 +14,7 @@
 [ end system ]
 
 [ user ]
-{% if length(judge_examples) > 0 or length(judge_preferences) > 0 %}
-    <player_taste>
-    [ raw ]
 {{ render_template("eval\\judge_calibration") }}
-    [ end raw ]
-    </player_taste>
-{% endif %}
 {% if judge_task.kind == "text" %}
     <task>{{ judge_task.template }}</task>
 {% endif %}

@@ -1,3 +1,6 @@
+{% if length(judge_examples) > 0 or length(judge_preferences) > 0 %}
+    <player_taste>
+    [ raw ]
 {% if length(judge_preferences) > 0 %}
 What this player cares about, read from their own ratings:
 {% for p in judge_preferences %}
@@ -10,7 +13,7 @@ How this player rated similar moments. They show the player's taste; they are no
 <example>
 Speaker: {{ x.speaker }}.{% if length(x.context) > 0 %} Just before:{% for c in x.context %} {{ c }}{% if not loop.is_last %} /{% endif %}{% endfor %}{% endif %}
 Reply: {{ x.reply }}
-Rated {{ x.rating }} of 5 ({% if x.rating >= 5 %}great{% else if x.rating == 4 %}good{% else if x.rating == 3 %}weak{% else if x.rating == 2 %}bad{% else %}broken{% endif %}){% if length(x.tags) > 0 %}: {% for t in x.tags %}{{ t }}{% if not loop.is_last %}, {% endif %}{% endfor %}{% endif %}.
+Rated {{ x.rating }} of 5 ({% if x.rating >= 5 %}great{% else if x.rating == 4 %}good{% else if x.rating == 3 %}weak{% else if x.rating == 2 %}bad{% else %}broken{% endif %}){% if length(x.tags) > 0 %}: {{ join(x.tags, ", ") }}{% endif %}.
 {% if length(x.note) > 0 %}
 The player's words: {{ x.note }}
 {% endif %}
@@ -19,4 +22,7 @@ What the player said it should have been: {{ x.rewrite }}
 {% endif %}
 </example>
 {% endfor %}
+{% endif %}
+    [ end raw ]
+    </player_taste>
 {% endif %}

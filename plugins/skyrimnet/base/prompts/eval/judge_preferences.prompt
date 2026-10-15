@@ -7,7 +7,7 @@
 [ user ]
     [ raw ]
 {% for x in judge_examples %}
-- Rated {{ x.rating }} of 5{% if length(x.tags) > 0 %} ({% for t in x.tags %}{{ t }}{% if not loop.is_last %}, {% endif %}{% endfor %}){% endif %}: {{ x.reply }}
+- Rated {{ x.rating }} of 5{% if length(x.tags) > 0 %} ({{ join(x.tags, ", ") }}){% endif %}: {{ x.reply }}
 {% if length(x.note) > 0 %}
   The player's words: {{ x.note }}
 {% endif %}
