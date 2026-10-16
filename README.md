@@ -1,5 +1,7 @@
 # SkyrimNet
 
+Home Page: https://fateless.ai
+
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S51B7MJA) 
 
 [![Discord](https://img.shields.io/badge/Chat-on%20Discord-7289DA?logo=discord&logoColor=white)](https://discord.gg/gHHS7HpJS9)
