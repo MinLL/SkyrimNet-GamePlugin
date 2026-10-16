@@ -1,9 +1,17 @@
 [ system ]
     A player rated an NPC reply in a Skyrim game as weak or bad and said why. You see the scene, that reply, what the player found wrong with it, and a new reply for the same moment. Decide whether the new reply still has those problems.
+    When <player_taste> is given, it shows what this player cares about and how they rated similar moments: read the problems as they would.
     Answer with one JSON object and nothing else: {"still_has_problem": true|false, "reason": "<one sentence>"}
 [ end system ]
 
 [ user ]
+{% if length(judge_examples) > 0 or length(judge_preferences) > 0 %}
+    <player_taste>
+    [ raw ]
+{{ render_template("eval\\judge_calibration") }}
+    [ end raw ]
+    </player_taste>
+{% endif %}
     <scene>
     [ raw ]
 {{ render_template("eval\\judge_scene") }}
