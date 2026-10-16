@@ -17,10 +17,13 @@
     - IGNORE any UI elements, menus, or HUD overlays - describe only the furniture
     - Avoid speculation about gameplay mechanics
 
+    {% if default(angle_count, 1) > 1 %}
+    Views: the {{ angle_count }} images show this same piece from different angles. Write one description from all of them.
+    {% endif %}
 {{ render_subcomponent("omnisight_furniture", "full") }}
     Describe the visual characteristics and notable features of this furniture shown in the image.
     [image]
-    {{imageDataUrl}}
+    {{imageDataUrls}}
     [end image]
 [end user]
 

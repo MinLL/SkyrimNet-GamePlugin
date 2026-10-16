@@ -1,51 +1,64 @@
 [ user ]
-    You are cataloging "{{subject_name}}" for a visual location database in Skyrim. Use BOTH your knowledge of this location from Elder Scrolls lore AND the visual evidence in this screenshot to create a comprehensive description.
+    Write the description of the place in {% if default(angle_count, 1) > 1 %}these images{% else %}this image{% endif %}. Characters in Skyrim read it to picture where they are, find their way around, and remark on what they see, so it must be concrete and specific: what someone standing here would notice and remember, most noticeable first.
 
-    Location Context:
-    - Name: {{subject_name}}
-    - Type: {% if is_indoors %}Interior{% else %}Exterior{% endif %}
-    - Current Position: {{location_name}}
-
-    YOUR TASK:
-    Describe this location by grounding your response in what you visually observe in the screenshot, supplemented by your knowledge of Skyrim lore where applicable.
-
-    1. PHYSICAL CHARACTERISTICS (primary focus - what you SEE):
-        - {% if is_indoors %}Architectural style and interior layout{% else %}Terrain type and natural features{% endif %}
-        - {% if is_indoors %}Building materials visible (stone, wood, metal, etc.){% else %}Landscape characteristics (vegetation, rock formations, water bodies){% endif %}
-        - {% if is_indoors %}Room structure, key structural features (doors, windows, columns, stairs){% else %}Visible structures, landmarks, or terrain features{% endif %}
-        - Permanent fixtures, furnishings, and distinctive objects
-        - Color schemes and visual atmosphere
-        - {% if not is_indoors %}Geographic context (mountains, forests, water, distant structures){% endif %}
-
-    2. LOCATION IDENTITY (if recognizable from visuals):
-        - What type of place this is (home, shop, guild hall, dungeon, wilderness, etc.)
-        - Its purpose or function in Skyrim (based on what you see)
-        - If you recognize this as a well-known lore location, you may reference its significance
-
-    3. DEFINING FEATURES:
-        - What makes this location visually recognizable or unique
-        - Key visual elements that distinguish it from similar locations
-        - Architectural or natural details that characterize it
-
-    IMPORTANT RULES:
-    - Ground your description in VISUAL EVIDENCE first, supplement with lore knowledge second
-    - DO NOT mention or repeat the location name "{{subject_name}}" in your output
-    - If this appears to be a generic area (wilderness trail, crossroads, unnamed path), describe it as what you see, not as a significant lore location
-    - Start directly with the description (no preamble like "This location is..." or "{{subject_name}} is...")
-    - Focus on PERMANENT features, not temporary conditions
-    - DO NOT describe: NPCs in detail, current lighting/shadows, weather effects, UI elements, time of day.
-    - Use present tense for permanent features
-    - Be concise and factual - don't invent details not visible in the screenshot
-
-    EXAMPLE GOOD OUTPUT (famous location):
-    "The jarl's palace serves as the seat of power in Whiterun. The great hall features soaring Nordic timber construction with massive wooden beams and a raised throne platform. Stone walls are adorned with mounted animal heads and banners, while a long central fire pit runs the length of the hall..."
-
-    EXAMPLE GOOD OUTPUT (generic wilderness):
-    "A forested trail winds through dense evergreen woodland. The dirt path is flanked by tall pine and fir trees with thick undergrowth of ferns covering the forest floor. Rocky outcroppings dot the uneven terrain, while distant mountain peaks rise above the treeline. A stone watchtower is visible on a nearby hillside, suggesting proximity to a settlement or fortification."
-
+    **Place:** {{subject_name}} ({% if is_indoors %}interior{% else %}exterior{% endif %}{% if location_name and location_name != subject_name %}, in {{location_name}}{% endif %})
+    {% if default(angle_count, 1) > 1 %}
+    **Views:** the {{ angle_count }} images show this same place from different directions, taken moments apart. Describe the place as a whole from all of them, never view by view.
+    {% endif %}
 {{ render_subcomponent("omnisight_location", "full") }}
-    FORMAT: Write 2-3 concise paragraphs describing what you observe and what makes this location distinctive. Do not include the location name itself in your output.
+    ---
+
+    **STEP 1 - LOOK BEFORE YOU WRITE.** Find, in every image:
+    {% if is_indoors %}
+    - The room itself: its size and shape, the ceiling (low beams, a high vault, rough cave rock), the floor, and how many levels it has
+    - What it is built of, and what condition it is in (scrubbed, dusty, crumbling, freshly built)
+    - The fixtures that tell you what happens here: hearth, bar, beds, tables, shelves, altars, forges, cages, display cases
+    - The one thing a visitor would mention first, and anything unusual: trophies, banners, a statue, a strange object, a mess
+    - The ways in and out: doors, stairs, passages, windows, and roughly where they are
+    {% else %}
+    - The main structures: what they are (a farmhouse, a watchtower, a ruin, a bridge, a wall), what they are built of, and their condition
+    - The layout: what stands where, what the path or road does, what is close and what is in the distance
+    - The ground and terrain: paved, dirt, rocky, marsh, snow, river or lake, slopes and drops
+    - The one landmark someone would use to recognize this place or give directions to it
+    - Signs of use: fences, fields, carts, firewood, banners, signs, or abandonment and damage
+    {% endif %}
+
+    **STEP 2 - WRITE (2-3 short paragraphs, 120-220 words, no headers):**
+
+    **Paragraph 1 - What it is and the first thing you notice.** Open with one concrete sentence naming the kind of place and its most striking feature ("A pale fieldstone farmhouse with a round tower stands on a rocky hillside above a stream." not "A rustic homestead nestled in a picturesque landscape."). Then the main structures or the room itself, most prominent first.
+
+    **Paragraph 2 - Layout and details.** Where things are in relation to each other, the ways in and out, and the smaller details that make it this place and not another one like it.
+
+    Add a third short paragraph only if there is more that someone would actually notice; never to sum up.
+
+    ---
+
+    **STYLE:**
+    - Concrete nouns and specific materials and colors ("split-log walls", "moss-streaked granite", "a rusted portcullis"). Precise, not purple.
+    - Describe only what you can see. No interpretation of what it "suggests", "indicates", "serves as" or "is designed for", and no "sense of" or "atmosphere" sentences.
+    - Every sentence must add something you can see. No closing paragraph that restates the rest.
+    - Lore: if you clearly recognize a well-known place, you may name what it is in a few words; still describe what the image shows, not what you remember of it. If it looks generic, describe it as you see it.
+
+    **HARD RULES:**
+    - Permanent features only: no weather, season, time of day, lighting, shadows, mist, or the color of passing foliage. The description is reused in every season.
+    - No people or creatures, no UI, and no camera ("in the foreground", "the view shows").
+    - Do not write the name "{{subject_name}}". Start directly with the description.
+    - Do not invent what is out of frame.
+
+    ---
+
+    **BAD (vague, interpretive, seasonal):** "A rustic homestead nestled within a wooded landscape. Golden autumn leaves suggest a seasonal transition. The stone-and-timber structure indicates a permanent settlement designed for agricultural utility, creating a sense of lived-in space."
+
+    **GOOD (an exterior):** "A two-storey farmhouse of rough grey fieldstone stands on a rocky rise, its upper floor timber-framed under a steep shingle roof, with a stone chimney at one gable end. A fenced kitchen garden runs along the downhill side, and a woodpile and chopping block sit beside the door.
+
+    A dirt track climbs to the house from a plank footbridge over a narrow stream, passing a low dry-stone wall that marks off a sheep pen. Behind the house the ground rises steeply into pine forest broken by grey boulders."
+
+    **GOOD (an interior):** "A long, low tavern hall built of dark split logs, its ceiling crossed by heavy smoke-blackened beams. A sunken firepit runs down the middle of the room, ringed by benches and trestle tables.
+
+    The bar stands against the far wall with barrels stacked behind it and a door to a back room at its end. Mounted antlers and a faded shield hang above the bar; stairs on the left climb to a gallery of guest rooms, and the front door opens beside a rack of iron lanterns."
+
+    Look carefully, then write the description.
     [ image ]
-    {{imageDataUrl}}
+    {{imageDataUrls}}
     [ end image ]
 [ end user ]
