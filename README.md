@@ -1,4 +1,4 @@
-# SkyrimNet
+# SkyrimNet - Powered by Fateless.Ai
 
 Home Page: https://fateless.ai
 
