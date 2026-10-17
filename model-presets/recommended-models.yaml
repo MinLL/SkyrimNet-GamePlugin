@@ -192,3 +192,41 @@ chutes:
 
   UniversalTranslator: []
   decisions: []
+
+ionet:
+  default:
+    - id: deepseek-ai/DeepSeek-V4.1-Flash
+    - id: zai-org/GLM-5.3
+    - id: meta-llama/Llama-3.3-70B-Instruct
+
+  meta:
+    - id: deepseek-ai/DeepSeek-V4.1-Flash
+
+  combat:
+    - id: deepseek-ai/DeepSeek-V4.1-Flash
+    - id: meta-llama/Llama-3.3-70B-Instruct
+
+  action_evaluation:
+    - id: meta-llama/Llama-3.3-70B-Instruct
+
+  gamemaster_evaluation:
+    - id: meta-llama/Llama-3.3-70B-Instruct
+
+  AgentDefault:
+    - id: zai-org/GLM-5.3
+
+  CharacterProfileGeneration:
+    - id: zai-org/GLM-5.3
+
+  DiaryGeneration:
+    - id: deepseek-ai/DeepSeek-V4.1-Flash
+
+  memory:
+    - id: zai-org/GLM-5.3
+
+  vision:
+    - id: moonshotai/Kimi-K3
+
+  UniversalTranslator:
+    - id: meta-llama/Llama-3.3-70B-Instruct
+  decisions: []
