@@ -16,6 +16,9 @@ SKSE/Plugins/SkyrimNet/models/
 # Sql
 SKSE/Plugins/SkyrimNet/sql/
 
+# Deployed by the Core build (generated in Core)
+SKSE/Plugins/SkyrimNet/THIRD_PARTY_NOTICES.txt
+
 # Ignore backup files
 *~ 
 *.dll

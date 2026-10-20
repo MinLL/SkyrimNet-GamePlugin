@@ -1,3 +1,7 @@
+; SPDX-License-Identifier: MIT
+; Copyright (c) 2025-2026 Fateless.Ai. SkyrimNet's plugin API is MIT licensed: compile against it in any
+; mod, open or closed source. SkyrimNet itself is not open source.
+
 Scriptname SkyrimNetApi
 
 

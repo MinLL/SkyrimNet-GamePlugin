@@ -22,3 +22,7 @@
      PR and it does not touch it, write `Release-note: changelog.d/<file>.md`.
      ci/build/chore/refactor/docs/test PRs need none of these. -->
 - [ ] `changelog.d/<feature>.md` added or edited
+
+## Licensing
+
+- [ ] I have read [CONTRIBUTING.md](https://github.com/MinLL/SkyrimNet-GamePlugin/blob/main/CONTRIBUTING.md) and license this contribution under its terms

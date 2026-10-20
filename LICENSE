@@ -1,0 +1,63 @@
+SkyrimNet Game Plugin License
+
+Copyright (c) 2025-2026 Fateless.Ai. All rights reserved.
+
+This license covers the contents of this repository and the SkyrimNet mod built from it (together,
+the "Mod"): SkyrimNet.dll, Papyrus scripts, the plugin (SkyrimNet.esp and its Spriggit source),
+prompts and templates, configuration, interface files and documentation. It does not cover:
+
+  - Source/Scripts/SkyrimNetApi.psc, SkyrimNet's Papyrus API, which is licensed under the MIT
+    License (see the notice at the top of that file). You may compile against it, copy it and
+    modify it freely, in any mod, open or closed source;
+  - the scripts in headers/ and Source/Scripts/uitextentrymenu.psc, which belong to their authors
+    (Bethesda, SKSE, PapyrusUtil, powerofthree, SkyUI, UIExtensions, VRIK and others) and are
+    included only so the Mod's scripts compile;
+  - the third-party components listed in SKSE/Plugins/SkyrimNet/THIRD_PARTY_NOTICES.txt, which
+    remain under their own licenses;
+  - any other file that carries its own copyright or license notice;
+  - FatelessAiEngine.dll, which is licensed separately.
+
+1. Use. You may download the Mod, install it and use it to play Skyrim. You may modify your own
+   installed copy, including its prompts, templates, presets and configuration, for your personal
+   use.
+
+2. Redistribution. You may not redistribute the Mod, whole or in part, except:
+     (a) through the official download pages, or as part of a modpack that downloads the Mod
+         from them;
+     (b) as allowed for content in section 3.
+
+3. Content packs. You may copy and modify the prompts, templates and other files under
+   plugins/skyrimnet/base, and distribute your versions, as part of a content pack, preset or mod
+   that is used with SkyrimNet. Keep this copyright notice in the pack's description or in a file
+   inside it. You may not use them with other software, or distribute them on their own as a
+   substitute for the Mod.
+
+4. Reverse engineering. You may not reverse engineer, decompile or disassemble SkyrimNet.dll or
+   any other compiled part of the Mod, or attempt to derive its source code, except to the extent
+   applicable law expressly permits it despite this restriction.
+
+5. Contributions. Contributions to this repository are made under CONTRIBUTING.md.
+
+6. Names. You may not use the names "Fateless.Ai", "Fateless" or "SkyrimNet", or their logos, to
+   endorse or promote your product, beyond stating accurately that it works with or uses the Mod.
+
+7. Ownership. The Mod is licensed, not sold. Fateless.Ai retains all right, title and interest in
+   it. All rights not expressly granted are reserved.
+
+8. Termination. This license ends automatically if you breach it. On termination you must stop
+   using and distributing the Mod and anything made from it under section 3.
+
+9. No warranty. THE MOD IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+   INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+   AND NONINFRINGEMENT.
+
+10. Limitation of liability. IN NO EVENT SHALL FATELESS.AI OR THE CONTRIBUTORS BE LIABLE FOR ANY
+   CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+   FROM, OUT OF OR IN CONNECTION WITH THE MOD OR THE USE OR OTHER DEALINGS IN THE MOD.
+
+11. Governing law. This license is governed by the laws of the State of Wyoming, United
+    States, without regard to its conflict-of-law rules. The state and federal courts located in
+    Wyoming have exclusive jurisdiction over any dispute arising from it.
+
+The Elder Scrolls V: Skyrim is a trademark of ZeniMax Media Inc. The Mod is not affiliated with or
+endorsed by Bethesda Softworks or ZeniMax Media.
