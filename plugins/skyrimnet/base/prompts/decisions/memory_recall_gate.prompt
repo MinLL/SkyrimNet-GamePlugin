@@ -1,0 +1,54 @@
+{# Decision template: which of an NPC's memories, if any, the player's line asks about, so that recall
+   returns that memory, and which other offered memories are about the same matter (how it later
+   turned out), so that the NPC answers with the outcome in mind. Rendered into a decisions request,
+   never into chat messages. Sent when memory_retrieval.decision_gate.enabled is on; when the answer
+   is none, too uncertain, or the request fails, recall falls back to its plain similarity search.
+
+   Context set by the game: npc (UUID, name), player_line (the player's line, verbatim),
+   recent_conversation (the lines before it, oldest first, "Speaker: line"), decision_memories
+   (key, content: the memories that came closest to the line and to the conversation, key m1, m2, ...),
+   decision_support (true while the support questions can add a memory: support_max_picks > 0).
+   The game accepts a memory when the probability that some memory applies (1 - p(none)) clears the
+   configured cut-off, and takes the likeliest one; near-duplicate memories of one event may share the
+   probability between them. On an accepted answer, each support_m<n> yes-probability at or above
+   support_min_probability adds that memory too, likeliest first, up to support_max_picks. Keys are per
+   request; use m.key as given.
+
+   A criterion is one line; the game flattens each memory's text to one line before it gets here. #}
+[ state npc ]
+{{ npc.name }}
+[ end state ]
+
+[ state player_line ]
+{{ player_line }}
+[ end state ]
+
+[ state recent_conversation ]
+{% if recent_conversation != "" %}{{ recent_conversation }}{% else %}(nothing was said before this line){% endif %}
+[ end state ]
+
+[ question memory choice ]
+The player just said `player_line` to {{ npc.name }}, after the lines in `recent_conversation`. The options are memories of {{ npc.name }}'s that came closest to the line and to the conversation. Decide which memory, if any, the line asks about or refers to, so that {{ npc.name }} should recall it to answer; use the conversation to resolve what the line means (a short reply, a follow-up question, a "what about that" refers to what was just being talked about).
+Pick a memory only when the line is about the event, person or thing in it. A name or place in the line that a memory shares is a strong sign when the line asks about the past.
+Choose none when the line refers to none of them, or to something happening right now rather than the past: a greeting, a request, a remark about the present scene, a question about {{ npc.name }}'s opinion of something no memory covers.
+[ criteria ]
+{% for m in decision_memories %}
+{{ m.key }}: {{ m.content }}
+{% endfor %}
+none: No offered memory fits: the line is about the present, or about something none of these memories covers.
+[ end criteria ]
+[ end question ]
+
+{% if decision_support %}
+{% for m in decision_memories %}
+[ question support_{{ m.key }} noul ]
+The player just said `player_line` to {{ npc.name }} (after `recent_conversation`). One of {{ npc.name }}'s memories:
+{{ m.content }}
+Is this memory about the matter the line raises: the same event, place, errand or affair, including what came of it later (how it ended, was settled or paid, what followed)? Yes when it is. No when it is about a different matter, or the line is about the present moment and raises no past matter.
+[ criteria ]
+true: Yes: this memory is about the matter the line raises, or how that matter later turned out.
+false: No: a different matter, or the line raises no past matter.
+[ end criteria ]
+[ end question ]
+{% endfor %}
+{% endif %}
