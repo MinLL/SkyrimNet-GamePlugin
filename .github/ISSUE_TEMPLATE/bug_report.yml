@@ -173,3 +173,6 @@ body:
       description: "Screenshots, crash logs, web UI screenshots, config snippets, etc."
     validations:
       required: false
+  - type: markdown
+    attributes:
+      value: "Anything you submit here (text, prompts, code) is licensed to Fateless.Ai under [CONTRIBUTING.md](https://github.com/MinLL/SkyrimNet-GamePlugin/blob/main/CONTRIBUTING.md)."

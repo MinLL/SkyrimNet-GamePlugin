@@ -15,16 +15,16 @@ Thanks for helping. Pull requests are welcome: prompts, scripts, plugin records,
 
 ## Licensing your contribution
 
-SkyrimNet is not open source; see [LICENSE](LICENSE). By opening a pull request, you agree that:
+SkyrimNet is not open source; see [LICENSE](LICENSE). By opening a pull request, or by submitting
+content (text, prompts, code) in an issue, comment or review, you agree that:
 
-1. The contribution is your own work, or you have the right to submit it, and it carries no
-   license terms that conflict with these.
+1. The contribution is your own work, or you have the right to submit it under these terms.
 2. You keep the copyright in your contribution, and you grant Fateless.Ai a perpetual, worldwide,
    non-exclusive, royalty-free, irrevocable license to use, copy, modify, distribute and sublicense
    it, under any terms, as part of SkyrimNet or any other Fateless.Ai product.
 3. Fateless.Ai may decide not to use your contribution, and owes you nothing for using it.
 
 If your contribution includes someone else's work (a script from another mod, a borrowed prompt),
-say so in the pull request and name its license.
+say so in the pull request and name its license. Its license must allow the grant in point 2.
 
 The pull request template asks you to confirm this with a checkbox.

@@ -12,10 +12,14 @@ prompts and templates, configuration, interface files and documentation. It does
   - the scripts in headers/ and Source/Scripts/uitextentrymenu.psc, which belong to their authors
     (Bethesda, SKSE, PapyrusUtil, powerofthree, SkyUI, UIExtensions, VRIK and others) and are
     included only so the Mod's scripts compile;
+  - the third-party components listed in SKSE/Plugins/SkyrimNet/THIRD_PARTY_NOTICES.txt, which
+    remain under their own licenses;
   - any other file that carries its own copyright or license notice;
   - FatelessAiEngine.dll, which is licensed separately.
 
-1. Use. You may download the Mod, install it and use it to play Skyrim.
+1. Use. You may download the Mod, install it and use it to play Skyrim. You may modify your own
+   installed copy, including its prompts, templates, presets and configuration, for your personal
+   use.
 
 2. Redistribution. You may not redistribute the Mod, whole or in part, except:
      (a) through the official download pages, or as part of a modpack that downloads the Mod
