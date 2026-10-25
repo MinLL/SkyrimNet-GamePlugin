@@ -7,13 +7,19 @@
 {% set _npc_is_private_virtual = false %}
 {% if exists("npc") and existsIn(npc, "UUID") %}{% set _npc_is_private_virtual = decnpc(npc.UUID).isVirtualPrivate %}{% endif %}
 {% set lastLocation = "" %}
+{% set _lastBuilding = "" %}
+{% set _speakerLocations = [] %}{# [actor, location of their last line] #}
 {% set lastSignificantTime = 0 %}
 {% set latestGMDialogueTime = 0 %}
 {% for event in events %}{% if event.type == "gamemaster_dialogue" %}{% set latestGMDialogueTime = event.gameTime %}{% endif %}{% endfor %}
 {% set hasShownGMDialogue = false %}
 {% for event in events %}
     {% if event.type != "spell" and event.type != "hit" and event.type != "combat" %}
-        {% set locationChanged = (lastLocation != "" and event.location != lastLocation) %}
+        {# A move is a line from another building than the line before (location_building drops a named place,
+           ai_docs/NAMED_PLACES.md), or a speaker standing elsewhere than at their own last line and than the line before:
+           two people talking from two rooms of one building is not one. #}
+        {% set _prevSpeaker = [] %}{% for _pair in _speakerLocations %}{% if _pair.0 == event.originatingActor %}{% set _prevSpeaker = _pair %}{% endif %}{% endfor %}
+        {% set _building = location_building(event.location) %}{% if length(_prevSpeaker) > 0 %}{% set _ownMove = (event.location != lastLocation and event.location != _prevSpeaker.1) %}{% else %}{% set _ownMove = false %}{% endif %}{% set locationChanged = (lastLocation != "" and (_building != _lastBuilding or _ownMove)) %}
         {% set timeDiff = gameTimeNumeric - event.gameTime %}
         {% if lastSignificantTime > 0 %}
             {% set timeSinceLastSignificant = event.gameTime - lastSignificantTime %}
@@ -67,14 +73,18 @@
 - [{{ short_time(event.gameTimeStr) }}] {% if locationChanged %}[Now at {{ event.location }}] {% endif %}({{ event.type }}) {% if event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_stt" or event.type == "dialogue_player_text" or event.type == "dialogue_background"%}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if isValidActor(event.targetActor) %}{% if decnpc(event.targetActor).isVirtualPrivate and not _npc_is_private_virtual %}{% if decnpc(event.originatingActor).isFemale %} (talking to herself){% else %} (talking to himself){% endif %}{% else %} to {{ get_name(event.targetActor) }}{% endif %}{% endif %}: {% else if event.type == "dialogue_background" and event.data and event.data.speaker != "" %}{{ event.data.speaker }}: {% endif %}{% else %}{% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if _isTelepathyObserved %} (thought, telepathically observed){% endif %}: {% endif %}{% endif %}{{ format_event(event, "compact") }}
         {% endif %}
 
-        {% set lastLocation = event.location %}
+        {% set lastLocation = event.location %}{% set _lastBuilding = _building %}
+        {% if length(_prevSpeaker) > 0 %}{% set _speakerLocations = remove(_speakerLocations, _prevSpeaker) %}{% endif %}{% set _speakerLocations = append(_speakerLocations, append(append([], event.originatingActor), event.location)) %}
         {% if showTimeGap or lastSignificantTime == 0 %}{% if existsIn(event, "gameTimeEnd") and event.gameTimeEnd %}{% set lastSignificantTime = event.gameTimeEnd %}{% else %}{% set lastSignificantTime = event.gameTime %}{% endif %}{% endif %}
     {% endif %}
 {% endfor %}
 {% if lastSignificantTime > 0 %}
     {% if exists("npc") and existsIn(npc, "UUID") %}{% set currentActorLocation = get_location(npc.UUID) %}{% else %}{% set currentActorLocation = location %}{% endif %}
     {% set timeSinceLastEvent = gameTimeNumeric - lastSignificantTime %}
-    {% set locationChangedSinceLastEvent = (lastLocation != "" and lastLocation != currentActorLocation) %}
+    {# Moved: the prompted NPC stands in another building than the last line, or elsewhere than at the last line and than
+       at their own last line. #}
+    {% set _npcLast = [] %}{% if exists("npc") and existsIn(npc, "UUID") %}{% for _pair in _speakerLocations %}{% if _pair.0 == npc.UUID %}{% set _npcLast = _pair %}{% endif %}{% endfor %}{% endif %}
+    {% if length(_npcLast) > 0 %}{% set _ownMove = (lastLocation != currentActorLocation and _npcLast.1 != currentActorLocation) %}{% else %}{% set _ownMove = false %}{% endif %}{% set locationChangedSinceLastEvent = (lastLocation != "" and (location_building(currentActorLocation) != _lastBuilding or _ownMove)) %}
     {% set timePassedDescription = "" %}
     {% if timeSinceLastEvent > 31536000 %}{% set timePassedDescription = "Over a year has passed" %}
     {% else if timeSinceLastEvent > 15552000 %}{% set timePassedDescription = "Many months have passed" %}

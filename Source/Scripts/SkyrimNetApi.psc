@@ -980,6 +980,34 @@ int function TriggerSilentNarration() Global Native
 int function AddWorldKnowledge(String content, String conditionExpr, bool alwaysInject, float importance, String displayName) Global Native
 
 ; -----------------------------------------------------------------------------
+; --- Named Places ---
+; -----------------------------------------------------------------------------
+
+; Player-named spots ("the kitchen", "upstairs", "the bar") that SkyrimNet puts at the front of an actor's
+; location while they stand in one: "Kitchen, Breezehome, Hold: Whiterun". Prompts, events and memories all
+; read that string. A place is a position saved with the game, matched only in its own interior cell (or
+; worldspace outdoors), within its radius and 200 units up or down; the smallest containing place wins.
+; Places made here are the player's: the SkyrimNet Places page lists and edits them too, and these
+; functions edit only those (not places another mod registered).
+
+; Name the spot where the player stands. radius <= 0 takes the default (350 indoors, 1500 outdoors);
+; otherwise it is clamped to 50-5000. The name is trimmed and cut to 64 bytes.
+; Returns the place's id (> 0), or 0 (empty name, no cell, 256 places already).
+int function MarkPlace(String name, float radius = 0.0) Global Native
+
+; Rename a place. Returns false for an empty name or a place that is not the player's.
+bool function RenamePlace(int placeId, String name) Global Native
+
+; Change a place's radius (<= 0 = the default). Returns false for a place that is not the player's.
+bool function SetPlaceRadius(int placeId, float radius) Global Native
+
+; Delete a place. Returns false for a place that is not the player's.
+bool function RemovePlace(int placeId) Global Native
+
+; The name of the place akActor stands in, "" for none (or locationAnalysis.namedPlaces off).
+String function GetPlaceName(Actor akActor) Global Native
+
+; -----------------------------------------------------------------------------
 ; --- Voice Effect Management ---
 ; -----------------------------------------------------------------------------
 
