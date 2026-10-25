@@ -36,7 +36,8 @@ Function Maintenance(skynet_MainController _skynet)
     skynet = _skynet
     RegisterActions()
     InitVRIntegrations()
-    InitDBVOIntegration()
+    ; Saves made before the dialogue voice moved into the DLL still carry this registration.
+    UnregisterForModEvent("PlayDBVOTopic")
     InitMinAIBridge()
     ResetHotkeyStates()
     InitializeInGameHotkeys()
@@ -326,20 +327,6 @@ Event OnVrikInterruptDialogue(string eventName, string strArg, float numArg, For
 EndEvent
 
 ; -----------------------------------------------------------------------------
-; ---- DBVO Integration ----
-; -----------------------------------------------------------------------------
-  
-Function InitDBVOIntegration()
-    if Game.GetModByName("DBVO.esp") != 255
-        skynet.Info("DBVO.esp is active, so disabling custom DBVO integration")
-        return
-    endif
-
-    skynet.Info("Using DBVO integration")
-    RegisterForModEvent("PlayDBVOTopic", "OnPlayDBVOTopic")
-EndFunction
-
-; -----------------------------------------------------------------------------
 ; ---- MinAI Bridge Integration ----
 ; Bridges MinAI-style mod events to SkyrimNet's native API
 ; This allows mods that integrate with MinAI to also work with SkyrimNet,
@@ -359,90 +346,6 @@ Function InitMinAIBridge()
     skynet.Info("MinAI Bridge initialized")
 EndFunction
   
-; Event to intercept DBVO dialogue
-Event OnPlayDBVOTopic(string eventName, string strArg, float numArg, Form sender)
-    ; If DBVO.esp is active, don't interfere with it
-    if Game.GetModByName("DBVO.esp") != 255
-        return
-    endif
-
-    ; Check which features are enabled
-    Bool _playerTTSEnabled = SkyrimNetApi.GetConfigBool("game", "dbvo.enabled", true)
-    Bool _voiceSilentNPCs = SkyrimNetApi.GetConfigBool("game", "dbvo.voiceSilentNPCs", true)
-
-    ; If both features are disabled, proceed with vanilla behavior
-    if !_playerTTSEnabled && !_voiceSilentNPCs
-        UI.InvokeString("Dialogue Menu", "_root.DialogueMenu_mc.startTopicClickedTimer", "off")
-        return
-    endif
-
-    ; Kick off player TTS asynchronously if enabled
-    if _playerTTSEnabled
-        SkyrimNetApi.TriggerPlayerTTS(strArg)
-    endif
-
-    ; Pre-generate TTS for silent NPC responses if enabled
-    if _voiceSilentNPCs
-        SkyrimNetApi.PrepareNPCDialogue(strArg)
-    endif
-
-    ; Poll until player audio finishes playing
-    if _playerTTSEnabled
-        Float _timeout = 60.0 ; safety cap (seconds)
-        Float _elapsed = 0.0
-        Float _interval = 0.1 ; 100ms polling
-        Bool _isReady = false
-
-        while _elapsed < _timeout && !_isReady
-            if SkyrimNetApi.IsPlayerTTSFinished()
-                ; Audio has finished playing - proceed immediately
-                _isReady = true
-            else
-                Utility.WaitMenuMode(_interval)
-                _elapsed += _interval
-            endif
-        endwhile
-
-        ; Check if we timed out
-        if !_isReady
-            Debug.Notification("Warning: Player TTS timed out after " + _timeout + " seconds")
-            skynet.Warn("Player TTS timed out after " + _timeout + " seconds")
-        endif
-    endif
-
-    ; Poll until NPC dialogue (vanilla or TTS-generated) is ready to play
-    if _voiceSilentNPCs
-        ; We block here to ensure TTS is ready before starting subtitles and lip sync
-        Float _npc_dialogue_timeout = 30.0 ; timeout for TTS generation (seconds)
-        Float _npc_dialogue_elapsed = 0.0
-        Float _npc_dialogue_interval = 0.1 ; 100ms polling
-        Bool _npc_dialogue_ready = false
-
-        while _npc_dialogue_elapsed < _npc_dialogue_timeout && !_npc_dialogue_ready
-            if SkyrimNetApi.IsNPCDialogueReady()
-                _npc_dialogue_ready = true
-            else
-                Utility.WaitMenuMode(_npc_dialogue_interval)
-                _npc_dialogue_elapsed += _npc_dialogue_interval
-            endif
-        endwhile
-
-        ; Check if we timed out waiting for NPC dialogue TTS generation
-        if !_npc_dialogue_ready
-            skynet.Warn("NPC dialogue TTS generation timed out after " + _npc_dialogue_timeout + " seconds")
-        endif
-    endif
-
-    ; Wait to give a natural pause between player and NPC speech
-    if _playerTTSEnabled
-        Float _speech_break = 0.3
-        Utility.WaitMenuMode(_speech_break)
-    endif
-
-    ; Proceed with DBVO callback
-    UI.InvokeString("Dialogue Menu", "_root.DialogueMenu_mc.startTopicClickedTimer", "off")
-EndEvent
-
 ; -----------------------------------------------------------------------------
 ; --- In-Game Hotkey System ---
 ; -----------------------------------------------------------------------------
