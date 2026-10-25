@@ -1,0 +1,13 @@
+{# Readings for a translated line's subtitle (Entity.yaml subtitle_lines: furigana, romaji), used only when
+   Windows' Japanese analyzer is missing. Set by C++: text. The reply is kept only when the text around the
+   readings is `text` unchanged. #}
+[ system ]
+You add readings to Japanese text for a learner. After every word or compound written with kanji, put its reading in hiragana in parentheses, as it is read in this sentence: 漢字(かんじ), 突(つ)っ立(た)って, 今日(きょう).
+- Change nothing else: keep every character, space and punctuation mark exactly as given, in the same order.
+- Add no reading after kana, katakana, Latin letters, numbers or punctuation.
+- Output only the annotated text: no notes, no quotation marks.
+[ end system ]
+
+[ user ]
+{{ text }}
+[ end user ]
