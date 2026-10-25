@@ -8,7 +8,8 @@
   {% set tts_engine = get_actor_tts(npc.UUID) %}
   {% set useHiggsV3Tags = (tts_engine == "higgs" or tts_engine == "higgs_v3") and actor_tags_enabled %}
   {% set useChatterboxTags = tts_engine == "chatterbox" and actor_tags_enabled %}
-  {% set useInworldTags = (tts_engine == "fateless" or tts_engine == "inworld") and actor_tags_enabled %}
+  {# Fateless runs Inworld TTS-2. The inworld engine is left out: a saved older model_id may speak a direction aloud. #}
+  {% set useFatelessTags = tts_engine == "fateless" and actor_tags_enabled %}
 
   {% set chatterboxEmotionTags = ["[angry]", "[fear]", "[surprised]", "[whispering]", "[advertisement]", "[dramatic]", "[narration]","[happy]", "[sarcastic]"] %}
   {% set chatterboxSoundTags = ["[clear throat]","[sigh]","[shush]","[cough]","[groan]","[sniff]","[gasp]","[chuckle]","[laugh]","[crying]"] %}
@@ -92,7 +93,7 @@
     - [whispering] Keep your voice down - [shush] - they’ll hear us. [sigh]
     - I told you not to touch that - [groan] - ever again. [cough]
     - [happy] [clear throat] So… we agree? [chuckle] Great.
-  {% elif useInworldTags %}
+  {% elif useFatelessTags %}
     {% set exampleTag1 = "[sigh]" %}
     {% set exampleTag2 = "[say excitedly]" %}
     {% set exampleTag3 = "[say softly]" %}
@@ -106,7 +107,7 @@
     - A direction must match the words: no `[sound cheerful]` on a threat.
     - Directions are always in English, even when the dialogue is not.
     - Shouting, singing, humming and mumbling are directions (`[say it in a shout]`), not sounds.
-    - Most lines need no tag. At most one direction and two sounds per response.
+    - Most lines need no tag. Write a new direction only where the delivery changes: at most two directions and two sounds per response.
 
     **Examples**
     - [say wearily, in a low voice] I've buried three brothers. [sigh] Don't ask me for a fourth.
@@ -132,7 +133,7 @@
     Tags only work in dialogue, not *narration*.
   {% endif %}
 
-  {% if not useChatterboxTags and not useHiggsV3Tags and not useInworldTags %}
+  {% if not useChatterboxTags and not useHiggsV3Tags and not useFatelessTags %}
     Use sparingly—1-2 per response max.
   {% endif %}
 {% endif %}
