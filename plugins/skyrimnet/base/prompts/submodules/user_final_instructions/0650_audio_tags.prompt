@@ -8,6 +8,7 @@
   {% set tts_engine = get_actor_tts(npc.UUID) %}
   {% set useHiggsV3Tags = (tts_engine == "higgs" or tts_engine == "higgs_v3") and actor_tags_enabled %}
   {% set useChatterboxTags = tts_engine == "chatterbox" and actor_tags_enabled %}
+  {% set useInworldTags = (tts_engine == "fateless" or tts_engine == "inworld") and actor_tags_enabled %}
 
   {% set chatterboxEmotionTags = ["[angry]", "[fear]", "[surprised]", "[whispering]", "[advertisement]", "[dramatic]", "[narration]","[happy]", "[sarcastic]"] %}
   {% set chatterboxSoundTags = ["[clear throat]","[sigh]","[shush]","[cough]","[groan]","[sniff]","[gasp]","[chuckle]","[laugh]","[crying]"] %}
@@ -91,6 +92,26 @@
     - [whispering] Keep your voice down - [shush] - they’ll hear us. [sigh]
     - I told you not to touch that - [groan] - ever again. [cough]
     - [happy] [clear throat] So… we agree? [chuckle] Great.
+  {% elif useInworldTags %}
+    {% set exampleTag1 = "[sigh]" %}
+    {% set exampleTag2 = "[say excitedly]" %}
+    {% set exampleTag3 = "[say softly]" %}
+    {% set exampleTag4 = "[say gravely]" %}
+    **Two kinds of tag, and nothing else in square brackets:**
+    - **Directions** shape how the words that follow are spoken. Write one short English phrase starting with `say` or `sound`: `[say bitterly in a low voice]`, `[sound terrified]`, `[say with deliberate pauses]`, `[say very quietly]`, `[say in a furious shout]`. Put it right before the words it shapes. It lasts for the rest of the response, until the next direction or `[reset]`, so never repeat it on every sentence.
+    - **Sounds** are one vocal sound at the exact spot it happens: [sigh], [laugh], [chuckle], [scoff], [snort], [gasp], [groan], [grunt], [huff], [breathe], [clear throat], [cough], [sniff], [sob], [whimper], [yawn], [growl], [gulp]. A sound does not change the direction in force.
+
+    **Rules**
+    - One direction may combine mood, pitch, pace and volume (`[say wearily, slow and low]`); never stack two directions or join opposites (a whisper that is very loud).
+    - A direction must match the words: no `[sound cheerful]` on a threat.
+    - Directions are always in English, even when the dialogue is not.
+    - Shouting, singing, humming and mumbling are directions (`[say it in a shout]`), not sounds.
+    - Most lines need no tag. At most one direction and two sounds per response.
+
+    **Examples**
+    - [say wearily, in a low voice] I've buried three brothers. [sigh] Don't ask me for a fourth.
+    - [sound terrified, very fast] They're through the wall! [gasp] Run!
+    - You? A thief? [scoff] [say with slow, mocking disbelief] And I'm the Jarl of Whiterun.
   {% else %}
     {% set exampleTag1 = "[sighs]" %}
     {% set exampleTag2 = "[excited]" %}
@@ -111,7 +132,7 @@
     Tags only work in dialogue, not *narration*.
   {% endif %}
 
-  {% if not useChatterboxTags and not useHiggsV3Tags %}
+  {% if not useChatterboxTags and not useHiggsV3Tags and not useInworldTags %}
     Use sparingly—1-2 per response max.
   {% endif %}
 {% endif %}

@@ -1,0 +1,9 @@
+kind: carry_audio_tags
+name: Steering
+description: "A spoken direction such as [say bitterly in a low voice], held until the next one or [reset]."
+tags:
+  - "say *"
+  - "sound *"
+  - "speak *"
+  - "whisper *"
+  - reset
