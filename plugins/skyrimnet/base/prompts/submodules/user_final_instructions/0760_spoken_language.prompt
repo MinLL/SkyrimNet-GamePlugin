@@ -1,10 +1,10 @@
-{# A voice in another language than the subtitle (Entity.yaml spoken_language, per NPC): the model writes
-   each spoken sentence as usual and, right after it, the voice's words in a block named by the language's
-   code, `Come in. <ja>入って。</ja>`. SkyrimNet pairs a sentence with its block and voices the words; the
-   subtitle, the event history and what other NPCs hear keep the sentence as written. A sentence without a
-   block is spoken as written. decnpc(uuid).spokenLanguage is {code, name}, or nothing. The sentence's own
-   language is never named: players who prompt for another language keep it, and only the block changes. #}
-{% if render_mode == "full" and decnpc(npc.UUID).spokenLanguage %}
+{# A character who speaks another language (Entity.yaml spoken_language, per NPC): the model writes their
+   lines in it and, right after each sentence, the sentence in the language the conversation is otherwise
+   written in, inside a <translation> block, for the subtitles only. SkyrimNet pairs a sentence with its block:
+   the voice says the sentence, the subtitle shows both, the record and other NPCs keep the sentence alone.
+   A sentence without a block has no translation line. decnpc(uuid).spokenLanguage is {code, name}, or
+   nothing. The conversation's own language is never named: players who prompt for another one keep it. #}
+{% if (render_mode == "full" or render_mode == "thoughts") and decnpc(npc.UUID).spokenLanguage %}
 {% set _sl = decnpc(npc.UUID).spokenLanguage %}
 {% set _name = decnpc(npc.UUID).name %}
 {% set _ex1 = "" %}
@@ -29,13 +29,25 @@
 {% else if _sl.code == "en" %}{% set _ex1 = "Not now." %}{% set _ex2 = "Come back in an hour." %}
 {% endif %}
 ## Spoken Language
-{{ _name }} speaks {{ _sl.name }} aloud, while the subtitles stay in the language of this conversation. Write each spoken sentence as you normally would and, right after it, inside <{{ _sl.code }}>...</{{ _sl.code }}>, the natural spoken {{ _sl.name }} that {{ _name }} actually says: the same meaning and about the same length, in {{ _name }}'s personality and register, using the established {{ _sl.name }} localization of Elder Scrolls names and terms.
-- One <{{ _sl.code }}> block directly after each spoken sentence, the last one included: a sentence without its block is a mistake. Never put the {{ _sl.name }} first, never group several sentences into one block.
+{% if render_mode == "thoughts" %}
+{{ _name }} speaks and thinks in {{ _sl.name }}. Write the thought in {{ _sl.name }}, in {{ _name }}'s voice. After it, inside <translation>...</translation>, give the same thought in the language this conversation is otherwise written in: a faithful translation, the same meaning and length, shown to the player only. One block, at the end, nothing after it.
+{% if length(_ex1) > 0 %}
+- Example, for a conversation written in English: {{ _ex1 }} {{ _ex2 }} <translation>Not now. Come back in an hour.</translation>
+{% endif %}
+{% else %}
+{{ _name }} speaks {{ _sl.name }}. Write every spoken sentence in {{ _sl.name }}, in {{ _name }}'s personality and register, using the established {{ _sl.name }} localization of Elder Scrolls names and terms. Right after each sentence, inside <translation>...</translation>, give that sentence in the language this conversation is otherwise written in: a faithful translation, the same meaning and length, for the subtitles only.
+- One <translation> block directly after each spoken sentence, the last one included: a sentence without its block is a mistake. Never put the translation first, never group several sentences into one block.
 {% if is_audio_tags_enabled(npc.UUID) %}
 - Keep [performance tags] in the sentence itself; do not repeat them inside the block.
 {% endif %}
-- Narration in *asterisks*, <internal_thought> blocks and ACTION lines stay as they are, with no block.
+- Narration in *asterisks* and ACTION lines stay in the language this conversation is otherwise written in, with no block.
+{% if exists("allow_inline_internal_thoughts") and allow_inline_internal_thoughts %}
+- Inside an <internal_thought> block, think in {{ _sl.name }} too and end the thought with one <translation> block holding the whole thought in the conversation's language.
+{% else %}
+- Everything else you write is spoken aloud: no <internal_thought> blocks.
+{% endif %}
 {% if length(_ex1) > 0 %}
-- Example, for a conversation written in English: Not now. <{{ _sl.code }}>{{ _ex1 }}</{{ _sl.code }}>{% if is_narration_enabled() %} *{{ _name }} does not look up*{% endif %} Come back in an hour. <{{ _sl.code }}>{{ _ex2 }}</{{ _sl.code }}>
+- Example, for a conversation written in English: {{ _ex1 }} <translation>Not now.</translation>{% if is_narration_enabled() %} *{{ _name }} does not look up*{% endif %} {{ _ex2 }} <translation>Come back in an hour.</translation>
+{% endif %}
 {% endif %}
 {% endif %}
