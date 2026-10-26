@@ -16,7 +16,7 @@
 {% set hasShownGMDialogue = false %}
 {% for event in events %}
     {% if event.type != "spell" and event.type != "hit" and event.type != "combat" %}
-        {# A move is a line from another building than the line before (location_building drops a named place,
+        {# A move is a line from another building than the line before (location_building, the first part;
            ai_docs/NAMED_PLACES.md), or a speaker standing elsewhere than at their own last line and than the line before:
            two people talking from two rooms of one building is not one. #}
         {% set _prevSpeaker = [] %}{% for _pair in _speakerLocations %}{% if _pair.0 == event.originatingActor %}{% set _prevSpeaker = _pair %}{% endif %}{% endfor %}
