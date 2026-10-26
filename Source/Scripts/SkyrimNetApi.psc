@@ -983,8 +983,8 @@ int function AddWorldKnowledge(String content, String conditionExpr, bool always
 ; --- Named Places ---
 ; -----------------------------------------------------------------------------
 
-; Player-named spots ("the kitchen", "upstairs", "the bar") that SkyrimNet puts at the front of an actor's
-; location while they stand in one: "Kitchen, Breezehome, Hold: Whiterun". Prompts, events and memories all
+; Player-named spots ("the kitchen", "upstairs", "the bar") that SkyrimNet adds to an actor's location,
+; after its first part, while they stand in one: "Breezehome, Kitchen, Hold: Whiterun". Prompts, events and memories all
 ; read that string. A place is a position saved with the game, matched only in its own interior cell (or
 ; worldspace outdoors), within its radius and 200 units up or down; the smallest containing place wins.
 ; Places made here are the player's: the SkyrimNet Places page lists and edits them too, and these
