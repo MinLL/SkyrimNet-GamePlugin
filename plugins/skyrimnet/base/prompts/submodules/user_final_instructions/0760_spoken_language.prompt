@@ -1,53 +1,102 @@
-{# A character who speaks another language (Entity.yaml spoken_language, per NPC): the model writes their
-   lines in it and, right after each sentence, the sentence in the language the conversation is otherwise
-   written in, inside a <translation> block, for the subtitles only. SkyrimNet pairs a sentence with its block:
-   the voice says the sentence, the subtitle shows both, the record and other NPCs keep the sentence alone.
-   A sentence without a block has no translation line. decnpc(uuid).spokenLanguage is {code, name}, or
-   nothing. The conversation's own language is never named: players who prompt for another one keep it. #}
-{% if (render_mode == "full" or render_mode == "thoughts") and decnpc(npc.UUID).spokenLanguage %}
+{# A character who speaks another language (Entity.yaml spoken_language, per NPC) and the player's subtitle
+   language (Entity.yaml subtitle_language): the model writes the character's lines in their language and,
+   when the subtitle language differs from the language a line is written in, repeats each sentence in the
+   subtitle language right after it, inside a <translation> block, for the subtitles only. SkyrimNet pairs a
+   sentence with its block: the voice says the sentence, the subtitle shows both, the record and other NPCs
+   keep the sentence alone. decnpc(uuid).spokenLanguage and decnpc(uuid).translationLanguage are {code,
+   name}, or nothing (SkyrimNet decides when a block is wanted). Three shapes: a language with blocks, a
+   language alone (the subtitle language is the same), blocks alone (an English voice with, say, German
+   subtitles). Without a spoken language the sentence's own language is never named: players who prompt for
+   another one keep it. #}
+{% if render_mode == "full" or render_mode == "thoughts" %}
 {% set _sl = decnpc(npc.UUID).spokenLanguage %}
+{% set _tl = decnpc(npc.UUID).translationLanguage %}
+{% if _sl or _tl %}
 {% set _name = decnpc(npc.UUID).name %}
+{% set _sc = "en" %}
+{% if _sl %}{% set _sc = _sl.code %}{% endif %}
+{% set _tc = "" %}
+{% if _tl %}{% set _tc = _tl.code %}{% endif %}
 {% set _ex1 = "" %}
 {% set _ex2 = "" %}
-{% if _sl.code == "ja" %}{% set _ex1 = "今はだめ。" %}{% set _ex2 = "一時間後にまた来て。" %}
-{% else if _sl.code == "ko" %}{% set _ex1 = "지금은 안 돼." %}{% set _ex2 = "한 시간 뒤에 다시 와." %}
-{% else if _sl.code == "zh" %}{% set _ex1 = "现在不行。" %}{% set _ex2 = "一个小时后再来。" %}
-{% else if _sl.code == "ru" %}{% set _ex1 = "Не сейчас." %}{% set _ex2 = "Возвращайся через час." %}
-{% else if _sl.code == "it" %}{% set _ex1 = "Non ora." %}{% set _ex2 = "Torna tra un'ora." %}
-{% else if _sl.code == "es" %}{% set _ex1 = "Ahora no." %}{% set _ex2 = "Vuelve dentro de una hora." %}
-{% else if _sl.code == "pt" %}{% set _ex1 = "Agora não." %}{% set _ex2 = "Volte daqui a uma hora." %}
-{% else if _sl.code == "de" %}{% set _ex1 = "Jetzt nicht." %}{% set _ex2 = "Komm in einer Stunde wieder." %}
-{% else if _sl.code == "fr" %}{% set _ex1 = "Pas maintenant." %}{% set _ex2 = "Reviens dans une heure." %}
-{% else if _sl.code == "ar" %}{% set _ex1 = "ليس الآن." %}{% set _ex2 = "ارجع بعد ساعة." %}
-{% else if _sl.code == "pl" %}{% set _ex1 = "Nie teraz." %}{% set _ex2 = "Wróć za godzinę." %}
-{% else if _sl.code == "nl" %}{% set _ex1 = "Nu niet." %}{% set _ex2 = "Kom over een uur terug." %}
-{% else if _sl.code == "hi" %}{% set _ex1 = "अभी नहीं।" %}{% set _ex2 = "एक घंटे बाद वापस आना।" %}
-{% else if _sl.code == "he" %}{% set _ex1 = "לא עכשיו." %}{% set _ex2 = "תחזור בעוד שעה." %}
-{% else if _sl.code == "cs" %}{% set _ex1 = "Teď ne." %}{% set _ex2 = "Vrať se za hodinu." %}
-{% else if _sl.code == "hu" %}{% set _ex1 = "Most nem." %}{% set _ex2 = "Gyere vissza egy óra múlva." %}
-{% else if _sl.code == "tr" %}{% set _ex1 = "Şimdi değil." %}{% set _ex2 = "Bir saat sonra tekrar gel." %}
-{% else if _sl.code == "en" %}{% set _ex1 = "Not now." %}{% set _ex2 = "Come back in an hour." %}
+{% if _sc == "ja" %}{% set _ex1 = "今はだめ。" %}{% set _ex2 = "一時間後にまた来て。" %}
+{% else if _sc == "ko" %}{% set _ex1 = "지금은 안 돼." %}{% set _ex2 = "한 시간 뒤에 다시 와." %}
+{% else if _sc == "zh" %}{% set _ex1 = "现在不行。" %}{% set _ex2 = "一个小时后再来。" %}
+{% else if _sc == "ru" %}{% set _ex1 = "Не сейчас." %}{% set _ex2 = "Возвращайся через час." %}
+{% else if _sc == "it" %}{% set _ex1 = "Non ora." %}{% set _ex2 = "Torna tra un'ora." %}
+{% else if _sc == "es" %}{% set _ex1 = "Ahora no." %}{% set _ex2 = "Vuelve dentro de una hora." %}
+{% else if _sc == "pt" %}{% set _ex1 = "Agora não." %}{% set _ex2 = "Volte daqui a uma hora." %}
+{% else if _sc == "de" %}{% set _ex1 = "Jetzt nicht." %}{% set _ex2 = "Komm in einer Stunde wieder." %}
+{% else if _sc == "fr" %}{% set _ex1 = "Pas maintenant." %}{% set _ex2 = "Reviens dans une heure." %}
+{% else if _sc == "ar" %}{% set _ex1 = "ليس الآن." %}{% set _ex2 = "ارجع بعد ساعة." %}
+{% else if _sc == "pl" %}{% set _ex1 = "Nie teraz." %}{% set _ex2 = "Wróć za godzinę." %}
+{% else if _sc == "nl" %}{% set _ex1 = "Nu niet." %}{% set _ex2 = "Kom over een uur terug." %}
+{% else if _sc == "hi" %}{% set _ex1 = "अभी नहीं।" %}{% set _ex2 = "एक घंटे बाद वापस आना।" %}
+{% else if _sc == "he" %}{% set _ex1 = "לא עכשיו." %}{% set _ex2 = "תחזור בעוד שעה." %}
+{% else if _sc == "cs" %}{% set _ex1 = "Teď ne." %}{% set _ex2 = "Vrať se za hodinu." %}
+{% else if _sc == "hu" %}{% set _ex1 = "Most nem." %}{% set _ex2 = "Gyere vissza egy óra múlva." %}
+{% else if _sc == "tr" %}{% set _ex1 = "Şimdi değil." %}{% set _ex2 = "Bir saat sonra tekrar gel." %}
+{% else if _sc == "en" %}{% set _ex1 = "Not now." %}{% set _ex2 = "Come back in an hour." %}
 {% endif %}
+{% set _tr1 = "" %}
+{% set _tr2 = "" %}
+{% if _tc == "ja" %}{% set _tr1 = "今はだめ。" %}{% set _tr2 = "一時間後にまた来て。" %}
+{% else if _tc == "ko" %}{% set _tr1 = "지금은 안 돼." %}{% set _tr2 = "한 시간 뒤에 다시 와." %}
+{% else if _tc == "zh" %}{% set _tr1 = "现在不行。" %}{% set _tr2 = "一个小时后再来。" %}
+{% else if _tc == "ru" %}{% set _tr1 = "Не сейчас." %}{% set _tr2 = "Возвращайся через час." %}
+{% else if _tc == "it" %}{% set _tr1 = "Non ora." %}{% set _tr2 = "Torna tra un'ora." %}
+{% else if _tc == "es" %}{% set _tr1 = "Ahora no." %}{% set _tr2 = "Vuelve dentro de una hora." %}
+{% else if _tc == "pt" %}{% set _tr1 = "Agora não." %}{% set _tr2 = "Volte daqui a uma hora." %}
+{% else if _tc == "de" %}{% set _tr1 = "Jetzt nicht." %}{% set _tr2 = "Komm in einer Stunde wieder." %}
+{% else if _tc == "fr" %}{% set _tr1 = "Pas maintenant." %}{% set _tr2 = "Reviens dans une heure." %}
+{% else if _tc == "ar" %}{% set _tr1 = "ليس الآن." %}{% set _tr2 = "ارجع بعد ساعة." %}
+{% else if _tc == "pl" %}{% set _tr1 = "Nie teraz." %}{% set _tr2 = "Wróć za godzinę." %}
+{% else if _tc == "nl" %}{% set _tr1 = "Nu niet." %}{% set _tr2 = "Kom over een uur terug." %}
+{% else if _tc == "hi" %}{% set _tr1 = "अभी नहीं।" %}{% set _tr2 = "एक घंटे बाद वापस आना।" %}
+{% else if _tc == "he" %}{% set _tr1 = "לא עכשיו." %}{% set _tr2 = "תחזור בעוד שעה." %}
+{% else if _tc == "cs" %}{% set _tr1 = "Teď ne." %}{% set _tr2 = "Vrať se za hodinu." %}
+{% else if _tc == "hu" %}{% set _tr1 = "Most nem." %}{% set _tr2 = "Gyere vissza egy óra múlva." %}
+{% else if _tc == "tr" %}{% set _tr1 = "Şimdi değil." %}{% set _tr2 = "Bir saat sonra tekrar gel." %}
+{% else if _tc == "en" %}{% set _tr1 = "Not now." %}{% set _tr2 = "Come back in an hour." %}
+{% endif %}
+{% set _example = length(_ex1) > 0 and (not _tl or length(_tr1) > 0) %}
+{% if _sl %}
 ## Spoken Language
+{% else %}
+## Subtitle Translation
+{% endif %}
 {% if render_mode == "thoughts" %}
-{{ _name }} speaks and thinks in {{ _sl.name }}. Write the thought in {{ _sl.name }}, in {{ _name }}'s voice. After it, inside <translation>...</translation>, give the same thought in the language this conversation is otherwise written in: a faithful translation, the same meaning and length, shown to the player only. One block, at the end, nothing after it.
-{% if length(_ex1) > 0 %}
-- Example, for a conversation written in English: {{ _ex1 }} {{ _ex2 }} <translation>Not now. Come back in an hour.</translation>
+{% if _sl %}{{ _name }} speaks and thinks in {{ _sl.name }}. Write the thought in {{ _sl.name }}, in {{ _name }}'s voice.{% endif %}{% if _tl %} After {% if _sl %}it{% else %}the thought{% endif %}, inside <translation>...</translation>, give the same thought in {{ _tl.name }}: a faithful translation, the same meaning and length, shown to the player only. One block, at the end, nothing after it.{% endif %}
+{% if _example %}
+- Example: {{ _ex1 }} {{ _ex2 }}{% if _tl %} <translation>{{ _tr1 }} {{ _tr2 }}</translation>{% endif %}
 {% endif %}
 {% else %}
-{{ _name }} speaks {{ _sl.name }}. Write every spoken sentence in {{ _sl.name }}, in {{ _name }}'s personality and register, using the established {{ _sl.name }} localization of Elder Scrolls names and terms. Right after each sentence, inside <translation>...</translation>, give that sentence in the language this conversation is otherwise written in: a faithful translation, the same meaning and length, for the subtitles only.
+{% if _sl %}{{ _name }} speaks {{ _sl.name }}. Write every spoken sentence in {{ _sl.name }}, in {{ _name }}'s personality and register, using the established {{ _sl.name }} localization of Elder Scrolls names and terms.{% endif %}{% if _tl %} Right after each {% if not _sl %}spoken {% endif %}sentence, inside <translation>...</translation>, give that sentence in {{ _tl.name }}: a faithful translation, the same meaning and length, for the subtitles only.{% endif %}
+{% if _tl %}
 - One <translation> block directly after each spoken sentence, the last one included: a sentence without its block is a mistake. Never put the translation first, never group several sentences into one block.
 {% if is_audio_tags_enabled(npc.UUID) %}
 - Keep [performance tags] in the sentence itself; do not repeat them inside the block.
 {% endif %}
-- Narration in *asterisks* and ACTION lines stay in the language this conversation is otherwise written in, with no block.
+{% endif %}
+{% if _sl %}
+- Narration in *asterisks* and ACTION lines stay in the language this conversation is otherwise written in{% if _tl %}, with no block{% endif %}.
+{% else %}
+- Narration in *asterisks* and ACTION lines get no block.
+{% endif %}
 {% if exists("allow_inline_internal_thoughts") and allow_inline_internal_thoughts %}
-- Inside an <internal_thought> block, think in {{ _sl.name }} too and end the thought with one <translation> block holding the whole thought in the conversation's language.
+{% if _sl and _tl %}
+- Inside an <internal_thought> block, think in {{ _sl.name }} too and end the thought with one <translation> block holding the whole thought in {{ _tl.name }}.
+{% else if _sl %}
+- Inside an <internal_thought> block, think in {{ _sl.name }} too.
+{% else %}
+- Inside an <internal_thought> block, end the thought with one <translation> block holding the whole thought in {{ _tl.name }}.
+{% endif %}
 {% else %}
 - Everything else you write is spoken aloud: no <internal_thought> blocks.
 {% endif %}
-{% if length(_ex1) > 0 %}
-- Example, for a conversation written in English: {{ _ex1 }} <translation>Not now.</translation>{% if is_narration_enabled() %} *{{ _name }} does not look up*{% endif %} {{ _ex2 }} <translation>Come back in an hour.</translation>
+{% if _example %}
+- Example: {{ _ex1 }}{% if _tl %} <translation>{{ _tr1 }}</translation>{% endif %}{% if is_narration_enabled() %} *{{ _name }} does not look up*{% endif %} {{ _ex2 }}{% if _tl %} <translation>{{ _tr2 }}</translation>{% endif %}
+{% endif %}
 {% endif %}
 {% endif %}
 {% endif %}

@@ -1,14 +1,19 @@
 {# A vanilla line of an NPC rewritten before it is voiced. Set by C++ (DialogueTransformer): npc (name, gender,
    race, UUID, universalTranslatorSpeechPattern: the rule's pattern, empty when the NPC has no rule),
    originalDialogue, preSentDialogue, spokenLanguage ({code, name} when the character speaks another language
-   than the conversation's, else absent). With a pattern the line is rewritten in it; with a language it is
-   written in that language, and with both, each sentence also carries its translation into the line's own
-   language inside a <translation> block for the subtitle. The conversation's language is never named. #}
+   than the conversation's, else absent), translationLanguage ({code, name} when the subtitle wants the line
+   in the player's language too, else absent). With a pattern the line is rewritten in it; with a language it
+   is written in that language, and with both a language and a translation language, each sentence also
+   carries its translation inside a <translation> block for the subtitle (a line with no pattern carries the
+   game's own text instead, so no block is asked for). The conversation's language is never named. #}
 {% set _pattern = npc.universalTranslatorSpeechPattern %}
 {% set _hasPattern = length(_pattern) > 0 %}
 {% set _lang = "" %}
 {% if exists("spokenLanguage") and spokenLanguage %}{% set _lang = spokenLanguage.name %}{% endif %}
 {% set _hasLang = length(_lang) > 0 %}
+{% set _tlName = "" %}
+{% if exists("translationLanguage") and translationLanguage %}{% set _tlName = translationLanguage.name %}{% endif %}
+{% set _hasTranslation = _hasPattern and length(_tlName) > 0 %}
 [ system ]
 You are roleplaying as {{ npc.name }}, a {{ npc.gender }} {{ npc.race }} in Skyrim.
 
@@ -33,8 +38,8 @@ You will say dialogue lines in {{ _lang }}, the language {{ npc.name }} speaks. 
 {% endif %}
 {% if _hasLang %}
 - Write it in {{ _lang }}: natural spoken {{ _lang }} in {{ npc.name }}'s register, with the established {{ _lang }} localization of Elder Scrolls names and terms; the same meaning and about the same length as the ORIGINAL DIALOGUE
-{% if _hasPattern %}
-- Right after each {{ _lang }} sentence, inside <translation>...</translation>, give that sentence in the language the ORIGINAL DIALOGUE is written in, for the subtitles only: one block per sentence, the last one included
+{% if _hasTranslation %}
+- Right after each {{ _lang }} sentence, inside <translation>...</translation>, give that sentence in {{ _tlName }}, for the subtitles only: one block per sentence, the last one included
 {% else %}
 - Output only the {{ _lang }} words: no translation, no notes
 {% endif %}
