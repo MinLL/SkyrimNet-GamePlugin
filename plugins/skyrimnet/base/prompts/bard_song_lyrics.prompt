@@ -26,6 +26,9 @@ Events you witnessed recently:
 Recent conversations you had:
 {{ recent_dialogue }}
 
+{% if exists("previous_lyrics_refused") %}{% if previous_lyrics_refused %}
+The composer refused your last lyrics for this song: its filter blocks some words even in harmless songs. Write new lyrics on the same theme in gentler words: no weapons being aimed or drawn, no wounds or killing described, no real-world names.
+{% endif %}{% endif %}
 {% if previous_song_titles | length > 0 %}
 Songs you have already performed (avoid repeating these themes):
 {% for title in previous_song_titles %}- {{ title }}
