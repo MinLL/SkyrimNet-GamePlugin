@@ -1,7 +1,7 @@
 {#
   STT name hints: the names the player is likely to say, sent to speech-to-text with each
-  push-to-talk and open-mic utterance (STT.yaml name_hints, on by default) so they come back
-  spelled right. Local Whisper reads this as text heard just before the speech; hosted services
+  push-to-talk and open-mic utterance (STT.yaml name_hints, on by default; for local Whisper,
+  whisper.name_hints, off by default) so they come back spelled right. Local Whisper reads this as text heard just before the speech; hosted services
   take it as their prompt.
 
   Rendered like any prompt, with the standard variables and decorators, in the background (on a
