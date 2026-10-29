@@ -1,5 +1,5 @@
-{# A character who speaks another language (Entity.yaml spoken_language, per NPC) and the player's subtitle
-   language (Entity.yaml subtitle_language): the model writes the character's lines in their language and,
+{# A character who speaks another language (a Universal Translator language rule) and the subtitle
+   language (the rule's, or the global language rule's): the model writes the character's lines in their language and,
    when the subtitle language differs from the language a line is written in, repeats each sentence in the
    subtitle language right after it, inside a <translation> block, for the subtitles only. SkyrimNet pairs a
    sentence with its block: the voice says the sentence, the subtitle shows both, the record and other NPCs

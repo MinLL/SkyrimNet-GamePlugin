@@ -1,5 +1,5 @@
 {# The translation line under a recorded vanilla line's subtitle, for an NPC with no spoken language while a
-   subtitle language is set (Entity.yaml subtitle_language). Rendered by C++ as "transformers\subtitle_translation"
+   subtitle language is set (a Universal Translator language rule). Rendered by C++ as "transformers\subtitle_translation"
    on the Universal Translator model for lines the game's own string tables cannot translate. Set by C++: npc (name,
    gender, race: register only, the line is fixed recorded text), originalDialogue (the recorded line's text),
    translationLanguage ({code, name}: the subtitle language). The line's own language is not named: a translation
