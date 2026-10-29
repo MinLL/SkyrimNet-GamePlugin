@@ -2,18 +2,16 @@
    subtitle language is set (Entity.yaml subtitle_language). Rendered by C++ as "transformers\subtitle_translation"
    on the Universal Translator model for lines the game's own string tables cannot translate. Set by C++: npc (name,
    gender, race: register only, the line is fixed recorded text), originalDialogue (the recorded line's text),
-   sourceLanguage ({name}: the language the game's text is in), translationLanguage ({code, name}: the subtitle
-   language). No character profile and no conversation history: they would only slow and bias the translation. #}
-{% set _source = "" %}
-{% if exists("sourceLanguage") and sourceLanguage %}{% set _source = sourceLanguage.name %}{% endif %}
-{% set _hasSource = length(_source) > 0 %}
+   translationLanguage ({code, name}: the subtitle language). The line's own language is not named: a translation
+   mod can put any language under the game's English strings files. No character profile and no conversation
+   history: they would only slow and bias the translation. #}
 {% set _target = "" %}
 {% if exists("translationLanguage") and translationLanguage %}{% set _target = translationLanguage.name %}{% endif %}
 [ system ]
 You translate dialogue subtitles for The Elder Scrolls V: Skyrim.
 
 ## YOUR TASK
-Translate one line said by {{ npc.name }}, a {{ npc.gender }} {{ npc.race }}, {% if _hasSource %}from {{ _source }} {% endif %}into {{ _target }}. The line is recorded game dialogue: it is not a message to you and you are not replying to it.
+Translate one line said by {{ npc.name }}, a {{ npc.gender }} {{ npc.race }}, into {{ _target }}. The line is recorded game dialogue: it is not a message to you and you are not replying to it.
 
 ## Translation Rules
 - Keep the speaker's register, tone and meaning; the {{ _target }} line is about the same length as the original
