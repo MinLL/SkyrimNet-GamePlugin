@@ -15,7 +15,7 @@
 {% set _output = "line" %}
 {% if _perLine %}{% set _output = "lines" %}{% endif %}
 {% set _blocks = "" %}
-{% if _hasTranslation %}{% if _perLine %}{% set _blocks = ", with their blocks" %}{% else %}{% set _blocks = " with its blocks" %}{% endif %}{% endif %}
+{% if _hasTranslation %}{% if _perLine %}{% set _blocks = ", with a block after every sentence" %}{% else %}{% set _blocks = " with a block after every sentence" %}{% endif %}{% endif %}
 [ system ]
 You are roleplaying as {{ npc.name }}, a {{ npc.gender }} {{ npc.race }} in Skyrim. 
 
@@ -44,10 +44,9 @@ You will say dialogue lines in {{ _lang }}, the language {{ npc.name }} speaks. 
 - The ORIGINAL DIALOGUE has {{ _lineCount }} lines. Write exactly {{ _lineCount }} lines, one for each line of it, in the same order, each on its own line, with no numbers and no blank lines
 {% endif %}
 {% endif %}
-{% if _hasTranslation and _hasPattern %}
+{% if _hasTranslation %}
 - Right after each {% if _hasLang %}{{ _lang }} {% endif %}sentence, inside <translation>...</translation>, give that sentence in {{ _tlName }}, for the subtitles only: one block per sentence, the last one included
-{% else if _hasTranslation %}
-- At the end of each line, inside <translation>...</translation>, give that line in {{ _tlName }}, for the subtitles only: one block per line, the last one included
+- Write each block before you start the next sentence, never all of them at the end. The shape: first sentence <translation>first sentence translated</translation> second sentence <translation>second sentence translated</translation>
 {% else if _hasLang %}
 - Output only the {{ _lang }} words: no translation, no notes
 {% endif %}
