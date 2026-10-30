@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Felldir the Old
+from: npc:skyrim.esm:0x04423B
+to: npc:skyrim.esm:0x0CDA05

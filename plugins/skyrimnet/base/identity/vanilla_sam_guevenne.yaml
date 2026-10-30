@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Sam Guevenne
+from: npc:skyrim.esm:0x0A96A0
+to: npc:skyrim.esm:0x02E1F3

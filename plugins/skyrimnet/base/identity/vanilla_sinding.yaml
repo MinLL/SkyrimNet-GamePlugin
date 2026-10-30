@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Sinding
+from: npc:skyrim.esm:0x06C1B8
+to: npc:skyrim.esm:0x02ABBD
