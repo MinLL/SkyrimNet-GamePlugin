@@ -8,7 +8,7 @@
 {% set _hasLang = length(_lang) > 0 %}
 {% set _tlName = "" %}
 {% if exists("translationLanguage") and translationLanguage %}{% if translationLanguage.code == "game" %}{% set _tlName = "the language the ORIGINAL DIALOGUE is written in" %}{% else %}{% set _tlName = translationLanguage.name %}{% endif %}{% endif %}
-{% set _hasTranslation = _hasLang and length(_tlName) > 0 %}
+{% set _hasTranslation = length(_tlName) > 0 %}
 {% set _lineCount = 1 %}
 {% if exists("lineCount") %}{% set _lineCount = lineCount %}{% endif %}
 {% set _perLine = not _hasPattern and _lineCount > 1 %}
@@ -43,13 +43,13 @@ You will say dialogue lines in {{ _lang }}, the language {{ npc.name }} speaks. 
 {% if _perLine %}
 - The ORIGINAL DIALOGUE has {{ _lineCount }} lines. Write exactly {{ _lineCount }} lines, one for each line of it, in the same order, each on its own line, with no numbers and no blank lines
 {% endif %}
+{% endif %}
 {% if _hasTranslation and _hasPattern %}
-- Right after each {{ _lang }} sentence, inside <translation>...</translation>, give that sentence in {{ _tlName }}, for the subtitles only: one block per sentence, the last one included
+- Right after each {% if _hasLang %}{{ _lang }} {% endif %}sentence, inside <translation>...</translation>, give that sentence in {{ _tlName }}, for the subtitles only: one block per sentence, the last one included
 {% else if _hasTranslation %}
 - At the end of each line, inside <translation>...</translation>, give that line in {{ _tlName }}, for the subtitles only: one block per line, the last one included
-{% else %}
+{% else if _hasLang %}
 - Output only the {{ _lang }} words: no translation, no notes
-{% endif %}
 {% endif %}
 - Use the conversation context to understand the situation, but DO NOT treat the ORIGINAL DIALOGUE as a response to the last message
 - The ORIGINAL DIALOGUE's meaning must be preserved - only the {% if _hasPattern %}style/wording{% else %}language{% endif %} changes
@@ -81,7 +81,7 @@ Continue in {{ _lang }}.
 The next part {{ npc.name }} needs to say is:
 "{{originalDialogue}}"
 
-{% if _hasPattern %}Transform this continuation to match the speech pattern above and flow naturally from what was already said. Output only the transformed line.{% else %}Say this continuation in {{ _lang }}, flowing naturally from what was already said. Output only the {{ _lang }} {{ _output }}{% if _perLine %}, one for each line above{% endif %}{{ _blocks }}.{% endif %}
+{% if _hasPattern %}Transform this continuation to match the speech pattern above and flow naturally from what was already said. Output only the transformed line{{ _blocks }}.{% else %}Say this continuation in {{ _lang }}, flowing naturally from what was already said. Output only the {{ _lang }} {{ _output }}{% if _perLine %}, one for each line above{% endif %}{{ _blocks }}.{% endif %}
 [ end user ]
 
 {% else %}
@@ -97,7 +97,7 @@ Say {% if _perLine %}these lines{% else %}this line{% endif %} in {{ _lang }}.
 {{ npc.name }} needs to say:
 "{{originalDialogue}}"
 
-{% if _hasPattern %}Rewrite it to match the speech pattern above while keeping the same meaning. Use the conversation context to inform your transformation if needed. Output only the transformed line.{% else %}Keep the same meaning and length. Use the conversation context to inform the wording if needed. Output only the {{ _lang }} {{ _output }}{% if _perLine %}, one for each line above{% endif %}{{ _blocks }}.{% endif %}
+{% if _hasPattern %}Rewrite it to match the speech pattern above while keeping the same meaning. Use the conversation context to inform your transformation if needed. Output only the transformed line{{ _blocks }}.{% else %}Keep the same meaning and length. Use the conversation context to inform the wording if needed. Output only the {{ _lang }} {{ _output }}{% if _perLine %}, one for each line above{% endif %}{{ _blocks }}.{% endif %}
 [ end user ]
 
 {% endif %}
