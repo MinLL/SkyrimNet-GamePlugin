@@ -1,6 +1,5 @@
-<!-- TODO(min): add the promo banner at docs/images/skyrimnet-banner.png, or change this path -->
 <p align="center">
-  <img src="docs/images/skyrimnet-banner.png" alt="SkyrimNet: AI NPCs for Skyrim" width="100%">
+  <img src="docs/images/readme-hero.jpg" alt="A player talks to Tessa in Whiterun through SkyrimNet's in-game chat: &quot;So, tell me - Do you really trust the jarl?&quot;" width="100%">
 </p>
 
 <h1 align="center">SkyrimNet</h1>
