@@ -64,7 +64,7 @@ One account for everything SkyrimNet needs: dialogue, voices, speech recognition
 
 Plans start at $10 a month. Update to SkyrimNet Beta29 or later, choose Fateless in the settings, and sign in.
 
-**[Get started with Fateless →](https://fateless.ai/inference)**
+**[Get started with Fateless →](https://fateless.ai/inference?from=sn-github-readme)**
 
 ### ☁️ Your own cloud account
 
@@ -139,7 +139,13 @@ SkyrimNet's modder API has a growing ecosystem. Two major mods built on it:
 - **Discord:** [discord.gg/gHHS7HpJS9](https://discord.gg/gHHS7HpJS9), for help, news and your stories
 - **YouTube:** [@SkyrimNet](https://www.youtube.com/@SkyrimNet)
 - **Fateless:** [fateless.ai](https://fateless.ai) · [Fateless Inference](https://fateless.ai/inference)
-- **Support the project:** [Ko-fi](https://ko-fi.com/S6S51B7MJA)
+
+**Support the project:**
+
+<p>
+  <a href="https://www.patreon.com/c/SkyrimNet"><img alt="Become a patron on Patreon" src="https://c5.patreon.com/external/logo/become_a_patron_button.png" height="36"></a>
+  <a href="https://ko-fi.com/S6S51B7MJA"><img alt="Support us on Ko-fi" src="https://ko-fi.com/img/githubbutton_sm.svg" height="36"></a>
+</p>
 
 ## Credits
 
