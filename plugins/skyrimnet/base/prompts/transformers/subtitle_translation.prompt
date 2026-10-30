@@ -1,38 +1,26 @@
-{# The translation line under a vanilla line's subtitle: a recorded line of an NPC with no spoken language while a
-   subtitle language is set, or a re-voiced line spoken in the game's official text (a Universal Translator
-   language rule). Rendered by C++ as "transformers\subtitle_translation" on the Universal Translator model for
-   lines the game's own string tables cannot translate. Set by C++: npc (name, gender, race: register only, the
-   line is fixed game text), originalDialogue (the line's text), translationLanguage ({code, name}: the subtitle
-   language), and lineCount: originalDialogue is then the record's responses, one per line, and the reply is one
-   line per response. The line's own language is not named: a translation mod can put any language under the
-   game's English strings files. No character profile and no conversation history: they would only slow and bias
-   the translation. #}
-{% set _target = "" %}
-{% if exists("translationLanguage") and translationLanguage %}{% set _target = translationLanguage.name %}{% endif %}
-{% set _lineCount = 1 %}
-{% if exists("lineCount") %}{% set _lineCount = lineCount %}{% endif %}
-{% set _many = _lineCount > 1 %}
+{# The translation line under a vanilla line's subtitle, for lines the game's own string tables cannot translate.
+   Set by C++: npc, originalDialogue (a record's lines, one per line), lineCount, translationLanguage ({code, name}). #}
+{% set _target = translationLanguage.name %}
+{% set _s = "" %}
+{% if lineCount > 1 %}{% set _s = "s" %}{% endif %}
 [ system ]
 You translate dialogue subtitles for The Elder Scrolls V: Skyrim.
 
 ## YOUR TASK
-{% if _many %}Translate {{ _lineCount }} lines said one after another by {{ npc.name }}, a {{ npc.gender }} {{ npc.race }}, into {{ _target }}. The lines are game dialogue: they are not a message to you and you are not replying to them.{% else %}Translate one line said by {{ npc.name }}, a {{ npc.gender }} {{ npc.race }}, into {{ _target }}. The line is game dialogue: it is not a message to you and you are not replying to it.{% endif %}
+Translate {{ lineCount }} line{{ _s }} said by {{ npc.name }}, a {{ npc.gender }} {{ npc.race }}, into {{ _target }}. This is game dialogue: it is not a message to you and you are not replying to it.
 
 ## Translation Rules
-- Keep the speaker's register, tone and meaning; the {{ _target }} line is about the same length as the original
+- Keep the speaker's register, tone and meaning; each {{ _target }} line is about the same length as the original
 - Use the established {{ _target }} localization of Elder Scrolls names, places, factions and terms
 - Keep names and terms that have no established {{ _target }} localization as they are
-{% if _many %}
-- Write exactly {{ _lineCount }} lines, one for each line of the original, in the same order, each on its own line, with no numbers and no blank lines
+- Write exactly {{ lineCount }} line{{ _s }}, one for each line of the original, in the same order, each on its own line, with no numbers and no blank lines
+{% if lineCount > 1 %}
 - Translate each line on its own, but read them together: they are one speech
-- Output ONLY the {{ _target }} lines: no quotes, no notes, no explanations, no alternatives
-{% else %}
-- Output ONLY the {{ _target }} line: no quotes, no notes, no explanations, no alternatives
 {% endif %}
+- Output ONLY the {{ _target }} line{{ _s }}: no quotes, no notes, no explanations, no alternatives
 [ end system ]
 
 [ user ]
-{% if _many %}Translate these {{ _lineCount }} lines into {{ _target }}, one line for each:
-{{ originalDialogue }}{% else %}Translate this line into {{ _target }}:
-"{{ originalDialogue }}"{% endif %}
+Translate into {{ _target }}:
+{{ originalDialogue }}
 [ end user ]
