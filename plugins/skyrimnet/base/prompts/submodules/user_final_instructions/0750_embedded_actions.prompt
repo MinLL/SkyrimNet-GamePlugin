@@ -1,6 +1,8 @@
 {% if embed_actions_in_dialogue and eligible_actions and length(eligible_actions) > 0 %}
 ## Actions Available
-After your dialogue, you may optionally perform ONE action if appropriate. Output dialogue FIRST, then action on a separate line.
+After your dialogue, you may optionally perform ONE action if appropriate. Output dialogue FIRST, then the action on a separate line.
+
+**Write at most ONE `ACTION:` line per reply.** Only the first `ACTION:` line is carried out; any further ones are discarded. If two actions seem to fit, choose the single one that best completes what you just said.
 
 **Action Format:**
 - `ACTION: ActionName` — action with no parameters
@@ -19,5 +21,8 @@ After your dialogue, you may optionally perform ONE action if appropriate. Outpu
 - You can initiate actions unprompted if it fits your character
 - Some entries are **action categories** that group related actions (e.g., "Inventory", "Economy"). Selecting a category triggers a follow-up to pick the specific action within it
 - **REQUIRED**: When selecting a category, you MUST include `PARAMS: {"intent": "..."}` describing what you intend to do. Example: `ACTION: Economy PARAMS: {"intent": "sell a health potion to the player for 450 gold"}`. Category selections without intent will fail.
+{% if is_action_enabled("TriggerDialogueLine") %}
+- `TriggerDialogueLine` runs a complete exchange on its own, gold and all (renting a room, training, a quest reward). When one of its codes fits, use it ALONE: never also add `Economy` or another action for the same deal, or the player is charged or rewarded twice
+{% endif %}
 - Output dialogue lines BEFORE the ACTION line (this allows speech to start while action is parsed)
 {% endif %}
