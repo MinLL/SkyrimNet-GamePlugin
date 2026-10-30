@@ -19,7 +19,7 @@ Quest beats -- choosing one starts or advances that quest (### lines are quest h
 {% endif %}
 {% if quest_lines.hasServices %}
 
-Actions {{ npc_name }} can take -- follower commands, trade, lodging, et cetera (### lines name the action category):
+Actions {{ npc_name }} can take -- follower commands, trade, lodging, et cetera (### lines are only headings, never action names; to fire any line here, use TriggerDialogueLine with its code as form_id):
 {{ quest_lines.services }}
 {% endif %}
 {% endif %}
@@ -42,7 +42,7 @@ Quest exchanges -- choosing one starts or advances that quest (### lines are que
 {% endif %}
 {% if svc_lines.hasServices %}
 
-Actions {{ npc_name }} can take -- follower commands, trade, lodging, et cetera (### lines name the action category):
+Actions {{ npc_name }} can take -- follower commands, trade, lodging, et cetera (### lines are only headings, never action names; to fire any line here, use TriggerDialogueLine with its code as form_id):
 {{ svc_lines.services }}
 {% endif %}
 {% endif %}
