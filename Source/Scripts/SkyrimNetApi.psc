@@ -803,6 +803,19 @@ int function TriggerPlayerThought() Global Native
 ; Returns 0 on success, 1 on failure
 int function TriggerPlayerDialogue() Global Native
 
+; Sends a line of player dialogue directly to TTS, without prompting the LLM or saving to context
+int function TriggerPlayerTTS(String dialogue) Global Native
+
+; True when no player line from TriggerPlayerTTS is queued or playing
+bool function IsPlayerTTSFinished() Global Native
+
+; Prepares the silent NPC reply to the open dialogue menu entry with this text
+; Returns 0 on success, 1 on error
+int function PrepareNPCDialogue(String playerDialogueText) Global Native
+
+; Check if NPC dialogue (vanilla or TTS-generated) is ready to play
+bool function IsNPCDialogueReady() Global Native
+
 ; -----------------------------------------------------------------------------
 ; --- C++ Hotkey Manager Control ---
 ; -----------------------------------------------------------------------------
