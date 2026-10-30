@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Erik
+from: npc:skyrim.esm:0x0350B8
+to: npc:skyrim.esm:0x0656E2

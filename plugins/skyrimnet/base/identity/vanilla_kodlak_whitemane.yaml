@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Kodlak Whitemane
+from: npc:skyrim.esm:0x01A68F
+to: npc:skyrim.esm:0x098BD4

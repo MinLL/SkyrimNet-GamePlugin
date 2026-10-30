@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Ulfric Stormcloak
+from: npc:skyrim.esm:0x01B131
+to: npc:skyrim.esm:0x0EA584

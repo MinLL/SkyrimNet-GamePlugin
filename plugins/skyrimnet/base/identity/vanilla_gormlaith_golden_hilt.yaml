@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Gormlaith Golden-Hilt
+from: npc:skyrim.esm:0x044446
+to: npc:skyrim.esm:0x0CD9F8
