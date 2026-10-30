@@ -2,10 +2,12 @@
    race, UUID, universalTranslatorSpeechPattern: the rule's pattern, empty when the NPC has no rule),
    originalDialogue, preSentDialogue, spokenLanguage ({code, name} when the character speaks another language
    than the conversation's, else absent), translationLanguage ({code, name} when the subtitle wants the line
-   in the player's language too, else absent). With a pattern the line is rewritten in it; with a language it
-   is written in that language, and with both a language and a translation language, each sentence also
-   carries its translation inside a <translation> block for the subtitle (a line with no pattern carries the
-   game's own text instead, so no block is asked for). The conversation's language is never named. #}
+   in the player's language too, else absent), subtitleText (with a language, a translation language and no
+   pattern: the game's text of the line for the subtitle, its official text in the translation language when
+   the game ships it). With a pattern the line is rewritten in it; with a language it is written in that
+   language, and with a translation language too, each sentence carries a <translation> block for the
+   subtitle: the sentence translated with a pattern, the part of subtitleText it says copied without one.
+   The conversation's language is never named. #}
 {% set _pattern = npc.universalTranslatorSpeechPattern %}
 {% set _hasPattern = length(_pattern) > 0 %}
 {% set _lang = "" %}
@@ -13,7 +15,10 @@
 {% set _hasLang = length(_lang) > 0 %}
 {% set _tlName = "" %}
 {% if exists("translationLanguage") and translationLanguage %}{% set _tlName = translationLanguage.name %}{% endif %}
-{% set _hasTranslation = _hasPattern and length(_tlName) > 0 %}
+{% set _hasTranslation = _hasLang and length(_tlName) > 0 %}
+{% set _subtitleText = "" %}
+{% if not _hasPattern and exists("subtitleText") %}{% set _subtitleText = subtitleText %}{% endif %}
+{% set _copies = _hasTranslation and length(_subtitleText) > 0 %}
 [ system ]
 You are roleplaying as {{ npc.name }}, a {{ npc.gender }} {{ npc.race }} in Skyrim.
 
@@ -38,7 +43,9 @@ You will say dialogue lines in {{ _lang }}, the language {{ npc.name }} speaks. 
 {% endif %}
 {% if _hasLang %}
 - Write it in {{ _lang }}: natural spoken {{ _lang }} in {{ npc.name }}'s register, with the established {{ _lang }} localization of Elder Scrolls names and terms; the same meaning and about the same length as the ORIGINAL DIALOGUE
-{% if _hasTranslation %}
+{% if _copies %}
+- Right after each {{ _lang }} sentence, inside <translation>...</translation>, copy the words of the SUBTITLE TEXT that sentence says, exactly as written (in {{ _tlName }} if the SUBTITLE TEXT is in another language), for the subtitles only: one block per sentence, the last one included, together holding all of the SUBTITLE TEXT in order
+{% else if _hasTranslation %}
 - Right after each {{ _lang }} sentence, inside <translation>...</translation>, give that sentence in {{ _tlName }}, for the subtitles only: one block per sentence, the last one included
 {% else %}
 - Output only the {{ _lang }} words: no translation, no notes
@@ -46,12 +53,17 @@ You will say dialogue lines in {{ _lang }}, the language {{ npc.name }} speaks. 
 {% endif %}
 - Use the conversation context to understand the situation, but DO NOT treat the ORIGINAL DIALOGUE as a response to the last message
 - The ORIGINAL DIALOGUE's meaning must be preserved - only the {% if _hasPattern %}style/wording{% else %}language{% endif %} changes
-- Output ONLY the {% if _hasPattern %}transformed{% else %}{{ _lang }}{% endif %} line, nothing else
+- Output ONLY the {% if _hasPattern %}transformed{% else %}{{ _lang }}{% endif %} line{% if _hasTranslation %} with its blocks{% endif %}, nothing else
 - No explanations, commentary, or alternatives
 {% if _hasPattern and not _hasLang %}
 - If it already fits, return it unchanged
 {% endif %}
 - Use multiple sentences if over 10 words; first sentence max 10 words
+{% if _copies %}
+
+## SUBTITLE TEXT
+{{ _subtitleText }}
+{% endif %}
 [ end system ]
 
 {{ render_template("components\\event_history") }}
@@ -72,7 +84,7 @@ Continue in {{ _lang }}.
 The next part {{ npc.name }} needs to say is:
 "{{originalDialogue}}"
 
-{% if _hasPattern %}Transform this continuation to match the speech pattern above and flow naturally from what was already said. Output only the transformed line.{% else %}Say this continuation in {{ _lang }}, flowing naturally from what was already said. Output only the {{ _lang }} line.{% endif %}
+{% if _hasPattern %}Transform this continuation to match the speech pattern above and flow naturally from what was already said. Output only the transformed line.{% else %}Say this continuation in {{ _lang }}, flowing naturally from what was already said. Output only the {{ _lang }} line{% if _hasTranslation %} with its blocks{% endif %}.{% endif %}
 [ end user ]
 
 {% else %}
@@ -88,7 +100,7 @@ Say this line in {{ _lang }}.
 {{ npc.name }} needs to say:
 "{{originalDialogue}}"
 
-{% if _hasPattern %}Rewrite it to match the speech pattern above while keeping the same meaning. Use the conversation context to inform your transformation if needed. Output only the transformed line.{% else %}Keep the same meaning and length. Use the conversation context to inform the wording if needed. Output only the {{ _lang }} line.{% endif %}
+{% if _hasPattern %}Rewrite it to match the speech pattern above while keeping the same meaning. Use the conversation context to inform your transformation if needed. Output only the transformed line.{% else %}Keep the same meaning and length. Use the conversation context to inform the wording if needed. Output only the {{ _lang }} line{% if _hasTranslation %} with its blocks{% endif %}.{% endif %}
 [ end user ]
 
 {% endif %}
