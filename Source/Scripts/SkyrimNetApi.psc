@@ -980,6 +980,40 @@ int function TriggerSilentNarration() Global Native
 int function AddWorldKnowledge(String content, String conditionExpr, bool alwaysInject, float importance, String displayName) Global Native
 
 ; -----------------------------------------------------------------------------
+; --- Named Places ---
+; -----------------------------------------------------------------------------
+
+; Named spots ("the kitchen", "upstairs", "the bar") that SkyrimNet adds to an actor's location, after its first
+; part, while they stand in one: "Breezehome, Kitchen, Hold: Whiterun". Prompts, events and memories all read that
+; string. A place is a position matched only in its own interior cell (or worldspace outdoors), within its radius and
+; 200 units up or down; the smallest containing place wins. Places are records of the content library (places/), so
+; they apply to every playthrough and a plugin can ship them; the SkyrimNet Places page lists and edits them too.
+; These functions edit the library's places, not the ones another mod sends. An edit is written in the background:
+; true means it was sent, and a refusal there is logged.
+
+; Name the spot where the player stands. radius <= 0 takes the default (350 indoors, 1500 outdoors);
+; otherwise it is clamped to 50-5000. The name is trimmed and cut to 64 bytes.
+; Returns false for a blank name, no cell, a space no plugin defines, or a place there of that name already.
+; GetPlaceId finds the new place's id once it is written.
+bool function MarkPlace(String name, float radius = 0.0) Global Native
+
+; The id of the library place akActor stands in, "" for none (or a place another mod sent).
+String function GetPlaceId(Actor akActor) Global Native
+
+; Rename a place. Returns false for an empty name or an id the library does not have.
+bool function RenamePlace(String placeId, String name) Global Native
+
+; Change a place's radius (<= 0 = the default). Returns false for an id the library does not have.
+bool function SetPlaceRadius(String placeId, float radius) Global Native
+
+; Remove a place: the player's own is deleted, a plugin's is switched off. Returns false for an id the library does
+; not have.
+bool function RemovePlace(String placeId) Global Native
+
+; The name of the place akActor stands in, "" for none (or locationAnalysis.namedPlaces off).
+String function GetPlaceName(Actor akActor) Global Native
+
+; -----------------------------------------------------------------------------
 ; --- Voice Effect Management ---
 ; -----------------------------------------------------------------------------
 
