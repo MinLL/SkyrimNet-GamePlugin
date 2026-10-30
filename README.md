@@ -59,24 +59,27 @@ Full tour: **[docs/FEATURES.md](docs/FEATURES.md)**.
 
 SkyrimNet needs a language model: the AI that writes what NPCs say. Choose how you want to run it.
 
-### ✨ Fateless (coming soon)
+### ✨ Fateless: the easiest way
 
-<!-- TODO(min): when sales open, make this the first path and point the link at the subscribe page (/go/signup/sn-github-readme) -->
-One subscription, no API keys, no setup. Fateless gives SkyrimNet curated models tuned for each job, from dialogue to combat to vision, so NPCs reply fast and stay in character. Sign in from SkyrimNet's setup wizard and play.
+One account for everything SkyrimNet needs: dialogue, voices, speech recognition and bard songs. No API keys, no other accounts, nothing to configure. Models are tuned for each job, so NPCs reply fast and stay in character.
 
-**[Get notified at fateless.ai →](https://fateless.ai)**
+Plans start at $10 a month. Update to SkyrimNet Beta29 or later, choose Fateless in the settings, and sign in.
+
+**[Get started with Fateless →](https://fateless.ai/inference)**
 
 ### ☁️ Your own cloud account
 
-Recommended today. Use an [OpenRouter](https://openrouter.ai) key, or any OpenAI-compatible service. The setup wizard offers ready-made model presets: Budget, Balanced and Performance.
+Use an [OpenRouter](https://openrouter.ai) key, or any OpenAI-compatible service. The setup wizard offers ready-made model presets: Budget, Balanced and Performance.
 
 ### 🖥️ Run it locally on your RTX GPU
 
-Free and private: the model runs on your own PC through LM Studio, Ollama, KoboldCpp or llama.cpp. Small local models such as **NVIDIA Nemotron 3.5 Bolt** are a great way to try SkyrimNet. For the richest conversations, we recommend a cloud model.
+Free and private: the model runs on your own PC through LM Studio, Ollama, KoboldCpp or llama.cpp. Small local models such as **NVIDIA Nemotron 3.5 Bolt** are a great way to try SkyrimNet. For the richest conversations, we recommend Fateless or a cloud model.
 
 <!-- TODO(min): link the local-setup guides -->
 - Local model guide: *coming soon*
 - **NVIDIA RTX Spark (Windows on Arm):** install with the [Arm build of Mod Organizer](https://github.com/ndabas/modorganizer/releases#release-v2.5.2-woa.1).
+
+You can mix these. For example, use Fateless for dialogue and a local engine for voices.
 
 ### Install
 
@@ -136,7 +139,7 @@ SkyrimNet's modder API has a growing ecosystem. Two major mods built on it:
 
 - **Discord:** [discord.gg/gHHS7HpJS9](https://discord.gg/gHHS7HpJS9), for help, news and your stories
 - **YouTube:** [@SkyrimNet](https://www.youtube.com/@SkyrimNet)
-- **Fateless:** [fateless.ai](https://fateless.ai)
+- **Fateless:** [fateless.ai](https://fateless.ai) · [Fateless Inference](https://fateless.ai/inference)
 - **Support the project:** [Ko-fi](https://ko-fi.com/S6S51B7MJA)
 
 ## Credits
