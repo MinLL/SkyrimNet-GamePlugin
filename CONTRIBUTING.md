@@ -13,6 +13,34 @@ Thanks for helping. Pull requests are welcome: prompts, scripts, plugin records,
 4. Keep each pull request to one change. A reviewer and the review bot will comment; answer every
    comment, with a fix or a reply.
 
+## What's in this repository
+
+This repository holds SkyrimNet's game plugin assets. The SkyrimNet DLL itself is built elsewhere.
+
+```
+├── spriggit/SkyrimNet/      # Spriggit serialized ESP (version controlled)
+├── plugins/skyrimnet/base/  # skyrimnet.base Content Library plugin: prompts, translations, vanilla/DLC/CC bios
+├── Source/Scripts/          # Papyrus source files (.psc)
+├── Scripts/                 # Compiled scripts output (not tracked)
+├── headers/                 # Vanilla Skyrim Papyrus headers
+├── interface/               # MCM and UI templates
+├── SKSE/Plugins/SkyrimNet/  # Runtime assets and configuration
+├── CppAPI/                  # Public C++ API for other SKSE plugins
+└── docs/                    # Feature tour and modding guides
+```
+
+Bios for third-party mods are not in base; they ship as `skyrimnet.bios-{mod}` packs on the plugin hub.
+
+## Building
+
+Compiled files (`.esp` and `.pex`) are not stored in this repository. The SkyrimNet build generates
+them. To build them by hand:
+
+- **ESP plugin:** download [SpriggitCLI](https://github.com/Mutagen-Modding/Spriggit/releases/tag/0.40.0)
+  and run `Spriggit.CLI.exe convert-to-plugin -i spriggit/SkyrimNet -o SkyrimNet.esp`
+- **Papyrus scripts:** download [papyrus-compiler](https://github.com/russo-2025/papyrus-compiler/releases/tag/2025.03.18)
+  and run `papyrus.exe -nocache -h headers -i Source/Scripts -output Scripts`
+
 ## Licensing your contribution
 
 SkyrimNet is not open source; see [LICENSE](LICENSE). By opening a pull request, or by submitting
