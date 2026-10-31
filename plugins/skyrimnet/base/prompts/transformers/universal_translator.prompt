@@ -1,6 +1,4 @@
-{# A vanilla line rewritten before it is voiced. Set by C++ (DialogueTransformer): npc, originalDialogue,
-   preSentDialogue, spokenLanguage and translationLanguage ({code, name}, or absent; code "game" has no name), and
-   lineCount: originalDialogue is then the game's responses, one per line, and the reply one line per response. #}
+{# A vanilla line rewritten before it is voiced. #}
 {% set _pattern = npc.universalTranslatorSpeechPattern %}
 {% set _hasPattern = length(_pattern) > 0 %}
 {% set _lang = "" %}
