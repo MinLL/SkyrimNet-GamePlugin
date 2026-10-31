@@ -84,6 +84,11 @@
     ```
     {% endif %}
 
+    {% if additionalInstructions %}
+    ## Additional Update Instructions
+    {{ additionalInstructions }}
+
+    {% endif %}
     ## Character Bio Block Definitions
 
     Understanding what each block represents and how it should evolve:
@@ -278,6 +283,10 @@
     The grief and disloyalty are private — they belong in `personality` or `background`, not `summary`. The diary and memory context you have been given is for **your understanding**, not for inclusion in public-facing blocks.
 
     ## Update Instructions
+
+    {% if additionalInstructions %}
+    **Caller-Requested Update:** Additional update instructions were provided above. Prioritize fulfilling those instructions within the designated updatable blocks while maintaining character continuity and respecting the Stranger Test for `summary` and `appearance`.
+    {% endif %}
 
     **Step-by-Step Process:**
 
