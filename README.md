@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/MinLL/SkyrimNet-GamePlugin/releases"><img alt="Download" src="https://img.shields.io/github/v/release/MinLL/SkyrimNet-GamePlugin?include_prereleases&label=Download&color=2ea44f"></a>
+  <a href="https://github.com/MinLL/SkyrimNet-GamePlugin/releases"><img alt="Download" src="https://img.shields.io/badge/Download-latest%20release-2ea44f"></a>
   <a href="https://fateless.ai"><img alt="fateless.ai" src="https://img.shields.io/badge/by-fateless.ai-8a5cf6"></a>
   <a href="https://discord.gg/gHHS7HpJS9"><img alt="Discord" src="https://img.shields.io/badge/Chat-on%20Discord-7289DA?logo=discord&logoColor=white"></a>
   <a href="https://www.youtube.com/@SkyrimNet"><img alt="YouTube" src="https://img.shields.io/badge/Watch-on%20YouTube-FF0000?logo=youtube&logoColor=white"></a>
