@@ -129,6 +129,7 @@ SkyrimNet's modder API has a growing ecosystem. Two major mods built on it:
 
 ## For modders and developers
 
+- **Example plugins:** [SkyrimNet-ExamplePlugin](https://github.com/MinLL/SkyrimNet-ExamplePlugin) has small, complete Papyrus and C++ plugins to clone and build from.
 - **Modding guides:** [docs/modding](docs/modding) covers actions, triggers, prompts and mod integration.
 - **APIs:** the Papyrus API (`SkyrimNetApi`), the C++ API in [CppAPI](CppAPI), and an MCP server for AI tools. See [docs/FEATURES.md](docs/FEATURES.md#modder-api).
 - **Contributing:** [CONTRIBUTING.md](CONTRIBUTING.md), including how to build this repository.

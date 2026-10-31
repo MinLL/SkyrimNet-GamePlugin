@@ -192,7 +192,7 @@ SkyrimNet has a Papyrus API (`SkyrimNetApi`) and a public C++ DLL API (see [CppA
 - Subscribe to lifecycle ModEvents (`SkyrimNet_SpeechStarted`, `SkyrimNet_MemoryCreated`, `SkyrimNet_DiaryCreated` and others)
 - Ship SkyrimNet content inside their own mod folders, which Mod Organizer 2's virtual file system picks up automatically
 
-The **Inja template system** is the main extension point for prompt authors. Over a hundred built-in decorators expose player and NPC state, equipment, combat, factions, magic, location, time, memory and more. Templates reload automatically without restarting the game. Guides are in [docs/modding](modding).
+The **Inja template system** is the main extension point for prompt authors. Over a hundred built-in decorators expose player and NPC state, equipment, combat, factions, magic, location, time, memory and more. Templates reload automatically without restarting the game. Guides are in [docs/modding](modding), and [SkyrimNet-ExamplePlugin](https://github.com/MinLL/SkyrimNet-ExamplePlugin) has complete Papyrus and C++ plugins to build from.
 
 ## MCP server (Claude, editors, custom AI tools)
 
