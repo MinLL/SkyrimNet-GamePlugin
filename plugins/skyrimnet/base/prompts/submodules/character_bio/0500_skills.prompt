@@ -1,5 +1,6 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_skills" %}
-    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+{% set _profile = render_mode == "stable" or render_mode == "thoughts" or render_mode == "transform" or (render_mode == "full" and not default(stable_split, false)) %}
+{% if _profile or render_mode == "bio_skills" %}
+    {% if _profile %}
         ## Skills & Combat
     {% endif %}
     {% block skills %}{% endblock %}

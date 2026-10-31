@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Cicero (Loreius Farm)
+from: npc:skyrim.esm:0x0550F1
+to: npc:skyrim.esm:0x01E64A

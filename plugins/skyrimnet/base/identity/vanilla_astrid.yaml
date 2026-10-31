@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Astrid
+from: npc:skyrim.esm:0x01BDE8
+to: npc:skyrim.esm:0x04D6D1

@@ -1,8 +1,9 @@
+{% set _profile = render_mode == "stable" or render_mode == "thoughts" or render_mode == "transform" or (render_mode == "full" and not default(stable_split, false)) %}
 {# Suppressed in the full bio for a body fully worn by a linked entity (entity_led). The
    interjection-decision modes (interject_inline / bio_interject_summary) are a separate flow
    and always render. #}
-{% if render_mode == "interject_inline" or render_mode == "bio_interject_summary" or ((render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not suppress_host_persona) %}
-    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+{% if render_mode == "interject_inline" or render_mode == "bio_interject_summary" or (_profile and not suppress_host_persona) %}
+    {% if _profile %}
         ### Interject Summary (Things that {{ decnpc(actorUUID).name }} thinks are interesting and will respond to).
     {% endif %}
     {% block interject_summary %}{% endblock %}

@@ -1,4 +1,4 @@
-{{ render_subcomponent("guidelines", render_mode) }}
+{% if not default(stable_split, false) %}{{ render_subcomponent("guidelines", render_mode) }}{% endif %}
 
 ## Length
 {% if render_mode == "thoughts" or render_mode == "book" %}

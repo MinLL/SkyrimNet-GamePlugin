@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Hakon One-Eye
+from: npc:skyrim.esm:0x04423D
+to: npc:skyrim.esm:0x0CDA06

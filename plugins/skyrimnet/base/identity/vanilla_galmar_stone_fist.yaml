@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Galmar Stone-Fist
+from: npc:skyrim.esm:0x01B133
+to: npc:skyrim.esm:0x0EA585

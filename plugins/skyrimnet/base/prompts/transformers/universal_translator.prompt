@@ -1,4 +1,12 @@
-{# A vanilla line rewritten before it is voiced. #}
+{# Ordered for prompt caching like dialogue_response. The cached system block is the NPC's stable
+   profile and is byte-identical to dialogue_response's for the same NPC, so when the
+   UniversalTranslator variant shares a model with dialogue the two prompt kinds reuse one cache
+   entry. The task, the speech pattern, the setting and the rules are static per NPC too, so they
+   follow the cache block inside the system message. What changes between calls (the NPC's current
+   state, the line to transform) comes after the history, in the user message.
+   The history is not given a cache breakpoint here: the transformer passes only the last five
+   events, a window that slides on every call. #}
+
 {% set speechPattern = npc.universalTranslatorSpeechPattern %}
 {% set hasSpeechPattern = length(speechPattern) > 0 %}
 {% set spokenLanguageName = "" %}
@@ -15,7 +23,11 @@
 {% set translationBlockInstructions = "" %}
 {% if hasTranslation %}{% if preserveResponseLines %}{% set translationBlockInstructions = ", with a block after every sentence" %}{% else %}{% set translationBlockInstructions = " with a block after every sentence" %}{% endif %}{% endif %}
 [ system ]
-You are roleplaying as {{ npc.name }}, a {{ npc.gender }} {{ npc.race }} in Skyrim. 
+[ cache ]
+You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim.
+{{ render_character_profile("stable", npc.UUID) }}
+{{ render_character_profile("speech_style", npc.UUID) }}
+[ end cache ]
 
 ## YOUR TASK
 {% if hasSpeechPattern %}
@@ -28,8 +40,6 @@ You will say dialogue lines in {{ spokenLanguageName }}, the language {{ npc.nam
 {% endif %}
 
 {{ render_template("submodules\\system_head\\0010_setting") }}
-
-{{ render_character_profile("full", npc.UUID) }}
 
 ## Transformation Rules
 - The ORIGINAL DIALOGUE is what {{ npc.name }} needs to say (it may be generic/out of character)
@@ -64,10 +74,12 @@ You will say dialogue lines in {{ spokenLanguageName }}, the language {{ npc.nam
 
 {% if preSentDialogue | length > 0 %}
 [ assistant ]
-{{ preSentDialogue }} 
+{{ preSentDialogue }}
 [ end assistant ]
 
 [ user ]
+{{ render_template("submodules\\cache_split\\npc_profile_dynamic", {"stable_split": true}) }}
+
 {% if hasSpeechPattern %}
 Continue transforming to match this speech pattern{% if hasSpokenLanguage %}, in {{ spokenLanguageName }}{% endif %}:
 {{ speechPattern }}
@@ -84,6 +96,8 @@ The next part {{ npc.name }} needs to say is:
 {% else %}
 
 [ user ]
+{{ render_template("submodules\\cache_split\\npc_profile_dynamic", {"stable_split": true}) }}
+
 {% if hasSpeechPattern %}
 Transform this line to match this speech pattern{% if hasSpokenLanguage %}, in {{ spokenLanguageName }}{% endif %}:
 {{ speechPattern }}

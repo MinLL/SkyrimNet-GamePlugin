@@ -1,0 +1,4 @@
+kind: succession
+name: Vanilla - Cicero (Dawnstar)
+from: npc:skyrim.esm:0x01E64A
+to: npc:skyrim.esm:0x09BCB0
