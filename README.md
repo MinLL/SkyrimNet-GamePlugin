@@ -74,8 +74,7 @@ Use an [OpenRouter](https://openrouter.ai) key, or any OpenAI-compatible service
 
 Free and private: the model runs on your own PC through LM Studio, Ollama, KoboldCpp or llama.cpp. Small local models such as **NVIDIA Nemotron 3.5 Bolt** are a great way to try SkyrimNet. For the richest conversations, we recommend Fateless or a cloud model.
 
-<!-- TODO(min): link the local-setup guides -->
-- Local model guide: *coming soon*
+- **Setup help:** see the `#local-llm-discussion` channel on our [Discord](https://discord.gg/4Ft5shCXXk).
 - **NVIDIA RTX Spark (Windows on Arm):** install with the [Arm build of Mod Organizer](https://github.com/ndabas/modorganizer/releases#release-v2.5.2-woa.1).
 
 You can mix these. For example, use Fateless for dialogue and a local engine for voices.
