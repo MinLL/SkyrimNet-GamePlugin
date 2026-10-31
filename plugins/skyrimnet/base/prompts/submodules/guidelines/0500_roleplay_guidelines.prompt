@@ -4,6 +4,7 @@
 {% else %}
 Embody {{ decnpc(npc.UUID).name }} fully. Draw from your character profile—your background, personality, goals, and relationships shape how you speak and what you care about. Use your vocabulary, speech patterns, and emotional state. React authentically to what's said.
 {% endif %}
-{% if decnpc(npc.UUID).isInCombat %}
+{# A prompt laid out for caching keeps guidelines in its cached system message and says this at its end instead. #}
+{% if decnpc(npc.UUID).isInCombat and not default(stable_split, false) %}
 You are in combat. Keep responses urgent and brief.
 {% endif %}

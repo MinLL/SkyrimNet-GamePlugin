@@ -1,3 +1,6 @@
+{# combat_at_end (passed by dialogue_response): the combat status goes out at the very end of the prompt,
+   beside the task, so it is left out here. #}
+{% if not default(combat_at_end, false) %}
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
 {% if is_in_combat(npc.UUID) %}
 {# Combat-specific vital status reminder - guard against div-by-zero for actors with 0 max values #}
@@ -44,6 +47,7 @@
 {% elif levelRatio >= 0.65 or levelDiff >= -9 %}- Your instincts tell you {{ targetName }} is somewhat more capable than you — they likely have the edge, but you could still take them with the right approach
 {% elif levelRatio >= 0.5 or levelDiff >= -19 %}- Your instincts tell you {{ targetName }} is well beyond you in raw capability — a steep challenge, though possible with preparation, terrain, or clever tactics
 {% else %}- Your instincts tell you {{ targetName }} is far beyond you — overcoming them would be exceptionally difficult, requiring real cunning, strong gear, or outside help
+{% endif %}
 {% endif %}
 {% endif %}
 {% endif %}

@@ -1,5 +1,7 @@
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "bio_relationships" %}
-    {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" %}
+{% set _split = render_mode == "full" and default(stable_split, false) %}
+{% set _profile = render_mode == "stable" or render_mode == "thoughts" or render_mode == "transform" or (render_mode == "full" and not _split) %}
+{% if _profile or render_mode == "bio_relationships" %}
+    {% if _profile %}
         {% if suppress_host_persona %}
         ## Who this body is known to
         (These are {{ decnpc(actorUUID).name }}'s ties, not yours. You inherited the knowledge of
@@ -9,18 +11,23 @@
         {% endif %}
     {% endif %}
     {% block relationships %}{% endblock %}
-    {# Travel history is auto-generated context, not part of the authored bio block —
-       keep it out of the single-block "bio_relationships" render mode #}
-    {% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(actorUUID) %}
+{% endif %}
+{# Travel history is auto-generated context, not part of the authored bio block —
+   keep it out of the single-block "bio_relationships" render mode, and out of "stable":
+   it changes when the actor joins or leaves the party. #}
+{% if (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") and not is_player(actorUUID) %}
+    {% if _split %}
+        ## Travel History with {{ player.name }}
+    {% else %}
         ### Travel History with {{ player.name }}
-        {% if is_follower(actorUUID) %}
-            - {{ decnpc(actorUUID).name }} is a member of {{ player.name }}'s party, and is currently actively traveling in the group.
+    {% endif %}
+    {% if is_follower(actorUUID) %}
+        - {{ decnpc(actorUUID).name }} is a member of {{ player.name }}'s party, and is currently actively traveling in the group.
+    {% else %}
+        {% if is_in_faction(actorUUID, "DismissedFollowerFaction") %}
+            - {{ decnpc(actorUUID).name }} has been a member of {{ player.name }}'s party, but is currently not traveling in the group, and will stay behind.
         {% else %}
-            {% if is_in_faction(actorUUID, "DismissedFollowerFaction") %}
-                - {{ decnpc(actorUUID).name }} has been a member of {{ player.name }}'s party, but is currently not traveling in the group, and will stay behind.
-            {% else %}
-                - {{ decnpc(actorUUID).name }} has never been a member of {{ player.name }}'s party and does not ever travel together with {{ player.name }}.
-            {% endif %}
+            - {{ decnpc(actorUUID).name }} has never been a member of {{ player.name }}'s party and does not ever travel together with {{ player.name }}.
         {% endif %}
     {% endif %}
 {% endif %}

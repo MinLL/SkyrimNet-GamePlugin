@@ -1,5 +1,17 @@
+{# Ordered for prompt caching like dialogue_response. The cached system block is the NPC's stable
+   profile and is byte-identical to dialogue_response's for the same NPC, so when the
+   UniversalTranslator variant shares a model with dialogue the two prompt kinds reuse one cache
+   entry. The task, the speech pattern, the setting and the rules are static per NPC too, so they
+   follow the cache block inside the system message. What changes between calls (the NPC's current
+   state, the line to transform) comes after the history, in the user message.
+   The history is not given a cache breakpoint here: the transformer passes only the last five
+   events, a window that slides on every call. #}
 [ system ]
-You are roleplaying as {{ npc.name }}, a {{ npc.gender }} {{ npc.race }} in Skyrim. 
+[ cache ]
+You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim.
+{{ render_character_profile("stable", npc.UUID) }}
+{{ render_character_profile("speech_style", npc.UUID) }}
+[ end cache ]
 
 ## YOUR TASK
 You will transform dialogue lines to match {{ npc.name }}'s speech pattern. You may use the conversation history as context to inform HOW to transform the line (understanding the situation, relationships, tone), but you are NOT responding to the conversation - you are rewriting a line that {{ npc.name }} needs to say.
@@ -8,8 +20,6 @@ You will transform dialogue lines to match {{ npc.name }}'s speech pattern. You 
 {{ npc.universalTranslatorSpeechPattern }}
 
 {{ render_template("submodules\\system_head\\0010_setting") }}
-
-{{ render_character_profile("full", npc.UUID) }}
 
 ## Transformation Rules
 - The ORIGINAL DIALOGUE is what {{ npc.name }} needs to say (it may be generic/out of character)
@@ -26,10 +36,12 @@ You will transform dialogue lines to match {{ npc.name }}'s speech pattern. You 
 
 {% if preSentDialogue | length > 0 %}
 [ assistant ]
-{{ preSentDialogue }} 
+{{ preSentDialogue }}
 [ end assistant ]
 
 [ user ]
+{{ render_template("submodules\\cache_split\\npc_profile_dynamic", {"stable_split": true}) }}
+
 Continue transforming to match this speech pattern:
 {{ npc.universalTranslatorSpeechPattern }}
 
@@ -42,6 +54,8 @@ Transform this continuation to match the speech pattern above and flow naturally
 {% else %}
 
 [ user ]
+{{ render_template("submodules\\cache_split\\npc_profile_dynamic", {"stable_split": true}) }}
+
 Transform this line to match this speech pattern:
 {{ npc.universalTranslatorSpeechPattern }}
 

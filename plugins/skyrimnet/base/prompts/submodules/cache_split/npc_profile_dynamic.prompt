@@ -1,0 +1,6 @@
+{# The part of the NPC's profile that changes between calls (health, location, inventory, quests,
+   memories). Rendered with {"stable_split": true} by a prompt whose cached system message already
+   carries render_character_profile("stable", ...), so the two together equal the "full" profile.
+   dialogue_response gets the same split through system_head; prompts that do not use system_head
+   (transformers/universal_translator) render this instead. #}
+{{ render_character_profile("full", npc.UUID) }}

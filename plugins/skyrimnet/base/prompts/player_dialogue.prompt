@@ -1,17 +1,62 @@
+{# Ordered for prompt caching, as dialogue_response is: the system message and the event history
+   repeat from one call to the next, so a provider can reuse them; everything that changes turn to
+   turn follows them. The system message opens with the profile dialogue_response sends for the same
+   actor, so the player's dialogue, thoughts and NPC replies share one cached prefix; this task's own
+   guidelines follow it. The three [ cache ] breakpoints (the profile, the guidelines, the history's
+   last event) are ignored by a provider without prompt caching. #}
 [ system ]
+[ cache ]
 You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim.
+{{ render_character_profile("stable", npc.UUID) }}
+{{ render_character_profile("speech_style", npc.UUID) }}
+[ end cache ]
+[ cache ]
+{{ render_subcomponent("guidelines", "transform", {"stable_split": true}) }}
+[ end cache ]
+[ end system ]
 
+{{ render_template("components\\event_history", {"cache_history": true}) }}
+
+[ user ]
 {% if triggeringEvent and triggeringEvent.type %}
 You are reacting to: {{ format_event(triggeringEvent, "recent_events") }}
 {% endif %}
+{{ render_subcomponent("system_head", "transform", {"stable_split": true, "speech_cached": true}) }}
+{{ render_subcomponent("user_final_instructions", "transform") }}
+{# The lines said since the player last spoke, repeated at the very end, as dialogue_response does. Under
+   the cache layout the state and scene above follow the history, so the latest line sat thousands of
+   tokens back and the player's line lost track of whom it answers and what "that" or "him" means.
+   Narration counts, the player's own included; the newest five are kept, after the player's own last
+   line. Not for a reaction to an event, which names its own focus. Everything here is uncached. #}
+{% if not (triggeringEvent and triggeringEvent.type) %}
+{% set _lastOwnId = -1 %}
+{% set _pending = 0 %}
+{% if not exists("events") or length(events) == 0 %}{% set _event_filter = append([], npc.UUID) %}{% set events = get_recent_events(get_event_history_count(npc.UUID), _event_filter) %}{% endif %}
+{% if length(events) > 0 %}
+{% for event in events %}{% if event.originatingActor == npc.UUID and (event.type == "dialogue" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt") %}{% set _lastOwnId = default(event.id, 0) %}{% endif %}{% endfor %}
+{% for event in events %}{% if default(event.id, 0) > _lastOwnId and (event.type == "direct_narration" or event.type == "persistent_generic" or (event.originatingActor != npc.UUID and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_background" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt"))) %}{% set _pending = _pending + 1 %}{% endif %}{% endfor %}
+{% endif %}
+{% if _pending > 0 %}
+## Just Now
+{% for event in events %}{% if default(event.id, 0) == _lastOwnId %}
+- You said: {{ format_event(event, "verbose") }}
+{% endif %}{% endfor %}
+{% set _seen = 0 %}
+{% for event in events %}{% if default(event.id, 0) > _lastOwnId and (event.type == "direct_narration" or event.type == "persistent_generic" or (event.originatingActor != npc.UUID and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_background" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt"))) %}{% set _seen = _seen + 1 %}{% if _seen > _pending - 5 %}
+{% if event.type == "direct_narration" or event.type == "persistent_generic" %}
+- (what happened) {{ format_event(event, "verbose") }}
+{% else %}
+- {% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if event.targetActor == npc.UUID %} (to you){% else if isValidActor(event.targetActor) %} (to {{ get_name(event.targetActor) }}){% endif %}{% else if event.data and event.data.speaker != "" %}{{ event.data.speaker }}{% else %}Someone{% endif %}: {{ format_event(event, "verbose") }}
+{% endif %}
+{% endif %}{% endif %}{% endfor %}
+{% if length(promptForDialogue) > 0 %}
+Your line below comes right after these. Let them settle whom you are speaking to and what "that", "it" or "him" means, but do not change what the line says.
+{% else %}
+What you say comes right after these; react to them, the last most of all.
+{% endif %}
 
-{{ render_subcomponent("system_head", "transform") }}
-[ end system ]
-
-{{ render_template("components\\event_history") }}
-
-
-[ user ]
+{% endif %}
+{% endif %}
 {% if triggeringEvent and triggeringEvent.type %}
 React audibly to this {{ triggeringEvent.type }} event{% if is_narration_enabled() %} with dialogue and/or brief action{% endif %}.
 {% if triggeringEvent.data %}
@@ -35,6 +80,8 @@ Keep it to 1-2 sentences.
 
 {% endif %}
 
-{{ render_subcomponent("user_final_instructions", "transform") }}
+{% if is_in_combat(npc.UUID) %}
+You are in combat. Keep it urgent and brief.
+{% endif %}
 Respond in character now.
 [ end user ]
