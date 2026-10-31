@@ -40,7 +40,7 @@
    and the history up to it are cached together. #}
 {% set _cacheId = -1 %}
 {% if default(cache_history, false) %}
-{% for event in events %}{% if default(event.id, 0) >= _anchorId and event.type != "spell" and event.type != "hit" and event.type != "combat" and (event.type != "gamemaster_dialogue" or event.gameTime == latestGMDialogueTime) %}{% set _cacheId = event.id %}{% endif %}{% endfor %}
+{% for event in events %}{% if default(event.id, 0) >= _anchorId and event.type != "spell" and event.type != "hit" and event.type != "combat" and (event.type != "gamemaster_dialogue" or event.gameTime == latestGMDialogueTime) %}{% set _cacheId = default(event.id, -1) %}{% endif %}{% endfor %}
 {% endif %}
 {% set hasShownGMDialogue = false %}
 {% for event in events %}

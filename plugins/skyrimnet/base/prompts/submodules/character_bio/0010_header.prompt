@@ -1,5 +1,5 @@
 {# Handle the header based on render mode. "stable" is the part of the profile that does not change
-   turn to turn (dialogue_response's cached system message); stable_split marks the "full" render
+   turn to turn (the cached system message of the prompts laid out for caching); stable_split marks the "full" render
    that follows it with the rest. #}
 {% set _split = render_mode == "full" and default(stable_split, false) %}
 {% if _split %}
