@@ -58,7 +58,7 @@ Full tour: **[docs/FEATURES.md](docs/FEATURES.md)**.
 
 SkyrimNet needs a language model: the AI that writes what NPCs say. Choose how you want to run it.
 
-### Fateless: the easiest way
+### ✨ Fateless: the easiest way
 
 One account for everything SkyrimNet needs: dialogue, voices, speech recognition and bard songs. No API keys, no other accounts, nothing to configure. Models are tuned for each job, so NPCs reply fast and stay in character.
 
@@ -66,11 +66,11 @@ Plans start at $10 a month. Update to SkyrimNet Beta29 or later, choose Fateless
 
 **[Get started with Fateless →](https://fateless.ai/inference?from=sn-github-readme)**
 
-### Your own cloud account
+### ☁️ Your own cloud account
 
 Use an [OpenRouter](https://openrouter.ai) key, or any OpenAI-compatible service. The setup wizard offers ready-made model presets: Budget, Balanced and Performance.
 
-### Run it locally on your RTX GPU
+### 🖥️ Run it locally on your RTX GPU
 
 Free and private: the model runs on your own PC through LM Studio, Ollama, KoboldCpp or llama.cpp. Small local models such as **NVIDIA Nemotron 3.5 Bolt** are a great way to try SkyrimNet. For the richest conversations, we recommend Fateless or a cloud model.
 
