@@ -1,17 +1,32 @@
+{# Ordered for prompt caching, as dialogue_response is: the system message and the event history
+   repeat from one call to the next, so a provider can reuse them; everything that changes turn to
+   turn follows them. The system message opens with the profile dialogue_response sends for the same
+   actor, so the player's dialogue, thoughts and NPC replies share one cached prefix; this task's own
+   guidelines follow it. The three [ cache ] breakpoints (the profile, the guidelines, the history's
+   last event) are ignored by a provider without prompt caching. #}
 [ system ]
+[ cache ]
 You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim.
-
+{{ render_character_profile("stable", npc.UUID) }}
+{{ render_character_profile("speech_style", npc.UUID) }}
+[ end cache ]
+[ cache ]
 {% if triggeringEvent and triggeringEvent.type == "book_read" %}
-{{ render_subcomponent("system_head", "book") }}
+{{ render_subcomponent("guidelines", "book", {"stable_split": true}) }}
 {% else %}
-{{ render_subcomponent("system_head", "thoughts") }}
+{{ render_subcomponent("guidelines", "thoughts", {"stable_split": true}) }}
 {% endif %}
+[ end cache ]
 [ end system ]
 
-{{ render_template("components\\event_history") }}
-
+{{ render_template("components\\event_history", {"cache_history": true}) }}
 
 [ user ]
+{% if triggeringEvent and triggeringEvent.type == "book_read" %}
+{{ render_subcomponent("system_head", "book", {"stable_split": true}) }}
+{% else %}
+{{ render_subcomponent("system_head", "thoughts", {"stable_split": true}) }}
+{% endif %}
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
 {% if dialogue_options and length(dialogue_options) > 0 %}
 ## ⚠️ DIALOGUE CHOICE MODE ⚠️
@@ -94,6 +109,36 @@ Think about how this fight feels—the fear or fury, the pain, what drives survi
 How does this feel? What's your gut reaction? Stay in your body, not your head.
 
 {% else %}
+{# The lines said since the player last spoke or thought, repeated at the very end, as dialogue_response
+   does. Under the cache layout the state and scene above follow the history, so the latest line sat
+   thousands of tokens back and the thought drifted to the time, weather or scene instead of reacting to
+   what was just said. Narration counts, the player's own included; the newest five are kept. If the
+   player spoke last (rather than thought), that line is shown first so an answer reads as one.
+   Everything here is uncached. #}
+{% set _lastOwnId = -1 %}
+{% set _lastOwnSpoke = false %}
+{% set _pending = 0 %}
+{% if not exists("events") or length(events) == 0 %}{% set _event_filter = append([], npc.UUID) %}{% set events = get_recent_events(get_event_history_count(npc.UUID), _event_filter) %}{% endif %}
+{% if length(events) > 0 %}
+{% for event in events %}{% if event.originatingActor == npc.UUID and (event.type == "player_thoughts" or event.type == "dialogue" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt") %}{% set _lastOwnId = default(event.id, 0) %}{% set _lastOwnSpoke = event.type != "player_thoughts" %}{% endif %}{% endfor %}
+{% for event in events %}{% if default(event.id, 0) > _lastOwnId and (event.type == "direct_narration" or event.type == "persistent_generic" or (event.originatingActor != npc.UUID and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_background" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt"))) %}{% set _pending = _pending + 1 %}{% endif %}{% endfor %}
+{% endif %}
+{% if _pending > 0 %}
+## Just Now
+{% for event in events %}{% if _lastOwnSpoke and default(event.id, 0) == _lastOwnId %}
+- You said: {{ format_event(event, "verbose") }}
+{% endif %}{% endfor %}
+{% set _seen = 0 %}
+{% for event in events %}{% if default(event.id, 0) > _lastOwnId and (event.type == "direct_narration" or event.type == "persistent_generic" or (event.originatingActor != npc.UUID and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_background" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt"))) %}{% set _seen = _seen + 1 %}{% if _seen > _pending - 5 %}
+{% if event.type == "direct_narration" or event.type == "persistent_generic" %}
+- (what happened) {{ format_event(event, "verbose") }}
+{% else %}
+- {% if isValidActor(event.originatingActor) %}{{ get_name(event.originatingActor) }}{% if event.targetActor == npc.UUID %} (to you){% else if isValidActor(event.targetActor) %} (to {{ get_name(event.targetActor) }}){% endif %}{% else if event.data and event.data.speaker != "" %}{{ event.data.speaker }}{% else %}Someone{% endif %}: {{ format_event(event, "verbose") }}
+{% endif %}
+{% endif %}{% endif %}{% endfor %}
+This is what is on your mind now, the last of it most of all. Don't reply to it; react to it — what it means to you, how it lands.
+
+{% endif %}
 ## React
 What are you feeling right now? Fear, desire, confusion, determination? Don't describe what's happening—feel it.
 {% endif %}
@@ -114,7 +159,7 @@ Express this as {{ decnpc(npc.UUID).name }}'s internal thought in their own voic
 
 Respond with 1-2 sentences of first-person silent in-character internal thought only. No spoken words. The thought must read in {{ decnpc(npc.UUID).name }}'s voice — same vocabulary, same cadence, same register as {{ decnpc(npc.UUID).name }} would speak — not in a narrator's voice describing {{ decnpc(npc.UUID).name }}'s situation.
 {% else %}
-This is private thought—NOT a response to anyone. Do not answer questions or continue dialogue from the conversation history.
+This is private thought—NOT a response to anyone. Do not answer questions or continue the conversation aloud; what was just said can still be what you think about.
 
 Respond with 1-2 sentences of first-person silent in-character internal thought only. No spoken words. The thought must read in {{ decnpc(npc.UUID).name }}'s voice — same vocabulary, same cadence, same register as {{ decnpc(npc.UUID).name }} would speak — not in a narrator's voice describing {{ decnpc(npc.UUID).name }}'s situation.
 {% endif %}

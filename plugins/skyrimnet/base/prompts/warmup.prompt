@@ -12,13 +12,14 @@
 #}
 
 {# === Warm up subcomponents (same as player_thoughts) === #}
-{{ render_subcomponent("system_head", "thoughts") }}
+{{ render_subcomponent("system_head", "thoughts", {"stable_split": true}) }}
 {{ render_subcomponent("user_final_instructions", "thoughts") }}
-{{ render_subcomponent("system_head", "transform") }}
+{{ render_subcomponent("system_head", "transform", {"stable_split": true, "speech_cached": true}) }}
 {{ render_subcomponent("user_final_instructions", "transform") }}
 
 {# === Some safe stuff from the full render that won't cause side effects === #}
-{{ render_subcomponent("full", "guidelines") }}
+{{ render_subcomponent("guidelines", "thoughts", {"stable_split": true}) }}
+{{ render_subcomponent("guidelines", "transform", {"stable_split": true}) }}
 
 {# === Warm up event history template === #}
 {# This template isn't cached, but subsequent calls to format_event and such will be #}
@@ -31,6 +32,7 @@
 {{ get_scene_context(npc.UUID, 0, "full") }}
 
 {# === Player Profile Warmup (both modes) === #}
+{{ render_character_profile("stable", npc.UUID) }}
 {{ render_character_profile("full", npc.UUID) }}
 {{ render_character_profile("dialogue_target", npc.UUID) }}
 {{ render_character_profile("speech_style", npc.UUID) }}

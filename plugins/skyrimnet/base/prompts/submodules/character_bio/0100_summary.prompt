@@ -1,4 +1,5 @@
-{% if suppress_host_persona and (render_mode == "full" or render_mode == "thoughts" or render_mode == "transform") %}
+{% set _profile = render_mode == "stable" or render_mode == "thoughts" or render_mode == "transform" or (render_mode == "full" and not default(stable_split, false)) %}
+{% if suppress_host_persona and _profile %}
 {# entity_led: the host's summary becomes a factual note about the vessel. The entity must
    know whose face and reputation it moves behind without inheriting the host's
    characterisation. Self-bio modes only; dialogue_target / short_inline / bio_summary still
@@ -6,10 +7,10 @@
     ## The body you are wearing — {{ decnpc(actorUUID).name }}
     To everyone here you are {{ decnpc(actorUUID).name }}, a {{ decnpc(actorUUID).race }}. Her name, face and standing are the costume you move in; her inner character is not yours and does not answer for you.
 {% else %}
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" %}
+{% if _profile or render_mode == "dialogue_target" %}
     ## {{ decnpc(actorUUID).name }} - Character Summary
 {% endif %}
-{% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "dialogue_target" or render_mode == "short_inline" or render_mode == "bio_summary"%}
+{% if _profile or render_mode == "dialogue_target" or render_mode == "short_inline" or render_mode == "bio_summary"%}
     {% block summary %}{% endblock %}
 {% endif %}
 {% endif %}

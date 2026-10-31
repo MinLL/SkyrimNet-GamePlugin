@@ -1,3 +1,8 @@
+{# Under stable_split the thoughts and book tasks are left out. The full and transform tasks stay: the
+   transform task carries the line to rewrite, which changes with every call. #}
+{# task_at_end (passed by dialogue_response): the task goes out at the very end of the prompt,
+   beside the lines to reply to, so it is left out here. #}
+{% if not default(task_at_end, false) and not (default(stable_split, false) and (render_mode == "thoughts" or render_mode == "book")) %}
 ## Task
 {% if render_mode == "transform" %}
 {% if length(promptForDialogue) > 0 %}
@@ -12,4 +17,5 @@ Think internally as {{ decnpc(npc.UUID).name }}. React to what just happened and
 Reflect on what you just read. Summarize key points and consider what they mean for you personally.
 {% else %}
 Respond as {{ decnpc(npc.UUID).name }} in conversation.{% if responseTarget and responseTarget.UUID != 0 %} You are speaking to {% if responseTarget.type == "player" %}{{ player.name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% endif %}.{% endif %}
+{% endif %}
 {% endif %}

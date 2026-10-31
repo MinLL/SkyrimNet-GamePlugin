@@ -4,7 +4,10 @@
    entity has fully taken this body (entity_led), the host's profile is suppressed inside
    render_character_profile — so render the ENTITY's voice here instead, otherwise the closing
    slot is silent and the host's manner creeps back in by default. #}
+{# speech_cached: the prompt already ended its cached system message with the NPC's own profile. #}
+{% if not default(speech_cached, false) %}
 {{ render_character_profile("speech_style", npc.UUID) }}
+{% endif %}
 {% for _sl in get_linked_identities(npc.UUID) %}{% if _sl.dominance == "entity_led" and _sl.is_virtual %}
 {{ render_character_profile("speech_style", _sl.uuid) }}
 ## You are speaking through {{ decnpc(npc.UUID).name }}'s mouth
