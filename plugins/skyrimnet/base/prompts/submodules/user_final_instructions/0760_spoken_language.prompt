@@ -2,17 +2,17 @@
    each sentence. decnpc(uuid).spokenLanguage and translationLanguage are {code, name} or nothing; a translation code
    of "game" has no name: the language the conversation is otherwise written in. #}
 {% if render_mode == "full" or render_mode == "thoughts" %}
-{% set _sl = decnpc(npc.UUID).spokenLanguage %}
-{% set _tl = decnpc(npc.UUID).translationLanguage %}
-{% if _sl or _tl %}
-{% set _name = decnpc(npc.UUID).name %}
-{% set _sc = "en" %}
-{% if _sl %}{% set _sc = _sl.code %}{% endif %}
-{% set _tc = "" %}
-{% if _tl %}{% set _tc = _tl.code %}{% endif %}
-{% set _tln = "" %}
-{% if _tl %}{% if _tc == "game" %}{% set _tln = "the language this conversation is otherwise written in" %}{% else %}{% set _tln = _tl.name %}{% endif %}{% endif %}
-{% set _samples = {
+{% set spokenLanguage = decnpc(npc.UUID).spokenLanguage %}
+{% set translatedLanguage = decnpc(npc.UUID).translationLanguage %}
+{% if spokenLanguage or translatedLanguage %}
+{% set speakerName = decnpc(npc.UUID).name %}
+{% set spokenLanguageCode = "en" %}
+{% if spokenLanguage %}{% set spokenLanguageCode = spokenLanguage.code %}{% endif %}
+{% set translatedLanguageCode = "" %}
+{% if translatedLanguage %}{% set translatedLanguageCode = translatedLanguage.code %}{% endif %}
+{% set translatedLanguageName = "" %}
+{% if translatedLanguage %}{% if translatedLanguageCode == "game" %}{% set translatedLanguageName = "the language this conversation is otherwise written in" %}{% else %}{% set translatedLanguageName = translatedLanguage.name %}{% endif %}{% endif %}
+{% set languageExamples = {
   "ja": ["今はだめ。", "一時間後にまた来て。"],
   "ko": ["지금은 안 돼.", "한 시간 뒤에 다시 와."],
   "zh-Hans": ["现在不行。", "一个小时后再来。"],
@@ -33,45 +33,45 @@
   "tr": ["Şimdi değil.", "Bir saat sonra tekrar gel."],
   "en": ["Not now.", "Come back in an hour."]
 } %}
-{% set _ex = [] %}
-{% if existsIn(_samples, _sc) %}{% set _ex = at(_samples, _sc) %}{% endif %}
-{% set _tr = [] %}
-{% if existsIn(_samples, _tc) %}{% set _tr = at(_samples, _tc) %}{% endif %}
-{% set _example = length(_ex) > 0 and (not _tl or length(_tr) > 0) %}
-{% if _sl %}
+{% set spokenExamples = [] %}
+{% if existsIn(languageExamples, spokenLanguageCode) %}{% set spokenExamples = at(languageExamples, spokenLanguageCode) %}{% endif %}
+{% set translatedExamples = [] %}
+{% if existsIn(languageExamples, translatedLanguageCode) %}{% set translatedExamples = at(languageExamples, translatedLanguageCode) %}{% endif %}
+{% set hasMatchingExamples = length(spokenExamples) > 0 and (not translatedLanguage or length(translatedExamples) > 0) %}
+{% if spokenLanguage %}
 ## Spoken Language
 {% else %}
 ## Subtitle Translation
 {% endif %}
 {% if render_mode == "thoughts" %}
-{% if _sl %}{{ _name }} speaks and thinks in {{ _sl.name }}. Write the thought in {{ _sl.name }}, in {{ _name }}'s voice.{% endif %}{% if _tl %} After {% if _sl %}it{% else %}the thought{% endif %}, inside <translation>...</translation>, give the same thought in {{ _tln }}: a faithful translation, the same meaning and length, shown to the player only. One block, at the end, nothing after it.{% endif %}
-{% if _example %}
-- Example: {{ _ex.0 }} {{ _ex.1 }}{% if _tl %} <translation>{{ _tr.0 }} {{ _tr.1 }}</translation>{% endif %}
+{% if spokenLanguage %}{{ speakerName }} speaks and thinks in {{ spokenLanguage.name }}. Write the thought in {{ spokenLanguage.name }}, in {{ speakerName }}'s voice.{% endif %}{% if translatedLanguage %} After {% if spokenLanguage %}it{% else %}the thought{% endif %}, inside <translation>...</translation>, give the same thought in {{ translatedLanguageName }}: a faithful translation, the same meaning and length, shown to the player only. One block, at the end, nothing after it.{% endif %}
+{% if hasMatchingExamples %}
+- Example: {{ spokenExamples.0 }} {{ spokenExamples.1 }}{% if translatedLanguage %} <translation>{{ translatedExamples.0 }} {{ translatedExamples.1 }}</translation>{% endif %}
 {% endif %}
 {% else %}
-{% if _sl %}{{ _name }} speaks {{ _sl.name }}. Write every spoken sentence in {{ _sl.name }}, in {{ _name }}'s personality and register, using the established {{ _sl.name }} localization of Elder Scrolls names and terms.{% endif %}{% if _tl %} Right after each {% if not _sl %}spoken {% endif %}sentence, inside <translation>...</translation>, give that sentence in {{ _tln }}: a faithful translation, the same meaning and length, for the subtitles only.{% endif %}
-{% if _tl %}
+{% if spokenLanguage %}{{ speakerName }} speaks {{ spokenLanguage.name }}. Write every spoken sentence in {{ spokenLanguage.name }}, in {{ speakerName }}'s personality and register, using the established {{ spokenLanguage.name }} localization of Elder Scrolls names and terms.{% endif %}{% if translatedLanguage %} Right after each {% if not spokenLanguage %}spoken {% endif %}sentence, inside <translation>...</translation>, give that sentence in {{ translatedLanguageName }}: a faithful translation, the same meaning and length, for the subtitles only.{% endif %}
+{% if translatedLanguage %}
 - One <translation> block directly after each spoken sentence, the last one included: a sentence without its block is a mistake. Never put the translation first, never group several sentences into one block.
 {% if is_audio_tags_enabled(npc.UUID) %}
 - Keep [performance tags] in the sentence itself; do not repeat them inside the block.
 {% endif %}
 {% endif %}
-{% if _sl %}
-- Narration in *asterisks* and ACTION lines stay in the language this conversation is otherwise written in{% if _tl %}, with no block{% endif %}.
+{% if spokenLanguage %}
+- Narration in *asterisks* and ACTION lines stay in the language this conversation is otherwise written in{% if translatedLanguage %}, with no block{% endif %}.
 {% else %}
 - Narration in *asterisks* and ACTION lines get no block.
 {% endif %}
 {% if exists("allow_inline_internal_thoughts") and allow_inline_internal_thoughts %}
-{% if _sl and _tl %}
-- Inside an <internal_thought> block, think in {{ _sl.name }} too and end the thought with one <translation> block holding the whole thought in {{ _tln }}.
-{% else if _sl %}
-- Inside an <internal_thought> block, think in {{ _sl.name }} too.
+{% if spokenLanguage and translatedLanguage %}
+- Inside an <internal_thought> block, think in {{ spokenLanguage.name }} too and end the thought with one <translation> block holding the whole thought in {{ translatedLanguageName }}.
+{% else if spokenLanguage %}
+- Inside an <internal_thought> block, think in {{ spokenLanguage.name }} too.
 {% else %}
-- Inside an <internal_thought> block, end the thought with one <translation> block holding the whole thought in {{ _tln }}.
+- Inside an <internal_thought> block, end the thought with one <translation> block holding the whole thought in {{ translatedLanguageName }}.
 {% endif %}
 {% endif %}
-{% if _example %}
-- Example: {{ _ex.0 }}{% if _tl %} <translation>{{ _tr.0 }}</translation>{% endif %}{% if is_narration_enabled() %} *{{ _name }} does not look up*{% endif %} {{ _ex.1 }}{% if _tl %} <translation>{{ _tr.1 }}</translation>{% endif %}
+{% if hasMatchingExamples %}
+- Example: {{ spokenExamples.0 }}{% if translatedLanguage %} <translation>{{ translatedExamples.0 }}</translation>{% endif %}{% if is_narration_enabled() %} *{{ speakerName }} does not look up*{% endif %} {{ spokenExamples.1 }}{% if translatedLanguage %} <translation>{{ translatedExamples.1 }}</translation>{% endif %}
 {% endif %}
 {% endif %}
 {% endif %}
