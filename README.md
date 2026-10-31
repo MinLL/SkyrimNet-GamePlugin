@@ -139,6 +139,7 @@ SkyrimNet's modder API has a growing ecosystem. Two major mods built on it:
 - **Discord:** [discord.gg/gHHS7HpJS9](https://discord.gg/gHHS7HpJS9), for help, news and your stories
 - **YouTube:** [@SkyrimNet](https://www.youtube.com/@SkyrimNet)
 - **Fateless:** [fateless.ai](https://fateless.ai) · [Fateless Inference](https://fateless.ai/inference)
+- **NightCityNet:** a sister project for Cyberpunk, built on the Fateless engine. Independently operated, not by us. Join its [Discord](https://discord.gg/CBwvYVwYXW).
 
 **Support the project:**
 
