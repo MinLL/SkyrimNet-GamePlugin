@@ -1,4 +1,4 @@
-{% if embed_actions_in_dialogue and eligible_actions and length(eligible_actions) > 0 %}
+{% if not default(stable_split, false) and embed_actions_in_dialogue and eligible_actions and length(eligible_actions) > 0 %}
 ## Actions Available
 After your dialogue, you may optionally perform ONE action if appropriate. Output dialogue FIRST, then the action on a separate line.
 

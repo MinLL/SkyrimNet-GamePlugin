@@ -1,3 +1,5 @@
+{# stable_split: dialogue_response renders this in its cached system message instead. #}
+{% if not default(stable_split, false) %}
 # Response Format
 No headers or labels in your output—just the response itself.
 {% if render_mode == "thoughts" or render_mode == "book" %}
@@ -111,4 +113,5 @@ Remember you and "{{ _dl.name }}" are one being. What {{ _dl.name }} knows, you 
 Each thought should be new — a fresh beat, a different noticing, a turn in mood or attention. Don't repeat the previous thought verbatim or restate the same observation.
 {% else %}
 Each response must advance the conversation—new question, detail, realization, or decision. Vary your approach.
+{% endif %}
 {% endif %}
