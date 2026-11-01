@@ -10,6 +10,7 @@ the parts of the prompt that stay the same between turns, which lowers cost and 
 - NPC replies end with the lines said since the NPC last spoke, so the model reads the latest line last.
 - Lines between other people are marked as overheard, so companions stop answering each other's asides.
 - NPC replies also cache their response format, voice tags and action list, so far more of each prompt is reused.
-- A plugin that overrides `0500_response_format`, `0650_audio_tags` or `0750_embedded_actions` needs a `stable_split` check, or that section appears twice in NPC replies.
+- A plugin that overrides `0500_response_format` or `0650_audio_tags` needs a `stable_split` check, or that section appears twice in NPC replies.
+- SkyrimNet's own `0750_embedded_actions` is used for now, over a plugin's override of it.
 - Your own edits to these prompts keep their old layout and go uncached.
 - SeverActions' companion blocks are not cached yet.
