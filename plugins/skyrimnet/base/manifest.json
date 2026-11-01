@@ -9,5 +9,8 @@
   "min_skyrimnet_version": "0.30.0",
   "supersedes": [
     { "id": "min.skyrimnet-prompts-cache-enabled", "below": "2.0.0" }
+  ],
+  "pins": [
+    "prompts/submodules/user_final_instructions/0750_embedded_actions.prompt"
   ]
 }
