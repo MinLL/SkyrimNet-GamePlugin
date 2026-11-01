@@ -3,7 +3,8 @@
    The response format, the voice tags and the action list sit in the cached system message too: they
    rarely change, and left after the history they kept most of the prompt out of every cache. The actions
    have their own breakpoint, as they change more often than the rest (about one turn in six).
-   The [ cache ] breakpoints are ignored by a provider without prompt caching. #}
+   The [ cache ] breakpoints are ignored by a provider without prompt caching.
+   The skip list leaves those three out of user_final_instructions, whichever plugin provides them. #}
 [ system ]
 [ cache ]
 You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }} in Skyrim.
@@ -26,7 +27,7 @@ You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(n
 
 [ user ]
 {{ render_subcomponent("system_head", "full", {"stable_split": true, "speech_cached": true, "task_at_end": true}) }}
-{{ render_subcomponent("user_final_instructions", "full", {"combat_at_end": true, "stable_split": true}) }}
+{{ render_subcomponent("user_final_instructions", "full", {"combat_at_end": true, "stable_split": true, "skip": ["0500_response_format", "0650_audio_tags", "0750_embedded_actions"]}) }}
 {% if decnpc(npc.UUID).universalTranslatorSpeechPattern %}
 **Speech Pattern Required:** {{ decnpc(npc.UUID).universalTranslatorSpeechPattern }}
 {% endif %}
