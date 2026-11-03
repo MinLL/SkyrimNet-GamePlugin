@@ -80,10 +80,13 @@ You are in combat. Keep it urgent and brief, and about the fight; arguments can 
    and its format sit in the cached system message, ahead of the whole history, and with nothing about
    actions near the end models stopped writing the ACTION line. Repeating what is available at the end
    is how tool-calling harnesses keep a cached tool list in reach. Uncached, a few tokens per action.
+   For TriggerDialogueLine the name is not enough, as the choice is which line: its quest beats follow,
+   with their codes (components/dialogue_action, at_end).
    "Respond in character now." stays off when actions are offered: a closing line about speech alone
    makes models drop the action. #}
 {% if embed_actions_in_dialogue and eligible_actions and length(eligible_actions) > 0 %}
 Actions you can take now: {% for action in eligible_actions %}`{{ action.name }}`{% if not loop.is_last %}, {% endif %}{% endfor %}.
+{% for action in eligible_actions %}{% if action.name == "TriggerDialogueLine" %}{{ render_template("components\\dialogue_action", {"at_end": true}) }}{% endif %}{% endfor %}
 If what you say agrees to, starts or does one of them, end your reply with one `ACTION:` line in the format given earlier. Narrating it does not make it happen; only the ACTION line does. If none fits, write no ACTION line.
 {% else %}
 Respond in character now.

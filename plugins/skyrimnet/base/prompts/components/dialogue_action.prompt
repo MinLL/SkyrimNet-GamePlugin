@@ -4,7 +4,17 @@
 {% if embed_actions_in_dialogue %}
 {% if exists("responseTarget") and is_player(responseTarget.UUID) %}
 {% set quest_lines = available_dialogue(npc.UUID, "fires") %}
-{% if quest_lines.hasContent %}
+{% if default(at_end, false) %}
+{# at_end: dialogue_response renders this among its last lines. The action list, this body included,
+   sits in the cached system message ahead of the whole history; a model that has just heard the player
+   take on a task answered it and left the quest's code behind, so the quest beats are repeated here,
+   beside the reply. Services are left out to keep the end short. #}
+{% if quest_lines.hasQuest %}
+Quest lines you can fire now with `TriggerDialogueLine` (### lines are quest headings, not codes):
+{{ quest_lines.text }}
+When the conversation has just reached one of these, such as {{ player.name }} taking on the task, fire it in this reply: `TriggerDialogueLine` with its bracketed code as form_id.
+{% endif %}
+{% else if quest_lines.hasContent %}
 The exchanges below are actions {{ npc_name }} can trigger right now, each carrying a bracketed 8-character code (0-9, A-F). When the conversation reaches one, set form_id to its code for the game to run. For ordinary conversation, leave form_id unset.
 
 Choosing a line:
@@ -14,7 +24,7 @@ Choosing a line:
 - Fire at most one code per turn, across every list below. When unsure, keep speaking and save it for a clearer moment.
 {% if quest_lines.hasQuest %}
 
-Quest beats -- choosing one starts or advances that quest (### lines are quest headings; their full context is in "Quests You Could Raise" above):
+Quest beats -- choosing one starts or advances that quest (### lines are quest headings; their full context is under "Quests You Could Raise"):
 {{ quest_lines.text }}
 {% endif %}
 {% if quest_lines.hasServices %}
