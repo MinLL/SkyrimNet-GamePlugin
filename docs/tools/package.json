@@ -1,0 +1,14 @@
+{
+  "name": "skyrimnet-docs-tools",
+  "private": true,
+  "type": "module",
+  "description": "Checks and renders the SkyrimNet docs in docs/site.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\"",
+    "check": "node cli.mjs check"
+  },
+  "dependencies": {
+    "yaml": "2.8.1"
+  }
+}
