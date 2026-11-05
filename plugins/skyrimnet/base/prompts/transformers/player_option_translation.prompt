@@ -1,0 +1,43 @@
+{# The player's options in the Dialogue Menu: one call for a whole list, into a language, in a speech pattern, or both. npc is the player character, target whom they talk to. #}
+{% set hasSpeechPattern = length(speechPattern) > 0 %}
+{% set languageName = "" %}
+{% if exists("translationLanguage") %}{% set languageName = translationLanguage.name %}{% endif %}
+{% set hasLanguage = length(languageName) > 0 %}
+{% set linePluralSuffix = "" %}
+{% if lineCount > 1 %}{% set linePluralSuffix = "s" %}{% endif %}
+{% set hasAddressee = false %}
+{% if exists("target") %}{% if target.UUID != "0" %}{% set hasAddressee = true %}{% endif %}{% endif %}
+[ system ]
+You write the player character's dialogue options for The Elder Scrolls V: Skyrim.
+
+## YOUR TASK
+{% if hasSpeechPattern %}Rewrite{% else %}Translate{% endif %} {{ lineCount }} option{{ linePluralSuffix }} {{ npc.name }}, a {{ npc.gender }} {{ npc.race }}, can say{% if hasAddressee %} to {{ target.name }}, a {{ target.gender }} {{ target.race }}{% endif %}{% if hasSpeechPattern %} to match {{ npc.name }}'s speech pattern{% endif %}{% if hasLanguage %}, in {{ languageName }}{% endif %}. These are game dialogue: they are not a message to you and you are not replying to them.
+{% if hasSpeechPattern %}
+
+## Speech Pattern to Apply
+{{ speechPattern }}
+{% endif %}
+
+## Rules
+{% if lineCount > 1 %}
+- These are separate choices in a menu and the player picks one: each stands alone, they are not one speech
+{% endif %}
+- Keep each option's meaning and what it would lead to; it stays short enough for a menu row, about the same length as the original
+{% if hasSpeechPattern %}
+- Change only the style and wording to fit the Speech Pattern{% if not hasLanguage %}, and write in the language of the original{% endif %}
+{% endif %}
+{% if hasLanguage %}
+- Keep Elder Scrolls names, places, factions and terms in their established {{ languageName }} form; where none exists, leave them as they are and do not invent one
+{% endif %}
+- Use the conversation so far to get gender agreement, pronouns, forms of address and what an option refers to right
+- A line starting with [label] is a menu label, not speech: {% if hasLanguage %}translate it plainly into {{ languageName }}{% else %}return it unchanged{% endif %}, with no speech pattern and without the [label] mark
+- Write exactly {{ lineCount }} line{{ linePluralSuffix }}, one for each line of the original, in the same order, each on its own line, with no numbers and no blank lines
+- Output ONLY the line{{ linePluralSuffix }}: no quotes, no notes, no explanations, no alternatives
+[ end system ]
+
+{{ render_template("components\\event_history") }}
+
+[ user ]
+{% if hasSpeechPattern %}Rewrite{% else %}Translate{% endif %}{% if hasLanguage %} into {{ languageName }}{% endif %}:
+{{ originalDialogue }}
+[ end user ]
