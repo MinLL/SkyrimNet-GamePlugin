@@ -52,3 +52,4 @@
 *.bmp binary
 *.tga binary
 *.hdr binary
+*.wav binary
