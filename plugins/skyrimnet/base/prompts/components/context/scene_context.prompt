@@ -12,13 +12,18 @@
 
 {% block nearbyNpcs %}
     {% if length(nearby_npcs) > 0 %}
+        {# The loop variable shadows the speaker's `npc`, so the speaker is kept in `_viewer`. In a fight each
+           listed person is tagged from the speaker's side (combat_stance): enemy, turned, or fighting beside
+           them. Out of a fight the summon and thrall tags stay relative to the player, as before. #}
+        {% set _viewer = 0 %}{% if exists("npc") and npc.UUID != 0 %}{% set _viewer = npc.UUID %}{% endif %}
+        {% set _viewerFighting = _viewer != 0 and is_in_combat(_viewer) %}
         {% for npc in nearby_npcs %}
             {% if decnpc(npc.UUID).isDead %}
                 {{ npc.id }}. [DEAD] The dead corpse of {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
             {% else if is_unconscious(npc.UUID) %}
                 {{ npc.id }}. [UNCONSCIOUS] The unconscious, unresponsive form of {{ decnpc(npc.UUID).name }}: {{ render_character_profile("short_inline", npc.UUID) }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away)
             {% else %}
-                {{ npc.id }}. {% if is_summoned(npc.UUID) %}{% if is_hostile_to_actor(npc.UUID, player.UUID) %}[Summoned creature hostile to {{ decnpc(player.UUID).name }}] {% else %}[Summoned creature serving {{ decnpc(player.UUID).name }}] {% endif %}{% else if is_reanimated(npc.UUID) %}{% if is_hostile_to_actor(npc.UUID, player.UUID) %}[Reanimated undead hostile to {{ decnpc(player.UUID).name }}] {% else %}[Reanimated undead thrall serving {{ decnpc(player.UUID).name }}] {% endif %}{% endif %}{{ decnpc(npc.UUID).name }}{% if decnpc(npc.UUID).isVirtualPrivate %} (Virtual NPC){% endif %}: {{ render_character_profile("short_inline", npc.UUID) }}{% if not decnpc(npc.UUID).isVirtual %} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away){% endif %}
+                {{ npc.id }}. {% set _tag = "" %}{% if _viewerFighting and npc.UUID != _viewer %}{% set _stance = combat_stance(_viewer, npc.UUID) %}{% if _stance == "enemy" %}{% set _tag = "[Your enemy] " %}{% else if _stance == "turned" %}{% set _mind = mind_control(npc.UUID, _viewer) %}{% if _mind != "" %}{% set _tag = "[Turned against you, an enemy now: " + _mind + "] " %}{% else %}{% set _tag = "[Turned against you, an enemy now] " %}{% endif %}{% else if _stance == "ally" %}{% set _tag = "[Fighting beside you] " %}{% endif %}{% endif %}{% if _tag != "" %}{{ _tag }}{% else if is_summoned(npc.UUID) %}{% if is_hostile_to_actor(npc.UUID, player.UUID) %}[Summoned creature hostile to {{ decnpc(player.UUID).name }}] {% else %}[Summoned creature serving {{ decnpc(player.UUID).name }}] {% endif %}{% else if is_reanimated(npc.UUID) %}{% if is_hostile_to_actor(npc.UUID, player.UUID) %}[Reanimated undead hostile to {{ decnpc(player.UUID).name }}] {% else %}[Reanimated undead thrall serving {{ decnpc(player.UUID).name }}] {% endif %}{% endif %}{{ decnpc(npc.UUID).name }}{% if decnpc(npc.UUID).isVirtualPrivate %} (Virtual NPC){% endif %}: {{ render_character_profile("short_inline", npc.UUID) }}{% if not decnpc(npc.UUID).isVirtual %} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }} meters away){% endif %}
             {% endif %}
         {% endfor %}
     {% else %}
