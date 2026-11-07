@@ -87,7 +87,7 @@ mcp_skyrimnet-mcp_get_decorators:
 | `Actor` | `decnpc(uuid)`, `actor_has_keyword(uuid, editorId)`, `distance_between(uuid1, uuid2)` | NPC/player info |
 | `Player` | `player` (JSON: `player.name`, `player.UUID`), `is_player(uuid)`, `is_follower(uuid)` | Player-specific data |
 | `Quest` | `is_quest_active(questId)`, `get_quest_stage(questId, onlyWhileActive)`, `get_quest_journal(...)` | Quest state |
-| `Combat` | `is_in_combat(uuid)`, `get_combat_targets(uuid)`, `get_actor_value(uuid, "Health")`, `has_weapon_drawn(uuid)` | Combat info |
+| `Combat` | `is_in_combat(uuid)`, `get_combat_targets(uuid)`, `get_combat_allies(uuid)`, `get_combat_sides(uuid)` (enemies, allies and those who turned, with notes such as `under Kit's command`), `combat_stance(speaker, other)` (`enemy`, `ally`, `turned`, `bystander`), `mind_control(uuid)`, `get_actor_value(uuid, "Health")`, `has_weapon_drawn(uuid)` | Combat info |
 | `World` / `Environment` | `location`, `get_location(uuid)`, `is_indoors`, `currentWeather`, `season` | World state |
 | `World` (time) | `gameTime`, `currentTime`, `short_time(timeString)` | Time info |
 | `Faction` | `is_in_faction(uuid, factionId)`, `get_faction_rank(uuid, factionId)` | Faction checks |
