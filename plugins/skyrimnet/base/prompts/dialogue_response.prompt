@@ -75,6 +75,16 @@ None of these were said to you; you overheard them. Speak only to what matters t
 You are down: badly wounded and on your knees, unable to fight until you recover or someone helps you. Speak from there: short and pained, about your state or a plea for help.
 {% else if is_in_combat(npc.UUID) or is_in_combat(player.UUID) %}
 You are in combat. Keep it urgent and brief, and about the fight; arguments can wait until it's over.
+{# Where the addressee stands (combat_stance), said in the task itself: the sides block sits further up, and
+   "You are speaking to Kit" alone read as a conversation between comrades. #}
+{% if exists("responseTarget") and responseTarget.UUID != 0 and responseTarget.UUID != npc.UUID and isValidActor(responseTarget.UUID) %}
+{% set _stance = combat_stance(npc.UUID, responseTarget.UUID) %}
+{% set _addressee = get_name(responseTarget.UUID) %}
+{% if _stance == "enemy" %}{{ _addressee }} is your enemy: you are trying to kill them and they you. Nothing you say to them is advice, a warning or an order to a comrade; it is a taunt, a threat, a demand, a plea or a bargain.
+{% else if _stance == "turned" %}{{ _addressee }} was on your side and has turned on you{% set _mind = mind_control(responseTarget.UUID, npc.UUID) %}{% if _mind != "" %}, {{ _mind }}{% endif %}: an enemy now. Speak to them as one, with whatever that betrayal or spell makes you feel.
+{% else if _stance == "ally" %}{{ _addressee }} fights beside you, against the same enemies: warnings, orders and calls for help go to them.
+{% endif %}
+{% endif %}
 {% endif %}
 {# With embedded actions the prompt ends on the actions this NPC can take now, by name. The full list
    and its format sit in the cached system message, ahead of the whole history, and with nothing about

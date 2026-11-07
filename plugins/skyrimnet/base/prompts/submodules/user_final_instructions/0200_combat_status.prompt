@@ -7,11 +7,24 @@
 {% if decnpc(npc.UUID).maxHealth > 0 %}{% set healthRatio = decnpc(npc.UUID).health / decnpc(npc.UUID).maxHealth %}{% else %}{% set healthRatio = 0 %}{% endif %}
 {% if decnpc(npc.UUID).maxMagicka > 0 %}{% set magickaRatio = decnpc(npc.UUID).magicka / decnpc(npc.UUID).maxMagicka %}{% else %}{% set magickaRatio = 0 %}{% endif %}
 {% if decnpc(npc.UUID).maxStamina > 0 %}{% set staminaRatio = decnpc(npc.UUID).stamina / decnpc(npc.UUID).maxStamina %}{% else %}{% set staminaRatio = 0 %}{% endif %}
-{% set targets = get_combat_targets(npc.UUID) %}
-**COMBAT STATUS:**
-{% if length(targets) > 0 %}- Fighting: {% for t in targets %}{{ decnpc(t).name }}{% if not loop.is_last %}, {% endif %}{% endfor %}
-{% else %}- In active combat
+{# The sides, from the game's combat groups (get_combat_sides): who this NPC is trying to kill, who fights beside
+   them, and who turned on them (a gang-mate under a potion of command, a frenzied ally). Without it the prompt
+   named the enemies in one line and the allies nowhere, and NPCs warned their enemies and gave them orders as
+   though they fought together; once one such line is in the history the next turns copy it, so this block is
+   worded as ground truth that outranks the history. #}
+{% set sides = get_combat_sides(npc.UUID) %}
+**SIDES IN THIS FIGHT (ground truth from the game; it outranks anything said earlier, including your own lines):**
+{% if length(sides.enemies) > 0 %}- Your enemies, the ones you are trying to kill and who are trying to kill you: {% for e in sides.enemies %}{{ e.name }}{% if e.note != "" %} ({{ e.note }}){% endif %}{% if not loop.is_last %}; {% endif %}{% endfor %}
 {% endif %}
+{% if length(sides.turned) > 0 %}- Turned against you, an enemy now: {% for e in sides.turned %}{{ e.name }}{% if e.note != "" %} ({{ e.note }}){% endif %}{% if not loop.is_last %}; {% endif %}{% endfor %}
+{% endif %}
+{% if length(sides.enemies) == 0 and length(sides.turned) == 0 %}- In active combat, no enemy in sight yet.
+{% endif %}
+{% if length(sides.allies) > 0 %}- Fighting beside you, on your side: {% for a in sides.allies %}{{ a.name }}{% if a.note != "" %} ({{ a.note }}){% endif %}{% if not loop.is_last %}; {% endif %}{% endfor %}
+{% else %}- Nobody fights beside you; you are on your own.
+{% endif %}
+- Never warn an enemy, give them orders, ask them for help or say "us" or "we" of yourself and them as though they fought beside you; to an enemy you taunt, threaten, demand, plead or bargain. Never curse, threaten or attack someone fighting beside you. Someone who turned on you is an enemy now, whatever they were a moment ago.
+**COMBAT STATUS:**
 {% if healthRatio < 0.25 %}- CRITICAL: Near death, every hit could be fatal
 {% elif healthRatio < 0.5 %}- Badly wounded, bleeding and struggling
 {% elif healthRatio < 0.75 %}- Taking damage but still fighting strong

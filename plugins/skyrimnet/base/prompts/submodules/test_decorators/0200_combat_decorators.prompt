@@ -1,7 +1,8 @@
 {# TEST SUBMODULE - Combat Decorators #}
 {# Tests: get_actor_value, get_base_actor_value, is_in_combat, has_weapon_drawn, #}
 {#        is_hostile_to_actor, is_knocked_down, is_reanimated, is_summoned, #}
-{#        get_spell_list (enhanced: school, spellType, castingType, delivery, etc.) #}
+{#        get_spell_list (enhanced: school, spellType, castingType, delivery, etc.), #}
+{#        get_combat_targets, get_combat_allies, combat_stance, mind_control, get_combat_sides #}
 {# CATEGORY: Combat #}
 
 {% set actor = decnpc(actorUUID) %}
@@ -171,3 +172,17 @@
 
 ---
 
+
+### Test 7: The Sides of a Fight (get_combat_sides, combat_stance, mind_control)
+
+**Stance toward the player:** {{ combat_stance(actorUUID, player.UUID) }} (and the player's toward {{ actorName }}: {{ combat_stance(player.UUID, actorUUID) }})
+**Mind control on {{ actorName }}:** {% set mind = mind_control(actorUUID, player.UUID) %}{% if mind != "" %}{{ mind }}{% else %}none{% endif %}
+
+{% set sides = get_combat_sides(actorUUID) %}
+**In combat:** {{ sides.inCombat }}
+- Enemies ({{ length(sides.enemies) }}): {% for e in sides.enemies %}{{ e.name }}{% if e.note != "" %} ({{ e.note }}){% endif %}{% if not loop.is_last %}; {% endif %}{% endfor %}
+- Turned ({{ length(sides.turned) }}): {% for e in sides.turned %}{{ e.name }}{% if e.note != "" %} ({{ e.note }}){% endif %}{% if not loop.is_last %}; {% endif %}{% endfor %}
+- Allies ({{ length(sides.allies) }}): {% for a in sides.allies %}{{ a.name }}{% if a.note != "" %} ({{ a.note }}){% endif %}{% if not loop.is_last %}; {% endif %}{% endfor %}
+- Ally UUIDs (get_combat_allies): {% for uuid in get_combat_allies(actorUUID) %}{{ decnpc(uuid).name }}{% if not loop.is_last %}, {% endif %}{% endfor %}
+
+---
