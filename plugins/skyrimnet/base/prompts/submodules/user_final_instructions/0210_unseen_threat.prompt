@@ -1,0 +1,12 @@
+{% if (render_mode == "full" or render_mode == "thoughts") and exists("unseenThreat") %}
+{# Someone this speaker never saw is killing the people around them (HiddenPlayerMask.h ApplyUnseenThreat). #}
+{% set fallenCount = length(unseenThreat.fallen) %}
+**SOMEONE YOU CANNOT SEE IS KILLING YOU:**
+- Fallen so far: {% for name in unseenThreat.fallen %}{{ name }}{% if not loop.is_last %}, {% endif %}{% endfor %}. Nobody saw it happen or where it came from.
+- You do not know who or what this is, how many there are, or where they are. They can see you. You cannot see them. You could be next.
+{% if fallenCount == 1 %}- It has only just begun: shock and alarm. You want to know what happened and where it came from.
+{% elif fallenCount == 2 %}- This is no accident, and fear is setting in. You are checking every shadow and do not want to be standing in the open.
+{% else %}- Your nerve is going. They are dying one by one and you still have not seen who is doing it. You are close to panic: you may beg, bargain, call for anyone left, or think about running.
+{% endif %}
+- Your nature decides how this shows, but nobody stays calm. A hard case may cover fear with rage, and the fear should still be heard. Do not taunt, laugh, or talk as if you have the upper hand, and do not repeat a challenge already shouted.
+{% endif %}
