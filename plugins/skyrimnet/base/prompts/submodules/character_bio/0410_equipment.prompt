@@ -1,5 +1,10 @@
 {% if render_mode == "full" or render_mode == "thoughts" or render_mode == "transform" or render_mode == "equipment" %}
     ### Worn Equipment
+    {# With an outfit description, other armor is listed by name only; weapons, shields, amulets and rings are not part of the outfit and keep their own descriptions #}
+    {% set outfit_desc = get_outfit_description(actorUUID) %}
+    {% if length(outfit_desc) > 0 %}
+    {{ outfit_desc }}
+    {% endif %}
     {% set npc_equipment = get_worn_equipment(actorUUID) %}
     {% set tempered_items = get_tempered_items(actorUUID) %}
     {% for slot, item in npc_equipment %}
@@ -26,7 +31,7 @@
             {% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
                 - {% if length(item_desc) > 0 %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.equipment_slot }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %} {% if has_weapon_drawn(actorUUID) %}(drawn){% else %}(sheathed){% endif %}
             {% else %}
-                - {% if length(item_desc) > 0 %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
+                - {% if length(item_desc) > 0 and (length(outfit_desc) == 0 or item.equipment_slot == "neck" or item.equipment_slot == "finger" or item.equipment_slot == "shield") %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
             {% endif %} {# end left hand / right hand check #}
         {% endif %}{# end is item enabled #}
     {% endfor %}
@@ -35,6 +40,10 @@
 {% if render_mode == "dialogue_target" %}
     {% if responseTarget and responseTarget.UUID != 0 %}
         ### Worn Equipment
+        {% set outfit_desc = get_outfit_description(responseTarget.UUID) %}
+        {% if length(outfit_desc) > 0 %}
+        {{ outfit_desc }}
+        {% endif %}
         {% set target_equipment = get_worn_equipment(responseTarget.UUID) %}
         {% set tempered_items = get_tempered_items(responseTarget.UUID) %}
         {% for slot, item in target_equipment %}
@@ -61,7 +70,7 @@
                 {% if item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand" %}
                     - {% if length(item_desc) > 0 %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.equipment_slot }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %} {% if has_weapon_drawn(responseTarget.UUID) %}(drawn){% else %}(sheathed){% endif %}
                 {% else %}
-                    - {% if length(item_desc) > 0 %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
+                    - {% if length(item_desc) > 0 and (length(outfit_desc) == 0 or item.equipment_slot == "neck" or item.equipment_slot == "finger" or item.equipment_slot == "shield") %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
                 {% endif %} {# end left hand / right hand check #}
             {% endif %}{# end is item enabled #}
         {% endfor %}

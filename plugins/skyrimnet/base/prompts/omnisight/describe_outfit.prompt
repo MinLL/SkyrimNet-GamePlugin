@@ -1,0 +1,32 @@
+[user]
+    Write the entry for this outfit: what someone wears, as a whole. Other characters in Skyrim will read it beside a separate description of the person, to picture what they have on and remark on it, so describe the clothes and never the person.
+
+    **Wearer:** {{gender}}{% if length(outfit_pieces) > 0 %}
+    **Pieces (a hint for identifying what you see, NOT a list to copy; names are often mod names and can mislead):** {{outfit_pieces}}{% endif %}
+    **Images:** the first shows the front, the second the back. They are clean renders on a plain grey ground. The ground, pose and light are the renderer's. Write one description, not one per image.
+{{ render_subcomponent("omnisight_outfit", "full") }}
+    ---
+
+    **LOOK FIRST.** Go region by region: head, chest, midriff, arms, hips and groin, thighs, feet. For each, is it armored, clothed or bare? Note cutouts, gaps between plates, straps over bare skin, and anything worn in an unusual or revealing way. Use the back view for what the front cannot show: a cloak, lacing, a bare back.
+
+    **WRITE (one paragraph, 60-100 words, no headers):**
+    - Open with the kind of outfit in plain words and the impression it gives at a glance: heavy plate, patched traveling leathers, a court gown, barely dressed for a fight.
+    - Then its materials and colors, its condition (polished, battered, mismatched, ornate), and the one or two details someone would remember.
+    - Say exactly where it stops, naming bare areas plainly ("sleeveless, leaving both arms bare to the shoulder; the skirt is slit to mid-thigh"). A revealing cut is often the first thing people notice, so lead with it when it is.
+
+    **STYLE:** Full, natural sentences with concrete nouns and specific colors ("oxblood", "tarnished silver"). Every sentence must add something you can see. Do not mention what is absent.
+
+    **HARD RULES:**
+    - The clothes only: no face, hair, body, skin, build, age or race, and no name. Say what is bare, not what the bare skin looks like.
+    - No item or mod names: write "a round hide-faced shield", not the name from the list. Leave out listed pieces you cannot see.
+    - Nothing about what the gear signifies, no backstory, no mood, no pose, no background.
+
+    **BAD (a list):** "Steel cuirass, leather boots, iron gauntlets. Brown cloak. Steel helmet."
+
+    **GOOD:** "Heavy, well-kept field plate in dull grey steel, the cuirass banded across the stomach and worn over a mail skirt that stops at the knee. Oxblood cloth shows at the joints, and a wolf-fur mantle is pinned across both shoulders, falling in a single dark cape to the calves. The gauntlets are newer than the rest, their knuckles bright where the plate is scuffed. Only the face and a hand's width of thigh above the greaves are left uncovered."
+
+    Look carefully, then write the description.
+    [image]
+    {{imageDataUrls}}
+    [end image]
+[end user]
