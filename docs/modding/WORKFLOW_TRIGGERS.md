@@ -262,6 +262,7 @@ mcp_skyrimnet-mcp_validate_custom_trigger:
 | `quest_start_stop` | Quest start/end | `quest`, `quest_id`, `started` (boolean) |
 | `location_change` | Location changed | `actor`, `from_location`, `to_location` |
 | `container_changed` | Items moved | `item`, `item_count`, `from_container`, `to_container` |
+| `pickpocket` | The player picked (or planted on) an NPC's pockets; only the player perceives an unnoticed attempt, the victim and nearby NPCs a caught one. Shown like a `direct_narration` | `narration` (the attempt as one line), `thief`, `victim`, `item`, `item_count`, `detected` (the victim caught it), `reverse` (item planted instead of taken) |
 | `enter_bleedout` | Actor collapses | `actor` |
 | `animation_event` | Animation played | `tag`, `actor_name`, `actor_form_id`, `actor_uuid`, `payload`, `graph_vars` |
 | `mod_event` | SKSE mod event | `event_name`, `str_arg`, `num_arg`, `sender_name`, `sender_form_id` |

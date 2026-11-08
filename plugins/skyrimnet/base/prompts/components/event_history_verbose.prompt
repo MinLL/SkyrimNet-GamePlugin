@@ -43,7 +43,7 @@
 --- LOCATION CHANGED TO: {{ event.location }} ---
     {% endif %}
 
-    {% if event.type == "direct_narration" %}
+    {% if event.type == "direct_narration" or event.type == "pickpocket" %}
 [{{ short_time(event.gameTimeStr) }}] [{{ event.location }}] *{{ format_event(event, "verbose") }}*
     {% else %}
 {# Telepathy: an NPC thought rendered into a different actor's prompt context (canonical-telepath audience expansion). Mark so the LLM doesn't read it as spoken dialogue. #}

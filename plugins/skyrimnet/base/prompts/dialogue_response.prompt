@@ -46,7 +46,7 @@ You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(n
 {% set _lastIsNarration = false %}
 {% if exists("events") %}
 {% for event in events %}{% if event.originatingActor == npc.UUID and (event.type == "dialogue" or event.type == "dialogue_npc") %}{% set _lastOwnId = default(event.id, 0) %}{% endif %}{% endfor %}
-{% for event in events %}{% if default(event.id, 0) > _lastOwnId and event.originatingActor != npc.UUID and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt" or event.type == "direct_narration" or event.type == "persistent_generic") %}{% set _pending = _pending + 1 %}{% set _lastIsNarration = event.type == "direct_narration" or event.type == "persistent_generic" %}{% if event.type != "direct_narration" and event.type != "persistent_generic" and event.targetActor == npc.UUID %}{% set _toYou = _toYou + 1 %}{% endif %}{% endif %}{% endfor %}
+{% for event in events %}{% if default(event.id, 0) > _lastOwnId and event.originatingActor != npc.UUID and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt" or event.type == "direct_narration" or event.type == "pickpocket" or event.type == "persistent_generic") %}{% set _pending = _pending + 1 %}{% set _lastIsNarration = event.type == "direct_narration" or event.type == "pickpocket" or event.type == "persistent_generic" %}{% if event.type != "direct_narration" and event.type != "pickpocket" and event.type != "persistent_generic" and event.targetActor == npc.UUID %}{% set _toYou = _toYou + 1 %}{% endif %}{% endif %}{% endfor %}
 {% endif %}
 
 {{ render_template("submodules\\user_final_instructions\\0200_combat_status") }}
@@ -54,8 +54,8 @@ You are {{ decnpc(npc.UUID).name }}, a {{ decnpc(npc.UUID).gender }} {{ decnpc(n
 {% if _pending > 0 %}
 Said and done since you last spoke:
 {% set _seen = 0 %}
-{% for event in events %}{% if default(event.id, 0) > _lastOwnId and event.originatingActor != npc.UUID and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt" or event.type == "direct_narration" or event.type == "persistent_generic") %}{% set _seen = _seen + 1 %}{% if _seen > _pending - 5 %}
-{% if event.type == "direct_narration" or event.type == "persistent_generic" %}
+{% for event in events %}{% if default(event.id, 0) > _lastOwnId and event.originatingActor != npc.UUID and (event.type == "dialogue" or event.type == "dialogue_npc" or event.type == "dialogue_player" or event.type == "dialogue_player_text" or event.type == "dialogue_player_stt" or event.type == "direct_narration" or event.type == "pickpocket" or event.type == "persistent_generic") %}{% set _seen = _seen + 1 %}{% if _seen > _pending - 5 %}
+{% if event.type == "direct_narration" or event.type == "pickpocket" or event.type == "persistent_generic" %}
 - (what happened) {{ format_event(event, "verbose") }}
 {% else %}
 - {{ get_name(event.originatingActor) }}{% if event.targetActor == npc.UUID %} (to you){% else if isValidActor(event.targetActor) %} (to {{ get_name(event.targetActor) }}){% endif %}: {{ format_event(event, "verbose") }}
