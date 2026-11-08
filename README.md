@@ -50,6 +50,7 @@ More on the [SkyrimNet YouTube channel](https://www.youtube.com/@SkyrimNet).
 - **Vanilla dialogue too.** Your dialogue-menu picks are spoken in your voice, and NPCs can use their original quest lines when it fits.
 - **Vision.** NPCs can see and comment on what you wear, carry and do.
 - **Bard songs.** Bards compose and perform new songs about your adventures.
+- **Subtitles.** Replacement subtitles you can place and style, optionally floating over NPCs' heads, with translations side by side and furigana or pinyin over the text (requires Magelight UI; not in VR).
 - **Built for modders.** Papyrus and C++ APIs, YAML triggers and actions, and editable prompt templates fed with live game data.
 
 Full tour: **[docs/FEATURES.md](docs/FEATURES.md)**.
