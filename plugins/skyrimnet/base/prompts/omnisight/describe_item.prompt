@@ -57,9 +57,6 @@
     - If present, be specific: "Nordic knotwork along the blade edge", "glowing blue runes on the hilt", "engraved serpent motif on the pommel"
     - Do NOT invent or assume decorative details. Plain items are plain. Smooth metal is smooth metal.
     - Vague filler like "ornate pattern", "decorative detailing", or "intricate design" without specifics = hallucination. Don't do it.
-{% if has_mannequin_body %}
-    **CRITICAL - MANNEQUIN WARNING:** This item is rendered on a humanoid mannequin body. You MUST completely ignore the body/mannequin - do NOT describe skin, flesh, body shape, body parts, curves, or any anatomical features. Focus ONLY on the actual clothing/armor item itself. The mannequin is just a display stand, not part of the item.
-{% endif %}
 
     **Bad example:** "A finely crafted item featuring intricate detailing and quality craftsmanship."
     **Good example:** "A locking bondage corset designed to cinch and immobilize the waist. Black leather exterior reinforced with vertical steel stays and gray metal plating at the sides. The front features a central locking mechanism with visible keyhole, connected by riveted seams and silver stitching. The steel stays create visible vertical ridges beneath the leather surface."
