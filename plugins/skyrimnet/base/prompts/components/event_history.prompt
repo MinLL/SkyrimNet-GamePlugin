@@ -102,7 +102,7 @@
 [ end user ]
                 {% set hasShownGMDialogue = true %}
             {% endif %}
-        {% else if event.originatingActor == npc.UUID and event.type != "player_thoughts" and event.type != "direct_narration" %}
+        {% else if event.originatingActor == npc.UUID and event.type != "player_thoughts" and event.type != "direct_narration" and event.type != "pickpocket" %}
 [ assistant ]
 {% if _cacheHere %}[ cache ]{% endif %}
             {{ format_event(event, "verbose") }}
@@ -111,7 +111,7 @@
         {% else %}
 [ user ]
 {% if _cacheHere %}[ cache ]{% endif %}
-            {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" %}{% if not default(cache_history, false) %}{{ timeIndicator }}{% endif %}*{{ format_event(event, "verbose") }}*
+            {% if locationChanged %}[Location changed to {{ event.location }}] {% endif %}{% if event.type == "direct_narration" or event.type == "pickpocket" %}{% if not default(cache_history, false) %}{{ timeIndicator }}{% endif %}*{{ format_event(event, "verbose") }}*
             {% else %}
             {% if event.type == "player_thoughts" %}{{ format_event(event, "verbose") }}
             {% else if event.type == "npc_thoughts" %}{# Telepathy: an NPC's private thought rendered into a different actor's prompt context (canonical-telepath audience expansion). Mark it as telepathically observed so the LLM doesn't mistake it for spoken dialogue. Use "compact" (renders {{ thoughts }} via the schema), not "raw" — "raw" dumps the JSON data object. #}{{ get_name(event.originatingActor) }} *(thought, telepathically observed)*: {{ format_event(event, "compact") }}

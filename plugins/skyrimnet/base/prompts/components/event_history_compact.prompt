@@ -65,7 +65,7 @@
 - [{{ short_time(event.gameTimeStr) }}] {{ format_event(event, "compact") }}
                 {% set hasShownGMDialogue = true %}
             {% endif %}
-        {% else if event.type == "direct_narration" %}
+        {% else if event.type == "direct_narration" or event.type == "pickpocket" %}
 - {{ timeIndicator }}*{{ format_event(event, "compact") }}*
         {% else %}
 {# Telepathy: an NPC thought rendered into a different actor's prompt context (canonical-telepath audience expansion). Mark so the LLM doesn't read it as spoken dialogue. #}
