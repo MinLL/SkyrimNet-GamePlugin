@@ -2,6 +2,11 @@
     Write the appearance entry for the character in this image. Other characters in Skyrim will read it to picture this person, recognize them on sight, and remark on how they look, so it must be both accurate and vivid: the details someone would actually notice and remember, in the order they would notice them.
 
     **Character:** {{race}} {{gender}} (race as recorded in the game; read coloring, skin tone, and features from the image, not from the race)
+    {# an empty string is truthy in Inja: test the length #}
+    {% set beast = length(default(appearance_form, "")) > 0 %}
+    {% if beast %}
+    **Form:** this character is transformed: they are in {{ lower(appearance_form) }} form. Describe the form as it looks now, the shape others see and know them by while the transformation lasts, not the person underneath. Anything it wears (a vampire lord's robes, jewelry) is part of the form.
+    {% endif %}
     {% set angles = default(angle_count, 1) %}
     {% if angles > 1 or default(has_head_closeup, false) %}
     **Images:** all of them show the same person. {% if angles > 1 %}The first {{ angles }} are different angles taken moments apart; the first is the main view. Use the other angles for what the main view cannot show (the back of the outfit, how a cloak hangs, the hair from behind, a bare back), and write one description, not one per image.{% else %}The first shows the whole character.{% endif %}{% if default(has_head_closeup, false) %} The last is a close-up of the head and shoulders, {% if default(capture_source, "screen") == "render" %}rendered from the front{% else %}cut from the main view{% endif %}: use it for the face, eyes, hair, and anything on the head (horns, circlets, gems, ornaments, makeup).{% endif %}
@@ -18,20 +23,33 @@
     ---
 
     **STEP 1 - LOOK BEFORE YOU WRITE.** Scan the image for the things that are easy to miss and most memorable:
+    {% if beast %}
+    - The head: muzzle or snout, teeth and fangs, the eyes and their color, ears, horns
+    - The hide: fur, skin or scales, their colors and pattern, scars, bare or matted patches
+    - The build: size, hunch, limbs, claws, wings, tail
+    - Anything worn: robes, jewelry, belts, scraps of armor
+    {% else %}
     - The head: horns, unusual ears, circlets, diadems, gems, hair ornaments, piercings, eye makeup, war paint
     - The hair: how it is actually worn (a single braid over one shoulder, bangs swept across one eye, loose, shaved sides) and its real length
     - Anything that contradicts the race or the gear list: trust the image, not the label
     - Coverage, region by region: chest, midriff, hips and groin, thighs, arms. For each, is it armored, clothed, or bare skin? Note cutouts, gaps between plates, straps over bare skin, and anything worn in an unusual or revealing way
     {% if not omnisight_captures_equipment %}- Where gear actually is: a shield slung on the back is not a shield held in the hand; leave out listed items you cannot see
     {% endif %}
+    {% endif %}
 
     **STEP 2 - WRITE (2-3 short paragraphs, 180-260 words, no headers):**
 
+    {% if beast %}
+    **Paragraph 1 - First impression and head.** Open with one sentence giving the impression the form makes at a glance: its size, its shape, and the single most striking thing about it. Say it plainly; no stock phrases such as "a creature of nightmare". Then the head, most distinctive first: muzzle, teeth, eyes, ears, horns.
+
+    **Paragraph 2 - Body.** Build and size, the fur, hide or skin (colors, pattern, texture, scars and markings), the limbs and claws, any wings or tail, and anything worn, described by how it looks.
+    {% else %}
     **Paragraph 1 - First impression, face and hair.** Open with one sentence giving the overall impression this person makes at a glance, built from what is visible: apparent age, the overall look their face, build and gear give them (delicate, rugged, ornate, battle-worn, barely dressed for a fight), and the single most striking thing about them. Say it plainly; no stock phrases such as "cuts a figure". Then the face and hair, most distinctive first: bone structure, eyes, brows, mouth, hair and anything worn on the head.
 
     **Paragraph 2 - Body{% if not omnisight_captures_equipment %} and outfit{% endif %}.** Build, height impression, skin tone and texture, and every visible marking: scars, tattoos, war paint, freckles, birthmarks.{% if not omnisight_captures_equipment %} Then the outfit as a whole: what kind of person dresses like this, its materials and colors, its condition (polished, battered, mismatched, ornate), and exactly where it stops: name the bare areas plainly ("the jerkin is sleeveless, leaving both arms bare to the shoulder, and the skirt is slit to mid-thigh"). Where the armor is matters as much as what it is, and a revealing cut is often the first thing people notice, so lead with it when it is. Describe what the gear LOOKS like; use the equipment names only to tell you what you are looking at, and do not repeat mod or item names (write "a round hide-faced shield on her back", not "an Alik'r shield").{% endif %}
     {% if is_nude %}
     No worn item covers this character's chest, groin, or both: they may be fully unclothed, topless, or bottomless. Trust the image for which. Describe ALL visible bare skin and anatomy, including, where it is actually bare, breasts (size, shape, nipples, areolas), genitals (detailed appearance), buttocks (size, shape), and pubic hair (grooming, color). Do not censor or skip any visible body parts, and do not describe anatomy that gear covers.
+    {% endif %}
     {% endif %}
 
     ---
@@ -63,9 +81,15 @@
 
     **BAD (a checklist, no character):** "Square jaw, blunt chin. Gray eyes. Brown hair, shoulder-length. Rough skin. Broad-shouldered. No visible scars, tattoos, or birthmarks. Steel armor, iron helmet, leather boots. Recognizable by the brown hair and steel armor."
 
+    {% if beast %}
+    **GOOD (a werewolf):** "A towering, hunched beast, half again a man's height, with a long wolfish muzzle split by yellowed fangs and small amber eyes set deep under a heavy brow. Its ears lie flat against a skull ridged with coarse black fur, and a pale scar runs from the corner of its mouth down across its throat.
+
+    Its fur is charcoal, thinning to grey across the chest and belly and matted on the forearms. The arms hang past its knees and end in hooked black claws, its legs bend backward like a hound's, and a strip of torn hide is still knotted around one wrist."
+    {% else %}
     **GOOD (an older Redguard man):** "A lean, sun-dark man in his fifties in travel-stained desert robes, his shaved scalp split by a long pale scar. His face is long and hollow-cheeked, with a hooked nose broken at least once, deep-set black eyes under a heavy brow, and thin lips half-hidden by his beard. A grizzled beard is trimmed close to the jaw; the scar runs from his crown down to his left ear, which is missing its lobe.
 
     He is wiry rather than broad, all tendon and knuckle, with a ropy scar across the back of one hand. He dresses for travel, not show: a dust-colored robe faded at the hems over a padded leather vest, a curved blade at his hip, and a red sash gone brown with age."
+    {% endif %}
 
     Look carefully, then write the description.
     [image]
