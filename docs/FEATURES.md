@@ -27,7 +27,7 @@ SkyrimNet is a native Windows DLL that loads inside Skyrim itself, a single SKSE
 - **Speed.** Every layer is built to minimize the time between you speaking and an NPC replying. Game state is read straight from memory, with no syncing between processes. Text-to-speech starts speaking the first sentence while the model is still writing the second. Eligibility for actions is pre-warmed while your voice is being transcribed, so the action-selection prompt doesn't wait on it.
 - **Stability.** SkyrimNet almost never crashes the game. Game data is touched only through guarded patterns (reference-counted entity wrappers, validity checks before every use, strict lock ordering), and all heavy work runs on worker threads, so a stuck network call or a slow model can never freeze or stutter the game.
 - **Setup.** First launch generates working defaults for every system. A guided web wizard gets you talking. No virtual machines, no separate apps, no command-line tools.
-- **Performance.** On default settings SkyrimNet puts very little demand on your system. Local Piper TTS runs on the CPU; no GPU is required. The game thread never waits on a network request, a database query or a TTS render.
+- **Performance.** On default settings SkyrimNet puts very little demand on your system. The local PocketTTS engine runs on the CPU; a GPU is optional. The game thread never waits on a network request, a database query or a TTS render.
 - **Extensibility.** A Papyrus API and a public C++ API let other mods register actions, decorators and event hooks. Prompt templates read live game data through over a hundred built-in decorators, and YAML-defined actions can call functions on any Papyrus quest script, so a mod can add new NPC behavior without rebuilding anything.
 
 ## Conversation
@@ -70,7 +70,6 @@ A choice of text-to-speech engines, local and cloud:
 
 | Engine | Where it runs | Voice cloning |
 |--------|---------------|---------------|
-| **Piper** | Locally, in the game's process (CPU) | No, pre-trained voices |
 | **PocketTTS** | Locally, in the game's process (GPU optional) | Live cloning |
 | **XTTS** | On a server you choose (your PC, a rented cloud GPU, or LAN) | Live cloning |
 | **Zonos** | On a server you choose | Live cloning, emotion-aware |
@@ -80,9 +79,8 @@ A choice of text-to-speech engines, local and cloud:
 | **ElevenLabs** | Cloud API | Voice cloning, audio tags |
 | **Inworld** | Cloud API | Voice cloning, audio tags |
 | **Fateless** | Fateless account | Shared and custom voices, audio tags |
-| **Kokoro** | Locally (narrator only) | No |
 
-Piper is the default. It runs entirely on the CPU and needs no setup. Downloaded models are SHA-pinned and verified, so a half-downloaded model never sneaks into your install.
+PocketTTS is the default. It runs inside the game's process, speaks every line including the narrator's, clones each NPC's voice from a sample, and needs no setup: its models download on first launch. Downloaded models are SHA-pinned and verified, so a half-downloaded model never sneaks into your install.
 
 **Voice Effects** apply per-NPC audio transformations: pitch shift, formant shift, reverb, distortion, echo, ring modulation, EQ and more. Built-in recipes cover Werewolf, Vampire Lord, Draugr, Dragon Priest, Dremora, Ghost, and overlays for thoughts and narration. Recipes are YAML, hot-reloadable, and editable in the web UI with an audio preview.
 

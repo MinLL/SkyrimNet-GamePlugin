@@ -423,7 +423,7 @@ float function GetConfigFloat(String configName, String path, float defaultValue
 
 ; Utility functions to set configuration values
 ; - name: The name of the configuration section to modify. Options:
-;       game, OpenRouter, XTTS, Zonos, Piper, STT, ActorFilter, Phonetic, Hotkey, furniture, PlayerDialogue, VirtualEntities, Entity, Memory, ItemCustomization, Actions, DynamicBio, Events, VastAI, WebServer, VoiceSamples, SpellCustomization
+;       game, OpenRouter, XTTS, Zonos, PocketTTS, STT, ActorFilter, Phonetic, Hotkey, furniture, PlayerDialogue, VirtualEntities, Entity, Memory, ItemCustomization, Actions, DynamicBio, Events, VastAI, WebServer, VoiceSamples, SpellCustomization
 ; - jsonPath: The partial json, of the values to apply to the config
 bool function PatchConfig(String name, String jsonPatch) Global Native
 

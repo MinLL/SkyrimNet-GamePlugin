@@ -85,9 +85,7 @@ You can mix these. For example, use Fateless for dialogue and a local engine for
 2. **Install** it with your mod manager (Mod Organizer 2, Vortex, ...), along with the [requirements](#requirements).
 3. **Enable** `SkyrimNet.esp` in your load order.
 4. **Launch** the game through SKSE and open [localhost:8080](http://localhost:8080) in your browser.
-5. **Follow** the setup wizard. It picks working defaults for your PC and gets you talking.
-
-Using Piper, the default voice engine that runs on the CPU? Download the [Piper voice models](https://drive.google.com/file/d/1zmBJCLlaGWKBW8Z87rw2MiaNE-8cdSlv/view) and install them as a separate mod.
+5. **Follow** the setup wizard. It picks working defaults for your PC and gets you talking. The default voice engine, PocketTTS, runs inside the game and downloads its models on first launch.
 
 Stuck? Ask on [Discord](https://discord.gg/gHHS7HpJS9).
 
@@ -151,7 +149,6 @@ SkyrimNet's modder API has a growing ecosystem. Two major mods built on it:
 ## Credits
 
 - The community of developers who build SkyrimNet: code, design, testing and ideas.
-- ArtFromTheMachine, for the Piper voice models.
 - The SkyrimNet community, for the hand-written character bios.
 
 SkyrimNet is made by [Fateless](https://fateless.ai). It is not open source; see [LICENSE](LICENSE).

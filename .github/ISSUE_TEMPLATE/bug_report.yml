@@ -67,13 +67,11 @@ body:
       label: TTS Provider
       description: "Which text-to-speech engine are you using? (Check your tts_config.yaml)"
       options:
-        - Piper (local, default)
-        - PocketTTS (local)
+        - PocketTTS (local, default)
         - XTTS (remote/local server)
         - ElevenLabs (cloud)
         - Zonos (remote/local server)
         - Chatterbox (remote/local server)
-        - Kokoro (narrator only)
         - Inworld
         - Not sure
     validations:
