@@ -6,6 +6,10 @@
     {% if has_omnisight_description("actor", actorUUID) %}
         {{ get_omnisight_description("actor", actorUUID) }}
     {% else %}
+        {% set appearance_form = get_appearance_form(actorUUID) %}
+        {% if length(appearance_form) > 0 %}
+        {{ decnpc(actorUUID).name }} is currently in {{ lower(appearance_form) }} form.
+        {% endif %}
         {% block appearance %}{% endblock %}
     {% endif %}
 {% endif %}
