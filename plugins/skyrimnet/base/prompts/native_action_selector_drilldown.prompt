@@ -37,6 +37,7 @@
     {% endif %}
 
     ## Most Recent Exchange
+    {% if not exists("stealthHiddenPlayer") %}
     {% set _player_said = "" %}
     {% set _player_recent = get_recent_events(5, player.UUID) %}
     {% for event in _player_recent %}
@@ -44,10 +45,13 @@
     {% endfor %}
     {% if _player_said != "" %}**{{ decnpc(player.UUID).name }}:** {{ _player_said }}
     {% endif %}
+    {% endif %}
     **{{ npc.name }}:** {{ dialogue_response }}
 
     ## Nearby Actors
+    {% if not exists("stealthHiddenPlayer") %}
     - {{ decnpc(player.UUID).name }} ({{ decnpc(player.UUID).gender }} {{ decnpc(player.UUID).race }}) — THE PLAYER CHARACTER
+    {% endif %}
     {% for npc in get_nearby_npc_list(player.UUID) %}
         - {% if is_hostile_to_actor(npc.UUID, player.UUID) %}[Hostile to {{ decnpc(player.UUID).name }}] {% endif %}{{ decnpc(npc.UUID).name }} ({{ decnpc(npc.UUID).gender }} {{ decnpc(npc.UUID).race }}, {{ units_to_meters(npc.distance) }}m away)
     {% endfor %}
