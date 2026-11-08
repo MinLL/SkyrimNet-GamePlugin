@@ -262,7 +262,6 @@ mcp_skyrimnet-mcp_validate_custom_trigger:
 | `quest_start_stop` | Quest start/end | `quest`, `quest_id`, `started` (boolean) |
 | `location_change` | Location changed | `actor`, `from_location`, `to_location` |
 | `container_changed` | Items moved | `item`, `item_count`, `from_container`, `to_container` |
-| `pickpocket` | The player picked (or planted on) an NPC's pockets; only the player perceives an unnoticed attempt, the victim and nearby NPCs a caught one | `thief`, `victim`, `item`, `item_count`, `detected` (the victim caught it), `reverse` (item planted instead of taken) |
 | `enter_bleedout` | Actor collapses | `actor` |
 | `animation_event` | Animation played | `tag`, `actor_name`, `actor_form_id`, `actor_uuid`, `payload`, `graph_vars` |
 | `mod_event` | SKSE mod event | `event_name`, `str_arg`, `num_arg`, `sender_name`, `sender_form_id` |
@@ -279,7 +278,7 @@ mcp_skyrimnet-mcp_validate_custom_trigger:
 | `package_apply` / `package_remove` | SkyrimNet package override applied/removed | `actor`, `package_type` |
 | `diary_entry_created` | An NPC diary entry was written | `actor`, `emotion`, `importance_score`, `entry_id`, `entry_contents` |
 | `custom` | Custom event from Papyrus | `description`, `data` |
-| `direct_narration` / `persistent_generic` / `player_thoughts` / `npc_thoughts` | SkyrimNet's own outputs (narration, generic events, thoughts) | `narration` / `line` / `dialogue`, `speaker` |
+| `direct_narration` / `persistent_generic` / `player_thoughts` / `npc_thoughts` | SkyrimNet's own outputs (narration, generic events, thoughts). A pickpocket attempt by the player arrives as a `direct_narration`: only the player perceives an unnoticed one, the victim and nearby NPCs a caught one | `narration` / `line` / `dialogue`, `speaker` |
 | `dialogue_npc` / `dialogue_player` / `dialogue_player_stt` / `dialogue_player_text` / `dialogue_background` / `dialogue_player_monologue` / `dialogue_player_telepathy` / `dialogue_npc_telepathy` | Vanilla and player dialogue variants | `speaker`, `dialogue`, `listener` |
 | `*` | Wildcard - ALL events | (varies) |
 
