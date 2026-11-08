@@ -107,6 +107,7 @@ Stuck? Ask on [Discord](https://discord.gg/gHHS7HpJS9).
 
 **Optional**
 - [UIExtensions](https://www.nexusmods.com/skyrimspecialedition/mods/17561), for the input wheel.
+- [Phantasm](https://www.nexusmods.com/skyrimspecialedition/mods/197470) 1.0 or later, for OmniSight to draw characters off screen and to describe items at all: item pictures come only from Phantasm. SeverActions ships an older copy; let Phantasm win that file conflict.
 - [CUDA Toolkit 12.x](https://developer.nvidia.com/cuda-12-9-1-download-archive) (**not** 13.x), to speed up speech recognition on NVIDIA GPUs. Restart your PC after installing it. The Speech-to-Text test on the Test & Easy Setup page shows whether CUDA is in use.
 
 **Skyrim SE without ESL support**
