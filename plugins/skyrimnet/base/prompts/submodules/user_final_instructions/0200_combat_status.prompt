@@ -52,6 +52,12 @@
 {% set targetName = decnpc(responseTarget.UUID).name %}
 {% set levelDiff = npcLevel - targetLevel %}
 {% if targetLevel > 0 %}{% set levelRatio = npcLevel / targetLevel %}{% else %}{% set levelRatio = 2 %}{% endif %}
+{# A summon, thrall or commanded actor speaking to whoever bound them: a strength comparison would read as sizing up a rival. #}
+{% if get_master(npc.UUID) == responseTarget.UUID %}
+{% set masterThem = decnpc(responseTarget.UUID).objectivePronoun %}
+**YOUR MASTER:**
+- {{ targetName }} is your master and holds your will. You fight for {{ masterThem }} and never against {{ masterThem }}; measuring yourself against {{ masterThem }} is not yours to do.
+{% else %}
 **COMBAT STRENGTH ASSESSMENT:**
 {% if levelRatio >= 2.0 or levelDiff >= 20 %}- Your instincts tell you {{ targetName }} is well beneath you in raw capability — the advantage leans strongly your way, though gear and skill can still surprise
 {% elif levelRatio >= 1.5 or levelDiff >= 10 %}- Your instincts tell you {{ targetName }} is meaningfully less capable than you — you likely hold the edge, but they shouldn't be underestimated
@@ -60,6 +66,7 @@
 {% elif levelRatio >= 0.65 or levelDiff >= -9 %}- Your instincts tell you {{ targetName }} is somewhat more capable than you — they likely have the edge, but you could still take them with the right approach
 {% elif levelRatio >= 0.5 or levelDiff >= -19 %}- Your instincts tell you {{ targetName }} is well beyond you in raw capability — a steep challenge, though possible with preparation, terrain, or clever tactics
 {% else %}- Your instincts tell you {{ targetName }} is far beyond you — overcoming them would be exceptionally difficult, requiring real cunning, strong gear, or outside help
+{% endif %}
 {% endif %}
 {% endif %}
 {% endif %}
