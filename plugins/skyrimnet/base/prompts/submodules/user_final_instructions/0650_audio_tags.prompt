@@ -45,6 +45,12 @@
         {% set filteredSfxTags = filteredSfxTags + "`["+tag+"]`," %}
       {% endif %}
     {% endfor %}
+    {% if length(allowed_audio_tags) == 0 %}
+      {% set filteredEmotionsTags = "`[" + join(originalEmotionsTags, "]`,`[") + "]`," %}
+      {% set filteredStylesTags = "`[" + join(originalStylesTags, "]`,`[") + "]`," %}
+      {% set filteredProsodyTags = "`[" + join(originalProsodyTags, "]`,`[") + "]`," %}
+      {% set filteredSfxTags = "`[" + join(originalSfxTags, "]`,`[") + "]`," %}
+    {% endif %}
 
     {% set exampleTag1 = "[sfx-sigh]Haah," %}
     {% set exampleTag2 = "[emotion-elation]" %}
