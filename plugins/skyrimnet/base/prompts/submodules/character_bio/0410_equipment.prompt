@@ -7,8 +7,10 @@
     {% endif %}
     {% set npc_equipment = get_worn_equipment(actorUUID) %}
     {% set tempered_items = get_tempered_items(actorUUID) %}
+    {% set listed = [] %}
     {% for slot, item in npc_equipment %}
-        {% if is_item_enabled(item.formID) %}
+        {% set always_listed = (item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand") and (default(item.type, "") == "spell" or (default(item.type, "") == "weapon" and not (default(item.weaponType, -1) in [5, 6, 7, 9]))) %}
+        {% if is_item_enabled(item.formID) and (always_listed or index(listed, item.formID) == -1) %}
             {# Try OmniSight name/description (gender-aware) first, then fall back to item customization #}
             {% set omnisight_name = get_item_name_for_wearer(item.formID, actorUUID) %}
             {% set omnisight_desc = get_item_description_for_wearer(item.formID, actorUUID) %}
@@ -33,6 +35,7 @@
             {% else %}
                 - {% if length(item_desc) > 0 and (length(outfit_desc) == 0 or item.equipment_slot == "neck" or item.equipment_slot == "finger" or item.equipment_slot == "shield") %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
             {% endif %} {# end left hand / right hand check #}
+            {% set listed = append(listed, item.formID) %}
         {% endif %}{# end is item enabled #}
     {% endfor %}
 {% endif %} {# End render_mode check #}
@@ -46,8 +49,10 @@
         {% endif %}
         {% set target_equipment = get_worn_equipment(responseTarget.UUID) %}
         {% set tempered_items = get_tempered_items(responseTarget.UUID) %}
+        {% set listed = [] %}
         {% for slot, item in target_equipment %}
-            {% if is_item_enabled(item.formID) %}
+            {% set always_listed = (item.equipment_slot == "leftHand" or item.equipment_slot == "rightHand") and (default(item.type, "") == "spell" or (default(item.type, "") == "weapon" and not (default(item.weaponType, -1) in [5, 6, 7, 9]))) %}
+            {% if is_item_enabled(item.formID) and (always_listed or index(listed, item.formID) == -1) %}
                 {# Try OmniSight name/description (gender-aware) first, then fall back to item customization #}
                 {% set omnisight_name = get_item_name_for_wearer(item.formID, responseTarget.UUID) %}
                 {% set omnisight_desc = get_item_description_for_wearer(item.formID, responseTarget.UUID) %}
@@ -72,6 +77,7 @@
                 {% else %}
                     - {% if length(item_desc) > 0 and (length(outfit_desc) == 0 or item.equipment_slot == "neck" or item.equipment_slot == "finger" or item.equipment_slot == "shield") %}{{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %} - {{ item_desc }}{% else %}**{{ item.slot_body_area }}**: {{ item_name }}{% if isString(quality) and length(quality) > 0 %} [{{ quality }}]{% endif %}{% endif %}
                 {% endif %} {# end left hand / right hand check #}
+                {% set listed = append(listed, item.formID) %}
             {% endif %}{# end is item enabled #}
         {% endfor %}
     {% endif %}
