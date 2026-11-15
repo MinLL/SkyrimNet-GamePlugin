@@ -837,8 +837,8 @@ bool function IsCppHotkeysEnabled() Global Native
 ; (when this eavesdrop toggle is on) TTS voicing of nearby NPC thoughts. The
 ; SkyrimNet_TelepathyCanonicalPerk additionally adds the player to the audience
 ; of nearby NPC-thought events so the LLM treats the character as in-fiction
-; telepathic. The eavesdrop toggle is a runtime-only atomic — it does NOT
-; persist across save/reload (resets to OFF every game load).
+; telepathic. The eavesdrop toggle is stored in the telepathy.eavesdrop config
+; value and persists across save/reload and restarts.
 
 ; Flip the eavesdrop toggle. Returns the new state (true = ON, false = OFF).
 bool function ToggleTelepathyEavesdropping() Global Native
