@@ -1049,3 +1049,28 @@ int function SetVoiceEffectByUUID(String asEntityUUID, String asEffectId) Global
 int function ClearVoiceEffectByUUID(String asEntityUUID) Global Native
 String function GetVoiceEffectByUUID(String asEntityUUID) Global Native
 
+; -----------------------------------------------------------------------------
+; --- Actor Succession / Identity Migration ---
+; -----------------------------------------------------------------------------
+
+; Record that akToActor is the successor of akFromActor (same person across a record swap or
+; dynamic 0xFF actor respawn, e.g. young child -> adult child).
+; Unions both identities in SkyrimNet's per-save identity_aliases table so memories, recent events,
+; diaries, and character profiles (static and dynamic bios) carry over to akToActor and persist
+; across save/reload and timeline reverts. Multiple stages can be chained (A -> B, then B -> C).
+; Returns 0 on success (including when already recorded; re-recording an earlier link in a chain does not rewind the live self),
+; 1 on failure (null/identical/player actors).
+int function RecordActorSuccession(Actor akFromActor, Actor akToActor) Global Native
+
+; Record that asToUuid is the successor of asFromUuid (uppercase hex UUIDs from GetEntityUUID or GetVirtualNPCUUID).
+; Works even when the earlier actor reference was already despawned/deleted or was a Virtual NPC.
+; Example lifecycle:
+;   String childUuid = SkyrimNetApi.GetEntityUUID(youngChildActor) ; cache before despawning
+;   ; ... later, after youngChildActor is despawned and adultChildActor is spawned:
+;   String adultUuid = SkyrimNetApi.GetEntityUUID(adultChildActor)
+;   SkyrimNetApi.RecordActorSuccessionByUUID(childUuid, adultUuid)
+; Returns 0 on success (including when already recorded; re-recording an earlier link in a chain does not rewind the live self),
+; 1 on failure.
+int function RecordActorSuccessionByUUID(String asFromUuid, String asToUuid) Global Native
+
+
