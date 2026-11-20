@@ -1,0 +1,8 @@
+# The docs' information architecture: sections in order, pages in order.
+# Every page in docs/site is placed here exactly once, except pages under
+# adult/, which are served unindexed and stay out of the nav.
+# Editors (GamePlugin collaborators) own this file.
+
+- title: Modding
+  pages:
+    - modding/papyrus-api.md
