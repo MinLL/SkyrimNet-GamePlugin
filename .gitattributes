@@ -53,3 +53,6 @@
 *.tga binary
 *.hdr binary
 *.wav binary
+
+# Voice blocklist packs: raw SHA-256 digests, checked against index.json
+SKSE/Plugins/SkyrimNet/voice_blocklist/packs/*.bin binary

@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "revision": 2,
+  "blocks": [
+    {
+      "id": "ashe-crystal-heart",
+      "note": "Ashe - Crystal Heart 1.3.7",
+      "reason": "actor",
+      "keys": [
+        "plugin:ashe - fire and blood.esp",
+        "archive:ashe - fire and blood.bsa"
+      ],
+      "pack": {
+        "path": "packs/ashe-crystal-heart-9e9fa5355c1e.bin",
+        "sha256": "9e9fa5355c1ede9205031271ea912d2d64153d2781842f490d0ae40a066a86a9",
+        "count": 2890
+      }
+    },
+    {
+      "id": "serana-dialogue-addon",
+      "note": "Serana Dialogue Add-On 4.4.1",
+      "reason": "actor",
+      "keys": [
+        "plugin:seranadialogaddon.esp",
+        "archive:seranadialogaddon.bsa"
+      ],
+      "pack": {
+        "path": "packs/serana-dialogue-addon-6c94acb98730.bin",
+        "sha256": "6c94acb987303235ae831e37e8589922f5aceca966edfef7484f0647eeefbb14",
+        "count": 9028
+      }
+    }
+  ]
+}
