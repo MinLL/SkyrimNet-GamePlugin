@@ -110,7 +110,7 @@ Stuck? Ask on [Discord](https://discord.gg/gHHS7HpJS9).
 - [Phantasm](https://www.nexusmods.com/skyrimspecialedition/mods/197470) 1.0 or later, for OmniSight to draw characters off screen and to describe items at all: item pictures come only from Phantasm. SeverActions ships an older copy; let Phantasm win that file conflict.
 - [CUDA Toolkit 13.5](https://developer.nvidia.com/cuda-downloads), to speed up Whisper and Pocket TTS on NVIDIA GPUs. Install the latest CUDA driver as well, through the NVIDIA App. Restart your PC after installing these. The Whisper and Pocket TTS settings pages show if CUDA is detected.
 
-**Skyrim SE without ESL support**
+**Skyrim SE (1.5.97)**
 - [Backported Extended ESL Support (BEES)](https://www.nexusmods.com/skyrimspecialedition/mods/106441)
 
 **Skyrim VR**
