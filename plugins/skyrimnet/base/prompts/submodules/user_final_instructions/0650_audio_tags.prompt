@@ -6,7 +6,8 @@
 
 {% if has_audio_tags and (dialogue_mode or thought_mode) and not default(stable_split, false) %}
   {% set tts_engine = get_actor_tts(npc.UUID) %}
-  {% set useHiggsV3Tags = (tts_engine == "higgs" or tts_engine == "higgs_v3") and actor_tags_enabled %}
+  {% set is_freeform_tags = tts_engine == "openai_compatible" and is_audio_tags_enabled(npc.UUID) and not uses_higgs_native_tags(npc.UUID) and length(get_allowed_audio_tags(npc.UUID)) == 0 %}
+  {% set useHiggsV3Tags = uses_higgs_native_tags(npc.UUID) %}
   {% set useChatterboxTags = tts_engine == "chatterbox" and actor_tags_enabled %}
   {# Fateless runs Inworld TTS-2. The inworld engine is left out: a saved older model_id may speak a direction aloud. #}
   {% set useFatelessTags = tts_engine == "fateless" and actor_tags_enabled %}
@@ -122,12 +123,40 @@
     - [sound terrified, very fast] They're through the wall! [gasp] Run!
     - You? A thief? [scoff] And I'm the Jarl of Whiterun.
     - Are you alright? Any injuries I should tend to?
+  {% elif is_freeform_tags %}
+    {% set exampleTag1 = "[sigh]" %}
+    {% set exampleTag2 = "[excited]" %}
+    {% set exampleTag3 = "[whispering]" %}
+    {% set exampleTag4 = "[tense, low voice]" %}
+    **Two kinds of tag, and nothing else in square brackets:**
+    - **Directions** shape how the words that follow are spoken. Write one short English acting cue describing mood, voice, or delivery: `[bitter, low voice]`, `[terrified, speaking fast]`, `[whispering]`, `[furious, shouting]`, `[through gritted teeth]`, `[breathless]`, `[choked up]`. Put it right before the words it shapes. It governs the words that follow until the next direction or the end of the line (never use `[reset]`, and never repeat the same direction on every sentence).
+    - **Sounds** are one vocal sound at the exact spot it happens: `[sigh]`, `[laugh]`, `[chuckle]`, `[scoff]`, `[snort]`, `[gasp]`, `[groan]`, `[grunt]`, `[huff]`, `[breath]`, `[clear throat]`, `[cough]`, `[sniff]`, `[sob]`, `[whimper]`, `[yawn]`, `[growl]`, `[gulp]`, `[pause]`. A sound does not change the active direction.
+
+    **Rules**
+    - Combine mood, pitch, and volume into **one** bracket (`[weary, low voice]`, `[panicked, speaking fast]`). Never place two bracket tags back-to-back (no `[muffled] [gasp]` or `[angry] [shouting]`) and never join opposites (a loud whisper).
+    - **Never output a tag by itself with no spoken words.** Every response or sentence containing a tag must include spoken dialogue (e.g. `[breathless] Wait...`, never just `[gasp]` or `[sigh]` alone).
+    - Never slow the voice: a direction already slows delivery slightly, so avoid `slow`, `slowly`, `drawl`, `deliberate`, `measured`, or `lingering` unless the line truly depends on it (such as someone dying or spelling out a threat).
+    - A direction must match the words: no `[cheerful]` on a threat.
+    - Directions are always in English, even when the dialogue is not.
+    - Shouting, whispering, singing, humming, and mumbling are directions (`[shouting]`, `[whispering]`, `[mumbling]`), not sounds.
+    - Most lines need no direction — let ordinary dialogue carry its own mood. Use one only for strong delivery the words cannot show: fury, terror, grief, breathlessness, a shout, or a whisper. Skip weak directions like `[softly]`, `[politely]`, `[flatly]`, or `[smiling]`.
+    - At most one direction per response (two only when the tone clearly shifts mid-response), and at most two sounds.
+
+    **Examples**
+    - [weary, low voice] I've buried three brothers. [sigh] Don't ask me for a fourth.
+    - [terrified, speaking fast] They're through the wall! [gasp] Run!
+    - You? A thief? [scoff] And I'm the Jarl of Whiterun.
+    - Are you alright? Any injuries I should tend to?
   {% else %}
     {% set exampleTag1 = "[sighs]" %}
     {% set exampleTag2 = "[excited]" %}
     {% set exampleTag3 = "[softly]" %}
     {% set exampleTag4 = "[dramatic tone]" %}
-    **Tag types:** emotions ([sad], [excited]), delivery ([whispers], [shouts], [slowly]), reactions ([sighs], [laughs], [clears throat]), pacing ([pause], [dramatic tone])
+    {% if length(allowed_audio_tags) > 0 %}
+      **Allowed tags (use only these in [square brackets]):** {{ join(allowed_audio_tags, ", ") }}
+    {% else %}
+      **Tag types:** emotions ([sad], [excited]), delivery ([whispers], [shouts], [slowly]), reactions ([sighs], [laughs], [clears throat]), pacing ([pause], [dramatic tone])
+    {% endif %}
   {% endif %}
   {% if actor_tags_enabled %}
     **Dialogue{% if thought_mode %}/thoughts{% endif %}:** {{exampleTag1}} I suppose you're right. / Did you see that? {{exampleTag2}} Incredible!
