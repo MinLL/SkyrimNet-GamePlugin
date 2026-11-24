@@ -698,6 +698,11 @@ int function TriggerToggleWhisperMode() Global Native
 ; Returns 0 on success, 1 on failure
 int function TriggerToggleDashboard() Global Native
 
+; Toggles the Magelight wheel through the same path as the wheel hotkey (used by the
+; wheel spell). Returns false without doing anything when Magelight is not the UI
+; host, so the caller can open the UIExtensions wheel instead.
+bool function TriggerWheelMenu() Global Native
+
 ; Tell the dashboard's input sink which key/button currently toggles the
 ; dashboard (the in-game hotkey's keycode), so it can close the dashboard while
 ; it's open. While the dashboard owns input focus the normal Papyrus OnKeyDown
