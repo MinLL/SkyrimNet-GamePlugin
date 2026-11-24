@@ -1,0 +1,15 @@
+## Task
+{% if render_mode == "transform" %}
+{% if length(promptForDialogue) > 0 %}
+Rewrite this line in your own voice: "{{ promptForDialogue }}"
+Express the same meaning using your character's vocabulary, mannerisms, and emotional state.
+{% else %}
+Speak naturally as {{ decnpc(npc.UUID).name }} in this moment. React to what's happening around you.
+{% endif %}
+{% elif render_mode == "thoughts" %}
+Think internally as {{ decnpc(npc.UUID).name }}. React to what just happened and what it means to you.
+{% elif render_mode == "book" %}
+Reflect on what you just read. Summarize key points and consider what they mean for you personally.
+{% else %}
+Respond as {{ decnpc(npc.UUID).name }} in conversation.{% if responseTarget and responseTarget.UUID != 0 %} You are speaking to {% if responseTarget.type == "player" %}{{ player.name }}{% else if responseTarget.type == "npc" %}{{ decnpc(responseTarget.UUID).name }}{% endif %}.{% endif %}
+{% endif %}
