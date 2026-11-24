@@ -1,0 +1,32 @@
+name: Docs
+
+# Checks docs/site: every page placed in the nav, every directive naming a
+# real fact, every link landing. Runs on changes to the docs and to the
+# Papyrus API they are generated from, so an API change the docs cannot read
+# fails here rather than on the website.
+
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**", "Source/Scripts/**", ".github/workflows/docs.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["docs/**", "Source/Scripts/**", ".github/workflows/docs.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs/tools
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm test
+      - run: node cli.mjs check
