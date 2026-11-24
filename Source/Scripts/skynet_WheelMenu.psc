@@ -2,7 +2,10 @@ Scriptname skynet_WheelMenu extends ActiveMagicEffect
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
 	
-    skynet_WheelMenu.DisplayWheel()
+    ; The Magelight wheel when Magelight is the UI host (false otherwise, or on a DLL without the native)
+    If !SkyrimNetApi.TriggerWheelMenu()
+        skynet_WheelMenu.DisplayWheel()
+    EndIf
 
 EndEvent
 
